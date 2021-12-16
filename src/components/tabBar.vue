@@ -8,18 +8,34 @@
 		<div>4</div>
 		<div>5</div>
 	</div>
+	<div v-if="files">
+		<ul v-for="file in files">
+			{{
+				file.name
+			}}
+		</ul>
+	</div>
 </template>
 
 <script>
 import path from "path"
 import { ipcRenderer } from "electron"
+import { sortFile } from "../fileSort"
 export default {
-	data() {},
+	data() {
+		return {
+			files: [],
+		}
+	},
 	methods: {
 		openFile() {
-			console.log("ok")
 			ipcRenderer.send("open_event", "open")
 		},
+	},
+	mounted() {
+		ipcRenderer.on("open_event", (event, arg) => {
+			sortFile("size", arg[0]).then((res) => (this.files = res))
+		})
 	},
 }
 </script>

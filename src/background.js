@@ -58,7 +58,10 @@ app.on('activate', () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
     ipcMain.on("open_event", (event, arg) => {
-    console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
+      dialog.showOpenDialog({ properties: ['openDirectory' ] }).then(res => {
+        const path = res.filePaths
+        event.reply("open_event",path)
+    })
   })
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
