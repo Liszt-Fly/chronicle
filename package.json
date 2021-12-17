@@ -12,7 +12,9 @@
   },
   "main": "background.js",
   "dependencies": {
+    "bootstrap-icons": "^1.7.2",
     "core-js": "^3.6.5",
+    "marked": "^4.0.7",
     "vue": "^3.0.0"
   },
   "devDependencies": {

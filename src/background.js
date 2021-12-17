@@ -1,28 +1,97 @@
 // @ts-nocheck
 'use strict'
-import {ipcMain,dialog} from 'electron'
-
+import {ipcMain,dialog,Menu,webContents} from 'electron'
 import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
-
+const isMac = process.platform === 'darwin'
+let win = null
+let displayTabbar=true
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
+//MENU
+const template = [
+  // { role: 'appMenu' }
+ ...(isMac ? [{
+    label: app.name,
+    submenu: [
+      { role: 'about' },
+      { type: 'separator' },
+      { role: 'services' },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideOthers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  }] : []),
+   {
+    label: 'File',
+     submenu: [
+         {
+         label: "show/hide TabBar", click: async () => {
+             displayTabbar=!displayTabbar
 
+         
+      }},
+      isMac ? { role: 'close' } : { role: 'quit' }
+    ]
+  },
+  // { role: 'editMenu' }
+  {
+    label: 'Edit',
+    submenu: [
+   
+      { role: 'undo' },
+      { role: 'redo' },
+      { type: 'separator' },
+      { role: 'cut' },
+      { role: 'copy' },
+      { role: 'paste' },
+      ...(isMac ? [
+        { role: 'pasteAndMatchStyle' },
+        { role: 'delete' },
+        { role: 'selectAll' },
+        { type: 'separator' },
+        {
+          label: 'Speech',
+          submenu: [
+            { role: 'startSpeaking' },
+            { role: 'stopSpeaking' }
+          ]
+        }
+      ] : [
+        { role: 'delete' },
+        { type: 'separator' },
+        { role: 'selectAll' }
+      ])
+    ]
+  },
+    
+  
+  // { role: 'viewMenu' }
+  
+]
+
+const menu = Menu.buildFromTemplate(template)
+
+Menu.setApplicationMenu(menu)
 async function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+  win = new BrowserWindow({
+    width: 1300,
+    height: 900,
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
-      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
+      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
+      enableRemoteModule:true
     }
   })
 
@@ -34,6 +103,7 @@ async function createWindow() {
     createProtocol('app')
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
+   
   }
 }
 
@@ -57,12 +127,14 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+  
     ipcMain.on("open_event", (event, arg) => {
       dialog.showOpenDialog({ properties: ['openDirectory' ] }).then(res => {
         const path = res.filePaths
         event.reply("open_event",path)
     })
-  })
+    })
+
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
@@ -73,6 +145,12 @@ app.on('ready', async () => {
   }
 
   createWindow()
+  setInterval(() => {
+    if (!displayTabbar) {
+      displayTabbar=!displayTabbar
+      win.webContents.send("tab","change")
+    }
+  }, 50);
 })
 
 // Exit cleanly on request from parent process in development mode.
