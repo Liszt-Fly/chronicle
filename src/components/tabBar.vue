@@ -13,25 +13,15 @@
 	</div>
 	<div class="file-system">
 		<div v-if="files">
-			<div
-				@contextmenu.prevent="generateMenus(file)"
-				class="item"
-				v-for="file in files"
-			>
-				<span
-					><i
-						:class="[
-							icon(file),
-							'iconfont',
-							{ 'icon-folder': file.isDirectory },
-						]"
-					></i
-				></span>
-				<input
-					v-model="file.ignoredName"
-					:disabled="disabled"
-					@blur="finish(file)"
-				/>
+			<div @filechange="finish(file)" class="item" v-for="file in files">
+				<fileitem
+					:file="file"
+					class="item"
+					@filechange="refresh"
+					:base-path="basePath"
+					:depth="file.depth"
+				>
+				</fileitem>
 			</div>
 		</div>
 	</div>
@@ -43,9 +33,10 @@
 import path from "path"
 import fs from "fs"
 import { ipcRenderer, MenuItem, remote } from "electron"
-
 import { sortFile } from "../fileSort"
+import fileitem from "./fileitem.vue"
 export default {
+	components: { fileitem },
 	data() {
 		return {
 			files: [],
@@ -63,7 +54,7 @@ export default {
 						path.resolve(this.basePath, `untitle-${index}.md`),
 						""
 					)
-					sortFile("size", this.basePath).then((res) => {
+					sortFile("size", this.basePath, 0).then((res) => {
 						this.files = res
 					})
 				} else {
@@ -82,7 +73,7 @@ export default {
 				path.resolve(this.basePath, file.name),
 				path.resolve(this.basePath, newname)
 			)
-			sortFile("size", this.basePath).then((res) => (this.files = res))
+			sortFile("size", this.basePath, 0).then((res) => (this.files = res))
 		},
 		openFile() {
 			ipcRenderer.send("open_event", "open")
@@ -90,15 +81,16 @@ export default {
 		closeTabBar() {
 			this.display = !this.display
 		},
+
 		generateMenus(file) {
 			const { Menu, MenuItem } = remote
 			var template = [
 				{
-					label: "CreateFile",
+					label: "Create File",
 					accelerator: "CmdOrCtrl+D",
 					click: () => {
 						this.createUntitleFile(1)
-						sortFile("size", this.basePath).then((res) => {
+						sortFile("size", this.basePath, 0).then((res) => {
 							this.files = res
 						})
 					},
@@ -122,30 +114,36 @@ export default {
 					},
 				},
 				{
-					label: "createFolder",
+					label: "create Folder",
 					click: () => {
 						fs.mkdirSync(path.resolve(this.basePath, "untitle"))
-						sortFile("size", this.basePath).then((res) => (this.files = res))
+						sortFile("size", this.basePath, 0).then((res) => (this.files = res))
 					},
 				},
 			]
 			var m = Menu.buildFromTemplate(template)
 			m.popup({ window: remote.getCurrentWindow() })
 		},
+		refresh(data) {
+			console.log(data)
+		},
 	},
 	computed: {
 		icon() {
 			return function (file) {
+				if (file.isDirectory) {
+					return null
+				}
 				return "icon-".concat(path.extname(file.name).substring(1))
 			}
 		},
 	},
-	created() {},
+
 	mounted() {
 		ipcRenderer.on("open_event", (event, arg) => {
 			this.basePath = arg[0]
 
-			sortFile("size", arg[0]).then((res) => (this.files = res))
+			sortFile("size", arg[0], 0).then((res) => (this.files = res))
 		})
 	},
 }
@@ -174,31 +172,5 @@ export default {
 	justify-content: space-evenly;
 	overflow: scroll;
 	padding: 5px;
-
-	.item {
-		background-color: white;
-		display: flex;
-
-		flex-direction: row;
-		justify-content: space-evenly;
-		i {
-			font-size: 25px;
-		}
-
-		padding: 0 2px 0 2px;
-		margin-bottom: 20px;
-		font-size: 10px;
-		&:hover {
-			background-color: #ddd;
-			cursor: default;
-		}
-		input {
-			border: none;
-			background-color: transparent;
-			&:focus {
-				outline: none;
-			}
-		}
-	}
 }
 </style>
