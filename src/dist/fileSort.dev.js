@@ -139,7 +139,7 @@ exports.sortFile = function sortFile(accordance, dir, depth) {
 
 var storage = [];
 
-function sortFileInDepth(dir, storage) {
+exports.sortFileInDepth = function sortFileInDepth(dir, storage) {
   var files = fs.readdirSync(dir);
   var _iteratorNormalCompletion2 = true;
   var _didIteratorError2 = false;
@@ -189,27 +189,7 @@ function sortFileInDepth(dir, storage) {
   }
 
   return storage;
-}
-
-console.log(JSON.stringify(sortFileInDepth(base, storage), null, 2));
-var dataStructure = [];
-/*
-{
-	name:"",
-	bDir:true
-	children:[
-	{
-	name:"",
-	children:[
-	{
-	name:"",
-	bDir:false
-	}
-	]
-	}
-	],
-
-}
+}; // console.log(JSON.stringify(sortFileInDepth(base, storage),null,2));
 
 
-*/
+function sortFileInDepth(dir, storage) {}

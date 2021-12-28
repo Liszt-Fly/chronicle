@@ -1,22 +1,23 @@
 <template>
-	<div class="item" @contextmenu.prevent="generateMenus(file)">
-		<span
-			><i
-				@click="showSubFolder($event, file)"
-				:class="[
-					icon(file),
-					'iconfont',
-					{ 'icon-arrow-right': file.isDirectory },
-				]"
-			></i
-		></span>
-		<input
-			v-model="file.ignoredName"
-			:disabled="disabled"
-			@blur="finish(file)"
-		/>
+	<div class="folder">
+		<div
+			:class="['iconfont', { 'icon-arrow-right': file.isDirectory }]"
+			@click="showSubFolder($event, file)"
+		>
+			{{ file.name }}
+		</div>
+		<div
+			class="subfolder"
+			v-if="file.children && file.children.length > 0"
+			ref="subfolder"
+		>
+			<fileitem
+				:files="file.children"
+				v-for="file in file.children"
+				:file="file"
+			></fileitem>
+		</div>
 	</div>
-	<div class="subfolder"></div>
 </template>
 
 <script>
@@ -25,7 +26,7 @@ import path from "path"
 import fs from "fs"
 import { sortFile } from "../fileSort"
 export default {
-	props: ["file", "basePath", "depth"],
+	props: ["file", "files"],
 	data() {
 		return {
 			disabled: true,
@@ -59,13 +60,11 @@ export default {
 			if (file.isDirectory) {
 				event.target.classList.toggle("icon-arrow-right")
 				event.target.classList.toggle("icon-arrow_down")
-			}
-			if (event.target.classList.contains("icon-arrow_down")) {
-				sortFile("size", file.folderPath, this.depth + 1).then((res) => {
-					this.subFiles = res
-				})
-			} else {
-				this.subFiles = null
+				if (event.target.classList.contains("icon-arrow_down")) {
+					this.$refs.subfolder.style.display = "block"
+				} else {
+					this.$refs.subfolder.style.display = ""
+				}
 			}
 		},
 		generateMenus(file) {
@@ -115,33 +114,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.subfolder {
-	font-size: 13px;
-}
-.item {
-	background-color: white;
-	display: flex;
+.folder {
+	position: relative;
+	color: white;
+	border-bottom: solid 1px #ddd;
 
-	flex-direction: row;
-	justify-content: space-evenly;
+	.subfolder {
+		padding-left: 10px;
 
-	i {
-		font-size: 20px;
-	}
-
-	padding: 0 2px 0 2px;
-	margin-bottom: 20px;
-	font-size: 8px;
-	&:hover {
-		background-color: #ddd;
-		cursor: default;
-	}
-	input {
-		border: none;
-		background-color: transparent;
-		&:focus {
-			outline: none;
-		}
+		display: none;
+		transition: 1s;
 	}
 }
 </style>

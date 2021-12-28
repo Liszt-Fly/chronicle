@@ -1,29 +1,23 @@
 <template>
 	<div class="content" v-if="display">
+		<!--tabbar图标样式-->
 		<div class="tab-bar">
 			<div @click="openFile">
 				<i class="bi bi-folder"></i>
 			</div>
+			<div @click="toggleFileSystem">
+				<i class="iconfont icon-menu"></i>
+			</div>
 			<div>
 				<i class="bi bi-bookmark-star"></i>
 			</div>
+
 			<div><i class="bi bi-gear"></i></div>
 			<div><i class="bi bi-calendar-day"></i></div>
 		</div>
 	</div>
-	<div class="file-system">
-		<div v-if="files">
-			<div @filechange="finish(file)" class="item" v-for="file in files">
-				<fileitem
-					:file="file"
-					class="item"
-					@filechange="refresh"
-					:base-path="basePath"
-					:depth="file.depth"
-				>
-				</fileitem>
-			</div>
-		</div>
+	<div class="file-system" ref="fileSystem">
+		<fileitem :file="file" v-for="file in files" :files="files"></fileitem>
 	</div>
 </template>
 
@@ -33,7 +27,7 @@
 import path from "path"
 import fs from "fs"
 import { ipcRenderer, MenuItem, remote } from "electron"
-import { sortFile } from "../fileSort"
+import { sortFile, sortFileInDepth } from "../fileSort"
 import fileitem from "./fileitem.vue"
 export default {
 	components: { fileitem },
@@ -47,6 +41,13 @@ export default {
 	},
 
 	methods: {
+		toggleFileSystem() {
+			if (this.$refs.fileSystem.style.display == "none") {
+				this.$refs.fileSystem.style.display = "block"
+			} else {
+				this.$refs.fileSystem.style.display = "none"
+			}
+		},
 		createUntitleFile(index) {
 			fs.access(path.resolve(this.basePath, `untitle-${index}.md`), (err) => {
 				if (err) {
@@ -78,72 +79,15 @@ export default {
 		openFile() {
 			ipcRenderer.send("open_event", "open")
 		},
-		closeTabBar() {
-			this.display = !this.display
-		},
-
-		generateMenus(file) {
-			const { Menu, MenuItem } = remote
-			var template = [
-				{
-					label: "Create File",
-					accelerator: "CmdOrCtrl+D",
-					click: () => {
-						this.createUntitleFile(1)
-						sortFile("size", this.basePath, 0).then((res) => {
-							this.files = res
-						})
-					},
-				},
-				{
-					label: "Delete File/Folder",
-					click: () => {
-						fs.unlink(path.resolve(this.basePath, file.name), (err) => {
-							this.files.forEach((f, i) => {
-								if (f.name === file.name) {
-									this.files.splice(i, 1)
-								}
-							})
-						})
-					},
-				},
-				{
-					label: "Rename File/Folder",
-					click: () => {
-						this.disabled = false
-					},
-				},
-				{
-					label: "create Folder",
-					click: () => {
-						fs.mkdirSync(path.resolve(this.basePath, "untitle"))
-						sortFile("size", this.basePath, 0).then((res) => (this.files = res))
-					},
-				},
-			]
-			var m = Menu.buildFromTemplate(template)
-			m.popup({ window: remote.getCurrentWindow() })
-		},
-		refresh(data) {
-			console.log(data)
-		},
 	},
-	computed: {
-		icon() {
-			return function (file) {
-				if (file.isDirectory) {
-					return null
-				}
-				return "icon-".concat(path.extname(file.name).substring(1))
-			}
-		},
-	},
+	computed: {},
 
 	mounted() {
 		ipcRenderer.on("open_event", (event, arg) => {
 			this.basePath = arg[0]
-
-			sortFile("size", arg[0], 0).then((res) => (this.files = res))
+			console.log(arg[0])
+			this.files = sortFileInDepth(arg[0], [])
+			this.files = sortFileInDepth(arg[0], [])
 		})
 	},
 }
@@ -151,9 +95,10 @@ export default {
 
 <style lang="scss" scoped>
 .tab-bar {
-	background-color: #f7f7f7;
+	background-color: #2c3e50;
 	width: 5vw;
 	height: 100vh;
+	color: white;
 
 	display: flex;
 	flex-direction: column;
@@ -167,10 +112,10 @@ export default {
 	}
 }
 .file-system {
-	display: flex;
-	width: 15vw;
-	justify-content: space-evenly;
+	background-color: #34495e;
+	background-color: #34495e;
+	height: 100vh;
+	width: 18vw;
 	overflow: scroll;
-	padding: 5px;
 }
 </style>

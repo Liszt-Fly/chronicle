@@ -7,104 +7,43 @@ const path=require('path')
 
 const base = "/Users/qiaoyang/Desktop/Spring"
 
-//递归 
-exports.sortFile=async function sortFile(accordance, dir, depth) {
-	let storage = []
-	await fsPromise.readdir(dir).then(async (files) => {
-		for (let file of files) {
-			
-			let stat = fs.lstatSync(path.resolve(dir, file))
-			let isDirectory = stat.isDirectory()
-			if (isDirectory) {
-				sortFile(accordance,path.resolve(dir,file),depth+1)
-			}
-			await fsPromise.stat(path.join(dir,file)).then((s) => {
-			storage.push({ stat: s, name: file,ignoredName:file.substr(0,file.length-path.extname(file).length),isDirectory,folderPath:isDirectory?path.resolve(dir,file):null,depth:depth})
-			})
-			
-	
-		
-		}
 
-		storage = storage.sort((a, b) => a.stat.mtimeMs - b.stat.mtimeMs)
-		
-	
-	})
-return storage
-}
-let storage=[]
-function sortFileInDepth( dir,storage) {
-	
 
-	 
+exports.sortFileInDepth=function sortFileInDepth(dir,storage) {
+
+
 	let files = fs.readdirSync(dir)
-
-	for (let file of files) {
-		
+	files.forEach(f => {
 		let item = {}
-		 let stat = fs.lstatSync(path.resolve(dir, file))
-		 let bDir = stat.isDirectory()
-		 //如果是文件夹
-		if (bDir) {
-			 item.name=file
-			 if (item["children"]) {
-				 
-			 }
+		item.name = f
+		let stat= fs.lstatSync(dir, f).isDirectory()
+
+		if (fs.lstatSync(path.resolve(dir,f)).isDirectory()) {
+			 item.isDirectory = true
+			if (item["children"]) {
+			
+			}
+			else {
+				item["children"]=[]
+			}
+			storage.push(item)
+			sortFileInDepth(path.resolve(dir,f),item["children"])
+		}
 			 else {
-				 item.children = []
-				
-			 }
-			 storage.push(item)
-			 //递归
-		
-			  sortFileInDepth(path.resolve(dir,file),item["children"]
-					)
-		 }
-		 //文件
-		 else {
 			 
-			 item.name = file
+			 item.name = f
 		
 			 if (item["children"]) {
-				 item["children"].push(item)
+				
+			
+				item["children"].push(item)
 			 }
 			 else {
+				 item.isDirectory=false
 				 storage.push(item)
 				
 			 }
 		 }
-		 
-		 
-	 }
-	 return storage
-
+	})
+	return storage
 }
-console.log(JSON.stringify(sortFileInDepth(base, storage),null,2));
-
-let dataStructure = []
-/*
-{
-	name:"",
-	bDir:true
-	children:[
-	{
-	name:"",
-	children:[
-	{
-	name:"",
-	bDir:false
-	}
-	]
-	}
-	],
-
-}
-
-
-*/
-
-
-
-
-
-
