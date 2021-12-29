@@ -1,36 +1,40 @@
 <template>
-	<div class="content" v-if="display">
-		<!--tabbar图标样式-->
-		<div class="tab-bar">
-			<div @click="openFile">
-				<i class="bi bi-folder"></i>
-			</div>
-			<div @click="toggleFileSystem">
-				<i class="iconfont icon-menu"></i>
-			</div>
-			<div>
-				<i class="bi bi-bookmark-star"></i>
-			</div>
-
-			<div><i class="bi bi-gear"></i></div>
-			<div><i class="bi bi-calendar-day"></i></div>
+	<!--tabBar样式-->
+	<div class="tab-bar" v-if="display">
+		<div @click="toggleFileSystem">
+			<i class="iconfont icon-menu"></i>
 		</div>
+
+		<div @click="openFile">
+			<i class="bi bi-folder"></i>
+		</div>
+
+		<div>
+			<i class="bi bi-bookmark-star"></i>
+		</div>
+
+		<div><i class="bi bi-gear"></i></div>
+		<div><i class="bi bi-calendar-day"></i></div>
 	</div>
+	<!--* 文件系统 -->
 	<div class="file-system" ref="fileSystem">
-		<fileitem :file="file" v-for="file in files" :files="files"></fileitem>
+		<file-list
+			:file="file"
+			v-for="file in files"
+			:files="files"
+			:basePath="basePath"
+		></file-list>
 	</div>
 </template>
 
 <script>
-// @ts-nocheck
-
 import path from "path"
 import fs from "fs"
 import { ipcRenderer, MenuItem, remote } from "electron"
 import { sortFile, sortFileInDepth } from "../fileSort"
-import fileitem from "./fileitem.vue"
+import fileList from "./fileList.vue"
 export default {
-	components: { fileitem },
+	components: { fileList },
 	data() {
 		return {
 			files: [],
@@ -95,7 +99,7 @@ export default {
 
 <style lang="scss" scoped>
 .tab-bar {
-	background-color: #2c3e50;
+	background-color: #1f1f1f;
 	width: 5vw;
 	height: 100vh;
 	color: white;
@@ -112,10 +116,11 @@ export default {
 	}
 }
 .file-system {
-	background-color: #34495e;
-	background-color: #34495e;
+	background-color: #252525;
+
 	height: 100vh;
 	width: 18vw;
-	overflow: scroll;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 </style>

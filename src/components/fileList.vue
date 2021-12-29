@@ -1,21 +1,29 @@
 <template>
 	<div class="folder">
-		<div
-			:class="['iconfont', { 'icon-arrow-right': file.isDirectory }]"
-			@click="showSubFolder($event, file)"
-		>
-			{{ file.name }}
+		<div class="item">
+			<span
+				:class="[
+					'iconfont',
+					{ 'icon-arrow-right': file.isDirectory },
+					{ 'bi bi-cloud-fog2': !file.isDirectory },
+					'file-name',
+				]"
+				@click="showSubFolder($event, file)"
+			>
+				&nbsp {{ file.name }}
+			</span>
 		</div>
+
 		<div
 			class="subfolder"
 			v-if="file.children && file.children.length > 0"
 			ref="subfolder"
 		>
-			<fileitem
+			<file-list
 				:files="file.children"
 				v-for="file in file.children"
 				:file="file"
-			></fileitem>
+			></file-list>
 		</div>
 	</div>
 </template>
@@ -26,11 +34,10 @@ import path from "path"
 import fs from "fs"
 import { sortFile } from "../fileSort"
 export default {
-	props: ["file", "files"],
+	props: ["file", "files", "basePath"],
 	data() {
 		return {
 			disabled: true,
-			subFiles: [],
 		}
 	},
 	computed: {
@@ -64,6 +71,16 @@ export default {
 					this.$refs.subfolder.style.display = "block"
 				} else {
 					this.$refs.subfolder.style.display = ""
+				}
+			} else {
+				if (path.extname(file.name) === ".qy") {
+					const data = fs.readFileSync(
+						path.resolve(path.join(this.basePath, file.name)),
+						"utf-8"
+					)
+					console.log(data)
+				} else {
+					alert("该类型的文件格式不能打开")
 				}
 			}
 		},
@@ -115,15 +132,35 @@ export default {
 
 <style lang="scss" scoped>
 .folder {
-	position: relative;
 	color: white;
-	border-bottom: solid 1px #ddd;
 
+	width: 18vw;
+	position: relative;
+	span {
+		display: inlin-block;
+		padding: 10px;
+		i {
+			color: red;
+		}
+	}
 	.subfolder {
-		padding-left: 10px;
+		width: 18vw;
 
 		display: none;
-		transition: 1s;
+	}
+	.file-name {
+		font-size: 15px;
+		display: inline-block;
+		width: 100%;
+	}
+}
+
+.subfolder {
+	text-indent: 10px;
+}
+.item {
+	&:hover {
+		background-color: #343434;
 	}
 }
 </style>

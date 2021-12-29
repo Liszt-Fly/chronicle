@@ -1,16 +1,13 @@
 <template>
 	<div id="app">
-		<tab-bar v-if="display"></tab-bar>
-
-		<editor></editor>
+		<tab-bar></tab-bar>
 	</div>
 </template>
 
 <script>
-import Editor from "./components/editor.vue"
 import TabBar from "./components/tabBar.vue"
+import tabBar from "./components/tab.vue"
 
-import { ipcRenderer } from "electron"
 export default {
 	name: "App",
 	data() {
@@ -18,12 +15,8 @@ export default {
 			display: true,
 		}
 	},
-	mounted() {
-		ipcRenderer.on("tab", (event, arg) => {
-			this.display = !this.display
-		})
-	},
-	components: { TabBar, Editor },
+
+	components: { tabBar },
 }
 </script>
 
@@ -33,5 +26,6 @@ export default {
 	height: 100vh;
 	display: flex;
 	user-select: none;
+	overflow: hidden;
 }
 </style>
