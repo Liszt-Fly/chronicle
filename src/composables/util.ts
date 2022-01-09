@@ -1,7 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import { msfile} from './type'
-export let sortFileInDepth = function sortFileInDepth(dir: string , storage:msfile []) {
+import { msfile } from './type'
+
+export let sortFileInDepth = function sortFileInDepth(dir: string, storage: msfile[]) {
     let files: string[] = fs.readdirSync(dir)
     files.forEach(f => {
         let item: msfile = {}
@@ -29,6 +30,4 @@ export let sortFileInDepth = function sortFileInDepth(dir: string , storage:msfi
             }
         }
     })
-
-
 }

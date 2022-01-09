@@ -1,30 +1,3 @@
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import { msfile } from '../composables/type'
-defineProps({
-    "file": Object as () => msfile,
-})
-const subfolder = ref<HTMLDivElement | null>(null)
-let showSubFolder = (event: MouseEvent, file: msfile) => {
-    if (file.isDirectory) {
-        if (event) {
-            const span = event.target as HTMLSpanElement
-            span.classList.toggle('icon-arrow-right')
-            span.classList.toggle('icon-arrow_down')
-            if (span.classList.contains('icon-arrow_down')) {
-                (subfolder.value!).style.display = "block"
-
-            }
-            else {
-                (subfolder.value!).style.display = ""
-            }
-
-        }
-    }
-}
-</script>
-
 <template>
     <div class="folder" v-if="file">
         <div class="item">
@@ -44,7 +17,34 @@ let showSubFolder = (event: MouseEvent, file: msfile) => {
         </div>
     </div>
 </template>
+<script setup lang="ts">
 
+import { ref } from 'vue'
+import { msfile } from '../composables/type'
+
+defineProps({
+    "file": Object as () => msfile,
+})
+
+const subfolder = ref<HTMLDivElement | null>(null)
+let showSubFolder = (event: MouseEvent, file: msfile) => {
+    if (file.isDirectory) {
+        if (event) {
+            const span = event.target as HTMLSpanElement
+            span.classList.toggle('icon-arrow-right')
+            span.classList.toggle('icon-arrow_down')
+            if (span.classList.contains('icon-arrow_down')) {
+                (subfolder.value!).style.display = "block"
+
+            }
+            else {
+                (subfolder.value!).style.display = ""
+            }
+
+        }
+    }
+}
+</script>
 <style scoped lang="scss">
 .folder {
     width: 18vw;

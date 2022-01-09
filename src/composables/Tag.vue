@@ -1,15 +1,12 @@
-<script setup lang="ts">
-import { getRandomColor } from "@/composables/config"
-</script>
-
 <template>
-	<div
-		:style="{ backgroundColor: getRandomColor(), color: '#ddd' }"
-		class="tag"
-	>
+	<div :style="{ backgroundColor: getRandomColor(), color: '#ddd' }" class="tag">
 		<slot></slot>
 	</div>
 </template>
+
+<script setup lang="ts">
+import { getRandomColor } from "@/composables/config"
+</script>
 
 <style scoped>
 .tag {

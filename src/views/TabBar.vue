@@ -1,21 +1,17 @@
+<template>
+	<div class="tab-bar" v-if="display">
+		<template v-for="tabItem in tabBarItems">
+			<tab-item :class-name="tabItem.icon" :func="tabItem.func" :to="tabItem.to"></tab-item>
+		</template>
+	</div>
+	<router-view></router-view>
+</template>
+
 <script setup lang="ts">
 import { tabBarItems, display, files } from "../composables/config"
 import TabItem from "../components/TabItem.vue"
 import FileList from "@/components/FileList.vue"
 </script>
-
-<template>
-	<div class="tab-bar" v-if="display">
-		<template v-for="tabItem in tabBarItems">
-			<tab-item
-				:class-name="tabItem.icon"
-				:func="tabItem.func"
-				:to="tabItem.to"
-			></tab-item>
-		</template>
-	</div>
-	<router-view></router-view>
-</template>
 
 <style scoped lang="scss">
 .tab-bar {

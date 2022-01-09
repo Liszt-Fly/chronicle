@@ -1,6 +1,5 @@
-export interface msfile{
+export interface msfile {
     name?: string,
     isDirectory?: boolean,
-    children?: msfile[] | null ,
-
+    children?: msfile[] | null,
 }

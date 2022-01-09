@@ -1,3 +1,9 @@
+<template>
+	<div class="tab-item">
+		<router-link :class="className" @click="myFunc()" :to="to"></router-link>
+	</div>
+</template>
+
 <script setup lang="ts">
 const props = defineProps({
 	className: {
@@ -12,12 +18,6 @@ const props = defineProps({
 })
 const myFunc: Function = props.func!
 </script>
-
-<template>
-	<div class="tab-item">
-		<router-link :class="className" @click="myFunc()" :to="to"></router-link>
-	</div>
-</template>
 
 <style scoped>
 a {

@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import { files } from "../composables/config"
-import FileList from "@/components/FileList.vue"
-</script>
-
 <template>
 	<div class="file-system">
 		<template v-for="file in files">
@@ -10,5 +5,10 @@ import FileList from "@/components/FileList.vue"
 		</template>
 	</div>
 </template>
+
+<script setup lang="ts">
+import { files } from "../composables/config"
+import FileList from "@/components/FileList.vue"
+</script>
 
 <style scoped></style>
