@@ -1,31 +1,18 @@
-<template>
-	<div id="app">
-		<tab-bar></tab-bar>
-	</div>
-</template>
+<script setup lang="ts">
+import TabBar from './views/TabBar.vue'
 
-<script>
-import TabBar from "./components/tabBar.vue"
-import tabBar from "./components/tab.vue"
 
-export default {
-	name: "App",
-	data() {
-		return {
-			display: true,
-		}
-	},
-
-	components: { tabBar },
-}
 </script>
 
-<style>
+<template>
+  <div id="app">
+    <tab-bar></tab-bar>
+  </div>
+</template>
+
+<style scoped>
 #app {
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	user-select: none;
-	overflow: hidden;
+  display: flex;
+  flex-direction: row;
 }
 </style>

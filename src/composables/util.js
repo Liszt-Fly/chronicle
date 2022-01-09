@@ -1,5 +1,6 @@
 const fs = require("fs")
 const path = require("path")
+
 exports.sortFileInDepth = function sortFileInDepth(dir, storage) {
 	let files = fs.readdirSync(dir)
 	files.forEach((f) => {
