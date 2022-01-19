@@ -10,8 +10,8 @@ export let sortFileInDepth = function sortFileInDepth(
 	basePath.value = dir
 	files.forEach((f) => {
 		let item: msfile = {}
-        item.name = f
-        
+		item.name = f
+
 		let stat = fs.lstatSync(path.resolve(dir, f)).isDirectory()
 		if (fs.lstatSync(path.resolve(dir, f)).isDirectory()) {
 			item.isDirectory = true
@@ -40,4 +40,8 @@ export let validateFilename = function validateFilename(
 	let length = filename.length - path.extname(filename).length
 
 	return filename.substring(0, length)
+}
+
+export function bKeyBoardTarget(object: any): object is KeyboardEvent {
+	return "altKey" in object
 }

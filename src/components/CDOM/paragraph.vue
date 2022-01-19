@@ -1,81 +1,61 @@
-<template>
-    <div
-        ref="paragraph"
-        class="chronicle-paragraph"
-        contenteditable="true"
-        spellcheck="false"
-        @focus="recover($event)"
-        @blur="addNewParagraph($event)"
-    >{{ content }}</div>
-</template>
-<script lang="ts" setup>
-defineProps({
-    content: {
-        type: String, default: ""
-    }
-})
-import { onMounted, ref } from 'vue'
+<script setup lang="ts">import { paragraphs } from '@/composables/config';
 import { cTreeNode } from '@/composables/type';
-import { v4 } from 'uuid'
-import { paragraphs } from '@/composables/config';
-import { marked } from 'marked';
-import fsp from 'fs-extra'
-let savedParagraph: cTreeNode | null
-let paragraph = ref<HTMLDivElement | null>(null)
-let start = false
-onMounted(() => {
-    setTimeout(() => {
-        setInterval(() => {
-            fsp.writeJSONSync('./mikeedu.json', paragraphs.value)
-        }, 1000)
-    }, 2000);
+import { bKeyBoardTarget } from '@/composables/util';
+const props = defineProps({
+    paragraph: {
+        type: Object as () => cTreeNode
+    }
 })
-function recover(event: FocusEvent) {
+import { marked } from 'marked';
+import { v4 } from 'uuid';
+import { onMounted, ref } from 'vue';
+let paragraph = ref<HTMLElement | null>(null)
+onMounted(() => {
+    paragraph.value?.focus()
+})
+let currentNode: cTreeNode = props.paragraph!
+let bParsed = ref(false)//是否转化为markdown
+function addNewNode(event: KeyboardEvent | FocusEvent) {
+    //修改保存当前的node
+    if (!bParsed.value) {
 
-    if (savedParagraph) {
-        console.log(savedParagraph.originalMarkdown)
+        event.preventDefault()
+        let target = event.target as unknown as HTMLElement;
+        let originalText = target.innerText
+        let parsedMarkdown = marked.parse(originalText)
+        target.innerHTML = parsedMarkdown
+        bParsed.value = true
+        currentNode.originalMarkdown = originalText
+    }
+    if (bKeyBoardTarget(event)) {
+        //当前节点是最后一个节点
+        if (paragraphs.value.indexOf(currentNode) == paragraphs.value.length - 1) {
+            let newNode: cTreeNode = { title: v4(), originalMarkdown: "test" }
+            paragraphs.value.push(newNode)
+            let target = event.target as HTMLElement
+            target.blur()
+        }
+    }
+}
+
+function recoverState(event: FocusEvent) {
+    if (bParsed.value) {
         let target = event.target as unknown as HTMLElement
-        target.innerText = savedParagraph.originalMarkdown
-    }
-
-}
-function addNewParagraph(event: KeyboardEvent | FocusEvent) {
-    start = true
-    event.preventDefault()
-    let target = event.target as unknown as HTMLElement
-    let text = ""
-    let md = ""
-    text = target.innerText
-    md = marked.parse(text)
-    console.log(text)
-    //保存现在的paragraph
-    if (!savedParagraph) {
-        let hash = v4()
-        savedParagraph = { title: hash, createdOrModifiedTime: new Date(), content: paragraph.value!, originalMarkdown: text }
-        paragraphs.value.push(savedParagraph)
-
-    }
-    else {
-        savedParagraph.createdOrModifiedTime = new Date()
-        savedParagraph.content = paragraph.value!
-        savedParagraph.originalMarkdown = text
-    }
-
-
-    //所见即所得
-    target.innerHTML = md
-    console.log(paragraphs.value)
-}
-
-function loadFile() {
-    for (let i = 0; i <= paragraphs.value.length; i++) {
-        console.log(paragraphs.value[i])
+        target.innerText = currentNode.originalMarkdown
+        bParsed.value = false
     }
 }
 </script>
-<style style="less">
-.chronicle-paragraph {
-    outline: none;
-    font-family: "Fira Code";
-}
+
+<template>
+    <div
+        contenteditable="true"
+        ref="paragraph"
+        @keydown.enter.prevent="addNewNode($event)"
+        @blur="addNewNode($event)"
+        @focus="recoverState($event)"
+    ></div>
+</template>
+
+<style scoped>
 </style>

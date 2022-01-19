@@ -9,8 +9,6 @@ export interface cTree {
 
 export interface cTreeNode {
 	title: string
-	createdOrModifiedTime: Date
-	content: HTMLElement
 	originalMarkdown: string
 
 }
