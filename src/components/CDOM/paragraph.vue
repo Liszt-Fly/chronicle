@@ -1,61 +1,40 @@
-<script setup lang="ts">import { paragraphs } from '@/composables/config';
-import { cTreeNode } from '@/composables/type';
-import { bKeyBoardTarget } from '@/composables/util';
+<script setup lang="ts">
+import { addNewNode, recoverSourceCode } from "@/composables/cDom"
+import { cTreeNode } from "@/composables/type"
+import { onMounted, reactive, Ref, ref } from "vue"
+//sum Props
 const props = defineProps({
     paragraph: {
-        type: Object as () => cTreeNode
-    }
+        type: Object as () => cTreeNode,
+    },
 })
-import { marked } from 'marked';
-import { v4 } from 'uuid';
-import { onMounted, ref } from 'vue';
+//sum Methods
+const addNode = addNewNode
+const recoverSourceCodeMode = recoverSourceCode
+//sum DOM
 let paragraph = ref<HTMLElement | null>(null)
+//对于新生成的节点，进行Focus
 onMounted(() => {
     paragraph.value?.focus()
 })
+//当前paragraph所使用的node
 let currentNode: cTreeNode = props.paragraph!
-let bParsed = ref(false)//是否转化为markdown
-function addNewNode(event: KeyboardEvent | FocusEvent) {
-    //修改保存当前的node
-    if (!bParsed.value) {
-
-        event.preventDefault()
-        let target = event.target as unknown as HTMLElement;
-        let originalText = target.innerText
-        let parsedMarkdown = marked.parse(originalText)
-        target.innerHTML = parsedMarkdown
-        bParsed.value = true
-        currentNode.originalMarkdown = originalText
-    }
-    if (bKeyBoardTarget(event)) {
-        //当前节点是最后一个节点
-        if (paragraphs.value.indexOf(currentNode) == paragraphs.value.length - 1) {
-            let newNode: cTreeNode = { title: v4(), originalMarkdown: "test" }
-            paragraphs.value.push(newNode)
-            let target = event.target as HTMLElement
-            target.blur()
-        }
-    }
-}
-
-function recoverState(event: FocusEvent) {
-    if (bParsed.value) {
-        let target = event.target as unknown as HTMLElement
-        target.innerText = currentNode.originalMarkdown
-        bParsed.value = false
-    }
-}
+let bParsed = reactive({ value: false }) //是否转化为markdown
 </script>
 
 <template>
     <div
         contenteditable="true"
         ref="paragraph"
-        @keydown.enter.prevent="addNewNode($event)"
-        @blur="addNewNode($event)"
-        @focus="recoverState($event)"
+        @keydown.enter.prevent="addNode($event, bParsed, currentNode)"
+        @blur="addNode($event, bParsed, currentNode)"
+        @focus="recoverSourceCodeMode($event, currentNode, bParsed)"
     ></div>
 </template>
 
 <style scoped>
+/* debug样式 */
+div {
+    border: solid 1px orangered;
+}
 </style>

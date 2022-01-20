@@ -5,7 +5,7 @@ import TabItem from "../components/TabItem.vue"
 </script>
 
 <template>
-	<div class="tab">
+	<div class="tab-system">
 		<div class="tab-bar" v-if="display">
 			<template v-for="tabItem in tabBarItems">
 				<tab-item :class-name="tabItem.icon" :func="tabItem.func" :to="tabItem.to"></tab-item>
@@ -18,7 +18,7 @@ import TabItem from "../components/TabItem.vue"
 </template>
 
 <style lang="scss">
-.tab {
+.tab-system {
 	display: flex;
 	flex-direction: row;
 	height: 100vh;
