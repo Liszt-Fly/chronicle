@@ -1,40 +1,20 @@
 <script setup lang="ts">
 import { basePath, content } from "@/composables/config"
+import { toggleSubfolder } from "@/composables/filelist"
 import fs from "fs"
 import path from "path"
 
-import { ref } from "vue"
+import { onMounted, reactive, ref, watch } from "vue"
 import { msfile } from "../composables/type"
 import { validateFilename } from "../composables/util"
 
 defineProps({
 	file: Object as () => msfile,
 })
-const subfolder = ref<HTMLDivElement | null>(null)
-let showSubFolder = (event: MouseEvent, file: msfile) => {
-	if (file.isDirectory) {
-		if (event) {
-			const span = event.target as HTMLSpanElement
-			span.classList.toggle("icon-arrow-right")
-			span.classList.toggle("icon-arrow_down")
-			if (span.classList.contains("icon-arrow_down")) {
-				subfolder.value!.style.display = "block"
-			} else {
-				subfolder.value!.style.display = ""
-			}
-		}
-	} else {
-		// content.value = format(fs.readFileSync(path.resolve(basePath.value, file.name!), 'utf-8') as unknown as string)
-		console.log(
-			fs.readFileSync(
-				path.resolve(basePath.value, file.name!)
-			) as unknown as string
-		)
-		content.value = fs.readFileSync(
-			path.resolve(basePath.value, file.name!)
-		) as unknown as string
-	}
-}
+let subfolder = ref<HTMLDivElement | null>(null)
+let refSubfolder = reactive({ dom: subfolder })
+
+const toggleSubfold = toggleSubfolder
 </script>
 
 <template>
@@ -47,15 +27,15 @@ let showSubFolder = (event: MouseEvent, file: msfile) => {
 					{ 'bi bi-cloud-fog2': !file.isDirectory },
 					'file-name',
 				]"
-				@click="showSubFolder($event, file!)"
+				@click=" toggleSubfold($event,file!,refSubfolder)"
 				>&nbsp {{ validateFilename(file.name!) }}</span
 			>
 		</div>
-
 		<div
 			class="subfolder"
 			v-if="file.children && file.children.length > 0"
 			ref="subfolder"
+			id="subfolder"
 		>
 			<file-list
 				:files="file.children"

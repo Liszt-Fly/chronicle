@@ -26,6 +26,7 @@ onMounted(() => {
 
 <template>
 	<div class="editor" ref="rContainer">
+		<i class="iconfont icon-menu">521312312</i>
 		<paragraph
 			v-for="paragraph in paragraphs"
 			:paragraph="paragraph"
