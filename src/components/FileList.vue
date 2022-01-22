@@ -1,24 +1,71 @@
 <script setup lang="ts">
-import { basePath, content } from "@/composables/config"
+import { basePath, content, files } from "@/composables/config"
 import { toggleSubfolder } from "@/composables/filelist"
+import {
+	createNote,
+	deleteNote,
+	ifNoteNameExists,
+} from "@/composables/filesystem"
+import { getCurrentWindow, Menu, MenuItem } from "@electron/remote"
 import fs from "fs"
 import path from "path"
-
 import { onMounted, reactive, ref, watch } from "vue"
 import { msfile } from "../composables/type"
-import { validateFilename } from "../composables/util"
+import { flushFiles, validateFilename } from "../composables/util"
 
 defineProps({
 	file: Object as () => msfile,
 })
 let subfolder = ref<HTMLDivElement | null>(null)
 let refSubfolder = reactive({ dom: subfolder })
-
+const fileDom = ref<HTMLElement | null>(null)
 const toggleSubfold = toggleSubfolder
+//右键餐单
+const menu = new Menu()
+menu.append(
+	new MenuItem({
+		label: "create note",
+		click: function () {
+			console.log("notes created!")
+			createNote(basePath.value)
+			files.value = []
+			flushFiles()
+		},
+	})
+)
+// menu.append(new MenuItem({ type: "separator" })) //分割线
+menu.append(
+	new MenuItem({
+		label: "delete note",
+		click: function () {
+			console.log(ifNoteNameExists(basePath.value, "mikedairy", 1))
+			flushFiles()
+		},
+	})
+)
+menu.append(
+	new MenuItem({
+		label: "sort",
+		submenu: [
+			{
+				label: "sorted by created time",
+			},
+			{
+				label: "sorted by last modified time",
+			},
+		],
+	})
+)
+onMounted(() => {
+	fileDom.value!.addEventListener("contextmenu", (e) => {
+		e.preventDefault()
+		menu.popup({ window: getCurrentWindow() })
+	})
+})
 </script>
 
 <template>
-	<div class="folder" v-if="file">
+	<div class="folder" v-if="file" ref="fileDom">
 		<div class="item">
 			<span
 				:class="[

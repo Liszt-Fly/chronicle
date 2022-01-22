@@ -8,7 +8,12 @@ export let basePath = ref("")
 export let content = ref("")
 export let paragraphs = ref<cTreeNode[]>([])
 let tabBarItems = [
-	{ item: "menu", icon: "bi bi-list", func: toggleTabBar, to: "/?" },
+	{
+		item: "mindmap",
+		icon: "iconfont icon-mind_map",
+		func: toggleTabBar,
+		to: "/",
+	},
 	{ item: "folder", icon: "bi bi-folder", func: openFolder, to: "/" },
 	{
 		item: "star",

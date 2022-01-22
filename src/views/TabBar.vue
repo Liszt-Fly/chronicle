@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { tabBarItems, display, files } from "../composables/config"
 import TabItem from "../components/TabItem.vue"
-
 </script>
 
 <template>
 	<div class="tab-system">
 		<div class="tab-bar" v-if="display">
 			<template v-for="tabItem in tabBarItems">
-				<tab-item :class-name="tabItem.icon" :func="tabItem.func" :to="tabItem.to"></tab-item>
+				<tab-item
+					:class-name="tabItem.icon"
+					:func="tabItem.func"
+					:to="tabItem.to"
+				></tab-item>
 			</template>
 		</div>
 		<div class="extendedPanel">
@@ -32,6 +35,9 @@ import TabItem from "../components/TabItem.vue"
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-evenly;
+	a {
+		text-decoration: none;
+	}
 }
 .extendedPanel {
 	width: 18vw;

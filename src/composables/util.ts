@@ -1,6 +1,6 @@
 import fs from "fs"
 import path from "path"
-import { basePath } from "./config"
+import { basePath, files } from "./config"
 import { msfile } from "./type"
 export let sortFileInDepth = function sortFileInDepth(
 	dir: string,
@@ -44,4 +44,9 @@ export let validateFilename = function validateFilename(
 
 export function bKeyBoardTarget(object: any): object is KeyboardEvent {
 	return "altKey" in object
+}
+//* 刷新files.value，UI界面刷新
+export function flushFiles() {
+	files.value = []
+	sortFileInDepth(basePath.value, files.value)
 }
