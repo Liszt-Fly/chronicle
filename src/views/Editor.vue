@@ -16,7 +16,7 @@ let rContainer = ref<HTMLBaseElement | null>(null)
 let initialedNode = initNode()
 initMarked()
 onMounted(() => {
-	// paragraphs.value.push(initialedNode)
+	// // paragraphs.value.push(initialedNode)
 	paragraphs.value = loadNodeLists("unl")
 	setInterval(() => {
 		saveNodeLists(paragraphs.value, "unl")

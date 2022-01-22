@@ -6,6 +6,7 @@ import fsp from "fs-extra"
 import { paragraphs } from "./config"
 import { cTreeNode } from "./type"
 import { bKeyBoardTarget } from "./util"
+import { initNode } from "./init"
 //* sum 添加新的节点
 export function addNewNode(
 	event: KeyboardEvent | FocusEvent,
@@ -13,17 +14,14 @@ export function addNewNode(
 	currentNode: cTreeNode
 ) {
 	//修改保存当前的node
-	console.log(`if之前的bParsed为${bParsed}`)
 	if (!bParsed.value) {
 		let target = event.target as unknown as HTMLElement
 		let originalText = target.innerText
 		let parsedMarkdown = marked.parse(originalText)
 		target.innerHTML = parsedMarkdown
-		console.log(parsedMarkdown)
+
 		bParsed.value = true
 		currentNode.originalMarkdown = originalText
-
-		console.dir(bParsed)
 	}
 	if (bKeyBoardTarget(event)) {
 		//当前节点是最后一个节点
@@ -35,6 +33,13 @@ export function addNewNode(
 		} else {
 			let nextElement: HTMLElement = target.nextElementSibling as HTMLElement
 			nextElement.focus()
+		}
+	}
+	//对于blur来说，如果内容为空，就要删除当前的节点
+	if (!bKeyBoardTarget(event)) {
+		console.log(currentNode.originalMarkdown == "")
+		if (currentNode.originalMarkdown == "") {
+			paragraphs.value.pop()
 		}
 	}
 }
@@ -58,5 +63,12 @@ export function saveNodeLists(nodeLists: cTreeNode[], fileName: string) {
 
 //* 加载NodeList,加载文件
 export function loadNodeLists(fileName: string): cTreeNode[] {
-	return fsp.readJsonSync(`./${fileName}.json`)
+	let file: cTreeNode[] = fsp.readJSONSync(`${fileName}.json`)
+	if (file.length == 0) {
+		let newNodeList: cTreeNode[] = []
+		newNodeList.push(initNode())
+		return newNodeList
+	} else {
+		return file
+	}
 }
