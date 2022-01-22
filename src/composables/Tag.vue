@@ -3,16 +3,18 @@ import { getRandomColor } from "@/composables/config"
 </script>
 
 <template>
-	<span :style="{ backgroundColor: getRandomColor(), color: '#ddd' }" class="tag">
+	<span
+		:style="{ backgroundColor: getRandomColor(), color: '#ddd' }"
+		class="tag"
+	>
 		<slot></slot>
 	</span>
 </template>
 
-<style >
+<style>
 .tag {
 	padding: 0px 8px;
 	font-size: 0.7rem;
-
 	text-align: center;
 	position: absolute;
 	right: 0;

@@ -16,6 +16,7 @@
     "@types/uuid": "^8.3.4",
     "bootstrap-icons": "^1.7.2",
     "core-js": "^3.6.5",
+    "fs-extra": "^10.0.0",
     "marked": "^4.0.10",
     "uuid": "^8.3.2",
     "vue": "^3.0.0"

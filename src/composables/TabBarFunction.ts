@@ -1,6 +1,5 @@
 import { dialog } from "@electron/remote"
 import { display, files } from "./config"
-
 import { sortFileInDepth } from "./util"
 export let openFolder = () => {
 	files.value = []

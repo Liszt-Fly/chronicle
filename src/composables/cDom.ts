@@ -2,7 +2,7 @@
 
 import { marked } from "marked"
 import { v4 } from "uuid"
-import { ref, Ref, reactive } from "vue"
+import fsp from "fs-extra"
 import { paragraphs } from "./config"
 import { cTreeNode } from "./type"
 import { bKeyBoardTarget } from "./util"
@@ -49,4 +49,14 @@ export function recoverSourceCode(
 		target.innerText = currentNode.originalMarkdown
 		bParsed.value = false
 	}
+}
+
+//* 存储NodeList，保存文件
+export function saveNodeLists(nodeLists: cTreeNode[], fileName: string) {
+	fsp.writeJSONSync(`./${fileName}.json`, nodeLists)
+}
+
+//* 加载NodeList,加载文件
+export function loadNodeLists(fileName: string): cTreeNode[] {
+	return fsp.readJsonSync(`./${fileName}.json`)
 }
