@@ -7,8 +7,7 @@ import {
 	ifNoteNameExists,
 } from "@/composables/filesystem"
 import { getCurrentWindow, Menu, MenuItem } from "@electron/remote"
-import fs from "fs"
-import path from "path"
+
 import { onMounted, reactive, ref, watch } from "vue"
 import { msfile } from "../composables/type"
 import { flushFiles, validateFilename } from "../composables/util"
@@ -86,8 +85,8 @@ onMounted(() => {
 		>
 			<file-list
 				:files="file.children"
-				v-for="file in file.children"
 				:file="file"
+				v-for="f in file.children"
 			></file-list>
 		</div>
 	</div>
