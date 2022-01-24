@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { basePath, content, files } from "@/composables/config"
-import { toggleSubfolder } from "@/composables/filelist"
+import { toggleSubfolder, openFile } from "@/composables/filelist"
 import {
 	createNote,
 	deleteNote,
@@ -37,7 +37,6 @@ menu.append(
 	new MenuItem({
 		label: "delete note",
 		click: function () {
-			console.log(ifNoteNameExists(basePath.value, "mikedairy", 1))
 			flushFiles()
 		},
 	})
@@ -73,7 +72,7 @@ onMounted(() => {
 					{ 'bi bi-cloud-fog2': !file.isDirectory },
 					'file-name',
 				]"
-				@click=" toggleSubfold($event,file!,refSubfolder)"
+				@click=" toggleSubfold($event,file!,refSubfolder),openFile($event,file!)"
 				>&nbsp {{ validateFilename(file.name!) }}</span
 			>
 		</div>
@@ -85,7 +84,7 @@ onMounted(() => {
 		>
 			<file-list
 				:files="file.children"
-				:file="file"
+				:file="f"
 				v-for="f in file.children"
 			></file-list>
 		</div>

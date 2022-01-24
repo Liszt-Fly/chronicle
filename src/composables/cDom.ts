@@ -3,10 +3,11 @@
 import { marked } from "marked"
 import { v4 } from "uuid"
 import fsp from "fs-extra"
-import { paragraphs } from "./config"
+import { currentFile, paragraphs } from "./config"
 import { cTreeNode } from "./type"
 import { bKeyBoardTarget } from "./util"
 import { initNode } from "./init"
+import path from "path"
 //* sum 添加新的节点
 export function addNewNode(
 	event: KeyboardEvent | FocusEvent,
@@ -58,12 +59,12 @@ export function recoverSourceCode(
 
 //* 存储NodeList，保存文件
 export function saveNodeLists(nodeLists: cTreeNode[], fileName: string) {
-	fsp.writeJSONSync(`./${fileName}.json`, nodeLists)
+	fsp.writeJSONSync(`${path.resolve(currentFile.value, fileName)}`, nodeLists)
 }
 
 //* 加载NodeList,加载文件
 export function loadNodeLists(fileName: string): cTreeNode[] {
-	let file: cTreeNode[] = fsp.readJSONSync(`${fileName}.json`)
+	let file: cTreeNode[] = fsp.readJSONSync(`${fileName}`)
 	if (file.length == 0) {
 		let newNodeList: cTreeNode[] = []
 		newNodeList.push(initNode())

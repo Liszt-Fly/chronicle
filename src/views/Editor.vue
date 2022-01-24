@@ -5,21 +5,29 @@ import {
 	ref,
 	watch,
 	getCurrentInstance,
+	watchEffect,
 } from "vue"
 
 import paragraph from "@/components/CDOM/paragraph.vue"
-import { paragraphs } from "@/composables/config"
+import { currentFile, paragraphs } from "@/composables/config"
 
 import { initMarked } from "@/composables/init"
 import { loadNodeLists, saveNodeLists } from "@/composables/cDom"
 let rContainer = ref<HTMLBaseElement | null>(null)
 initMarked()
 onMounted(() => {
- 
-	paragraphs.value = loadNodeLists("unl")
-	setInterval(() => {
-		saveNodeLists(paragraphs.value, "unl")
-	}, 5000)
+	watchEffect(() => {
+		if (currentFile.value != "") {
+			console.log("开始坚挺")
+			paragraphs.value = loadNodeLists(currentFile.value)
+			setInterval(() => {
+				saveNodeLists(paragraphs.value, currentFile.value)
+			}, 5000)
+		} else {
+			console.log("当前无文件")
+		}
+	})
+	// paragraphs.value = loadNodeLists("unl")
 })
 </script>
 
