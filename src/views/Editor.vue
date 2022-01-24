@@ -13,12 +13,14 @@ import { currentFile, paragraphs } from "@/composables/config"
 
 import { initMarked } from "@/composables/init"
 import { loadNodeLists, saveNodeLists } from "@/composables/cDom"
+import { Menu } from "@electron/remote"
+import { fileSystemMenu } from "@/composables/menu"
 let rContainer = ref<HTMLBaseElement | null>(null)
+
 initMarked()
 onMounted(() => {
 	watchEffect(() => {
 		if (currentFile.value != "") {
-			console.log("开始坚挺")
 			paragraphs.value = loadNodeLists(currentFile.value)
 			setInterval(() => {
 				saveNodeLists(paragraphs.value, currentFile.value)
@@ -27,7 +29,6 @@ onMounted(() => {
 			console.log("当前无文件")
 		}
 	})
-	// paragraphs.value = loadNodeLists("unl")
 })
 </script>
 

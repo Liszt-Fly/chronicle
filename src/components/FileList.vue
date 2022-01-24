@@ -6,6 +6,7 @@ import {
 	deleteNote,
 	ifNoteNameExists,
 } from "@/composables/filesystem"
+import { fileListMenu, fileSystemMenu } from "@/composables/menu"
 import { getCurrentWindow, Menu, MenuItem } from "@electron/remote"
 
 import { onMounted, reactive, ref, watch } from "vue"
@@ -21,39 +22,9 @@ const fileDom = ref<HTMLElement | null>(null)
 const toggleSubfold = toggleSubfolder
 //右键餐单
 const menu = new Menu()
-menu.append(
-	new MenuItem({
-		label: "create note",
-		click: function () {
-			console.log("notes created!")
-			createNote(basePath.value)
-			files.value = []
-			flushFiles()
-		},
-	})
-)
-// menu.append(new MenuItem({ type: "separator" })) //分割线
-menu.append(
-	new MenuItem({
-		label: "delete note",
-		click: function () {
-			flushFiles()
-		},
-	})
-)
-menu.append(
-	new MenuItem({
-		label: "sort",
-		submenu: [
-			{
-				label: "sorted by created time",
-			},
-			{
-				label: "sorted by last modified time",
-			},
-		],
-	})
-)
+fileListMenu.forEach((item) => {
+	menu.append(item)
+})
 onMounted(() => {
 	fileDom.value!.addEventListener("contextmenu", (e) => {
 		e.preventDefault()

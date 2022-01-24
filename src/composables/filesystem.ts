@@ -20,7 +20,7 @@ export function createNote(currentPath: string, noteName?: string) {
 
 //* 删除Note
 export function deleteNote(currentPath: string, noteName: string) {
-	fsp.unlinkSync(path.resolve(currentPath, noteName))
+	fsp.unlinkSync(path.resolve(currentPath, ifFileHasExtname(noteName)))
 }
 
 export function ifNoteNameExists(
