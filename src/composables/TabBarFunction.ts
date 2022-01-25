@@ -7,7 +7,6 @@ export let openFolder = () => {
 	if (path) {
 		sortFileInDepth(path[0], files.value)
 	}
-	console.log(files.value)
 }
 
 export let toggleTabBar = (parameter: String) => {

@@ -13,8 +13,7 @@ import { currentFile, paragraphs } from "@/composables/config"
 
 import { initMarked } from "@/composables/init"
 import { loadNodeLists, saveNodeLists } from "@/composables/cDom"
-import { Menu } from "@electron/remote"
-import { fileSystemMenu } from "@/composables/menu"
+
 let rContainer = ref<HTMLBaseElement | null>(null)
 
 initMarked()
@@ -22,9 +21,6 @@ onMounted(() => {
 	watchEffect(() => {
 		if (currentFile.value != "") {
 			paragraphs.value = loadNodeLists(currentFile.value)
-			setInterval(() => {
-				saveNodeLists(paragraphs.value, currentFile.value)
-			}, 5000)
 		} else {
 			console.log("当前无文件")
 		}
@@ -36,6 +32,7 @@ onMounted(() => {
 	<div class="editor" ref="rContainer">
 		<paragraph
 			v-for="paragraph in paragraphs"
+			:key="paragraph.title"
 			:paragraph="paragraph"
 		></paragraph>
 	</div>
@@ -46,6 +43,13 @@ onMounted(() => {
 	height: 100vh;
 	font-size: 1rem;
 	width: 77vw;
-	white-space: pre-wrap;
+	overflow-y: scroll;
+	padding: 20px;
+	box-sizing: border-box;
+	div {
+		white-space: pre-wrap;
+		word-break: break-all;
+		word-wrap: break-word;
+	}
 }
 </style>

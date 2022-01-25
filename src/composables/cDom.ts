@@ -38,9 +38,9 @@ export function addNewNode(
 	}
 	//对于blur来说，如果内容为空，就要删除当前的节点
 	if (!bKeyBoardTarget(event)) {
-		console.log(currentNode.originalMarkdown == "")
 		if (currentNode.originalMarkdown == "") {
-			paragraphs.value.pop()
+			let index = paragraphs.value.indexOf(currentNode)
+			paragraphs.value.splice(index, 1)
 		}
 	}
 }
@@ -59,15 +59,18 @@ export function recoverSourceCode(
 
 //* 存储NodeList，保存文件
 export function saveNodeLists(nodeLists: cTreeNode[], fileName: string) {
-	fsp.writeJSONSync(`${path.resolve(currentFile.value, fileName)}`, nodeLists)
+	console.log(nodeLists)
+	fsp.writeJSONSync(`${path.resolve(currentFile.value)}`, nodeLists)
 }
 
 //* 加载NodeList,加载文件
 export function loadNodeLists(fileName: string): cTreeNode[] {
 	let file: cTreeNode[] = fsp.readJSONSync(`${fileName}`)
+
 	if (file.length == 0) {
 		let newNodeList: cTreeNode[] = []
 		newNodeList.push(initNode())
+		console.log("新的初始化")
 		return newNodeList
 	} else {
 		return file
