@@ -10,5 +10,4 @@ export interface cTree {
 export interface cTreeNode {
 	title: string
 	originalMarkdown: string
-
 }

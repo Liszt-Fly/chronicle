@@ -40,11 +40,13 @@ onMounted(() => {
 				:class="[
 					'iconfont',
 					{ 'icon-arrow-right': file.isDirectory },
-					{ 'bi bi-cloud-fog2': !file.isDirectory },
+					{ 'icon-file': !file.isDirectory },
 					'file-name',
+					'file-icon'
 				]"
 				@click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)"
-			>&nbsp {{ validateFilename(file.name!) }}</span>
+			></span>
+			<span>{{ validateFilename(file.name!) }}</span>
 		</div>
 		<div
 			class="subfolder"
@@ -71,6 +73,11 @@ onMounted(() => {
 		cursor: pointer;
 	}
 	padding: 6px;
+	width: 100%;
+	font-size: 0.7rem;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .subfolder {
 	text-indent: 10px;
@@ -78,12 +85,13 @@ onMounted(() => {
 	display: none;
 }
 .file-name {
-	font-size: 0.7rem;
 	display: inline-block;
-	width: 100%;
+}
 
-	overflow-x: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+.file-icon {
+	font-size: 1rem;
+	position: relative;
+	top: 1px;
+	right: 2px;
 }
 </style>

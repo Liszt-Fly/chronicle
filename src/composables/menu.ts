@@ -20,6 +20,7 @@ export const fileListMenu = [
 		click: () => flushFiles,
 	}),
 	new MenuItem({ label: "add tag" }),
+	new MenuItem({ label: "move" }),
 	new MenuItem({
 		label: "sort",
 		submenu: [
