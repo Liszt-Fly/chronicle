@@ -43,9 +43,8 @@ onMounted(() => {
 					{ 'bi bi-cloud-fog2': !file.isDirectory },
 					'file-name',
 				]"
-				@click=" toggleSubfold($event,file!,refSubfolder),openFile($event,file!)"
-				>&nbsp {{ validateFilename(file.name!) }}</span
-			>
+				@click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)"
+			>&nbsp {{ validateFilename(file.name!) }}</span>
 		</div>
 		<div
 			class="subfolder"
@@ -53,11 +52,7 @@ onMounted(() => {
 			ref="subfolder"
 			id="subfolder"
 		>
-			<file-list
-				:files="file.children"
-				:file="f"
-				v-for="f in file.children"
-			></file-list>
+			<file-list :files="file.children" :file="f" v-for="f in file.children"></file-list>
 		</div>
 	</div>
 </template>

@@ -9,7 +9,6 @@ const router = createRouter({
 			path: "/",
 			component: FileSystem,
 		},
-
 		{
 			path: "/searchsystem",
 			component: SearchSystem,
