@@ -12,21 +12,11 @@ export let paragraphs = ref<cTreeNode[]>([])
 export let currentFile = ref<string>("")
 
 let tabBarItems = [
-	{
-		item: "mindmap",
-		icon: "iconfont icon-mind_map",
-		func: toggleTabBar,
-		to: "/",
-	},
 	{ item: "folder", icon: "bi bi-folder", func: openFolder, to: "/" },
-	{
-		item: "star",
-		icon: "bi bi-bookmark-star",
-		to: "/tagsystem",
-		func: testFunc,
-	},
-	{ item: "setting", icon: "bi bi-gear", to: "/setting", func: testFunc },
-	{ item: "search", icon: "bi bi-search", to: "/searchsystem", func: testFunc },
+	// { item: "mindmap", icon: "iconfont icon-mind_map", func: toggleTabBar, to: "/", },
+	// { item: "star", icon: "bi bi-bookmark-star", to: "/tagsystem", func: testFunc, },
+	// { item: "setting", icon: "bi bi-gear", to: "/setting", func: testFunc },
+	// { item: "search", icon: "bi bi-search", to: "/searchsystem", func: testFunc },
 ]
 
 let colorset = [

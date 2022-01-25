@@ -52,18 +52,17 @@ onMounted(() => {
 			ref="subfolder"
 			id="subfolder"
 		>
-			<file-list :files="file.children" :file="f" v-for="f in file.children"></file-list>
+			<file-list :files="file.children" :file="f" v-for="	f in 	file.children"></file-list>
 		</div>
 	</div>
 </template>
 
 <style scped lang="scss">
 .folder {
-	width: 18vw;
 	white-space: nowrap;
 	overflow-x: hidden;
-	overflow-y: scroll;
 	display: block;
+	overflow-y: auto;
 }
 
 .item {
@@ -71,6 +70,7 @@ onMounted(() => {
 		background-color: #343434;
 		cursor: pointer;
 	}
+	padding: 6px;
 }
 .subfolder {
 	text-indent: 10px;
@@ -81,6 +81,7 @@ onMounted(() => {
 	font-size: 0.7rem;
 	display: inline-block;
 	width: 100%;
+
 	overflow-x: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

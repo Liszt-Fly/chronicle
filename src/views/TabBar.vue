@@ -30,17 +30,21 @@ import TabItem from "../components/TabItem.vue"
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-evenly;
+	// justify-content: space-evenly;
 	a {
 		text-decoration: none;
 	}
 }
+
+.tab-item {
+	padding: 6px;
+}
+
 .extendedPanel {
 	width: 18vw;
 	height: 100vh;
 	background-color: #252525;
 	color: #ddd;
-	overflow: hidden;
-	overflow-y: scroll;
+	overflow: auto;
 }
 </style>

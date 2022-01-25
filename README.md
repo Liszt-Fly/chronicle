@@ -6,7 +6,7 @@
 
 ## Function
 
-- [x] 新建文件、保存文件
+- [ ] 新建文件、保存文件、删除
 - [ ] 支持 markdown 语言渲染、支持 html 渲染
 - [ ] ToDo-List 编辑器内置了 TodoList，方便完成项目规划以及每天的日常安排
 
