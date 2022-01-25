@@ -1,43 +1,41 @@
-$main-font:'cascadia code';
-$bgcolor:#1F1F1F;
-$text-color:#ddd;
-
+$main-font: "Sarasa UI SC", "Open Sans", "Clear Sans", "Helvetica Neue",
+  Helvetica, Arial, "Segoe UI Emoji", sans-serif;
+$bgcolor: #1f1f1f;
+$text-color: #ddd;
 
 .editor {
-    font-family: $main-font;
-    height: 100vh;
-    width: 77vw;
-    white-space: nowrap;
+  font-family: $main-font;
+  height: 100vh;
+  width: 77vw;
+  white-space: nowrap;
 
-    padding: 20px;
-    box-sizing: border-box;
-    font-weight: 400;
-    background-color: $bgcolor;
-    color: $text-color;
-    -webkit-font-smoothing: subpixel-antialiased;
-    // word-wrap: break-word;
-    // overflow-x: hidden;
-    // word-break: break-all;
+  padding: 20px;
+  box-sizing: border-box;
+  font-weight: 400;
+  background-color: $bgcolor;
+  color: $text-color;
+  -webkit-font-smoothing: subpixel-antialiased;
+  // word-wrap: break-word;
+  // overflow-x: hidden;
+  // word-break: break-all;
 
-    code {
-        white-space: pre-wrap !important;
-        word-break: normal;
-        word-wrap: normal;
-    }
+  code {
+    white-space: pre-wrap !important;
+    word-break: normal;
+    word-wrap: normal;
+  }
 }
 
 h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
 h2 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 li {
-    list-style-type: disc;
-    list-style-position: inside;
-
+  list-style-type: disc;
+  list-style-position: inside;
 }
