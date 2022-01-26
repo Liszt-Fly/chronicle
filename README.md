@@ -1,8 +1,15 @@
 # chronicle
 
-## project introduction
+## introduction
 
 这是一款名为 chronicle 的类 Markdown 语言编辑器,支持 html 格式和 markdown 格式，以及一些内置的 component 组件。编辑器支持云同步，可以完全在本地使用，也支持在 web 上进行部署
+
+## run
+
+```cmd
+npm install
+npm run electron:serve
+```
 
 ## Function
 
@@ -14,10 +21,6 @@
 - [ ] node 节点+思维导图
 - [ ] 内置 component
 
-## Appearance
-
-当前完成进度截图
-
 ### 文件管理系统
 
 ![FdPgJS](https://mikes.oss-cn-beijing.aliyuncs.com/uPic/FdPgJS.png)
@@ -26,11 +29,6 @@
 
 ![PmlBBj](https://mikes.oss-cn-beijing.aliyuncs.com/uPic/PmlBBj.png)
 
-## Compositions
+## Issues
 
-- TabBar
-
-## Problems
-
-- 创建 notes 在多级文件夹下有问题
-- 翻页编辑器往下滚
+- [ ] 创建 notes 在多级文件夹下有问题
