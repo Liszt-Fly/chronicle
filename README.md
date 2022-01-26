@@ -32,3 +32,20 @@ npm run electron:serve
 ## Issues
 
 - [ ] 创建 notes 在多级文件夹下有问题
+- [ ] codeBlock 支持常见语言
+  - [x] Javascript
+  - [ ] css
+  - [ ] html
+  - [ ] vue
+  - [ ] c++
+  - [ ] c
+  - [ ] Rust
+  - [ ] java
+  - [ ] c#
+  - [ ] go
+  - [ ] php
+- [ ] 项目整体重构（CDOM 继承关系梳理)
+- [ ] codeBlock 插入
+- [ ] 删除文件
+- [ ] markdown css 样式设计
+- [ ] prettier 可配置

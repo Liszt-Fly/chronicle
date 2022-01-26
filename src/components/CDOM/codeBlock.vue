@@ -2,15 +2,16 @@
 import { marked } from "marked"
 import prettier from "prettier/esm/standalone.mjs"
 import parserBabel from "prettier/esm/parser-babel.mjs"
-import { ref, Ref } from "vue";
+import { ref, Ref } from "vue"
 
 let codeHint = ref<HTMLElement | null>()
 let error: Ref<boolean> = ref(false)
 
 function render(event: FocusEvent) {
 	let target = event.target as HTMLElement
-		; (target.childNodes[0] as HTMLElement).innerHTML = `<div>${(target.childNodes[0] as HTMLElement).innerText
-			}</div>`
+	;(target.childNodes[0] as HTMLElement).innerHTML = `<div>${
+		(target.childNodes[0] as HTMLElement).innerText
+	}</div>`
 	console.log(target.childNodes[1])
 
 	try {
@@ -20,7 +21,7 @@ function render(event: FocusEvent) {
 		})
 		error.value = false
 	} catch (err) {
-		console.log(err);
+		console.log(err)
 
 		error.value = true
 		codeHint.value!.innerText = err as unknown as string
@@ -55,8 +56,8 @@ function render(event: FocusEvent) {
 		display: flex;
 		margin-bottom: 20px;
 		div {
-			width: 0.5rem;
-			height: 0.5rem;
+			width: 0.7rem;
+			height: 0.7rem;
 			border-radius: 50%;
 			margin-right: 10px;
 		}

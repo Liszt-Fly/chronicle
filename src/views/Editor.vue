@@ -31,7 +31,11 @@ onMounted(() => {
 
 <template>
 	<div class="editor" ref="rContainer">
-		<paragraph v-for="paragraph in paragraphs" :key="paragraph.title" :paragraph="paragraph"></paragraph>
+		<paragraph
+			v-for="paragraph in paragraphs"
+			:key="paragraph.title"
+			:paragraph="paragraph"
+		></paragraph>
 		<!-- <CodeBlock></CodeBlock> -->
 	</div>
 </template>
