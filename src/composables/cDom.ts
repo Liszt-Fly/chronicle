@@ -14,9 +14,16 @@ export function addNewNode(
 	bParsed: { value: boolean },
 	currentNode: cTreeNode
 ) {
+	let target = event.target as unknown as HTMLElement
+	if (
+		target.innerText.startsWith("```") &&
+		target.innerText.endsWith("```") != true
+	) {
+		console.log("target.innerText")
+		return
+	}
 	//修改保存当前的node
 	if (!bParsed.value) {
-		let target = event.target as unknown as HTMLElement
 		let originalText = target.innerText
 		let parsedMarkdown = marked.parse(originalText)
 		target.innerHTML = parsedMarkdown
@@ -25,9 +32,12 @@ export function addNewNode(
 		currentNode.originalMarkdown = originalText
 	}
 	if (bKeyBoardTarget(event)) {
-		//当前节点是最后一个节点
 		let target = event.target as HTMLElement
+		//如果内容是```，则不载入下一个节点
+
+		event.preventDefault()
 		if (paragraphs.value.indexOf(currentNode) == paragraphs.value.length - 1) {
+			//当前节点是最后一个节点
 			let newNode: cTreeNode = { title: v4(), originalMarkdown: "" }
 			paragraphs.value.push(newNode)
 			target.blur()
@@ -43,6 +53,7 @@ export function addNewNode(
 			paragraphs.value.splice(index, 1)
 		}
 	}
+	console.log("执行了")
 }
 //* sum focus状态恢复为sourceCodeMode
 export function recoverSourceCode(

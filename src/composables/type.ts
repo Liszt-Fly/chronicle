@@ -11,3 +11,7 @@ export interface cTreeNode {
 	title: string
 	originalMarkdown: string
 }
+
+export interface cCodeBlock extends cTreeNode {
+	language: string
+}

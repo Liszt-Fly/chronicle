@@ -13,6 +13,7 @@ import { currentFile, paragraphs } from "@/composables/config"
 
 import { initMarked } from "@/composables/init"
 import { loadNodeLists, saveNodeLists } from "@/composables/cDom"
+import CodeBlock from "@/components/CDOM/codeBlock.vue"
 
 let rContainer = ref<HTMLBaseElement | null>(null)
 
@@ -30,7 +31,12 @@ onMounted(() => {
 
 <template>
 	<div class="editor" ref="rContainer">
-		<paragraph v-for="paragraph in paragraphs" :key="paragraph.title" :paragraph="paragraph"></paragraph>
+		<paragraph
+			v-for="paragraph in paragraphs"
+			:key="paragraph.title"
+			:paragraph="paragraph"
+		></paragraph>
+		<CodeBlock></CodeBlock>
 	</div>
 </template>
 
