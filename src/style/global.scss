@@ -11,6 +11,7 @@
 table {
   border: 1px solid #ccc;
   border-collapse: collapse;
+  background-color: rgb(238, 18, 18);
   margin: 0;
   padding: 0;
   width: 100%;
@@ -125,6 +126,7 @@ pre code.hljs {
   overflow-x: auto;
   padding: 1em;
 }
+
 code {
   border: none !important;
   outline: none;

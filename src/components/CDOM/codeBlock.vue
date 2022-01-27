@@ -2,17 +2,28 @@
 import { marked } from "marked"
 import prettier from "prettier/esm/standalone.mjs"
 import parserBabel from "prettier/esm/parser-babel.mjs"
-import { ref, Ref } from "vue"
-
+import { reactive, ref, Ref } from "vue"
+import { addNewNode } from "@/composables/cDom"
+import { cCodeBlockNode } from "@/composables/type"
+import { v4 } from "uuid"
+import { paragraphs } from "@/composables/config"
 let codeHint = ref<HTMLElement | null>()
 let error: Ref<boolean> = ref(false)
-
+let bParsed = reactive({ value: false }) //是否转化为markdown
+let currentNode: cCodeBlockNode
+function saveNode(language: string, event: FocusEvent) {
+	currentNode = {
+		title: v4(),
+		language: "js",
+		originalMarkdown: (event.target as HTMLElement).innerText,
+		type: "codeBlock",
+	}
+}
 function render(event: FocusEvent) {
 	let target = event.target as HTMLElement
 	;(target.childNodes[0] as HTMLElement).innerHTML = `<div>${
 		(target.childNodes[0] as HTMLElement).innerText
 	}</div>`
-	console.log(target.childNodes[1])
 
 	try {
 		target.innerHTML = prettier.format(target.innerText, {
@@ -27,7 +38,9 @@ function render(event: FocusEvent) {
 		codeHint.value!.innerText = err as unknown as string
 	}
 
-	target.innerHTML = marked.parse("```js\n" + target.innerText.trim() + "\n```")
+	target.innerHTML = marked.parse(
+		"```java\n" + target.innerText.trim() + "\n```"
+	)
 }
 </script>
 
@@ -38,7 +51,12 @@ function render(event: FocusEvent) {
 			<div class="yellow"></div>
 			<div class="green"></div>
 		</div>
-		<div class="content" contenteditable="true" @blur="render($event)"></div>
+		<div
+			spellcheck="false"
+			class="content"
+			contenteditable="true"
+			@blur="render($event), saveNode('js', $event)"
+		></div>
 	</div>
 	<div class="hint" v-show="error" ref="codeHint"></div>
 </template>

@@ -23,5 +23,5 @@ export function initMarked() {
 }
 //sum 如果是空白文件进行初始化最初节点
 export function initNode(): cTreeNode {
-	return { title: v4(), originalMarkdown: " " }
+	return { title: v4(), originalMarkdown: " ", type: "paragraph" }
 }

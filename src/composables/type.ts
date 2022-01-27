@@ -10,8 +10,9 @@ export interface cTree {
 export interface cTreeNode {
 	title: string
 	originalMarkdown: string
+	type: string
 }
 
-export interface cCodeBlock extends cTreeNode {
+export interface cCodeBlockNode extends cTreeNode {
 	language: string
 }

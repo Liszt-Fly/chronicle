@@ -8,7 +8,6 @@ import {
 	watchEffect,
 } from "vue"
 
-import paragraph from "@/components/CDOM/paragraph.vue"
 import { currentFile, paragraphs } from "@/composables/config"
 
 import { initMarked } from "@/composables/init"
@@ -31,12 +30,9 @@ onMounted(() => {
 
 <template>
 	<div class="editor" ref="rContainer">
-		<paragraph
-			v-for="paragraph in paragraphs"
-			:key="paragraph.title"
-			:paragraph="paragraph"
-		></paragraph>
-		<!-- <CodeBlock></CodeBlock> -->
+		<template v-for="paragraph in paragraphs" :key="paragraph.title">
+			<component :is="paragraph.type" :paragraph="paragraph"></component>
+		</template>
 	</div>
 </template>
 

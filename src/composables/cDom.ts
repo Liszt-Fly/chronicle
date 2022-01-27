@@ -4,7 +4,7 @@ import { marked } from "marked"
 import { v4 } from "uuid"
 import fsp from "fs-extra"
 import { currentFile, paragraphs } from "./config"
-import { cTreeNode } from "./type"
+import { cTree, cTreeNode } from "./type"
 import { bKeyBoardTarget } from "./util"
 import { initNode } from "./init"
 import path from "path"
@@ -15,30 +15,38 @@ export function addNewNode(
 	currentNode: cTreeNode
 ) {
 	let target = event.target as unknown as HTMLElement
-	if (
-		target.innerText.startsWith("```") &&
-		target.innerText.endsWith("```") != true
-	) {
-		console.log("target.innerText")
-		return
-	}
+
 	//修改保存当前的node
 	if (!bParsed.value) {
 		let originalText = target.innerText
 		let parsedMarkdown = marked.parse(originalText)
 		target.innerHTML = parsedMarkdown
-
+		console.log(parsedMarkdown)
 		bParsed.value = true
 		currentNode.originalMarkdown = originalText
 	}
 	if (bKeyBoardTarget(event)) {
 		let target = event.target as HTMLElement
-		//如果内容是```，则不载入下一个节点
-
-		event.preventDefault()
+		if (/`{3}/.test(target.innerText)) {
+			let currentNode: cTreeNode = {
+				title: v4(),
+				originalMarkdown: "",
+				type: "codeBlock",
+			}
+			paragraphs.value.splice(
+				paragraphs.value.indexOf(currentNode),
+				1,
+				currentNode
+			)
+			return
+		}
 		if (paragraphs.value.indexOf(currentNode) == paragraphs.value.length - 1) {
 			//当前节点是最后一个节点
-			let newNode: cTreeNode = { title: v4(), originalMarkdown: "" }
+			let newNode: cTreeNode = {
+				title: v4(),
+				originalMarkdown: "",
+				type: "paragraph",
+			}
 			paragraphs.value.push(newNode)
 			target.blur()
 		} else {
