@@ -33,6 +33,7 @@ export const fileListMenu = [
 		],
 	}),
 ]
+
 //* 在文件系统右侧的菜单
 export const fileSystemMenu = [
 	new MenuItem({

@@ -15,10 +15,12 @@ export function toggleSubfolder(
 
 	if (file.isDirectory) {
 		if (event) {
-			const span = event.target as HTMLElement
-			span.classList.toggle("icon-arrow-right")
-			span.classList.toggle("icon-arrow_down")
-			if (span.classList.contains("icon-arrow_down")) {
+			let span = event.currentTarget as HTMLElement
+			let arrow = span.firstElementChild!
+
+			arrow.classList.toggle("icon-arrow-right")
+			arrow.classList.toggle("icon-arrow_down")
+			if (arrow.classList.contains("icon-arrow_down")) {
 				subfolder.dom!.style.display = "block"
 			} else {
 				subfolder.dom!.style.display = ""

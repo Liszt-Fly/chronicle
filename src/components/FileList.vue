@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import { basePath, content, files } from "@/composables/config"
 import { toggleSubfolder, openFile } from "@/composables/filelist"
-import {
-	createNote,
-	deleteNote,
-	ifNoteNameExists,
-} from "@/composables/filesystem"
-import { fileListMenu, fileSystemMenu } from "@/composables/menu"
-import { getCurrentWindow, Menu, MenuItem } from "@electron/remote"
+import { fileListMenu } from "@/composables/menu"
+import { getCurrentWindow, Menu } from "@electron/remote"
 
-import { onMounted, reactive, ref, watch } from "vue"
+import { onMounted, reactive, ref } from "vue"
 import { msfile } from "../composables/type"
-import { flushFiles, validateFilename } from "../composables/util"
+import { validateFilename } from "../composables/util"
 
 defineProps({
 	file: Object as () => msfile,
@@ -25,17 +19,14 @@ const menu = new Menu()
 fileListMenu.forEach((item) => {
 	menu.append(item)
 })
-onMounted(() => {
-	fileDom.value!.addEventListener("contextmenu", (e) => {
-		e.preventDefault()
-		menu.popup({ window: getCurrentWindow() })
-	})
-})
 </script>
 
 <template>
 	<div class="folder" v-if="file" ref="fileDom">
-		<div class="item" @click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)">
+		<div
+			class="item"
+			@click.stop="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)"
+		>
 			<span
 				:class="[
 					'iconfont',
@@ -53,7 +44,7 @@ onMounted(() => {
 			ref="subfolder"
 			id="subfolder"
 		>
-			<file-list :files="file.children" :file="f" v-for="	f in 	file.children"></file-list>
+			<file-list :files="file.children" :file="f" v-for="	f in file.children"></file-list>
 		</div>
 	</div>
 </template>

@@ -5,7 +5,7 @@ import paragraph from "@/components/CDOM/paragraph.vue"
 import codeBlock from "@/components/CDOM/codeBlock.vue"
 
 import "./style/global.scss"
-import "./style/dark.scss"
+import "./style/light.scss"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
 const app = createApp(App)
