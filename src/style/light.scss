@@ -17,31 +17,37 @@
 h1 {
   font-size: 2em;
   font-weight: bold;
-  margin: 0.67em 0;
+  margin-bottom: 0.67em;
 }
 
 h2 {
   font-size: 1.8em;
   font-weight: bold;
-  margin: 0.5em 0;
+  margin-bottom: 0.5em;
 }
 
 h3 {
   font-size: 1.6em;
   font-weight: bold;
-  margin: 0.4em 0;
+  margin-bottom: 0.4em;
 }
 
 h4 {
   font-size: 1.4em;
   font-weight: bold;
-  margin: 0.3em 0;
+  margin-bottom: 0.3em;
 }
 
 h5 {
   font-size: 1.2em;
   font-weight: bold;
-  margin: 0.2em 0;
+  margin-bottom: 0.2em;
+}
+
+h6 {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 0.18em;
 }
 
 /* 强调 */
