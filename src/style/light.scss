@@ -6,6 +6,14 @@ body {
 }
 
 .tab-system {
+  .tab-bar {
+    background-color: #fff;
+  }
+
+  .tab-item:hover {
+    background-color: #fafafa;
+  }
+
   .extendedPanel {
     background-color: #fafafa;
 
@@ -13,7 +21,7 @@ body {
       .folder {
         .item {
           &:hover {
-            background-color: #fafafa;
+            background-color: #e7e7e7;
           }
         }
       }
@@ -22,7 +30,6 @@ body {
 }
 
 .editor {
-
   /* 引用 */
   blockquote {
     color: #777777;
