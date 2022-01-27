@@ -1,8 +1,6 @@
-import { Ref } from "vue"
 import { basePath, currentFile, paragraphs } from "./config"
 import { msfile } from "./type"
 import path from "path"
-import { dialog } from "@electron/remote"
 import { saveNodeLists } from "./cDom"
 //sum filelist API
 //* 打开关闭子文件夹

@@ -14,7 +14,7 @@ fileSystemMenu.forEach((item) => {
 <template>
 	<div class="file-system" ref="filesystem" @contextmenu="menu.popup()">
 		<template v-for="file in files">
-			<file-list :file="file" @contextmenu="menu.popup()"></file-list>
+			<file-list :file="file"></file-list>
 		</template>
 	</div>
 </template>
