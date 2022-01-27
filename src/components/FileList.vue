@@ -35,7 +35,7 @@ onMounted(() => {
 
 <template>
 	<div class="folder" v-if="file" ref="fileDom">
-		<div class="item">
+		<div class="item" @click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)">
 			<span
 				:class="[
 					'iconfont',
@@ -44,7 +44,6 @@ onMounted(() => {
 					'file-name',
 					'file-icon'
 				]"
-				@click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)"
 			></span>
 			<span>{{ validateFilename(file.name!) }}</span>
 		</div>
