@@ -27,9 +27,8 @@ function saveNode(language: string, event: FocusEvent) {
 }
 function render(event: FocusEvent) {
 	let target = event.target as HTMLElement
-	;(target.childNodes[0] as HTMLElement).innerHTML = `<div>${
-		(target.childNodes[0] as HTMLElement).innerText
-	}</div>`
+		; (target.childNodes[0] as HTMLElement).innerHTML = `<div>${(target.childNodes[0] as HTMLElement).innerText
+			}</div>`
 
 	try {
 		console.log(currentNode.type)
@@ -44,7 +43,7 @@ function render(event: FocusEvent) {
 	}
 
 	target.innerHTML = marked.parse(
-		"```"+currentNode.language+"\n" + target.innerText.trim() + "\n```"
+		"```" + currentNode.language + "\n" + target.innerText.trim() + "\n```"
 	)
 }
 </script>
