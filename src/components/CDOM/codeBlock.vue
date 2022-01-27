@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { marked } from "marked"
-import prettier from "prettier/esm/standalone.mjs"
-import parserBabel from "prettier/esm/parser-babel.mjs"
+
 import { reactive, ref, Ref } from "vue"
 import { addNewNode } from "@/composables/cDom"
 import { cCodeBlockNode } from "@/composables/type"
 import { v4 } from "uuid"
+
 import { paragraphs } from "@/composables/config"
+import { format } from "@/composables/format"
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
@@ -21,19 +22,19 @@ function saveNode(language: string, event: FocusEvent) {
 		title: v4(),
 		language: currentNode.language,
 		originalMarkdown: (event.target as HTMLElement).innerText,
-		type: "codeBlock",
+		type: currentNode.type,
 	}
 }
 function render(event: FocusEvent) {
 	let target = event.target as HTMLElement
-		; (target.childNodes[0] as HTMLElement).innerHTML = `<div>${(target.childNodes[0] as HTMLElement).innerText
-			}</div>`
+	;(target.childNodes[0] as HTMLElement).innerHTML = `<div>${
+		(target.childNodes[0] as HTMLElement).innerText
+	}</div>`
 
 	try {
-		target.innerHTML = prettier.format(target.innerText, {
-			parser: "babel",
-			plugins: [parserBabel],
-		})
+		console.log(currentNode.type)
+		console.log(format(target.innerText, currentNode.language))
+		target.innerHTML = format(target.innerText, currentNode.language)
 		error.value = false
 	} catch (err) {
 		console.log(err)
@@ -43,7 +44,7 @@ function render(event: FocusEvent) {
 	}
 
 	target.innerHTML = marked.parse(
-		"```java\n" + target.innerText.trim() + "\n```"
+		"```"+currentNode.language+"\n" + target.innerText.trim() + "\n```"
 	)
 }
 </script>
@@ -64,4 +65,3 @@ function render(event: FocusEvent) {
 	</div>
 	<div class="code-hint" v-show="error" ref="codeHint"></div>
 </template>
-
