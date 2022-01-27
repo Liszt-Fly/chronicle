@@ -253,7 +253,7 @@ body {
   }
 
   .code-hint {
-    width: 100%;
+    width: calc(100% - 16px);
     margin: auto;
     font-size: 0.8em;
     background-color: #ff00001c;
@@ -262,5 +262,6 @@ body {
     border-top: 3px red solid;
     margin-top: 4px;
     font-family: "cascadia code";
+    white-space: pre;
   }
 }

@@ -39,7 +39,7 @@ function render(event: FocusEvent) {
 		console.log(err)
 
 		error.value = true
-		codeHint.value!.innerText = err as unknown as string
+		codeHint.value!.innerText = String(err)
 	}
 
 	target.innerHTML = marked.parse(
