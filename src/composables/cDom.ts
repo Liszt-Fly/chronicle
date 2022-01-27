@@ -4,7 +4,7 @@ import { marked } from "marked"
 import { v4 } from "uuid"
 import fsp from "fs-extra"
 import { currentFile, paragraphs } from "./config"
-import { cTree, cTreeNode } from "./type"
+import { cCodeBlockNode, cTree, cTreeNode } from "./type"
 import { bKeyBoardTarget } from "./util"
 import { initNode } from "./init"
 import path from "path"
@@ -27,11 +27,13 @@ export function addNewNode(
 	}
 	if (bKeyBoardTarget(event)) {
 		let target = event.target as HTMLElement
-		if (/`{3}/.test(target.innerText)) {
-			let currentNode: cTreeNode = {
+
+		if (/^`{3}[a-z]+/.test(target.innerText)) {
+			let currentNode: cCodeBlockNode = {
 				title: v4(),
 				originalMarkdown: "",
 				type: "codeBlock",
+				language: /^`{3}([a-z]+)/.exec(target.innerText)![1],
 			}
 			paragraphs.value.splice(
 				paragraphs.value.indexOf(currentNode),

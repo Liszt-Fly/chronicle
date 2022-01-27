@@ -7,14 +7,19 @@ import { addNewNode } from "@/composables/cDom"
 import { cCodeBlockNode } from "@/composables/type"
 import { v4 } from "uuid"
 import { paragraphs } from "@/composables/config"
+const props = defineProps({
+	paragraph: {
+		type: Object as () => cCodeBlockNode,
+	},
+})
 let codeHint = ref<HTMLElement | null>()
 let error: Ref<boolean> = ref(false)
 let bParsed = reactive({ value: false }) //是否转化为markdown
-let currentNode: cCodeBlockNode
+let currentNode: cCodeBlockNode = props.paragraph!
 function saveNode(language: string, event: FocusEvent) {
 	currentNode = {
 		title: v4(),
-		language: "js",
+		language: currentNode.language,
 		originalMarkdown: (event.target as HTMLElement).innerText,
 		type: "codeBlock",
 	}
