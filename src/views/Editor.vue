@@ -36,18 +36,3 @@ onMounted(() => {
 	</div>
 </template>
 
-<style lang="scss">
-.editor {
-	height: 100vh;
-	font-size: 1rem;
-	width: 77vw;
-	overflow-y: scroll;
-	padding: 20px;
-	box-sizing: border-box;
-	div {
-		white-space: pre-wrap;
-		word-break: break-all;
-		word-wrap: break-word;
-	}
-}
-</style>

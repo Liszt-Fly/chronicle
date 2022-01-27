@@ -1,0 +1,9 @@
+* {
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  font-family: "Sarasa UI SC", "Open Sans", "Clear Sans", "Helvetica Neue",
+    Helvetica, Arial, "Segoe UI Emoji", sans-serif;
+}
