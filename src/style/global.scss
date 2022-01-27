@@ -13,60 +13,63 @@ body {
   display: flex;
   flex-direction: row;
   height: 100vh;
-}
 
-.tab-bar {
-  width: 5vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  // justify-content: space-evenly;
-  a {
-    text-decoration: none;
+  .tab-bar {
+    width: 5vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .tab-item {
+      padding: 6px;
+    }
   }
-}
 
-.tab-item {
-  padding: 6px;
-}
+  .extendedPanel {
+    width: 18vw;
+    height: 100vh;
+    overflow: auto;
 
-.extendedPanel {
-  width: 18vw;
-  height: 100vh;
-  overflow: auto;
-  background-color: #fafafa;
-}
+    .file-system {
+      .subfolder {
+        text-indent: 10px;
+        width: 18vw;
+        display: none;
+      }
 
-.folder {
-  white-space: nowrap;
-  overflow-x: hidden;
-  display: block;
-  overflow-y: auto;
-}
+      .file-name {
+        display: inline-block;
+      }
 
-.item {
-  padding: 6px;
-  width: 100%;
-  font-size: 0.7rem;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.subfolder {
-  text-indent: 10px;
-  width: 18vw;
-  display: none;
-}
-.file-name {
-  display: inline-block;
-}
+      .file-icon {
+        font-size: 1rem;
+        position: relative;
+        top: 1px;
+        right: 2px;
+      }
 
-.file-icon {
-  font-size: 1rem;
-  position: relative;
-  top: 1px;
-  right: 2px;
+      .folder {
+        white-space: nowrap;
+        overflow-x: hidden;
+        display: block;
+        overflow-y: auto;
+
+        .item {
+          padding: 6px;
+          width: 100%;
+          font-size: 0.7rem;
+          overflow-x: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .item:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
 
 .editor {
@@ -80,4 +83,184 @@ body {
   max-height: calc(100vh - 40px);
   padding: 20px;
   overflow-y: auto;
+
+  div {
+    margin-bottom: 1em;
+  }
+
+  /* 标题 */
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0.67em;
+  }
+
+  h2 {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+
+  h3 {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-bottom: 0.4em;
+  }
+
+  h4 {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 0.3em;
+  }
+
+  h5 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.2em;
+  }
+
+  h6 {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 0.18em;
+  }
+
+  /* 强调 */
+  strong {
+    font-weight: bold;
+  }
+
+  /* 引用 */
+  blockquote {
+    padding: 1em;
+    border-radius: 0 5px 5px 0;
+    margin: 0;
+  }
+
+  /* 分割线 */
+  hr {
+    height: 0;
+    margin: 15px 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+  }
+
+  /* 链接 */
+  a {
+    color: blue;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: orangered;
+    cursor: pointer;
+  }
+
+  /* 任务列表 */
+  [type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  /* 表格 */
+  table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    border-collapse: collapse;
+  }
+  table th {
+    font-weight: 600;
+  }
+  table th,
+  table td {
+    padding: 6px 13px;
+  }
+
+  /* 列表 */
+  ul,
+  ol {
+    padding-left: 0;
+    margin: 20px;
+  }
+
+  ol ol,
+  ul ol {
+    list-style-type: lower-roman;
+  }
+
+  ul ul ol,
+  ul ol ol,
+  ol ul ol,
+  ol ol ol {
+    list-style-type: lower-alpha;
+  }
+
+  /* 图片 */
+  img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin: auto;
+  }
+
+  @media screen and (min-width: 900px) {
+    img {
+      max-width: 80%;
+      /* max-height: 360px; */
+    }
+  }
+
+  /* 代码 */
+  code {
+    display: block;
+    background: transparent;
+    border: none;
+    font-family: "cascadia code";
+  }
+
+  .code-block {
+    border-radius: 5px;
+    padding: 8px;
+    width: calc(100% - 16px);
+    margin: auto;
+    margin: 20px 0;
+
+    .buttons {
+      display: flex;
+      margin-bottom: 20px;
+      div {
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      div:nth-child(1) {
+        background-color: #ec5e50;
+      }
+      div:nth-child(2) {
+        background-color: #f4b63d;
+      }
+      div:nth-child(3) {
+        background-color: #4ebd45;
+      }
+    }
+    .content {
+      border: none;
+      outline: none;
+      padding: 0;
+    }
+  }
+
+  .code-hint {
+    width: 100%;
+    margin: auto;
+    font-size: 0.8em;
+    background-color: #ff00001c;
+    padding: 8px;
+    border-radius: 0 0 8px 8px;
+    border-top: 3px red solid;
+    margin-top: 4px;
+    font-family: "cascadia code";
+  }
 }

@@ -1,17 +1,17 @@
 body {
-  color: #444;
-  background-color: #ffffff;
+  color: #fafafa;
+  background-color: #444;
 }
 
 .tab-system {
   .extendedPanel {
-    background-color: #fafafa;
+    background-color: #222;
 
     .file-system {
       .folder {
         .item {
           &:hover {
-            background-color: #fafafa;
+            background-color: #444;
           }
         }
       }
@@ -22,15 +22,15 @@ body {
 .editor {
   /* 引用 */
   blockquote {
-    color: #777777;
+    color: #f5f5f5;
     border-color: rgb(163 163 163 / 50%);
     border-left: 4px solid #dfe2e5;
-    background-color: #f5f5f5;
+    background-color: #777777;
   }
 
   /* 分割线 */
   hr {
-    border-bottom: 1px solid #dfe2e5;
+    border-bottom: 1px solid #f5f5f5;
   }
 
   /* 表格 */
@@ -59,7 +59,7 @@ body {
   }
 
   .code-block {
-    background-color: #fafafa;
+    background-color: #222;
   }
 
   .code-hint {
