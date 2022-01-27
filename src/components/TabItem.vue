@@ -19,8 +19,3 @@ const myFunc: Function = props.func!
 	</div>
 </template>
 
-<style scoped>
-a {
-	color: #ddd;
-}
-</style>
