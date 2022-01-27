@@ -167,6 +167,54 @@ code {
   border: none;
 }
 
+.code-block {
+  border-radius: 5px;
+  padding: 8px;
+  width: 100%;
+  margin: auto;
+  font-family: "cascadia code";
+  background-color: #fafafa;
+  margin: 20px 0;
+
+  .buttons {
+    display: flex;
+    margin-bottom: 20px;
+    div {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    div:nth-child(1) {
+      background-color: #ec5e50;
+    }
+    div:nth-child(2) {
+      background-color: #f4b63d;
+    }
+    div:nth-child(3) {
+      background-color: #4ebd45;
+    }
+  }
+  .content {
+    border: none;
+    outline: none;
+    padding: 0;
+  }
+}
+
+.code-hint {
+  width: 100%;
+  margin: auto;
+  font-size: 12px;
+  background-color: #ff00001c;
+  padding: 8px;
+  border-radius: 0 0 8px 8px;
+  border-top: 3px red solid;
+  margin-top: 4px;
+  font-family: "cascadia code", "Sarasa UI SC", "Open Sans", "Clear Sans",
+    "Helvetica Neue", Helvetica, Arial, "Segoe UI Emoji", sans-serif;
+}
+
 pre code.hljs {
   display: block;
   overflow-x: auto;
