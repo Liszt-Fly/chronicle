@@ -12,7 +12,7 @@ fileSystemMenu.forEach((item) => {
 </script>
 
 <template>
-	<div class="file-system" ref="filesystem" @contextmenu="menu.popup()">
+	<div class="file-system" ref="filesystem" @contextmenu.capture="menu.popup()">
 		<template v-for="file in files">
 			<file-list :file="file"></file-list>
 		</template>
