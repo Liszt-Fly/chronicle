@@ -14,8 +14,8 @@ const props = defineProps({
 	},
 })
 
-// let codeHint = ref<HTMLElement | null>()
-// let error: Ref<boolean> = ref(false)
+let codeHint = ref<HTMLElement | null>()
+let error: Ref<boolean> = ref(false)
 
 let currentNode: cCodeBlockNode = props.paragraph!
 function saveNode(event: FocusEvent) {
@@ -60,10 +60,24 @@ let code: Ref<string> = ref("")
 
 function highlight(event: FocusEvent) {
 	let target = event.target as HTMLElement
-	let content = target.innerText
-	// target.innerText = ""
-	code.value = content
-	console.log(target.innerText);
+	try {
+		switch (currentNode.language) {
+			case 'js' || 'javascript' || 'JS':
+				prettier.format(target.innerText, {
+					parser: "babel",
+					plugins: [parserBabel]
+				})
+				break;
+			case 'php':
+				break;
+		}
+		error.value = false
+	} catch (err) {
+		console.log(err)
+		error.value = true
+		codeHint.value!.innerText = String(err)
+	}
+	code.value = target.innerText
 }
 
 function enter(e: KeyboardEvent) {
@@ -100,5 +114,5 @@ function enter(e: KeyboardEvent) {
 			@keydown.enter="enter($event)"
 		/>
 	</div>
-	<!-- <div class="code-hint" v-show="error" ref="codeHint"></div> -->
+	<div class="code-hint" v-show="error" ref="codeHint"></div>
 </template>
