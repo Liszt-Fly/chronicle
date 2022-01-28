@@ -1,7 +1,7 @@
 //sum filesystem使用的api
 import fsp from "fs-extra"
 import path from "path"
-import { basePath } from "./config"
+
 //* 创建新的Note文件
 export function createNote(currentPath: string, noteName?: string) {
 	//创建默认文件

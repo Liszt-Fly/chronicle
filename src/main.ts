@@ -1,8 +1,8 @@
 import { createApp } from "vue"
 import App from "./App.vue"
 import router from "./router/router"
-import paragraph from "@/components/CDOM/paragraph.vue"
-import codeBlock from "@/components/CDOM/codeBlock.vue"
+import paragraph from "@/components/Main/Editor/paragraph.vue"
+import codeBlock from "@/components/Main/Editor/codeBlock.vue"
 
 import "./style/global.scss"
 import "./style/dark.scss"

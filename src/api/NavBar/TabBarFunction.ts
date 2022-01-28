@@ -1,6 +1,6 @@
 import { dialog } from "@electron/remote"
-import { display, files } from "./config"
-import { sortFileInDepth } from "./util"
+import { display, files } from "../config"
+import { sortFileInDepth } from "./FileSystem/util"
 export let openFolder = () => {
 	files.value = []
 	let path = dialog.showOpenDialogSync({ properties: ["openDirectory"] })

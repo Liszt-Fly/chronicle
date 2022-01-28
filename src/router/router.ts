@@ -1,6 +1,7 @@
-import FileSystem from "../views/FileSystem.vue"
 import { createRouter, createWebHistory } from "vue-router"
-import SearchSystem from "../views/SearchSystem.vue"
+
+import FileSystem from "../view/NavBar/FileSystem.vue"
+import SearchSystem from "../view/NavBar/SearchSystem.vue"
 
 const router = createRouter({
 	history: createWebHistory(),

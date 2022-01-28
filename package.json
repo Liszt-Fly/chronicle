@@ -16,7 +16,7 @@
     "@types/uuid": "^8.3.4",
     "bootstrap-icons": "^1.7.2",
     "core-js": "^3.6.5",
-    "electron": "^16.0.7",
+    "electron": "^16.0.8",
     "fs-extra": "^10.0.0",
     "marked": "^4.0.10",
     "prettier": "^2.5.1",

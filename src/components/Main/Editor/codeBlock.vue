@@ -2,10 +2,10 @@
 
 import { marked } from "marked"
 import { reactive, ref, Ref } from "vue"
-import { addNewNode } from "@/composables/cDom"
-import { cCodeBlockNode } from "@/composables/type"
+import { addNewNode } from "@/api/Editor/Editor"
+import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
 import { v4 } from "uuid"
-import { paragraphs } from "@/composables/config"
+import { paragraphs } from "@/api/config"
 import prettier from 'prettier/standalone.js'
 import parserBabel from 'prettier/esm/parser-babel.mjs'
 const props = defineProps({

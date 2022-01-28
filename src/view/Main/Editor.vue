@@ -8,11 +8,11 @@ import {
 	watchEffect,
 } from "vue"
 
-import { currentFile, paragraphs } from "@/composables/config"
+import { currentFile, paragraphs } from "@/api/config"
 
-import { initMarked } from "@/composables/init"
-import { loadNodeLists, saveNodeLists } from "@/composables/cDom"
-import CodeBlock from "@/components/CDOM/codeBlock.vue"
+import { initMarked } from "@/api/init"
+import { loadNodeLists, saveNodeLists } from "@/api/Editor/Editor"
+import CodeBlock from "@/components/Editor/codeBlock.vue"
 
 let rContainer = ref<HTMLBaseElement | null>(null)
 

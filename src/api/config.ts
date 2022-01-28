@@ -1,6 +1,6 @@
 import { ref } from "vue"
-import { openFolder } from "./TabBarFunction"
-import { cTreeNode } from "./type"
+import { openFolder } from "./NavBar/TabBarFunction"
+import { cTreeNode } from "./NavBar/FileSystem/type"
 
 export let display = ref(true)
 export let files = ref([])

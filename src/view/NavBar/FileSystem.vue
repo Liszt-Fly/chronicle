@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { files } from "../composables/config"
-import FileList from "@/components/FileList.vue"
+import { files } from "../../api/config"
+import FileList from "@/components/Navbar/FileSystem/FileList.vue"
 import { Menu } from "@electron/remote"
-import { fileSystemMenu } from "@/composables/menu"
+import { fileSystemMenu } from "@/api/NavBar/menu"
 import { ref } from "vue"
 let filesystem = ref<HTMLElement | null>()
 

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { toggleSubfolder, openFile } from "@/composables/filelist"
-import { fileListMenu } from "@/composables/menu"
-import { getCurrentWindow, Menu } from "@electron/remote"
+import { toggleSubfolder, openFile } from "@/api/NavBar/FileSystem/filelist"
+import { getCurrentWindow, Menu, MenuItem } from "@electron/remote"
 
 import { onMounted, reactive, ref } from "vue"
-import { msfile } from "../composables/type"
-import { validateFilename } from "../composables/util"
+import { msfile } from "../../../api/NavBar/FileSystem/type"
+import { flushFiles, validateFilename } from "../../../api/NavBar/FileSystem/util"
 
 defineProps({
 	file: Object as () => msfile,
@@ -15,11 +14,13 @@ let refSubfolder = reactive({ dom: subfolder })
 const fileDom = ref<HTMLElement | null>(null)
 const toggleSubfold = toggleSubfolder
 
-//右键
+// 右键
 const menu = new Menu()
-fileListMenu.forEach((item) => {
-	menu.append(item)
-})
+const menuLabels = ["delete note", "add tag", "move"]
+menuLabels.forEach(label => {
+	menu.append(new MenuItem({ label: label }))
+});
+
 </script>
 
 <template>

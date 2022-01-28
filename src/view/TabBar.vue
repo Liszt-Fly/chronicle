@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { tabBarItems, display, files } from "../composables/config"
-import TabItem from "../components/TabItem.vue"
+import { tabBarItems, display, files } from "../api/config"
+import TabItem from "../components/Navbar/TabItem.vue"
 </script>
 
 <template>

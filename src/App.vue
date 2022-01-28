@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TabBar from './views/TabBar.vue'
-import Editor from './views/Editor.vue';
+import TabBar from './view/TabBar.vue'
+import Editor from './view/Main/Editor.vue';
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getRandomColor } from "@/composables/config"
+import { getRandomColor } from "@/api/config"
 </script>
 
 <template>
