@@ -1,72 +1,54 @@
-# chronicle
+# Chronicle
 
-## introduction
+> 🍼🎓🦯
+>
+> 🏃‍🧘🏄🏊🤾🏋️🚴🏂
 
-这是一款名为 chronicle 的类 Markdown 语言编辑器,支持 html 格式和 markdown 格式，以及一些内置的 component 组件。编辑器支持云同步，可以完全在本地使用，也支持在 web 上进行部署
+## 简介
 
-## run
+记录生活
 
-```cmd
+## 功能
+
+1. 记录
+
+   - 记下随想
+   - 随想排序（时间顺序、话题 `#topic`）
+
+2. 支持
+
+   - markdown 及扩展语法
+   - 多媒体：音频、视频
+   - 自定义样式
+   - 自定义组件（内置：思维导图、待办事项）
+
+## 使用方法
+
+```bash
+# set up
 npm install
+# 建议使用 cnpm install
+
+# Compiles and hot-reloads for development
 npm run electron:serve
 ```
 
-## Function
+## 技术栈
 
-- [ ] 新建文件、保存文件、删除
-- [ ] 支持 markdown 语言渲染、支持 html 渲染
-- [ ] ToDo-List 编辑器内置了 TodoList，方便完成项目规划以及每天的日常安排
-
-- [ ] 自己写一个 css
-- [ ] node 节点+思维导图
-- [ ] 内置 component
-
-### 文件管理系统
-
-![FdPgJS](https://mikes.oss-cn-beijing.aliyuncs.com/uPic/FdPgJS.png)
-
-### 标签搜索系统
-
-![PmlBBj](https://mikes.oss-cn-beijing.aliyuncs.com/uPic/PmlBBj.png)
-
-## ℹ️ Issue
-
-qy
-
-- [ ] 文件
-
-  - [ ] 重命名
-  - [ ] 删除
-  - [ ] 添加 tag
-  - [ ] 指定仓库
-  - [ ] 创建 notes 在多级文件夹下有问题
-
-- [ ] editor
-
-  - [ ] 点击空白部分，可输入
-
-- [ ] 重构项目
-
-  - [ ] 重构页面组成
-  - [ ] 重构项目结构：类似 angular，写到一个文件夹里面
-
----
-
-hyf
-
-- [ ] 设置页面
-- [ ] highlightjs & codeBlock 支持常见语言
-
-  - [x] Javascript
-  - [ ] css
-  - [ ] html
-  - [ ] vue
-  - [ ] c++
-  - [ ] c
-  - [ ] Rust
-  - [ ] java
-  - [ ] c#
-  - [ ] go
-  - [ ] php
+1. nodejs
+2. vue
+3. electron
 
 ## 项目结构
+
+```txt
+📁 public
+📁 src
+   🗂️ api         # 公用接口
+      🗂️ router      # 路由
+   🗂️ components   # 子组件
+   🗂️ view        # 页面
+   🗂️ style       # 页面样式
+📃 README
+📑 FIXME
+```
