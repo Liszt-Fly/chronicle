@@ -23,4 +23,10 @@ export const fileSystemMenu = [
 			{ label: "sort by last modified time", },
 		],
 	}),
+	new MenuItem({
+		label: "delete note",
+		click: function () {
+
+		}   
+	})
 ]

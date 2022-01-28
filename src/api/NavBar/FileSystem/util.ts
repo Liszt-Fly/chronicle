@@ -12,6 +12,7 @@ export let sortFileInDepth = function sortFileInDepth(
 	files.forEach((f) => {
 		let item: msfile = {}
 		item.name = f
+		item.path = path.resolve(basePath.value, f)
 
 		let stat = fs.lstatSync(path.resolve(dir, f)).isDirectory()
 		if (fs.lstatSync(path.resolve(dir, f)).isDirectory()) {
@@ -34,7 +35,9 @@ export let sortFileInDepth = function sortFileInDepth(
 	})
 }
 
-export let validateFilename = function validateFilename(filename: string): string | undefined {
+export let validateFilename = function validateFilename(
+	filename: string
+): string | undefined {
 	//省略扩展名
 	let length = filename.length - path.extname(filename).length
 

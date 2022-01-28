@@ -5,22 +5,34 @@ import { getCurrentWindow, Menu, MenuItem } from "@electron/remote"
 import { onMounted, reactive, ref } from "vue"
 import { msfile } from "@/api/NavBar/FileSystem/type"
 import { flushFiles, validateFilename } from "@/api/NavBar/FileSystem/util"
+import fsp from "fs-extra"
 
-defineProps({
+const props = defineProps({
 	file: Object as () => msfile,
 })
 let subfolder = ref<HTMLDivElement | null>(null)
 let refSubfolder = reactive({ dom: subfolder })
+let currentSubFolder: string | undefined
 const fileDom = ref<HTMLElement | null>(null)
 const toggleSubfold = toggleSubfolder
-
+function deleteNote(file: msfile) {
+	fsp.unlinkSync(file.path!)
+}
 // 右键
 const menu = new Menu()
+const menuItems = [
+	new MenuItem({
+		label: "delete note",
+		click: () => {
+			deleteNote(props.file!)
+			flushFiles()
+		},
+	}),
+]
 const menuLabels = ["delete note", "add tag", "move"]
-menuLabels.forEach(label => {
-	menu.append(new MenuItem({ label: label }))
-});
-
+menuItems.forEach((item) => {
+	menu.append(item)
+})
 </script>
 
 <template>
@@ -37,7 +49,7 @@ menuLabels.forEach(label => {
 					{ 'bi bi-folder': file.isDirectory },
 					{ 'bi bi-journal-bookmark-fill': !file.isDirectory },
 					'file-name',
-					'file-icon'
+					'file-icon',
 				]"
 			></span>
 			<span>{{ validateFilename(file.name!) }}</span>
@@ -48,7 +60,11 @@ menuLabels.forEach(label => {
 			ref="subfolder"
 			id="subfolder"
 		>
-			<file-list :files="file.children" :file="f" v-for="	f in file.children"></file-list>
+			<file-list
+				:files="file.children"
+				:file="f"
+				v-for="f in file.children"
+			></file-list>
 		</div>
 	</div>
 </template>

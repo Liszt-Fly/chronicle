@@ -31,6 +31,7 @@ export function toggleSubfolder(
 export function openFile(event: MouseEvent, file: msfile) {
 	//如果是文件
 	if (!file.isDirectory) {
+		console.log(basePath.value)
 		if (path.extname(path.resolve(basePath.value, file.name!)) === ".json") {
 			//首先保存上一个文件
 			if (currentFile.value != "") {
