@@ -1,12 +1,11 @@
 <script setup lang="ts">
-
 import { marked } from "marked"
 import { ref, Ref } from "vue"
 import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
-
+import phpPlugin from "@prettier/plugin-php/standalone.js"
 import { v4 } from "uuid"
-import prettier from 'prettier/standalone.js'
-import parserBabel from 'prettier/esm/parser-babel.mjs'
+import prettier from "prettier/standalone.js"
+import parserBabel from "prettier/esm/parser-babel.mjs"
 import { addNewNode } from "@/api/Editor/Editor"
 const props = defineProps({
 	paragraph: {
@@ -62,14 +61,18 @@ function highlight(event: FocusEvent) {
 	let target = event.target as HTMLElement
 	try {
 		switch (currentNode.language) {
-			case 'js' || 'javascript' || 'JS':
+			case "js" || "javascript" || "JS":
 				prettier.format(target.innerText, {
 					parser: "babel",
-					plugins: [parserBabel]
+					plugins: [parserBabel],
 				})
-				break;
-			case 'php':
-				break;
+				break
+			case "php":
+				prettier.format(target.innerText, {
+					parser: "php",
+					plugins: [phpPlugin],
+				})
+				break
 		}
 		error.value = false
 	} catch (err) {
@@ -82,11 +85,9 @@ function highlight(event: FocusEvent) {
 
 function enter(e: KeyboardEvent) {
 	if (e.shiftKey) {
-	}
-	else {
+	} else {
 		e.preventDefault()
 		currentNode.originalMarkdown = "521312313"
-
 	}
 }
 </script>
@@ -97,7 +98,9 @@ function enter(e: KeyboardEvent) {
 			<div class="pink"></div>
 			<div class="yellow"></div>
 			<div class="green"></div>
-			<div class="code-language" contenteditable="true" spellcheck="false">{{ language }}</div>
+			<div class="code-language" contenteditable="true" spellcheck="false">
+				{{ language }}
+			</div>
 		</div>
 		<!-- <div
 			spellcheck="false"
