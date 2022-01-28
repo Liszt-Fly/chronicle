@@ -8,10 +8,17 @@ body {
 .tab-system {
   .tab-bar {
     background-color: #fff;
-  }
 
-  .tab-item:hover {
-    background-color: #fafafa;
+    a {
+      color: darkgray;
+    }
+
+    .tab-item:hover {
+      background-color: #fafafa;
+      &:hover a {
+        color: blue;
+      }
+    }
   }
 
   .extendedPanel {

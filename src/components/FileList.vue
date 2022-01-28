@@ -23,7 +23,7 @@ fileListMenu.forEach((item) => {
 
 <template>
 	<div class="folder" v-if="file" ref="fileDom" @contextmenu="menu.popup()">
-		<div class="item" @click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)">
+		<div class="item" @click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)" v-if="validateFilename(file.name!)">
 			<span
 				:class="[
 					'iconfont',

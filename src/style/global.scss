@@ -15,7 +15,7 @@ body {
   height: 100vh;
 
   .tab-bar {
-    width: 5vw;
+    width: 2.5rem;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -25,6 +25,14 @@ body {
     .tab-item {
       padding: 6px 0;
       width: 100%;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      a {
+        font-weight: bold;
+      }
     }
   }
 
@@ -43,14 +51,6 @@ body {
       .file-name {
         display: inline-block;
       }
-
-      .file-icon {
-        font-size: 1rem;
-        position: relative;
-        top: 1px;
-        right: 2px;
-      }
-
       .folder {
         white-space: nowrap;
         overflow-x: hidden;
@@ -64,10 +64,16 @@ body {
           overflow-x: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-        }
 
-        .item:hover {
-          cursor: pointer;
+          &:hover {
+            cursor: pointer;
+          }
+
+          .file-icon {
+            font-size: 0.8rem;
+            position: relative;
+            right: 2px;
+          }
         }
       }
     }
@@ -76,7 +82,7 @@ body {
 
 .editor {
   height: 100%;
-  font-size: 1em;
+  font-size: 1rem;
   line-height: 1.5;
   word-wrap: break-word;
   margin: auto;
@@ -87,44 +93,44 @@ body {
   overflow-y: auto;
 
   div {
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
   }
 
   /* 标题 */
   h1 {
-    font-size: 2em;
+    font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 0.67em;
+    margin-bottom: 0.67rem;
   }
 
   h2 {
-    font-size: 1.8em;
+    font-size: 1.8rem;
     font-weight: bold;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.5rem;
   }
 
   h3 {
-    font-size: 1.6em;
+    font-size: 1.6rem;
     font-weight: bold;
-    margin-bottom: 0.4em;
+    margin-bottom: 0.4rem;
   }
 
   h4 {
-    font-size: 1.4em;
+    font-size: 1.4rem;
     font-weight: bold;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.3rem;
   }
 
   h5 {
-    font-size: 1.2em;
+    font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 0.2em;
+    margin-bottom: 0.2rem;
   }
 
   h6 {
-    font-size: 1.1em;
+    font-size: 1.1rem;
     font-weight: bold;
-    margin-bottom: 0.18em;
+    margin-bottom: 0.18rem;
   }
 
   /* 强调 */
@@ -134,7 +140,7 @@ body {
 
   /* 引用 */
   blockquote {
-    padding: 1em;
+    padding: 1rem;
     border-radius: 0 5px 5px 0;
     margin: 0;
   }
@@ -258,7 +264,7 @@ body {
   .code-hint {
     width: calc(100% - 16px);
     margin: auto;
-    font-size: 0.8em;
+    font-size: 0.8rem;
     background-color: #ff00001c;
     padding: 8px;
     border-radius: 0 0 8px 8px;

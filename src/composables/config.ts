@@ -12,7 +12,7 @@ export let paragraphs = ref<cTreeNode[]>([])
 export let currentFile = ref<string>("")
 
 let tabBarItems = [
-	{ item: "folder", icon: "bi bi-folder", func: openFolder, to: "/" },
+	{ item: "folder", icon: "bi bi-bookmark-heart", func: openFolder, to: "/" },
 	{ item: "setting", icon: "bi bi-sliders", func: null, to: "/setting" },
 ]
 

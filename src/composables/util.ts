@@ -33,13 +33,15 @@ export let sortFileInDepth = function sortFileInDepth(
 	})
 }
 
-export let validateFilename = function validateFilename(
-	filename: string
-): string {
+export let validateFilename = function validateFilename(filename: string): string | undefined {
 	//省略扩展名
 	let length = filename.length - path.extname(filename).length
 
-	return filename.substring(0, length)
+	// 只保留 json 文件
+
+	if (path.extname(filename) == ".json" || path.extname(filename) == "")
+		return filename.substring(0, length)
+	else return undefined
 }
 
 export function bKeyBoardTarget(object: any): object is KeyboardEvent {
