@@ -7,7 +7,6 @@ import { cCodeBlockNode } from "@/composables/type"
 import { v4 } from "uuid"
 import { paragraphs } from "@/composables/config"
 import prettier from 'prettier/standalone.js'
-import phpPlugins from '@prettier/plugin-php/standalone.js'
 import parserBabel from 'prettier/esm/parser-babel.mjs'
 const props = defineProps({
 	paragraph: {
@@ -33,13 +32,6 @@ function render(event: FocusEvent) {
 			}</div>`
 
 	try {
-
-		console.log(target.innerHTML)
-
-		// console.log(prettier.format(target.innerText,{
-		// 	parser:"php",
-		// 	plugins:[phpPlugins]
-		// }))
 		switch (currentNode.language) {
 			case 'js':
 				target.innerText = (prettier.format(target.innerText, {
@@ -47,16 +39,13 @@ function render(event: FocusEvent) {
 					plugins: [parserBabel]
 				}))
 
-		target.innerHTML = marked.parse(
-			"```"+currentNode.language+"\n" + target.innerText.trim() + "\n```"
-		)
+				target.innerHTML = marked.parse(
+					"```" + currentNode.language + "\n" + target.innerText.trim() + "\n```"
+				)
 				break;
 
 			case 'php':
-				target.innerText = (prettier.format(target.innerText, {
-					parser: "php",
-					plugins: [phpPlugins]
-				}))
+
 				break;
 		}
 
