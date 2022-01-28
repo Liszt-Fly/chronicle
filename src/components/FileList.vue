@@ -14,7 +14,8 @@ let subfolder = ref<HTMLDivElement | null>(null)
 let refSubfolder = reactive({ dom: subfolder })
 const fileDom = ref<HTMLElement | null>(null)
 const toggleSubfold = toggleSubfolder
-//右键餐单
+
+//右键
 const menu = new Menu()
 fileListMenu.forEach((item) => {
 	menu.append(item)
@@ -22,8 +23,13 @@ fileListMenu.forEach((item) => {
 </script>
 
 <template>
-	<div class="folder" v-if="file" ref="fileDom" @contextmenu="menu.popup()">
-		<div class="item" @click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)" v-if="validateFilename(file.name!)">
+	<div class="folder" v-if="file" ref="fileDom">
+		<div
+			class="item"
+			@click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)"
+			v-if="validateFilename(file.name!)"
+			@contextmenu.stop="menu.popup()"
+		>
 			<span
 				:class="[
 					'iconfont',
