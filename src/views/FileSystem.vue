@@ -19,10 +19,3 @@ fileSystemMenu.forEach((item) => {
 		</template>
 	</div>
 </template>
-
-<style>
-div.file-system {
-	height: 100%;
-	width: 100%;
-}
-</style>
