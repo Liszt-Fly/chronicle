@@ -1,11 +1,6 @@
-@import url("./atom-one-dark.min.css");
-
-body {
+.tab-system {
   color: #b4b4b4;
   background-color: #333;
-}
-
-.tab-system {
   .tab-bar {
     background-color: black;
 
@@ -34,37 +29,6 @@ body {
         }
       }
     }
-  }
-}
-
-.editor {
-
-  /* 引用 */
-  blockquote {
-    color: #f5f5f5;
-    border-color: rgb(163 163 163 / 50%);
-    border-left: 4px solid #dfe2e5;
-    background-color: #777777;
-  }
-
-  /* 分割线 */
-  hr {
-    border-bottom: 1px solid #f5f5f5;
-  }
-
-  /* 表格 */
-  table th,
-  table td {
-    border: 1px solid #f5f5f5;
-  }
-
-  .code-block {
-    background-color: #222;
-  }
-
-  .code-hint {
-    background-color: #ff00001c;
-    border-top: 3px red solid;
   }
 }
 

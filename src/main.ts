@@ -10,8 +10,11 @@ import 'highlight.js/styles/stackoverflow-light.css'
 import 'highlight.js/lib/common';
 import hljsVuePlugin from "@highlightjs/vue-plugin";
 
+// 样式
 import "@/style/global.scss"
-import "@/style/dark.scss"
+import "@/themes/Editor/dark/dark.scss"
+import "@/themes/Frame/light/light.scss"
+
 import "bootstrap-icons/font/bootstrap-icons.css"
 
 const app = createApp(App)

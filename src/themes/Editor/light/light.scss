@@ -1,0 +1,34 @@
+@import url(./atom-one-light.min.css);
+
+.editor {
+  color: #444;
+  background-color: #ffffff;
+
+  /* 引用 */
+  blockquote {
+    color: #777777;
+    border-color: rgb(163 163 163 / 50%);
+    border-left: 4px solid #dfe2e5;
+    background-color: #f5f5f5;
+  }
+
+  /* 分割线 */
+  hr {
+    border-bottom: 1px solid #dfe2e5;
+  }
+
+  /* 表格 */
+  table th,
+  table td {
+    border: 1px solid #f5f5f5;
+  }
+
+  .code-block {
+    background-color: #fafafa;
+  }
+
+  .code-hint {
+    background-color: #ff00001c;
+    border-top: 3px red solid;
+  }
+}
