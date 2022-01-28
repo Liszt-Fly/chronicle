@@ -1,5 +1,6 @@
 * {
   margin: 0;
+  outline: none;
 }
 
 body {
@@ -229,6 +230,7 @@ body {
     background: transparent;
     border: none;
     font-family: "cascadia code";
+    min-height: 24px;
   }
 
   .code-block {
@@ -265,7 +267,6 @@ body {
 
     .content {
       border: none;
-      outline: none;
       padding: 0;
     }
   }

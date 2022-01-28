@@ -3,9 +3,11 @@
 import { marked } from "marked"
 import { ref, Ref } from "vue"
 import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
+
 import { v4 } from "uuid"
 import prettier from 'prettier/standalone.js'
 import parserBabel from 'prettier/esm/parser-babel.mjs'
+import { addNewNode } from "@/api/Editor/Editor"
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
@@ -15,18 +17,19 @@ const props = defineProps({
 // let codeHint = ref<HTMLElement | null>()
 // let error: Ref<boolean> = ref(false)
 
-let language: Ref<string> = ref("设置代码语言")
-let code: Ref<string> = ref("")
-
 let currentNode: cCodeBlockNode = props.paragraph!
-function saveNode(language: string, event: FocusEvent) {
+function saveNode(event: FocusEvent) {
 	currentNode = {
 		title: v4(),
-		language: language,
+		language: language.value,
 		originalMarkdown: (event.target as HTMLElement).innerText,
 		type: currentNode.type,
 	}
 }
+
+let language: Ref<string> = ref(currentNode.language)
+let code: Ref<string> = ref("")
+
 // function render(event: FocusEvent) {
 // 	let target = event.target as HTMLElement
 // 	(target.childNodes[0] as HTMLElement).innerHTML = `<div>${(target.childNodes[0] as HTMLElement).innerText}</div>`
@@ -62,6 +65,16 @@ function highlight(event: FocusEvent) {
 	code.value = content
 	console.log(target.innerText);
 }
+
+function enter(e: KeyboardEvent) {
+	if (e.shiftKey) {
+	}
+	else {
+		e.preventDefault()
+		currentNode.originalMarkdown = "521312313"
+
+	}
+}
 </script>
 
 <template>
@@ -70,7 +83,7 @@ function highlight(event: FocusEvent) {
 			<div class="pink"></div>
 			<div class="yellow"></div>
 			<div class="green"></div>
-			<div class="code-language" ref="language" contenteditable="true">{{ language }}</div>
+			<div class="code-language" contenteditable="true" spellcheck="false">{{ language }}</div>
 		</div>
 		<!-- <div
 			spellcheck="false"
@@ -83,7 +96,8 @@ function highlight(event: FocusEvent) {
 			contenteditable="true"
 			:language="language"
 			:code="code"
-			@blur="highlight($event), saveNode(language, $event)"
+			@blur="highlight($event), saveNode($event)"
+			@keydown.enter="enter($event)"
 		/>
 	</div>
 	<!-- <div class="code-hint" v-show="error" ref="codeHint"></div> -->

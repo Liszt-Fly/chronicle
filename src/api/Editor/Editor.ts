@@ -30,7 +30,7 @@ export function addNewNode(
 	if (bKeyBoardTarget(event)) {
 		let target = event.target as HTMLElement
 
-		if (/^`{3}[a-z]+/.test(target.innerText)) {
+		if (/^`{3}[a-zA-z]+/.test(target.innerText)) {
 			let language = /^`{3}([a-z]+)/.exec(target.innerText)![1]
 			console.log(`language:${language}`)
 			let currentNode: cCodeBlockNode = {
