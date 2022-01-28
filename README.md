@@ -29,7 +29,16 @@ npm run electron:serve
 
 ![PmlBBj](https://mikes.oss-cn-beijing.aliyuncs.com/uPic/PmlBBj.png)
 
-## Issues
+## ⬅️ Back
+
+- [ ] 打开文件取消：指定仓库（或在后续过程中可以设置）
+- [ ] 重构项目：类似 angular，写到一个文件夹里面
+- [ ] 设置页面
+- [ ] 项目思路重定义
+  1. 无限流
+  2. tag filter
+
+## ℹ️ Issue
 
 - [ ] 创建 notes 在多级文件夹下有问题
 - [ ] codeBlock 支持常见语言
@@ -44,9 +53,10 @@ npm run electron:serve
   - [ ] c#
   - [ ] go
   - [ ] php
-- [ ] 项目整体重构（CDOM 继承关系梳理)
-- [ ] codeBlock 插入
 - [ ] 删除文件
+- [ ] 添加 tag
+- [ ] codeBlock 插入
 - [ ] markdown css 样式设计
 - [ ] prettier 可配置
-- [ ] 
+- [ ] tab-item 应该要整体可点击，而非 a 标签
+- [ ] 点击 editor 空白部分，可输入
