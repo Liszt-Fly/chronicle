@@ -14,8 +14,8 @@ const myFunc: Function = props.func!
 </script>
 
 <template>
-	<div class="tab-item">
-		<router-link :class="className" @click="myFunc()" :to="to"></router-link>
+	<div class="tab-item" @click="myFunc()">
+		<router-link :class="className" :to="to"></router-link>
 	</div>
 </template>
 
