@@ -220,6 +220,10 @@ body {
   }
 
   /* 代码 */
+  pre {
+    font-family: "cascadia code";
+  }
+
   code {
     display: block;
     background: transparent;
@@ -232,7 +236,6 @@ body {
     padding: 8px;
     width: calc(100% - 16px);
     margin: auto;
-    margin: 20px 0;
     font-family: "cascadia code";
 
     .buttons {
