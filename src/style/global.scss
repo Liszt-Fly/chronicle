@@ -38,8 +38,9 @@ body {
 
   .extendedPanel {
     .file-system {
-      padding: 0 6px;
-      height: 100%;
+      padding: 6px;
+      height: calc(100% - 12px);
+      min-width: 8rem;
 
       .subfolder {
         text-indent: 10px;
