@@ -21,17 +21,4 @@
 ## HYF
 
 - [ ] highlightjs & codeBlock 支持常见语言
-
-  - [x] Javascript
-  - [ ] css
-  - [ ] html
-  - [ ] vue
-  - [ ] c++
-  - [ ] c
-  - [ ] Rust
-  - [ ] java
-  - [ ] c#
-  - [ ] go
-  - [ ] php
-
 - [ ] 设置页面
