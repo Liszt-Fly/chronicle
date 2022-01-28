@@ -29,18 +29,34 @@ npm run electron:serve
 
 ![PmlBBj](https://mikes.oss-cn-beijing.aliyuncs.com/uPic/PmlBBj.png)
 
-## ⬅️ Back
-
-- [ ] 重构项目：类似 angular，写到一个文件夹里面
-- [ ] 设置页面
-- [ ] 项目思路重定义
-  1. 无限流
-  2. tag filter
-
 ## ℹ️ Issue
 
-- [ ] 创建 notes 在多级文件夹下有问题
-- [ ] codeBlock 支持常见语言
+qy
+
+- [ ] 文件
+
+  - [ ] 重命名
+  - [ ] 删除
+  - [ ] 添加 tag
+  - [ ] 指定仓库
+  - [ ] 创建 notes 在多级文件夹下有问题
+
+- [ ] editor
+
+  - [ ] 点击空白部分，可输入
+
+- [ ] 重构项目
+
+  - [ ] 重构页面组成
+  - [ ] 重构项目结构：类似 angular，写到一个文件夹里面
+
+---
+
+hyf
+
+- [ ] 设置页面
+- [ ] highlightjs & codeBlock 支持常见语言
+
   - [x] Javascript
   - [ ] css
   - [ ] html
@@ -52,16 +68,3 @@ npm run electron:serve
   - [ ] c#
   - [ ] go
   - [ ] php
-
-- [ ] 添加 tag
-
-
-- [ ] prettier 可配置
-- [ ] tab-item 应该要整体可点击，而非 a 标签
-
-<hr/>
-- [ ] 文件重命名
-- [ ] 删除文件
-- [ ] 点击 editor 空白部分，可输入
-- [ ] tab-item 应该要整体可点击，而非 a 标签
-- [ ] 打开文件取消：指定仓库（或在后续过程中可以设置）
