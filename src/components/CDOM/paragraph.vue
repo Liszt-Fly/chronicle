@@ -19,7 +19,6 @@ onMounted(() => {
 })
 //当前paragraph所使用的node
 let currentNode: cTreeNode = props.paragraph!
-
 let bParsed = reactive({ value: false }) //是否转化为markdown
 </script>
 

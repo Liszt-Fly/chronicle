@@ -8,7 +8,7 @@ import { v4 } from "uuid"
 import { paragraphs } from "@/composables/config"
 import prettier from 'prettier/standalone.js'
 import phpPlugins from '@prettier/plugin-php/standalone.js'
-
+import parserBabel from 'prettier/esm/parser-babel.mjs'
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
@@ -33,29 +33,39 @@ function render(event: FocusEvent) {
 			}</div>`
 
 	try {
-		console.log(target.innerText)
-		console.log(prettier.format(target.innerText,{
-			parser:"php",
-			plugins:[phpPlugins]
-		}))
-		target.innerText=prettier.format(target.innerText,
-			{
-				parser:"php",
-				plugins:[phpPlugins],
 
-		})
+		console.log(target.innerHTML)
+
+		// console.log(prettier.format(target.innerText,{
+		// 	parser:"php",
+		// 	plugins:[phpPlugins]
+		// }))
+		switch (currentNode.language) {
+			case 'js':
+				target.innerText = (prettier.format(target.innerText, {
+					parser: "babel",
+					plugins: [parserBabel]
+				}))
+
+		target.innerHTML = marked.parse(
+			"```"+currentNode.language+"\n" + target.innerText.trim() + "\n```"
+		)
+				break;
+
+			case 'php':
+				target.innerText = (prettier.format(target.innerText, {
+					parser: "php",
+					plugins: [phpPlugins]
+				}))
+				break;
+		}
+
 		error.value = false
 	} catch (err) {
 		console.log(err)
-
 		error.value = true
 		codeHint.value!.innerText = String(err)
 	}
-	console.log(target.innerText)
-	// hljs.highlightBlock(target)
-	// target.innerHTML = marked.parse(
-	// 	"```" + currentNode.language + "\n" + target.innerText + "\n```"
-	// )
 }
 </script>
 

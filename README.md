@@ -31,7 +31,6 @@ npm run electron:serve
 
 ## ⬅️ Back
 
-- [ ] 打开文件取消：指定仓库（或在后续过程中可以设置）
 - [ ] 重构项目：类似 angular，写到一个文件夹里面
 - [ ] 设置页面
 - [ ] 项目思路重定义
@@ -53,10 +52,16 @@ npm run electron:serve
   - [ ] c#
   - [ ] go
   - [ ] php
-- [ ] 删除文件
+
 - [ ] 添加 tag
-- [ ] codeBlock 插入
-- [ ] markdown css 样式设计
+
+
 - [ ] prettier 可配置
 - [ ] tab-item 应该要整体可点击，而非 a 标签
+
+<hr/>
+- [ ] 文件重命名
+- [ ] 删除文件
 - [ ] 点击 editor 空白部分，可输入
+- [ ] tab-item 应该要整体可点击，而非 a 标签
+- [ ] 打开文件取消：指定仓库（或在后续过程中可以设置）
