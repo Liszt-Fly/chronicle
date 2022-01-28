@@ -6,15 +6,23 @@ import { onMounted, reactive, ref } from "vue"
 import { msfile } from "@/api/NavBar/FileSystem/type"
 import { flushFiles, validateFilename } from "@/api/NavBar/FileSystem/util"
 import fsp from "fs-extra"
+import path from "path"
 
 const props = defineProps({
 	file: Object as () => msfile,
 })
 let subfolder = ref<HTMLDivElement | null>(null)
 let refSubfolder = reactive({ dom: subfolder })
+let namebox = ref<HTMLElement | null>(null)
 let currentSubFolder: string | undefined
 const fileDom = ref<HTMLElement | null>(null)
 const toggleSubfold = toggleSubfolder
+function renameNote(file: msfile) {
+	fileDom.value!.contentEditable = "true"
+}
+function finishReanmeNote(file: msfile) {
+	file.name = namebox.value!.innerText
+}
 function deleteNote(file: msfile) {
 	fsp.unlinkSync(file.path!)
 }
@@ -28,8 +36,14 @@ const menuItems = [
 			flushFiles()
 		},
 	}),
+	new MenuItem({
+		label: "rename note",
+		click: () => {
+			renameNote(props.file!)
+		},
+	}),
 ]
-const menuLabels = ["delete note", "add tag", "move"]
+
 menuItems.forEach((item) => {
 	menu.append(item)
 })
@@ -39,9 +53,11 @@ menuItems.forEach((item) => {
 	<div class="folder" v-if="file" ref="fileDom">
 		<div
 			class="item"
+			tabindex="1"
 			@click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)"
 			v-if="validateFilename(file.name!)"
 			@contextmenu.stop="menu.popup()"
+			@blur="finishReanmeNote(props.file!)"
 		>
 			<span
 				:class="[
@@ -52,7 +68,7 @@ menuItems.forEach((item) => {
 					'file-icon',
 				]"
 			></span>
-			<span>{{ validateFilename(file.name!) }}</span>
+			<span ref="namebox">{{ validateFilename(file.name!) }}</span>
 		</div>
 		<div
 			class="subfolder"
