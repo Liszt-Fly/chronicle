@@ -9,7 +9,6 @@ import {
 } from "vue"
 
 import { currentFile, paragraphs } from "@/api/config"
-
 import { initMarked } from "@/api/init"
 import { loadNodeLists, saveNodeLists } from "@/api/Editor/Editor"
 import CodeBlock from "@/components/Editor/codeBlock.vue"
