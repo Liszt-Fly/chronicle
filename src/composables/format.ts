@@ -1,18 +1,9 @@
 
 import parserBabel from "prettier/esm/parser-babel.mjs"
-import prettier from 'prettier/esm/standalone.mjs'
-import phpPlugin from "@prettier/plugin-php/standalone";
+import prettier from 'prettier/standalone.js'
+import prettierPlugins from "@prettier/plugin-php/standalone.js";
 //sum formatter
 let parseSet = new Map()
 parseSet.set("js", parserBabel)
 
-export function format(source: String, language: string) {
-	console.log(`language${language}`)
-    return prettier.format(source, {
-        // parser:"php",
-        // plugins: [phpPlugin],
-		parser: "babel",
 
-		plugins: [parseSet.get(language)],
-	})
-}

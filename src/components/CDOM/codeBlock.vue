@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import { marked } from "marked"
 
+import { marked } from "marked"
 import { reactive, ref, Ref } from "vue"
 import { addNewNode } from "@/composables/cDom"
 import { cCodeBlockNode } from "@/composables/type"
 import { v4 } from "uuid"
-
 import { paragraphs } from "@/composables/config"
-import { format } from "@/composables/format"
+import prettier from 'prettier/standalone.js'
+import phpPlugins from '@prettier/plugin-php/standalone.js'
+
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
 	},
 })
+
 let codeHint = ref<HTMLElement | null>()
 let error: Ref<boolean> = ref(false)
 let bParsed = reactive({ value: false }) //是否转化为markdown
@@ -31,9 +33,17 @@ function render(event: FocusEvent) {
 			}</div>`
 
 	try {
-		console.log(currentNode.type)
-		console.log(format(target.innerText, currentNode.language))
-		target.innerHTML = format(target.innerText, currentNode.language)
+		console.log(target.innerText)
+		console.log(prettier.format(target.innerText,{
+			parser:"php",
+			plugins:[phpPlugins]
+		}))
+		target.innerText=prettier.format(target.innerText,
+			{
+				parser:"php",
+				plugins:[phpPlugins],
+
+		})
 		error.value = false
 	} catch (err) {
 		console.log(err)
@@ -41,10 +51,11 @@ function render(event: FocusEvent) {
 		error.value = true
 		codeHint.value!.innerText = String(err)
 	}
-
-	target.innerHTML = marked.parse(
-		"```" + currentNode.language + "\n" + target.innerText.trim() + "\n```"
-	)
+	console.log(target.innerText)
+	// hljs.highlightBlock(target)
+	// target.innerHTML = marked.parse(
+	// 	"```" + currentNode.language + "\n" + target.innerText + "\n```"
+	// )
 }
 </script>
 

@@ -7,5 +7,6 @@ module.exports = {
 			// Or, for multiple preload files:
 			preload: { preload: "src/preload.js" },
 		},
+
 	},
 }
