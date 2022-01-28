@@ -37,11 +37,10 @@ body {
   }
 
   .extendedPanel {
-    width: 18vw;
-    height: 100vh;
-    overflow: auto;
-
     .file-system {
+      padding: 6px;
+      height: 100%;
+
       .subfolder {
         text-indent: 10px;
         width: 18vw;
