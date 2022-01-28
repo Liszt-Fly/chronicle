@@ -1,13 +1,10 @@
 <script setup lang="ts">
 
-import { marked } from "marked"
 import { ref, Ref } from "vue"
 import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
-
 import { v4 } from "uuid"
 import prettier from 'prettier/standalone.js'
 import parserBabel from 'prettier/esm/parser-babel.mjs'
-import { addNewNode } from "@/api/Editor/Editor"
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
@@ -29,34 +26,6 @@ function saveNode(event: FocusEvent) {
 
 let language: Ref<string> = ref(currentNode.language)
 let code: Ref<string> = ref("")
-
-// function render(event: FocusEvent) {
-// 	let target = event.target as HTMLElement
-// 	(target.childNodes[0] as HTMLElement).innerHTML = `<div>${(target.childNodes[0] as HTMLElement).innerText}</div>`
-
-// 	try {
-// 		switch (currentNode.language) {
-// 			case 'js':
-// 				target.innerText = (prettier.format(target.innerText, {
-// 					parser: "babel",
-// 					plugins: [parserBabel]
-// 				}))
-
-// 				target.innerHTML = marked.parse(
-// 					"```" + currentNode.language + "\n" + target.innerText.trim() + "\n```"
-// 				)
-// 				break;
-// 			case 'php':
-// 				break;
-// 		}
-
-// 		error.value = false
-// 	} catch (err) {
-// 		console.log(err)
-// 		error.value = true
-// 		codeHint.value!.innerText = String(err)
-// 	}
-// }
 
 function highlight(event: FocusEvent) {
 	let target = event.target as HTMLElement
