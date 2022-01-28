@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { marked } from "marked"
-import { ref, Ref } from "vue"
+import { onMounted, ref, Ref } from "vue"
 import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
 import phpPlugin from "@prettier/plugin-php/standalone.js"
 import { v4 } from "uuid"
 import prettier from "prettier/standalone.js"
 import parserBabel from "prettier/esm/parser-babel.mjs"
 import { addNewNode } from "@/api/Editor/Editor"
+import prettierJava from "prettier-plugin-java"
+import CodeMirror from "codemirror"
+import "codemirror/mode/javascript/javascript.js"
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
 	},
 })
-
 let codeHint = ref<HTMLElement | null>()
 let error: Ref<boolean> = ref(false)
 
@@ -28,32 +30,14 @@ function saveNode(event: FocusEvent) {
 
 let language: Ref<string> = ref(currentNode.language)
 let code: Ref<string> = ref("")
+let content: Ref<HTMLTextAreaElement | null> = ref(null)
+onMounted(() => {
+	let editor = CodeMirror.fromTextArea(content.value!, {
+		mode: "javascript",
+		theme: "ayu-dark",
 
-function highlight(event: FocusEvent) {
-	let target = event.target as HTMLElement
-	try {
-		switch (currentNode.language) {
-			case "js" || "javascript" || "JS":
-				prettier.format(target.innerText, {
-					parser: "babel",
-					plugins: [parserBabel],
-				})
-				break
-			case "php":
-				prettier.format(target.innerText, {
-					parser: "php",
-					plugins: [phpPlugin],
-				})
-				break
-		}
-		error.value = false
-	} catch (err) {
-		console.log(err)
-		error.value = true
-		codeHint.value!.innerText = String(err)
-	}
-	code.value = target.innerText
-}
+	})
+})
 
 function enter(e: KeyboardEvent) {
 	if (e.shiftKey) {
@@ -70,22 +54,20 @@ function enter(e: KeyboardEvent) {
 			<div class="pink"></div>
 			<div class="yellow"></div>
 			<div class="green"></div>
-			<div class="code-language" contenteditable="true" spellcheck="false">{{ language }}</div>
+
+			<!-- <div class="code-language" contenteditable="true" spellcheck="false">
+				{{ language }}
+			</div> -->
 		</div>
-		<!-- <div
-			spellcheck="false"
-			class="content"
-			contenteditable="true"
-			@blur="render($event), saveNode('js', $event)"
-		></div>-->
-		<highlightjs
-			spellcheck="false"
-			contenteditable="true"
-			:language="language"
-			:code="code"
-			@blur="highlight($event), saveNode($event)"
-			@keydown.enter="enter($event)"
-		/>
+		<textarea ref="content"></textarea>
 	</div>
 	<div class="code-hint" v-show="error" ref="codeHint"></div>
 </template>
+<style>
+.CodeMirror {
+	border: none;
+	width: 100%;
+	height: 200px;
+	background-color: #222;
+}
+</style>
