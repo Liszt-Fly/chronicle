@@ -70,9 +70,7 @@ function enter(e: KeyboardEvent) {
 			<div class="pink"></div>
 			<div class="yellow"></div>
 			<div class="green"></div>
-			<div class="code-language" contenteditable="true" spellcheck="false">
-				{{ language }}
-			</div>
+			<div class="code-language" contenteditable="true" spellcheck="false">{{ language }}</div>
 		</div>
 		<!-- <div
 			spellcheck="false"
