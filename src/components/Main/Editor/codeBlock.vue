@@ -1,11 +1,9 @@
 <script setup lang="ts">
 
 import { marked } from "marked"
-import { reactive, ref, Ref } from "vue"
-import { addNewNode } from "@/api/Editor/Editor"
+import { ref, Ref } from "vue"
 import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
 import { v4 } from "uuid"
-import { paragraphs } from "@/api/config"
 import prettier from 'prettier/standalone.js'
 import parserBabel from 'prettier/esm/parser-babel.mjs'
 const props = defineProps({
@@ -16,7 +14,7 @@ const props = defineProps({
 
 let codeHint = ref<HTMLElement | null>()
 let error: Ref<boolean> = ref(false)
-let bParsed = reactive({ value: false }) //是否转化为markdown
+
 let currentNode: cCodeBlockNode = props.paragraph!
 function saveNode(language: string, event: FocusEvent) {
 	currentNode = {
@@ -28,8 +26,7 @@ function saveNode(language: string, event: FocusEvent) {
 }
 function render(event: FocusEvent) {
 	let target = event.target as HTMLElement
-		; (target.childNodes[0] as HTMLElement).innerHTML = `<div>${(target.childNodes[0] as HTMLElement).innerText
-			}</div>`
+	(target.childNodes[0] as HTMLElement).innerHTML = `<div>${(target.childNodes[0] as HTMLElement).innerText}</div>`
 
 	try {
 		switch (currentNode.language) {
@@ -43,9 +40,7 @@ function render(event: FocusEvent) {
 					"```" + currentNode.language + "\n" + target.innerText.trim() + "\n```"
 				)
 				break;
-
 			case 'php':
-
 				break;
 		}
 
