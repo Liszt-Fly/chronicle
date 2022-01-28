@@ -32,14 +32,3 @@ let bParsed = reactive({ value: false }) //是否转化为markdown
 		@focus="recoverSourceCodeMode($event, currentNode, bParsed)"
 	></div>
 </template>
-
-<style scoped>
-/* debug样式 */
-div {
-	border: solid 1px orangered;
-}
-div {
-	outline: none;
-	border: none;
-}
-</style>
