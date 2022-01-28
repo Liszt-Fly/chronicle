@@ -1,5 +1,5 @@
 import { ref } from "vue"
-import { openFolder, toggleTabBar } from "./TabBarFunction"
+import { openFolder } from "./TabBarFunction"
 import { cTreeNode } from "./type"
 
 export let display = ref(true)
@@ -12,11 +12,8 @@ export let paragraphs = ref<cTreeNode[]>([])
 export let currentFile = ref<string>("")
 
 let tabBarItems = [
-	{ item: "folder", icon: "bi bi-folder", func: openFolder, to: "/" },
-	// { item: "mindmap", icon: "iconfont icon-mind_map", func: toggleTabBar, to: "/", },
-	// { item: "star", icon: "bi bi-bookmark-star", to: "/tagsystem", func: testFunc, },
-	// { item: "setting", icon: "bi bi-gear", to: "/setting", func: testFunc },
-	// { item: "search", icon: "bi bi-search", to: "/searchsystem", func: testFunc },
+	{ item: "folder", icon: "bi bi-bookmark-heart", func: openFolder, to: "/" },
+	{ item: "setting", icon: "bi bi-sliders", func: null, to: "/setting" },
 ]
 
 let colorset = [
@@ -39,9 +36,6 @@ let colorset = [
 function getRandomColor() {
 	let index = Math.floor(Math.random() * colorset.length)
 	return colorset[index]
-}
-function testFunc() {
-	console.log("测试方法已经执行")
 }
 
 export { tabBarItems, getRandomColor }
