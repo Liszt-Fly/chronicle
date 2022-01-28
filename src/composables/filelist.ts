@@ -13,12 +13,12 @@ export function toggleSubfolder(
 
 	if (file.isDirectory) {
 		if (event) {
-			let span = event.currentTarget as HTMLElement
-			let arrow = span.firstElementChild!
+			let item = event.currentTarget as HTMLElement
+			let folder = item.firstElementChild!
 
-			arrow.classList.toggle("icon-arrow-right")
-			arrow.classList.toggle("icon-arrow_down")
-			if (arrow.classList.contains("icon-arrow_down")) {
+			folder.classList.toggle("bi-folder")
+			folder.classList.toggle("bi-folder2-open")
+			if (folder.classList.contains("bi-folder2-open")) {
 				subfolder.dom!.style.display = "block"
 			} else {
 				subfolder.dom!.style.display = ""

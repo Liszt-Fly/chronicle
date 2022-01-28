@@ -27,8 +27,8 @@ fileListMenu.forEach((item) => {
 			<span
 				:class="[
 					'iconfont',
-					{ 'icon-arrow-right': file.isDirectory },
-					{ 'icon-file': !file.isDirectory },
+					{ 'bi bi-folder': file.isDirectory },
+					{ 'bi bi-journal-bookmark-fill': !file.isDirectory },
 					'file-name',
 					'file-icon'
 				]"
