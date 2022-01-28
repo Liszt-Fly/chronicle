@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
-import { basePath, files } from "../../config"
-import { msfile } from "./type"
+import { basePath, files } from "@/api/config"
+import { msfile } from "@/api/NavBar/FileSystem/type"
 
 export let sortFileInDepth = function sortFileInDepth(
 	dir: string,

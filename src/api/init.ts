@@ -2,7 +2,7 @@
 
 import { marked } from "marked"
 import hljs from "highlight.js"
-import { cTreeNode } from "./NavBar/FileSystem/type"
+import { cTreeNode } from "@/api/NavBar/FileSystem/type"
 import { v4 } from "uuid"
 
 //sum markedjs初始化

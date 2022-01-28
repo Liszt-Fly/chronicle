@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MTag from '../TagSystem/Tag.vue'
+import MTag from '@/components/Navbar/TagSystem/Tag.vue'
 </script>
 
 <template>

@@ -3,8 +3,8 @@ import { toggleSubfolder, openFile } from "@/api/NavBar/FileSystem/filelist"
 import { getCurrentWindow, Menu, MenuItem } from "@electron/remote"
 
 import { onMounted, reactive, ref } from "vue"
-import { msfile } from "../../../api/NavBar/FileSystem/type"
-import { flushFiles, validateFilename } from "../../../api/NavBar/FileSystem/util"
+import { msfile } from "@/api/NavBar/FileSystem/type"
+import { flushFiles, validateFilename } from "@/api/NavBar/FileSystem/util"
 
 defineProps({
 	file: Object as () => msfile,

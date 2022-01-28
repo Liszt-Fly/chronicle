@@ -4,10 +4,10 @@ import { marked } from "marked"
 import { v4 } from "uuid"
 import fsp from "fs-extra"
 
-import { currentFile, paragraphs } from "../config"
-import { cCodeBlockNode, cTree, cTreeNode } from "../NavBar/FileSystem/type"
-import { bKeyBoardTarget } from "../NavBar/FileSystem/util"
-import { initNode } from "../init"
+import { currentFile, paragraphs } from "@/api/config"
+import { cCodeBlockNode, cTree, cTreeNode } from "@/api/NavBar/FileSystem/type"
+import { bKeyBoardTarget } from "@/api/NavBar/FileSystem/util"
+import { initNode } from "@/api/init"
 import path from "path"
 
 //* sum 添加新的节点

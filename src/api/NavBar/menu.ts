@@ -1,8 +1,8 @@
 import { MenuItem } from "@electron/remote"
-import { basePath, files } from "../config"
+import { basePath, files } from "@/api/config"
 
-import { createNote } from "./FileSystem/filesystem"
-import { flushFiles } from "./FileSystem/util"
+import { createNote } from "@/api/NavBar/FileSystem/filesystem"
+import { flushFiles } from "@/api/NavBar/FileSystem/util"
 
 //* 在文件系统右侧的菜单
 export const fileSystemMenu = [
