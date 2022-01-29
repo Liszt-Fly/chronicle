@@ -2,7 +2,6 @@
 import { marked } from "marked"
 import { onMounted, ref, Ref } from "vue"
 import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
-// import phpPlugin from "@prettier/plugin-php/standalone.js"
 import { v4 } from "uuid"
 import prettier from "prettier/standalone.js"
 import parserBabel from "prettier/esm/parser-babel.mjs"
@@ -16,6 +15,7 @@ import { basicSetup } from "@codemirror/basic-setup"
 import { javascriptLanguage } from "@codemirror/lang-javascript"
 import { syntaxTree } from "@codemirror/language"
 import { autocompletion } from "@codemirror/autocomplete"
+import { oneDark,oneDarkHighlightStyle } from "@codemirror/theme-one-dark"
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
@@ -115,28 +115,81 @@ let language: Ref<string> = ref(currentNode.language)
 let code: Ref<string> = ref("")
 let content: Ref<HTMLTextAreaElement | null> = ref(null)
 onMounted(() => {
-	// let editor = CodeMirror.fromTextArea(content.value!, {
-	// 	mode: "javascript",
-	// 	theme: "ayu-dark",
-	// })
-	new EditorView({
+  let mytheme= EditorView.theme({
+	     "&": {
+        color: "#2c313a",
+        backgroundColor: "#222222"
+    },
+    ".cm-content": {
+        caretColor: "#ddd"
+    },
+    "&.cm-focused .cm-cursor": { borderLeftColor: "#ddd" },
+    "&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection": { backgroundColor: "#F9F9F9" },
+    ".cm-panels": { backgroundColor: "#252525", color: "#F9F9F9" },
+    ".cm-panels.cm-panels-top": { borderBottom: "2px solid black" },
+    ".cm-panels.cm-panels-bottom": { borderTop: "2px solid black" },
+    ".cm-searchMatch": {
+        backgroundColor: "#72a1ff59",
+        outline: "1px solid #457dff"
+    },
+    ".cm-searchMatch.cm-searchMatch-selected": {
+        backgroundColor: "#6199ff2f"
+    },
+    ".cm-activeLine": { backgroundColor: "#252525" },
+    ".cm-selectionMatch": { backgroundColor: "#aafe661a" },
+    "&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket": {
+        backgroundColor: "#bad0f847",
+        outline: "1px solid #515a6b"
+    },
+    ".cm-gutters": {
+        backgroundColor: "#222222",
+        color: "#ddd",
+        border: "none"
+    },
+    ".cm-activeLineGutter": {
+        backgroundColor: "#222222"
+    },
+    ".cm-foldPlaceholder": {
+        backgroundColor: "#222222",
+        border: "none",
+        color: "#ddd"
+    },
+    ".cm-tooltip": {
+        border: "none",
+        backgroundColor: "#131313"
+    },
+    ".cm-tooltip .cm-tooltip-arrow:before": {
+        borderTopColor: "transparent",
+        borderBottomColor: "transparent"
+    },
+    ".cm-tooltip .cm-tooltip-arrow:after": {
+        borderTopColor:"#131313",
+        borderBottomColor: "#ddd"
+    },
+    ".cm-tooltip-autocomplete": {
+        "& > ul > li[aria-selected]": {
+            backgroundColor: "#131313",
+            color: "#ddd"
+        }
+    }
+}, { dark: true });
+
+	let editorview = new EditorView({
 		state: EditorState.create({
 			doc: "// Get JavaScript completions here\ndocument.b",
 			extensions: [
 				basicSetup,
 				javascriptLanguage,
 				globalJavaScriptCompletions,
+				mytheme,
+				oneDarkHighlightStyle,
 				autocompletion(),
 			],
-			// extensions: [
-			// 	basicSetup,
-			// 	javascriptLanguage,
-			// 	globalJavaScriptCompletions,
-			// 	autocompletion(),
-			// ],
 		}),
+
 		parent: codeblock.value!,
 	})
+
 })
 
 function enter(e: KeyboardEvent) {
@@ -158,6 +211,7 @@ function enter(e: KeyboardEvent) {
 			<!-- <div class="code-language" contenteditable="true" spellcheck="false">
 				{{ language }}
 			</div>-->
+
 		</div>
 	</div>
 	<div class="code-hint" v-show="error" ref="codeHint"></div>
