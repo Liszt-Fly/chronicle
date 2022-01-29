@@ -14,7 +14,6 @@ import hljsVuePlugin from "@highlightjs/vue-plugin"
 import "@/style/global.scss"
 import "@/themes/Editor/dark/dark.scss"
 import "@/themes/Frame/light/light.scss"
-import "@/themes/Editor/dark/ayu-dark.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
 const app = createApp(App)
