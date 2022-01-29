@@ -18,10 +18,21 @@ let currentSubFolder: string | undefined
 const fileDom = ref<HTMLElement | null>(null)
 const toggleSubfold = toggleSubfolder
 function renameNote(file: msfile) {
-	fileDom.value!.contentEditable = "true"
+	//启用contentEdible
+	namebox.value!.contentEditable = "true"
+	namebox.value!.focus()
 }
 function finishReanmeNote(file: msfile) {
-	file.name = namebox.value!.innerText
+	// file.name = namebox.value!.innerText
+	console.log(props.file?.path)
+	let pathObjcet = path.parse(file.path!)
+	pathObjcet.base = namebox.value!.innerText
+	namebox.value!.contentEditable = "false"
+	console.log(file.path + pathObjcet.ext)
+	fsp.renameSync(
+		props!.file!.path!,
+		path.resolve(pathObjcet.dir, namebox.value!.innerText) + pathObjcet.ext
+	)
 }
 function deleteNote(file: msfile) {
 	fsp.unlinkSync(file.path!)
@@ -57,7 +68,6 @@ menuItems.forEach((item) => {
 			@click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)"
 			v-if="validateFilename(file.name!)"
 			@contextmenu.stop="menu.popup()"
-			@blur="finishReanmeNote(props.file!)"
 		>
 			<span
 				:class="[
@@ -68,7 +78,7 @@ menuItems.forEach((item) => {
 					'file-icon',
 				]"
 			></span>
-			<span ref="namebox">{{ validateFilename(file.name!) }}</span>
+			<span ref="namebox" @blur="finishReanmeNote(props.file!)">{{ validateFilename(file.name!) }}</span>
 		</div>
 		<div
 			class="subfolder"
@@ -76,11 +86,7 @@ menuItems.forEach((item) => {
 			ref="subfolder"
 			id="subfolder"
 		>
-			<file-list
-				:files="file.children"
-				:file="f"
-				v-for="f in file.children"
-			></file-list>
+			<file-list :files="file.children" :file="f" v-for="f in file.children"></file-list>
 		</div>
 	</div>
 </template>

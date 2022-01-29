@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import {
-	createElementBlock,
-	onMounted,
-	ref,
-	watch,
-	getCurrentInstance,
-	watchEffect,
-} from "vue"
-
+import { onMounted, ref, watchEffect } from "vue"
 import { currentFile, paragraphs } from "@/api/config"
 import { initMarked } from "@/api/init"
 import { loadNodeLists, saveNodeLists } from "@/api/Editor/Editor"
 import CodeBlock from "@/components/Editor/codeBlock.vue"
+import EnhancedCodeBlock from "@/components/Main/Editor/enhancedCodeBlock.vue"
+import CodeBlock1 from "@/components/Main/Editor/codeBlock.vue"
 
 let rContainer = ref<HTMLBaseElement | null>(null)
 
@@ -34,4 +28,4 @@ onMounted(() => {
 		</template>
 	</div>
 </template>
-
+<style lang="scss"></style>
