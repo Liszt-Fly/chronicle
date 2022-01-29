@@ -21,7 +21,7 @@ const fileDom = ref<HTMLElement | null>(null)
 		if (path.extname(path.resolve(basePath.value, file.name!)) === ".json") {
 			//首先保存上一个文件
 			if (currentFile.value != "") {
-				saveNodeLists(paragraphs.value, currentFile.value)
+
 			}
 			currentFile.value = path.resolve(basePath.value, file.name!)
 		} else {
@@ -57,18 +57,26 @@ function renameNote(file: msfile) {
 }
 function finishReanmeNote(file: msfile) {
 	// file.name = namebox.value!.innerText
-	console.log(props.file?.path)
+
 	let pathObjcet = path.parse(file.path!)
 	pathObjcet.base = namebox.value!.innerText
 	namebox.value!.contentEditable = "false"
 	console.log(file.path + pathObjcet.ext)
-	fsp.renameSync(
+
+fsp.renameSync(
 		props!.file!.path!,
 		path.resolve(pathObjcet.dir, namebox.value!.innerText) + pathObjcet.ext
 	)
+
+
 }
 function deleteNote(file: msfile) {
 	fsp.unlinkSync(file.path!)
+}
+
+function enter(event:KeyboardEvent){
+	let target=event.target as HTMLDivElement
+	target.blur()
 }
 
 // 右键菜单
@@ -98,6 +106,7 @@ menuItems.forEach((item) => {
 		<div
 			class="item"
 			tabindex="1"
+
 			@click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
 			v-if="validateFilename(file.name!)"
 			@contextmenu.stop="menu.popup()"
@@ -111,7 +120,7 @@ menuItems.forEach((item) => {
 					'file-icon',
 				]"
 			></span>
-			<span ref="namebox" @blur="finishReanmeNote(props.file!)">{{ validateFilename(file.name!) }}</span>
+			<span ref="namebox" @blur="finishReanmeNote(props.file!)" @keydown.enter.prevent="enter($event)">{{ validateFilename(file.name!) }}</span>
 		</div>
 		<div
 			class="subfolder"

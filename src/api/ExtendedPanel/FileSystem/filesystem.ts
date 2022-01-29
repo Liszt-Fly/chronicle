@@ -13,7 +13,7 @@ export function createNote(currentPath: string, noteName?: string) {
 	let fileName = ifFileHasExtname(
 		path.resolve(currentPath, `${noteName}${index}`)
 	)
-	console.log(fileName)
+
 	fsp.createFileSync(path.resolve(currentPath, `${fileName}`))
 	fsp.writeFile(path.resolve(currentPath, `${fileName}`), "[]")
 }

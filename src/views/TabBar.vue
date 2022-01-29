@@ -21,7 +21,7 @@ let tabBarItems = [
 		item: "folder",
 		icon: "bi bi-archive",
 		func: openRepository,
-		to: "/file-editor",
+		to: "/",
 	},
 	{ item: "tag", icon: "bi bi-bookmark-heart", func: empty, to: "/tag" },
 	{ item: "search", icon: "bi bi-search", func: empty, to: "/search" },

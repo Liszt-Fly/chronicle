@@ -9,13 +9,17 @@ import {python, pythonLanguage} from '@codemirror/lang-python'
 import { syntaxTree } from "@codemirror/language"
 import { autocompletion } from "@codemirror/autocomplete"
 import { oneDark,oneDarkHighlightStyle } from "@codemirror/theme-one-dark"
-import { cCodeBlockNode } from "@/Type/type"
+import { cCodeBlockNode, cTreeNode } from "@/Type/type"
 import {insertNewline} from '@codemirror/commands'
+import { saveNodeLists } from "@/api/Editor/Editor"
+import { currentFile, paragraphs } from "@/api/configdb"
+
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
 	},
 })
+
 let codeHint = ref<HTMLElement | null>()
 let error: Ref<boolean> = ref(false)
 let currentNode: cCodeBlockNode = props.paragraph!
@@ -171,33 +175,52 @@ onMounted(() => {
         }
     }
 }, { dark: true });
-function toggle(){
-	alert(1)
+function addNode(es:EditorView):boolean{
+//saveCurrentNode
+currentNode.originalMarkdown=es.contentDOM.innerText
+// saveNodeLists(paragraphs.value,currentFile.value)
+//如果当前节点是最后的节点，新增一个节点
+if(paragraphs.value.indexOf(currentNode)==paragraphs.value.length-1){
+
+   	let newNode: cTreeNode = {
+				title: v4(),
+				originalMarkdown: "",
+				type: "paragraph",
+			}
+			paragraphs.value.push(newNode)
+
+			console.log(paragraphs.value.length)
+}
+
+ return false;
 }
 	let editorview = new EditorView({
+
 		state: EditorState.create({
-			doc: "// Get JavaScript completions here\ndocument.b",
+
+			doc: "// If you want to go out of the block, just type tab",
 			extensions: [
 				javascriptLanguage,
 				globalJavaScriptCompletions,
 				mytheme,
 				oneDarkHighlightStyle,
 				pythonLanguage,
-				keymap.of([{key:"ArrowLeft",run:(EditorState)=>{ console.log("command success");return false;}}]),
+				keymap.of([{key:"Tab",run:(editorview)=>{addNode(editorview);return true;}}]),
 				autocompletion(),
 			],
 		}),
-
-
 		parent: codeblock.value!,
 	})
+ if(currentNode.originalMarkdown!=""){
+	 editorview.contentDOM.innerText=currentNode.originalMarkdown
+ }
+ else{
+	 editorview.contentDOM.innerText=""
+ }
 
 
 })
-const enter=(event:KeyboardEvent)=>{
 
-
-}
 
 </script>
 
@@ -208,13 +231,17 @@ const enter=(event:KeyboardEvent)=>{
 			<div class="yellow"></div>
 			<div class="green"></div>
 		</div>
-	<div class="language" @keydown.enter="enter($event)">{{currentNode.language}}</div>
+	<div class="language" >{{currentNode.language}}</div>
 	</div>
-	<div class="code-hint" v-show="error" ref="codeHint"></div>
+
 </template>
-<style>
-.code-block{
+<style scoped lang="scss">
+
+.editor .code-block {
 	position:relative;
+    background-color: #222;
+	margin-bottom: 1rem;
+	width:80%;
 }
 .CodeMirror {
 	border: none;
