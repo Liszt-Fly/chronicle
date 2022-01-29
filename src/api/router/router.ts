@@ -8,7 +8,7 @@ import TagSystem from "@/views/Main/Tag.vue"
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
-		{ path: "/file-editor", component: FileSystem, },
+		{ path: "/", component: FileSystem, },
 		{ path: "/tag", component: TagSystem, },
 		{ path: "/search", component: SearchSystem, },
 		{ path: "/setting", component: SettingSystem, },
