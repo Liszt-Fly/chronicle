@@ -78,11 +78,7 @@ menuItems.forEach((item) => {
 					'file-icon',
 				]"
 			></span>
-			<span
-				ref="namebox"
-				@blur="finishReanmeNote(props.file!)"
-				>{{ validateFilename(file.name!) }}</span
-			>
+			<span ref="namebox" @blur="finishReanmeNote(props.file!)">{{ validateFilename(file.name!) }}</span>
 		</div>
 		<div
 			class="subfolder"
@@ -90,11 +86,7 @@ menuItems.forEach((item) => {
 			ref="subfolder"
 			id="subfolder"
 		>
-			<file-list
-				:files="file.children"
-				:file="f"
-				v-for="f in file.children"
-			></file-list>
+			<file-list :files="file.children" :file="f" v-for="f in file.children"></file-list>
 		</div>
 	</div>
 </template>

@@ -2,7 +2,6 @@
 import { marked } from "marked"
 import { onMounted, ref, Ref } from "vue"
 import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
-import phpPlugin from "@prettier/plugin-php/standalone.js"
 import { v4 } from "uuid"
 import prettier from "prettier/standalone.js"
 import parserBabel from "prettier/esm/parser-babel.mjs"
@@ -208,6 +207,11 @@ function enter(e: KeyboardEvent) {
 			<div class="pink"></div>
 			<div class="yellow"></div>
 			<div class="green"></div>
+
+			<!-- <div class="code-language" contenteditable="true" spellcheck="false">
+				{{ language }}
+			</div>-->
+
 		</div>
 	</div>
 	<div class="code-hint" v-show="error" ref="codeHint"></div>
