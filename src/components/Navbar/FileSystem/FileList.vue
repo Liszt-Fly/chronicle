@@ -1,26 +1,59 @@
 <script setup lang="ts">
-import { toggleSubfolder, openFile } from "@/api/NavBar/FileSystem/filelist"
-import { getCurrentWindow, Menu, MenuItem } from "@electron/remote"
-
-import { onMounted, reactive, ref } from "vue"
-import { msfile } from "@/api/NavBar/FileSystem/type"
-import { flushFiles, validateFilename } from "@/api/NavBar/FileSystem/util"
+import {  Menu, MenuItem } from "@electron/remote"
+import {  reactive, ref } from "vue"
+import { msfile } from "@/Type/type"
 import fsp from "fs-extra"
 import path from "path"
-
+import { saveNodeLists } from "@/api/Editor/Editor"
+import { flushFiles, validateFilename } from "@/api/ExtendedPanel/FileSystem/util"
+import { basePath, currentFile, paragraphs } from "@/api/configdb"
 const props = defineProps({
 	file: Object as () => msfile,
 })
 let subfolder = ref<HTMLDivElement | null>(null)
 let refSubfolder = reactive({ dom: subfolder })
 let namebox = ref<HTMLElement | null>(null)
-let currentSubFolder: string | undefined
 const fileDom = ref<HTMLElement | null>(null)
-const toggleSubfold = toggleSubfolder
+ function openFile(event: MouseEvent, file: msfile) {
+	//如果是文件
+	if (!file.isDirectory) {
+		console.log(basePath.value)
+		if (path.extname(path.resolve(basePath.value, file.name!)) === ".json") {
+			//首先保存上一个文件
+			if (currentFile.value != "") {
+				saveNodeLists(paragraphs.value, currentFile.value)
+			}
+			currentFile.value = path.resolve(basePath.value, file.name!)
+		} else {
+		}
+	}
+}
 function renameNote(file: msfile) {
 	//启用contentEdible
 	namebox.value!.contentEditable = "true"
 	namebox.value!.focus()
+}
+ function toggleSubfolder(
+	event: MouseEvent,
+	file: msfile,
+	subfolder: { dom: HTMLElement | null }
+) {
+	//如果msfile是directory类型，进行图标转换，以及显隐转换
+
+	if (file.isDirectory) {
+		if (event) {
+			let item = event.currentTarget as HTMLElement
+			let folder = item.firstElementChild!
+
+			folder.classList.toggle("bi-folder")
+			folder.classList.toggle("bi-folder2-open")
+			if (folder.classList.contains("bi-folder2-open")) {
+				subfolder.dom!.style.display = "block"
+			} else {
+				subfolder.dom!.style.display = ""
+			}
+		}
+	}
 }
 function finishReanmeNote(file: msfile) {
 	// file.name = namebox.value!.innerText
@@ -37,7 +70,8 @@ function finishReanmeNote(file: msfile) {
 function deleteNote(file: msfile) {
 	fsp.unlinkSync(file.path!)
 }
-// 右键
+
+// 右键菜单
 const menu = new Menu()
 const menuItems = [
 	new MenuItem({
@@ -54,7 +88,6 @@ const menuItems = [
 		},
 	}),
 ]
-
 menuItems.forEach((item) => {
 	menu.append(item)
 })
@@ -65,7 +98,7 @@ menuItems.forEach((item) => {
 		<div
 			class="item"
 			tabindex="1"
-			@click="toggleSubfold($event, file!, refSubfolder), openFile($event, file!)"
+			@click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
 			v-if="validateFilename(file.name!)"
 			@contextmenu.stop="menu.popup()"
 		>

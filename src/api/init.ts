@@ -2,8 +2,9 @@
 
 import { marked } from "marked"
 import hljs from "highlight.js"
-import { cTreeNode } from "@/api/NavBar/FileSystem/type"
+
 import { v4 } from "uuid"
+import { cTreeNode } from "@/Type/type"
 
 //sum markedjs初始化
 export function initMarked() {

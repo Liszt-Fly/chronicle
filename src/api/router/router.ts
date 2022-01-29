@@ -1,10 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router"
-
 import FileSystem from "@/views/Main/FileSystem.vue"
 import SearchSystem from "@/views/Main/SearchSystem.vue"
 import SettingSystem from "@/views/Main/Setting.vue"
 import TagSystem from "@/views/Main/Tag.vue"
-
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [

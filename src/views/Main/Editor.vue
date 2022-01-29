@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watchEffect } from "vue"
-import { currentFile, paragraphs } from "@/api/config"
+import { currentFile, paragraphs } from "@/api/configdb"
 import { initMarked } from "@/api/init"
 import { loadNodeLists, saveNodeLists } from "@/api/Editor/Editor"
 import CodeBlock from "@/components/Editor/codeBlock.vue"

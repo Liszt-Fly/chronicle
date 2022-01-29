@@ -3,12 +3,11 @@
 import { marked } from "marked"
 import { v4 } from "uuid"
 import fsp from "fs-extra"
-
-import { currentFile, paragraphs } from "@/api/config"
-import { cCodeBlockNode, cTree, cTreeNode } from "@/api/NavBar/FileSystem/type"
-import { bKeyBoardTarget } from "@/api/NavBar/FileSystem/util"
+import { currentFile, paragraphs } from "@/api/configdb"
 import { initNode } from "@/api/init"
 import path from "path"
+import { cCodeBlockNode, cTreeNode } from "@/Type/type"
+import { bKeyBoardTarget } from "../ExtendedPanel/FileSystem/util"
 
 //* sum 添加新的节点
 export function addNewNode(
@@ -67,7 +66,6 @@ export function addNewNode(
 			paragraphs.value.splice(index, 1)
 		}
 	}
-	console.log("执行了")
 }
 //* sum focus状态恢复为sourceCodeMode
 export function recoverSourceCode(
@@ -95,7 +93,7 @@ export function loadNodeLists(fileName: string): cTreeNode[] {
 	if (file.length == 0) {
 		let newNodeList: cTreeNode[] = []
 		newNodeList.push(initNode())
-		console.log("新的初始化")
+
 		return newNodeList
 	} else {
 		return file

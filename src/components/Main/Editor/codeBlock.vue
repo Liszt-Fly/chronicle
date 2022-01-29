@@ -1,21 +1,16 @@
 <script setup lang="ts">
-import { marked } from "marked"
 import { onMounted, ref, Ref } from "vue"
-import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
 import { v4 } from "uuid"
-import prettier from "prettier/standalone.js"
-import parserBabel from "prettier/esm/parser-babel.mjs"
-import { addNewNode } from "@/api/Editor/Editor"
-import prettierJava from "prettier-plugin-java"
-import CodeMirror from "codemirror"
 import { EditorState } from "@codemirror/state"
-import { EditorView } from "@codemirror/view"
+import {keymap, EditorView } from "@codemirror/view"
 import "codemirror/mode/javascript/javascript.js"
-import { basicSetup } from "@codemirror/basic-setup"
 import { javascriptLanguage } from "@codemirror/lang-javascript"
+import {python, pythonLanguage} from '@codemirror/lang-python'
 import { syntaxTree } from "@codemirror/language"
 import { autocompletion } from "@codemirror/autocomplete"
 import { oneDark,oneDarkHighlightStyle } from "@codemirror/theme-one-dark"
+import { cCodeBlockNode } from "@/Type/type"
+import {insertNewline} from '@codemirror/commands'
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
@@ -23,7 +18,6 @@ const props = defineProps({
 })
 let codeHint = ref<HTMLElement | null>()
 let error: Ref<boolean> = ref(false)
-
 let currentNode: cCodeBlockNode = props.paragraph!
 function saveNode(event: FocusEvent) {
 	currentNode = {
@@ -117,11 +111,15 @@ let content: Ref<HTMLTextAreaElement | null> = ref(null)
 onMounted(() => {
   let mytheme= EditorView.theme({
 	     "&": {
+
         color: "#2c313a",
-        backgroundColor: "#222222"
+        backgroundColor: "#222222",
+
+
     },
     ".cm-content": {
-        caretColor: "#ddd"
+        caretColor: "#ddd",
+		fontFamily:"'cascadia code'"
     },
     "&.cm-focused .cm-cursor": { borderLeftColor: "#ddd" },
     "&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection": { backgroundColor: "#F9F9F9" },
@@ -173,32 +171,34 @@ onMounted(() => {
         }
     }
 }, { dark: true });
-
+function toggle(){
+	alert(1)
+}
 	let editorview = new EditorView({
 		state: EditorState.create({
 			doc: "// Get JavaScript completions here\ndocument.b",
 			extensions: [
-				basicSetup,
 				javascriptLanguage,
 				globalJavaScriptCompletions,
 				mytheme,
 				oneDarkHighlightStyle,
+				pythonLanguage,
+				keymap.of([{key:"ArrowLeft",run:(EditorState)=>{ console.log("command success");return false;}}]),
 				autocompletion(),
 			],
 		}),
 
+
 		parent: codeblock.value!,
 	})
 
-})
 
-function enter(e: KeyboardEvent) {
-	if (e.shiftKey) {
-	} else {
-		e.preventDefault()
-		currentNode.originalMarkdown = "521312313"
-	}
+})
+const enter=(event:KeyboardEvent)=>{
+
+
 }
+
 </script>
 
 <template>
@@ -207,20 +207,26 @@ function enter(e: KeyboardEvent) {
 			<div class="pink"></div>
 			<div class="yellow"></div>
 			<div class="green"></div>
-
-			<!-- <div class="code-language" contenteditable="true" spellcheck="false">
-				{{ language }}
-			</div>-->
-
 		</div>
+	<div class="language" @keydown.enter="enter($event)">{{currentNode.language}}</div>
 	</div>
 	<div class="code-hint" v-show="error" ref="codeHint"></div>
 </template>
 <style>
+.code-block{
+	position:relative;
+}
 .CodeMirror {
 	border: none;
 	width: 100%;
-	height: 200px;
-	background-color: #222;
+	height: 300px;
+
+}
+.language{
+	margin-right: auto;
+	display:inline-block;
+	position:absolute;
+	right:10px;
+	top:5px;
 }
 </style>

@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { display, files } from "@/api/config"
 import { dialog } from "@electron/remote"
-import { sortFileInDepth } from "@/api/NavBar/FileSystem/util"
+import { display, files } from "@/api/configdb";
+import { sortFileInDepth } from "@/api/ExtendedPanel/FileSystem/util";
 
-function chooseFile() {
+function openRepository() {
 	files.value = []
 	let path = dialog.showOpenDialogSync({ properties: ["openDirectory"] })
 	if (path) {
 		sortFileInDepth(path[0], files.value)
-		console.log(files.value)
+	}
+	else{
+		alert("Please choose a folder as  Reponsitory ")
 	}
 }
 
@@ -18,7 +20,7 @@ let tabBarItems = [
 	{
 		item: "folder",
 		icon: "bi bi-archive",
-		func: chooseFile,
+		func: openRepository,
 		to: "/file-editor",
 	},
 	{ item: "tag", icon: "bi bi-bookmark-heart", func: empty, to: "/tag" },
