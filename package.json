@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "electron:build": "vue-cli-service electron:build",
+    "e": "vue-cli-service electron:serve",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
@@ -14,7 +15,6 @@
   "dependencies": {
     "@electron/remote": "^2.0.1",
     "@highlightjs/vue-plugin": "^2.1.0",
-    "@prettier/plugin-php": "^0.17.6",
     "@types/uuid": "^8.3.4",
     "bootstrap-icons": "^1.7.2",
     "core-js": "^3.6.5",

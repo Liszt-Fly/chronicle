@@ -2,7 +2,7 @@
 import { marked } from "marked"
 import { ref, Ref } from "vue"
 import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
-import phpPlugin from "@prettier/plugin-php/standalone.js"
+// import phpPlugin from "@prettier/plugin-php/standalone.js"
 import { v4 } from "uuid"
 import prettier from "prettier/standalone.js"
 import parserBabel from "prettier/esm/parser-babel.mjs"
@@ -39,12 +39,12 @@ function highlight(event: FocusEvent) {
 					plugins: [parserBabel],
 				})
 				break
-			case "php":
-				prettier.format(target.innerText, {
-					parser: "php",
-					plugins: [phpPlugin],
-				})
-				break
+			// case "php":
+			// 	prettier.format(target.innerText, {
+			// 		parser: "php",
+			// 		plugins: [phpPlugin],
+			// 	})
+			// 	break
 		}
 		error.value = false
 	} catch (err) {
