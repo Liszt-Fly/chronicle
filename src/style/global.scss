@@ -22,6 +22,7 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    justify-content: center;
 
     .tab-item {
       width: 100%;
@@ -33,7 +34,6 @@ body {
       a {
         display: block;
         width: 100%;
-        height: 100%;
         padding: 6px 0;
         font-weight: bold;
       }
