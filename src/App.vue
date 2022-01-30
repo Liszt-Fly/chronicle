@@ -6,7 +6,7 @@ import Editor from '@/views/Main/Editor.vue';
 <template>
   <div id="main">
     <tab-bar></tab-bar>
-    <editor></editor>
+    <router-view></router-view>
   </div>
 </template>
 
