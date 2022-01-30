@@ -17,7 +17,7 @@ function openRepository() {
 function empty() { }
 
 let tabBarItems = [
-	{ item: "folder", icon: "bi bi-archive", func: openRepository, to: "/fileSystem", },
+	{ item: "folder", icon: "bi bi-archive", func: openRepository, to: "/editor", },
 	{ item: "search", icon: "bi bi-search", func: empty, to: "/search" },
 	{ item: "tag", icon: "bi bi-bookmark-heart", func: empty, to: "/tag" },
 	{ item: "timeline", icon: "bi bi-calendar-event", func: empty, to: "/timeline" },
@@ -33,9 +33,6 @@ let tabBarItems = [
 					<router-link :class="tabItem.icon" :to="tabItem.to"></router-link>
 				</div>
 			</template>
-		</div>
-		<div class="extendedPanel">
-			<router-view></router-view>
 		</div>
 	</div>
 </template>

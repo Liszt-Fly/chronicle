@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import TabBar from '@/views/TabBar.vue'
-import Editor from '@/views/Main/Editor.vue';
 </script>
 
 <template>
