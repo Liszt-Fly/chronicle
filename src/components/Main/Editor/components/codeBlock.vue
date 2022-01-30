@@ -180,7 +180,6 @@ onMounted(() => {
 <style scoped lang="scss">
 .editor .code-block {
 	position: relative;
-	background-color: #222;
 	margin-bottom: 1rem;
 }
 .CodeMirror {

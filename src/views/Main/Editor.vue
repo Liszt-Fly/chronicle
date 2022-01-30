@@ -26,13 +26,15 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="extendedPanel">
-		<FileSystem></FileSystem>
-	</div>
-	<div class="editor" ref="rContainer" @keydown="save($event)">
-		<template v-for="paragraph in paragraphs" :key="paragraph.title">
-			<component :is="paragraph.type" :paragraph="paragraph"></component>
-		</template>
+	<div style="display: flex;">
+		<div class="extendedPanel">
+			<FileSystem></FileSystem>
+		</div>
+		<div class="editor" ref="rContainer" @keydown="save($event)">
+			<template v-for="paragraph in paragraphs" :key="paragraph.title">
+				<component :is="paragraph.type" :paragraph="paragraph"></component>
+			</template>
+		</div>
 	</div>
 </template>
 <style lang="scss">

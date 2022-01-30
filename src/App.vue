@@ -5,7 +5,9 @@ import TabBar from '@/views/TabBar.vue'
 <template>
   <div id="main">
     <tab-bar></tab-bar>
-    <router-view></router-view>
+    <div class="main">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 

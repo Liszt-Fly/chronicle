@@ -18,18 +18,9 @@
   }
 }
 
-.extendedPanel {
-  background-color: #222;
-
-  .file-system {
-    .folder {
-      .item {
-        &:hover {
-          background-color: #333;
-        }
-      }
-    }
-  }
+.main {
+  color: #b4b4b4;
+  background-color: #333;
 }
 
 /* 滚动条 */

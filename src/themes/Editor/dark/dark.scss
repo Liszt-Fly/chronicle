@@ -1,9 +1,19 @@
+.extendedPanel {
+  color: #b4b4b4;
+  background-color: #222;
 
+  .file-system {
+    .folder {
+      .item {
+        &:hover {
+          background-color: #333;
+        }
+      }
+    }
+  }
+}
 
 .editor {
-  color: #b4b4b4;
-  background-color: #333;
-
   /* 引用 */
   blockquote {
     color: #f5f5f5;
