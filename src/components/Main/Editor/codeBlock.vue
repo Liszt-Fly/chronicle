@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, Ref } from "vue"
 import { v4 } from "uuid"
-
 import {EditorSelection, EditorState} from "@codemirror/state"
 import {keymap, EditorView } from "@codemirror/view"
 import "codemirror/mode/javascript/javascript.js"
@@ -112,6 +111,7 @@ let language: Ref<string> = ref(currentNode.language)
 let code: Ref<string> = ref("")
 let content: Ref<HTMLTextAreaElement | null> = ref(null)
 onMounted(() => {
+
   let mytheme= EditorView.theme({
 	     "&": {
 
@@ -261,5 +261,8 @@ cursorDocEnds(editorview.state,editorview.dispatch)
 	position:absolute;
 	right:10px;
 	top:5px;
+}
+.cm-editor ͼ1 ͼ3 ͼ1a{
+	background-color:red;
 }
 </style>
