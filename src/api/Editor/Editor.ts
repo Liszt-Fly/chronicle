@@ -16,7 +16,6 @@ export let addNewNode = async function (
 	currentNode: cTreeNode
 ) {
 	let target = event.target as unknown as HTMLElement
-	target.contentEditable = "false"
 
 	//修改保存当前的node
 	if (!bParsed.value) {
@@ -53,7 +52,6 @@ export let addNewNode = async function (
 		target.blur()
 
 		let nextElement: HTMLElement = target.nextElementSibling as HTMLElement
-		nextElement.contentEditable = "true"
 		nextElement.focus()
 	}
 	//对于blur来说，如果内容为空，就要删除当前的节点
@@ -72,7 +70,6 @@ export let recoverSourceCodeMode = function (
 	currentNode: cTreeNode,
 ) {
 	let target = event.target as unknown as HTMLElement
-	target.contentEditable = "true"
 	if (bParsed) {
 		target.innerText = currentNode.originalMarkdown
 		bParsed.value = false

@@ -13,7 +13,7 @@ const props = defineProps({
 let paragraph = ref<HTMLElement | null>(null)
 //对于新生成的节点，进行Focus
 onMounted(() => {
-	// paragraph.value?.focus()
+	paragraph.value?.focus()
 })
 //当前paragraph所使用的node
 let currentNode: cTreeNode = props.paragraph!
@@ -22,12 +22,12 @@ let bParsed = reactive({ value: false }) //是否转化为markdown
 
 <template>
 	<div
+		contenteditable="true"
 		ref="paragraph"
 		spellcheck="false"
 		@keydown.enter.prevent="addNewNode($event, bParsed, currentNode)"
 		@blur="addNewNode($event, bParsed, currentNode)"
 		@focus="recoverSourceCodeMode($event, bParsed, currentNode)"
 		style="min-height: 24px;"
-		tabindex="0"
 	></div>
 </template>
