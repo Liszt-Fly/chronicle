@@ -2,6 +2,7 @@
 import { dialog } from "@electron/remote"
 import { display, files } from "@/api/configdb";
 import { sortFileInDepth } from "@/api/ExtendedPanel/FileSystem/util";
+import router from "@/api/router/router";
 
 function openRepository() {
 	files.value = []

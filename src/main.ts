@@ -8,9 +8,9 @@ import codeBlock from "@/components/Main/Editor/components/codeBlock.vue"
 
 // 样式
 import "@/style/global.scss"
+import "@/themes/Frame/dark/dark.scss"
 import "@/themes/Editor/dark/dark.scss"
 import "@/themes/Editor/Code/dark/dark.scss"
-import "@/themes/Frame/light/light.scss"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
 const app = createApp(App)

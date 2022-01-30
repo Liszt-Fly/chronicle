@@ -137,8 +137,6 @@ onMounted(() => {
 	let editorview = new EditorView({
 
 		state: EditorState.create({
-
-			doc: currentNode.originalMarkdown == "" ? "// If you want to go out of the block, just type tab\n" : currentNode.originalMarkdown,
 			extensions: [
 				javascriptLanguage,
 				globalJavaScriptCompletions,
