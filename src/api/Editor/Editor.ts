@@ -82,10 +82,10 @@ export function recoverSourceCode(
 }
 
 //* 存储NodeList，保存文件
-export function saveNodeLists(nodeLists: cTreeNode[], fileName: string) {
+export function saveArticle(nodeLists: cTreeNode[], fileName: string) {
 
 	fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(v => {
-		
+
 	})
 }
 

@@ -2,18 +2,24 @@
 import { onMounted, ref, watchEffect } from "vue"
 import { currentFile, paragraphs } from "@/api/configdb"
 import { initMarked } from "@/api/init"
-import { loadNodeLists, saveNodeLists } from "@/api/Editor/Editor"
+import { loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import CodeBlock from "@/components/Editor/codeBlock.vue"
 import EnhancedCodeBlock from "@/components/Main/Editor/enhancedCodeBlock.vue"
 import CodeBlock1 from "@/components/Main/Editor/codeBlock.vue"
 
+import Mousetrap from "mousetrap"
 let rContainer = ref<HTMLBaseElement | null>(null)
-
+function save(event:KeyboardEvent){
+	if(event.metaKey&&event.keyCode==83&&currentFile.value!=""){
+		saveArticle(paragraphs.value,currentFile.value)
+	}
+}
 initMarked()
 onMounted(() => {
 	watchEffect(() => {
 		if (currentFile.value != "") {
 			paragraphs.value = loadNodeLists(currentFile.value)
+
 		} else {
 			console.log("当前无文件")
 		}
@@ -22,14 +28,12 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="editor" ref="rContainer">
+	<div class="editor" ref="rContainer" @keydown="save($event)">
 		<template v-for="paragraph in paragraphs" :key="paragraph.title">
 			<component :is="paragraph.type" :paragraph="paragraph"></component>
 		</template>
 	</div>
 </template>
 <style lang="scss">
-.editor{
 
-}
 </style>
