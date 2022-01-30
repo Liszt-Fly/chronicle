@@ -40,8 +40,8 @@ let edit = function () {
 			<i
 				:class="[
 					'bi',
-					{ 'bi-pencil-square': editable },
-					{ 'bi-eye': !editable },
+					{ 'bi-textarea-t': editable },
+					{ 'bi-fonts': !editable },
 				]"
 			></i>
 		</div>
