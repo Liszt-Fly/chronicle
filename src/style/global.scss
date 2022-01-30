@@ -52,6 +52,7 @@ body {
       .file-name {
         display: inline-block;
       }
+
       .folder {
         white-space: nowrap;
         overflow-x: hidden;
@@ -80,6 +81,7 @@ body {
     }
   }
 }
+
 .editor {
   font-size: 1rem;
   line-height: 1.5;
@@ -176,9 +178,11 @@ body {
     overflow: auto;
     border-collapse: collapse;
   }
+
   table th {
     font-weight: 600;
   }
+
   table th,
   table td {
     padding: 6px 13px;
@@ -219,14 +223,14 @@ body {
 
   /* 代码 */
   pre {
-    font-family: "cascadia code";
+    font-family: "cascadia code" !important;
   }
 
   code {
     display: block;
     background: transparent;
     border: none;
-    font-family: "cascadia code";
+    font-family: "cascadia code" !important;
     min-height: 24px;
   }
 
@@ -239,21 +243,26 @@ body {
 
     .appendix {
       display: flex;
+
       div {
         width: 0.7rem;
         height: 0.7rem;
         border-radius: 50%;
         margin-right: 10px;
       }
+
       div:nth-child(1) {
         background-color: #ec5e50;
       }
+
       div:nth-child(2) {
         background-color: #f4b63d;
       }
+
       div:nth-child(3) {
         background-color: #4ebd45;
       }
+
       .code-language {
         width: 100%;
         flex: 1;

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import search from '@/components/Navbar/Search/Search.vue';
+
 
 </script>
 
 <template>
     <div class="search-system">
-        <search></search>
+
     </div>
 </template>
 

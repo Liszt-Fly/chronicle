@@ -3,12 +3,12 @@
 import { marked } from "marked"
 import { v4 } from "uuid"
 import fsp from "fs-extra"
-
-import { currentFile, paragraphs } from "@/api/config"
-import { cCodeBlockNode, cTree, cTreeNode } from "@/api/NavBar/FileSystem/type"
-import { bKeyBoardTarget } from "@/api/NavBar/FileSystem/util"
+import { currentFile, paragraphs } from "@/api/configdb"
 import { initNode } from "@/api/init"
 import path from "path"
+import { cCodeBlockNode, cTreeNode } from "@/Type/type"
+import { bKeyBoardTarget } from "../ExtendedPanel/FileSystem/util"
+import { provide } from "vue"
 
 //* sum 添加新的节点
 export function addNewNode(
@@ -23,7 +23,7 @@ export function addNewNode(
 		let originalText = target.innerText
 		let parsedMarkdown = marked.parse(originalText)
 		target.innerHTML = parsedMarkdown
-		console.log(parsedMarkdown)
+
 		bParsed.value = true
 		currentNode.originalMarkdown = originalText
 	}
@@ -32,7 +32,7 @@ export function addNewNode(
 
 		if (/^`{3}[a-zA-z]+/.test(target.innerText)) {
 			let language = /^`{3}([a-z]+)/.exec(target.innerText)![1]
-			console.log(`language:${language}`)
+
 			let currentNode: cCodeBlockNode = {
 				title: v4(),
 				originalMarkdown: "",
@@ -67,7 +67,6 @@ export function addNewNode(
 			paragraphs.value.splice(index, 1)
 		}
 	}
-	console.log("执行了")
 }
 //* sum focus状态恢复为sourceCodeMode
 export function recoverSourceCode(
@@ -83,9 +82,11 @@ export function recoverSourceCode(
 }
 
 //* 存储NodeList，保存文件
-export function saveNodeLists(nodeLists: cTreeNode[], fileName: string) {
-	console.log(nodeLists)
-	fsp.writeJSONSync(`${path.resolve(currentFile.value)}`, nodeLists)
+export function saveArticle(nodeLists: cTreeNode[], fileName: string) {
+
+	fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(v => {
+		console.log("保存成功")
+	})
 }
 
 //* 加载NodeList,加载文件
@@ -95,7 +96,7 @@ export function loadNodeLists(fileName: string): cTreeNode[] {
 	if (file.length == 0) {
 		let newNodeList: cTreeNode[] = []
 		newNodeList.push(initNode())
-		console.log("新的初始化")
+
 		return newNodeList
 	} else {
 		return file

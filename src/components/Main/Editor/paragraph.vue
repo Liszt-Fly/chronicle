@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { addNewNode, recoverSourceCode } from "@/api/Editor/Editor"
-import { cTreeNode } from "@/api/NavBar/FileSystem/type"
+import { cTreeNode } from "@/Type/type";
 import { onMounted, reactive, Ref, ref } from "vue"
 //sum Props
 const props = defineProps({

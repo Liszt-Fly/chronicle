@@ -1,29 +1,26 @@
 <script setup lang="ts">
-import { marked } from "marked"
 import { onMounted, ref, Ref } from "vue"
-import { cCodeBlockNode } from "@/api/NavBar/FileSystem/type"
 import { v4 } from "uuid"
-import prettier from "prettier/standalone.js"
-import parserBabel from "prettier/esm/parser-babel.mjs"
-import { addNewNode } from "@/api/Editor/Editor"
-import prettierJava from "prettier-plugin-java"
-import CodeMirror from "codemirror"
-import { EditorState } from "@codemirror/state"
-import { EditorView } from "@codemirror/view"
+
+import {EditorSelection, EditorState} from "@codemirror/state"
+import {keymap, EditorView } from "@codemirror/view"
 import "codemirror/mode/javascript/javascript.js"
-import { basicSetup } from "@codemirror/basic-setup"
 import { javascriptLanguage } from "@codemirror/lang-javascript"
+import {python, pythonLanguage} from '@codemirror/lang-python'
 import { syntaxTree } from "@codemirror/language"
 import { autocompletion } from "@codemirror/autocomplete"
-import { oneDark,oneDarkHighlightStyle } from "@codemirror/theme-one-dark"
+import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark"
+import { cCodeBlockNode, cTreeNode } from "@/Type/type"
+import {cursorDocEnd} from '@codemirror/commands'
+import { currentFile, paragraphs } from "@/api/configdb"
+
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
 	},
 })
-let codeHint = ref<HTMLElement | null>()
-let error: Ref<boolean> = ref(false)
 
+let codeBlock=ref<HTMLElement|null>(null)
 let currentNode: cCodeBlockNode = props.paragraph!
 function saveNode(event: FocusEvent) {
 	currentNode = {
@@ -110,18 +107,22 @@ function completeFromGlobalScope(context: any) {
 const globalJavaScriptCompletions = javascriptLanguage.data.of({
 	autocomplete: completeFromGlobalScope,
 })
-let codeblock = ref<HTMLElement | null>()
+
 let language: Ref<string> = ref(currentNode.language)
 let code: Ref<string> = ref("")
 let content: Ref<HTMLTextAreaElement | null> = ref(null)
 onMounted(() => {
   let mytheme= EditorView.theme({
 	     "&": {
+
         color: "#2c313a",
-        backgroundColor: "#222222"
+        backgroundColor: "#222222",
+
+
     },
     ".cm-content": {
-        caretColor: "#ddd"
+        caretColor: "#ddd",
+		fontFamily:"'cascadia code'"
     },
     "&.cm-focused .cm-cursor": { borderLeftColor: "#ddd" },
     "&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection": { backgroundColor: "#F9F9F9" },
@@ -174,53 +175,91 @@ onMounted(() => {
     }
 }, { dark: true });
 
+
+function addNode(es:EditorView):boolean{
+//saveCurrentNode
+currentNode.originalMarkdown=es.contentDOM.innerText
+// saveNodeLists(paragraphs.value,currentFile.value)
+//如果当前节点是最后的节点，新增一个节点
+if(paragraphs.value.indexOf(currentNode)==paragraphs.value.length-1){
+
+   	let newNode: cTreeNode = {
+				title: v4(),
+				originalMarkdown: "",
+				type: "paragraph",
+			}
+			paragraphs.value.push(newNode)
+
+			console.log(paragraphs.value.length)
+}
+
+ return false;
+}
 	let editorview = new EditorView({
+
 		state: EditorState.create({
-			doc: "// Get JavaScript completions here\ndocument.b",
+
+			doc: currentNode.originalMarkdown==""?"// If you want to go out of the block, just type tab\n":currentNode.originalMarkdown,
 			extensions: [
-				basicSetup,
 				javascriptLanguage,
 				globalJavaScriptCompletions,
 				mytheme,
 				oneDarkHighlightStyle,
+				pythonLanguage,
+				keymap.of([{key:"Tab",run:(editorview)=>{addNode(editorview);return true;}},{key:"ArrowDown",run:cursorDocEnd}]),
 				autocompletion(),
 			],
 		}),
-
-		parent: codeblock.value!,
+		parent: codeBlock.value!,
 	})
+function setSel(state:EditorState, selection:any) {
+    return state.update({ selection, scrollIntoView: true, userEvent: "select" });
+}
 
+const cursorDocEnds = (state:any,dispatch:any) => {
+    dispatch(setSel(state,{anchor:state.doc.length}))
+};
+
+
+editorview.focus()
+cursorDocEnds(editorview.state,editorview.dispatch)
 })
 
-function enter(e: KeyboardEvent) {
-	if (e.shiftKey) {
-	} else {
-		e.preventDefault()
-		currentNode.originalMarkdown = "521312313"
-	}
-}
+
+
+
 </script>
 
 <template>
-	<div class="code-block" ref="codeblock">
+	<div class="code-block" ref="codeBlock">
 		<div class="appendix">
 			<div class="pink"></div>
 			<div class="yellow"></div>
 			<div class="green"></div>
-
-			<!-- <div class="code-language" contenteditable="true" spellcheck="false">
-				{{ language }}
-			</div>-->
-
 		</div>
+	<div class="language" >{{currentNode.language}}</div>
 	</div>
-	<div class="code-hint" v-show="error" ref="codeHint"></div>
+
 </template>
-<style>
+<style scoped lang="scss">
+
+.editor .code-block {
+	position:relative;
+    background-color: #222;
+	margin-bottom: 1rem;
+	width:80%;
+}
 .CodeMirror {
 	border: none;
 	width: 100%;
-	height: 200px;
-	background-color: #222;
+	height: 300px;
+
+}
+.language{
+	margin-right: auto;
+	display:inline-block;
+	position:absolute;
+	right:10px;
+	top:5px;
 }
 </style>
