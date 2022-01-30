@@ -22,25 +22,27 @@ function empty() { }
 <template>
 	<div class="tab-system">
 		<div class="tab-bar">
-			<div class="tab-item" @click="openRepository" id="folder">
-				<router-link to="/editor">
-					<i class="bi bi-archive"></i>
-				</router-link>
-			</div>
-			<div class="tab-item" @click="empty" id="search">
-				<router-link to="/search">
-					<i class="bi bi-search"></i>
-				</router-link>
-			</div>
-			<div class="tab-item" @click="empty" id="tag">
-				<router-link to="/tag">
-					<i class="bi bi-bookmark-heart"></i>
-				</router-link>
-			</div>
-			<div class="tab-item" @click="empty" id="timeline">
-				<router-link to="/timeline">
-					<i class="bi bi-calendar-event"></i>
-				</router-link>
+			<div class="sub-tab">
+				<div class="tab-item" @click="openRepository" id="folder">
+					<router-link to="/editor">
+						<i class="bi bi-archive"></i>
+					</router-link>
+				</div>
+				<div class="tab-item" @click="empty" id="search">
+					<router-link to="/search">
+						<i class="bi bi-search"></i>
+					</router-link>
+				</div>
+				<div class="tab-item" @click="empty" id="tag">
+					<router-link to="/tag">
+						<i class="bi bi-bookmark-heart"></i>
+					</router-link>
+				</div>
+				<div class="tab-item" @click="empty" id="timeline">
+					<router-link to="/timeline">
+						<i class="bi bi-calendar-event"></i>
+					</router-link>
+				</div>
 			</div>
 			<div class="tab-item" @click="empty" id="setting">
 				<router-link to="/setting">
