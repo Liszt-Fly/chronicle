@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 import { basePath, files } from "@/api/configdb"
-import { msfile } from "@/Type/type"
+import { msfile } from "@/types/type"
 
 
 
