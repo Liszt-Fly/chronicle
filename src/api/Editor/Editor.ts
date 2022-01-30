@@ -8,15 +8,15 @@ import { initNode } from "@/api/init"
 import path from "path"
 import { cCodeBlockNode, cTreeNode } from "@/types/type"
 import { bKeyBoardTarget } from "../ExtendedPanel/FileSystem/util"
-import { provide } from "vue"
 
 //* sum 添加新的节点
-export let addNewNode = function (
+export let addNewNode = async function (
 	event: KeyboardEvent | FocusEvent,
 	bParsed: { value: boolean },
 	currentNode: cTreeNode
 ) {
 	let target = event.target as unknown as HTMLElement
+	target.contentEditable = "false"
 
 	//修改保存当前的node
 	if (!bParsed.value) {
@@ -30,35 +30,31 @@ export let addNewNode = function (
 	if (bKeyBoardTarget(event)) {
 		let target = event.target as HTMLElement
 
+		// 代码块
 		if (/^`{3}[a-zA-z]+/.test(target.innerText)) {
 			let language = /^`{3}([a-z]+)/.exec(target.innerText)![1]
 
-			let currentNode: cCodeBlockNode = {
+			let newNode: cCodeBlockNode = {
 				title: v4(),
 				originalMarkdown: "",
 				type: "codeBlock",
 				language: /^`{3}([a-z]+)/.exec(target.innerText)![1],
 			}
-			paragraphs.value.splice(
-				paragraphs.value.indexOf(currentNode),
-				1,
-				currentNode
-			)
+			paragraphs.value.splice(paragraphs.value.indexOf(currentNode), 1, newNode)
 			return
 		}
-		if (paragraphs.value.indexOf(currentNode) == paragraphs.value.length - 1) {
-			//当前节点是最后一个节点
-			let newNode: cTreeNode = {
-				title: v4(),
-				originalMarkdown: "",
-				type: "paragraph",
-			}
-			paragraphs.value.push(newNode)
-			target.blur()
-		} else {
-			let nextElement: HTMLElement = target.nextElementSibling as HTMLElement
-			nextElement.focus()
+
+		let newNode: cTreeNode = {
+			title: v4(),
+			originalMarkdown: "",
+			type: "paragraph",
 		}
+		await paragraphs.value.splice(paragraphs.value.indexOf(currentNode) + 1, 0, newNode)
+		target.blur()
+
+		let nextElement: HTMLElement = target.nextElementSibling as HTMLElement
+		nextElement.contentEditable = "true"
+		nextElement.focus()
 	}
 	//对于blur来说，如果内容为空，就要删除当前的节点
 	if (!bKeyBoardTarget(event)) {
@@ -75,8 +71,9 @@ export let recoverSourceCodeMode = function (
 	bParsed: { value: boolean },
 	currentNode: cTreeNode,
 ) {
+	let target = event.target as unknown as HTMLElement
+	target.contentEditable = "true"
 	if (bParsed) {
-		let target = event.target as unknown as HTMLElement
 		target.innerText = currentNode.originalMarkdown
 		bParsed.value = false
 	}
