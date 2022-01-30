@@ -85,7 +85,7 @@ export function recoverSourceCode(
 export function saveArticle(nodeLists: cTreeNode[], fileName: string) {
 
 	fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(v => {
-
+		console.log("保存成功")
 	})
 }
 

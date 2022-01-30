@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { onMounted, ref, Ref } from "vue"
 import { v4 } from "uuid"
-import { EditorState } from "@codemirror/state"
+
+import {EditorSelection, EditorState} from "@codemirror/state"
 import {keymap, EditorView } from "@codemirror/view"
 import "codemirror/mode/javascript/javascript.js"
 import { javascriptLanguage } from "@codemirror/lang-javascript"
 import {python, pythonLanguage} from '@codemirror/lang-python'
 import { syntaxTree } from "@codemirror/language"
 import { autocompletion } from "@codemirror/autocomplete"
-import { oneDark,oneDarkHighlightStyle } from "@codemirror/theme-one-dark"
+import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark"
 import { cCodeBlockNode, cTreeNode } from "@/Type/type"
-import {insertNewline} from '@codemirror/commands'
-import { saveNodeLists } from "@/api/Editor/Editor"
+import {cursorDocEnd} from '@codemirror/commands'
 import { currentFile, paragraphs } from "@/api/configdb"
 
 const props = defineProps({
@@ -20,8 +20,7 @@ const props = defineProps({
 	},
 })
 
-let codeHint = ref<HTMLElement | null>()
-let error: Ref<boolean> = ref(false)
+let codeBlock=ref<HTMLElement|null>(null)
 let currentNode: cCodeBlockNode = props.paragraph!
 function saveNode(event: FocusEvent) {
 	currentNode = {
@@ -108,7 +107,7 @@ function completeFromGlobalScope(context: any) {
 const globalJavaScriptCompletions = javascriptLanguage.data.of({
 	autocomplete: completeFromGlobalScope,
 })
-let codeblock = ref<HTMLElement | null>()
+
 let language: Ref<string> = ref(currentNode.language)
 let code: Ref<string> = ref("")
 let content: Ref<HTMLTextAreaElement | null> = ref(null)
@@ -175,6 +174,8 @@ onMounted(() => {
         }
     }
 }, { dark: true });
+
+
 function addNode(es:EditorView):boolean{
 //saveCurrentNode
 currentNode.originalMarkdown=es.contentDOM.innerText
@@ -198,34 +199,39 @@ if(paragraphs.value.indexOf(currentNode)==paragraphs.value.length-1){
 
 		state: EditorState.create({
 
-			doc: "// If you want to go out of the block, just type tab",
+			doc: currentNode.originalMarkdown==""?"// If you want to go out of the block, just type tab\n":currentNode.originalMarkdown,
 			extensions: [
 				javascriptLanguage,
 				globalJavaScriptCompletions,
 				mytheme,
 				oneDarkHighlightStyle,
 				pythonLanguage,
-				keymap.of([{key:"Tab",run:(editorview)=>{addNode(editorview);return true;}}]),
+				keymap.of([{key:"Tab",run:(editorview)=>{addNode(editorview);return true;}},{key:"ArrowDown",run:cursorDocEnd}]),
 				autocompletion(),
 			],
 		}),
-		parent: codeblock.value!,
+		parent: codeBlock.value!,
 	})
- if(currentNode.originalMarkdown!=""){
-	 editorview.contentDOM.innerText=currentNode.originalMarkdown
- }
- else{
-	 editorview.contentDOM.innerText=""
- }
+function setSel(state:EditorState, selection:any) {
+    return state.update({ selection, scrollIntoView: true, userEvent: "select" });
+}
+
+const cursorDocEnds = (state:any,dispatch:any) => {
+    dispatch(setSel(state,{anchor:state.doc.length}))
+};
 
 
+editorview.focus()
+cursorDocEnds(editorview.state,editorview.dispatch)
 })
+
+
 
 
 </script>
 
 <template>
-	<div class="code-block" ref="codeblock">
+	<div class="code-block" ref="codeBlock">
 		<div class="appendix">
 			<div class="pink"></div>
 			<div class="yellow"></div>
