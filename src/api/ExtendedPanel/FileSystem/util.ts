@@ -14,7 +14,9 @@ export let sortFileInDepth = function sortFileInDepth(
 	files.forEach((f) => {
 		let item: msfile = {}
 		item.name = f
+		item.stat = fs.statSync(path.resolve(dir, f))
 		item.path = path.resolve(basePath.value, f)
+
 
 		let stat = fs.lstatSync(path.resolve(dir, f)).isDirectory()
 		if (fs.lstatSync(path.resolve(dir, f)).isDirectory()) {
@@ -27,6 +29,7 @@ export let sortFileInDepth = function sortFileInDepth(
 			sortFileInDepth(path.resolve(dir, f), item["children"])
 		} else {
 			item.name = f
+			item.tag = ""
 			if (item["children"]) {
 				item["children"].push(item)
 			} else {

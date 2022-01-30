@@ -3,11 +3,7 @@ import { onMounted, ref, watchEffect } from "vue"
 import { currentFile, paragraphs } from "@/api/configdb"
 import { initMarked } from "@/api/init"
 import { loadNodeLists, saveArticle } from "@/api/Editor/Editor"
-import CodeBlock from "@/components/Editor/codeBlock.vue"
-import EnhancedCodeBlock from "@/components/Main/Editor/enhancedCodeBlock.vue"
-import CodeBlock1 from "@/components/Main/Editor/codeBlock.vue"
 
-import Mousetrap from "mousetrap"
 let rContainer = ref<HTMLBaseElement | null>(null)
 function save(event:KeyboardEvent){
 	if(event.metaKey&&event.keyCode==83&&currentFile.value!=""){

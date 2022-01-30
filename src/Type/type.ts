@@ -1,9 +1,12 @@
 import { EditorView } from '@codemirror/view'
+import fs from 'fs'
 export interface msfile {
 	name?: string
 	isDirectory?: boolean
 	children?: msfile[] | null
+	stat?: fs.Stats
 	path?: string
+	tag?: string
 }
 
 export interface cTree {

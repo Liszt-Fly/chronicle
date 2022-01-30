@@ -4,9 +4,9 @@ import {  reactive, ref } from "vue"
 import { msfile } from "@/Type/type"
 import fsp from "fs-extra"
 import path from "path"
-import { saveNodeLists } from "@/api/Editor/Editor"
 import { flushFiles, validateFilename } from "@/api/ExtendedPanel/FileSystem/util"
 import { basePath, currentFile, paragraphs } from "@/api/configdb"
+import { dialog } from "electron"
 const props = defineProps({
 	file: Object as () => msfile,
 })
@@ -78,7 +78,10 @@ function enter(event:KeyboardEvent){
 	let target=event.target as HTMLDivElement
 	target.blur()
 }
+function addTag(file:msfile){
 
+
+}
 // 右键菜单
 const menu = new Menu()
 const menuItems = [
@@ -95,6 +98,13 @@ const menuItems = [
 			renameNote(props.file!)
 		},
 	}),
+		new MenuItem({
+		label: "addTag",
+		click: () => {
+
+		},
+	}),
+
 ]
 menuItems.forEach((item) => {
 	menu.append(item)
