@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"
-import FileSystem from "@/views/Main/FileSystem.vue"
+import Editor from "@/views/Main/Editor.vue"
 import Search from "@/views/Main/Search.vue"
 import Setting from "@/views/Main/Setting.vue"
 import Tag from "@/views/Main/Tag.vue"
@@ -9,7 +9,7 @@ const router = createRouter({
 	history: createWebHistory(),
 	routes: [
 		{ path: "/", component: Welcome, },
-		{ path: "/fileSystem", component: FileSystem, },
+		{ path: "/editor", component: Editor, },
 		{ path: "/tag", component: Tag, },
 		{ path: "/timeline", component: Timeline, },
 		{ path: "/search", component: Search, },
