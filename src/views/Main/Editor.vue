@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, Ref, ref, watchEffect } from "vue"
+import { onMounted, Ref, ref, watch, watchEffect } from "vue"
 import { currentFile, paragraphs } from "@/api/configdb"
 import { initMarked } from "@/api/init"
 import { loadNodeLists, saveArticle } from "@/api/Editor/Editor"
@@ -12,9 +12,23 @@ function save(event: KeyboardEvent) {
 		saveArticle(paragraphs.value, currentFile.value)
 	}
 }
+let shouldChange:Ref<boolean> =ref(false)
+let editable: Ref<boolean> = ref(false)
 initMarked()
 onMounted(() => {
+//如果应该change,那么就应该Change
+watch(shouldChange,(value,oldvalue)=>{
+editable.value = !editable.value
+})
+
+	setInterval(()=>{
+		//如果value不为0说明应该进行change
+		shouldChange.value=!(window.getSelection()!.focusOffset-(window.getSelection()!.anchorOffset)==0)
+			console.log(shouldChange.value)
+	})
+
 	watchEffect(() => {
+
 		if (currentFile.value != "") {
 			paragraphs.value = loadNodeLists(currentFile.value)
 
@@ -24,11 +38,11 @@ onMounted(() => {
 	})
 })
 
-let editable: Ref<boolean> = ref(false)
-let edit = function () {
-	editable.value = !editable.value
-}
 
+
+const drag = () => {
+	console.log("drag")
+}
 </script>
 
 <template>
@@ -36,7 +50,7 @@ let edit = function () {
 		<div class="extendedPanel">
 			<FileSystem></FileSystem>
 		</div>
-		<div class="magic" @click="edit()" title="点击改变选择模式">
+		<!-- <div class="magic" @click="edit()" title="点击改变选择模式">
 			<i
 				:class="[
 					'bi',
@@ -44,11 +58,11 @@ let edit = function () {
 					{ 'bi-fonts': !editable },
 				]"
 			></i>
-		</div>
+		</div>-->
 
-		<div class="editor" ref="rContainer" @keydown="save($event)" :contenteditable="editable">
+		<div class="editor" ref="rContainer" @keydown="save($event)" :contenteditable="editable" >
 			<template v-for="paragraph in paragraphs" :key="paragraph.title">
-				<component :is="paragraph.type" :paragraph="paragraph"></component>
+				<component :is="paragraph.type" :paragraph="paragraph" ></component>
 			</template>
 		</div>
 	</div>
