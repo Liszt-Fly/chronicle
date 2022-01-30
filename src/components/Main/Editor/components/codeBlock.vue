@@ -174,7 +174,7 @@ onMounted(() => {
 			<div class="yellow"></div>
 			<div class="green"></div>
 		</div>
-		<div class="language">{{ currentNode.language }}</div>
+		<div class="language" spellcheck="false">{{ currentNode.language }}</div>
 	</div>
 </template>
 <style scoped lang="scss">
@@ -193,5 +193,6 @@ onMounted(() => {
 	position: absolute;
 	right: 10px;
 	top: 5px;
+	font-size: 0.8rem;
 }
 </style>
