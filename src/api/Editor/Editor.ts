@@ -11,7 +11,7 @@ import { bKeyBoardTarget } from "../ExtendedPanel/FileSystem/util"
 import { provide } from "vue"
 
 //* sum 添加新的节点
-export function addNewNode(
+export let addNewNode = function (
 	event: KeyboardEvent | FocusEvent,
 	bParsed: { value: boolean },
 	currentNode: cTreeNode
@@ -68,11 +68,12 @@ export function addNewNode(
 		}
 	}
 }
+
 //* sum focus状态恢复为sourceCodeMode
-export function recoverSourceCode(
+export let recoverSourceCodeMode = function (
 	event: FocusEvent,
+	bParsed: { value: boolean },
 	currentNode: cTreeNode,
-	bParsed: { value: boolean }
 ) {
 	if (bParsed) {
 		let target = event.target as unknown as HTMLElement
@@ -84,7 +85,7 @@ export function recoverSourceCode(
 //* 存储NodeList，保存文件
 export function saveArticle(nodeLists: cTreeNode[], fileName: string) {
 
-	fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(v => {
+	fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(() => {
 		console.log("保存成功")
 	})
 }

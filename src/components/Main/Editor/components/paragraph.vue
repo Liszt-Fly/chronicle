@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { addNewNode, recoverSourceCode } from "@/api/Editor/Editor"
-import { cTreeNode } from "@/Type/type";
+import { cTreeNode } from "@/types/type";
 import { onMounted, reactive, Ref, ref } from "vue"
 //sum Props
 const props = defineProps({
@@ -23,12 +23,12 @@ let bParsed = reactive({ value: false }) //是否转化为markdown
 </script>
 
 <template>
-	<div
+	<p
 		contenteditable="true"
 		ref="paragraph"
 		spellcheck="false"
 		@keydown.enter.prevent="addNode($event, bParsed, currentNode)"
 		@blur="addNode($event, bParsed, currentNode)"
-		@focus="recoverSourceCodeMode($event, currentNode, bParsed)"
-	></div>
+		@focus="recoverSourceCodeMode($event, bParsed, currentNode)"
+	></p>
 </template>
