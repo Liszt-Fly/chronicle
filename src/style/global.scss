@@ -22,9 +22,15 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    justify-content: space-between;
+
+    .sub-tab {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
 
     .tab-item {
-      padding: 6px 0;
       width: 100%;
 
       &:hover {
@@ -32,50 +38,59 @@ body {
       }
 
       a {
+        display: block;
+        width: 100%;
+        padding: 6px 0;
         font-weight: bold;
       }
     }
   }
+}
 
-  .extendedPanel {
-    .file-system {
-      padding: 6px;
-      height: calc(100% - 12px);
-      min-width: 8rem;
+.main {
+  width: 100%;
+}
 
-      .subfolder {
-        text-indent: 10px;
-        width: 18vw;
-        display: none;
-      }
+.extendedPanel {
+  max-height: 100vh;
+  overflow: auto;
 
-      .file-name {
-        display: inline-block;
-      }
+  .file-system {
+    padding: 6px;
+    height: calc(100% - 12px);
+    min-width: 8rem;
 
-      .folder {
-        white-space: nowrap;
+    .subfolder {
+      text-indent: 10px;
+      width: 18vw;
+      display: none;
+    }
+
+    .file-name {
+      display: inline-block;
+    }
+
+    .folder {
+      white-space: nowrap;
+      overflow-x: hidden;
+      display: block;
+      overflow-y: auto;
+
+      .item {
+        padding: 6px;
+        font-size: 0.7rem;
         overflow-x: hidden;
-        display: block;
-        overflow-y: auto;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
-        .item {
-          padding: 6px;
-          width: 100%;
-          font-size: 0.7rem;
-          overflow-x: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+        &:hover {
+          cursor: pointer;
+        }
 
-          &:hover {
-            cursor: pointer;
-          }
-
-          .file-icon {
-            font-size: 0.8rem;
-            position: relative;
-            right: 2px;
-          }
+        .file-icon {
+          font-size: 0.8rem;
+          position: relative;
+          right: 2px;
         }
       }
     }
@@ -86,7 +101,6 @@ body {
   font-size: 1rem;
   line-height: 1.5;
   word-wrap: break-word;
-  margin: auto;
   width: 100%;
   height: calc(100vh - 40px);
   padding: 20px;
@@ -289,4 +303,8 @@ body {
     font-family: "cascadia code";
     white-space: pre;
   }
+}
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
 }

@@ -1,0 +1,81 @@
+.cm-editor {
+  & {
+    color: #2c313a;
+    background-color: #222222;
+  }
+
+  .cm-content {
+    caret-color: #ddd;
+    font-family: "cascadia code";
+  }
+
+  &.cm-focused .cm-cursor {
+    border-left-color: #ddd;
+  }
+
+  &.cm-focused .cm-selectionBackground,
+  .cm-selectionBackground,
+  .cm-content ::selection {
+    background-color: #f9f9f9;
+  }
+
+  .cm-panels {
+    background-color: #252525;
+    color: #f9f9f9;
+  }
+  .cm-panels.cm-panels-top {
+    border-bottom: 2px solid black;
+  }
+  .cm-panels.cm-panels-bottom {
+    border-top: 2px solid black;
+  }
+  .cm-searchMatch {
+    background-color: #72a1ff59;
+    outline: 1px solid #457dff;
+  }
+  .cm-searchMatch.cm-searchMatch-selected {
+    background-color: #6199ff2f;
+  }
+  .cm-activeLine {
+    background-color: #252525;
+  }
+  .cm-selectionMatch {
+    background-color: #aafe661a;
+  }
+  &.cm-focused .cm-matchingBracket,
+  &.cm-focused .cm-nonmatchingBracket {
+    background-color: #bad0f847;
+    outline: 1px solid #515a6b;
+  }
+  .cm-gutters {
+    background-color: #222222;
+    color: #ddd;
+    border: none;
+  }
+  .cm-activeLineGutter {
+    background-color: #222222;
+  }
+  .cm-foldPlaceholder {
+    background-color: #222222;
+    border: none;
+    color: #ddd;
+  }
+  .cm-tooltip {
+    border: none;
+    background-color: #131313;
+  }
+  .cm-tooltip .cm-tooltip-arrow:before {
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+  }
+  .cm-tooltip .cm-tooltip-arrow:after {
+    border-top-color: #131313;
+    border-bottom-color: #ddd;
+  }
+  .cm-tooltip-autocomplete {
+    & > ul > li[aria-selected] {
+      background-color: #131313;
+      color: #ddd;
+    }
+  }
+}

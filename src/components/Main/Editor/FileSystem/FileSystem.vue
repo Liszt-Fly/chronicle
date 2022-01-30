@@ -2,7 +2,7 @@
 import { basePath, files } from "@/api/configdb"
 import { createNote } from "@/api/ExtendedPanel/FileSystem/filesystem";
 import { flushFiles } from "@/api/ExtendedPanel/FileSystem/util";
-import FileList from "@/components/Navbar/FileSystem/FileList.vue"
+import FileList from "@/components/Main/Editor/FileSystem/FileList.vue"
 import { Menu, MenuItem } from "@electron/remote"
 import { ref } from "vue"
 let filesystem = ref<HTMLElement | null>()
@@ -37,7 +37,7 @@ fileSystemMenu.forEach((item) => {
 })
 </script>
 <template>
-	<div  class="file-system" ref="filesystem" @contextmenu="menu.popup()">
+	<div class="file-system" ref="filesystem" @contextmenu="menu.popup()">
 		<template v-for="file in files">
 			<file-list :file="file"></file-list>
 		</template>

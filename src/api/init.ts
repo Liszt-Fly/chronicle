@@ -4,7 +4,7 @@ import { marked } from "marked"
 import hljs from "highlight.js"
 
 import { v4 } from "uuid"
-import { cTreeNode } from "@/Type/type"
+import { cTreeNode } from "@/types/type"
 
 //sum markedjs初始化
 export function initMarked() {

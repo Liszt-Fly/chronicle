@@ -3,17 +3,14 @@ import { createApp } from "vue"
 import App from "./App.vue"
 import router from "@/api/router/router"
 
-import paragraph from "@/components/Main/Editor/paragraph.vue"
-import codeBlock from "@/components/Main/Editor/codeBlock.vue"
-
-// import "highlight.js/styles/stackoverflow-light.css"
-// import "highlight.js/lib/common"
-// import hljsVuePlugin from "@highlightjs/vue-plugin"
+import paragraph from "@/components/Main/Editor/components/paragraph.vue"
+import codeBlock from "@/components/Main/Editor/components/codeBlock.vue"
 
 // 样式
 import "@/style/global.scss"
+import "@/themes/Frame/dark/dark.scss"
 import "@/themes/Editor/dark/dark.scss"
-import "@/themes/Frame/light/light.scss"
+import "@/themes/Editor/Code/dark/dark.scss"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
 const app = createApp(App)

@@ -6,12 +6,11 @@ import fsp from "fs-extra"
 import { currentFile, paragraphs } from "@/api/configdb"
 import { initNode } from "@/api/init"
 import path from "path"
-import { cCodeBlockNode, cTreeNode } from "@/Type/type"
+import { cCodeBlockNode, cTreeNode } from "@/types/type"
 import { bKeyBoardTarget } from "../ExtendedPanel/FileSystem/util"
-import { provide } from "vue"
 
 //* sum 添加新的节点
-export function addNewNode(
+export let addNewNode = async function (
 	event: KeyboardEvent | FocusEvent,
 	bParsed: { value: boolean },
 	currentNode: cTreeNode
@@ -30,52 +29,48 @@ export function addNewNode(
 	if (bKeyBoardTarget(event)) {
 		let target = event.target as HTMLElement
 
+		// 代码块
 		if (/^`{3}[a-zA-z]+/.test(target.innerText)) {
 			let language = /^`{3}([a-z]+)/.exec(target.innerText)![1]
 
-			let currentNode: cCodeBlockNode = {
+			let newNode: cCodeBlockNode = {
 				title: v4(),
 				originalMarkdown: "",
 				type: "codeBlock",
 				language: /^`{3}([a-z]+)/.exec(target.innerText)![1],
 			}
-			paragraphs.value.splice(
-				paragraphs.value.indexOf(currentNode),
-				1,
-				currentNode
-			)
+			paragraphs.value.splice(paragraphs.value.indexOf(currentNode), 1, newNode)
 			return
 		}
-		if (paragraphs.value.indexOf(currentNode) == paragraphs.value.length - 1) {
-			//当前节点是最后一个节点
-			let newNode: cTreeNode = {
-				title: v4(),
-				originalMarkdown: "",
-				type: "paragraph",
-			}
-			paragraphs.value.push(newNode)
-			target.blur()
-		} else {
-			let nextElement: HTMLElement = target.nextElementSibling as HTMLElement
-			nextElement.focus()
+
+		let newNode: cTreeNode = {
+			title: v4(),
+			originalMarkdown: "",
+			type: "paragraph",
 		}
+		await paragraphs.value.splice(paragraphs.value.indexOf(currentNode) + 1, 0, newNode)
+		target.blur()
+
+		let nextElement: HTMLElement = target.nextElementSibling as HTMLElement
+		nextElement.focus()
 	}
 	//对于blur来说，如果内容为空，就要删除当前的节点
-	if (!bKeyBoardTarget(event)) {
-		if (currentNode.originalMarkdown == "") {
-			let index = paragraphs.value.indexOf(currentNode)
-			paragraphs.value.splice(index, 1)
-		}
-	}
+	// if (!bKeyBoardTarget(event)) {
+	// 	if (currentNode.originalMarkdown == "") {
+	// 		let index = paragraphs.value.indexOf(currentNode)
+	// 		paragraphs.value.splice(index, 1)
+	// 	}
+	// }
 }
+
 //* sum focus状态恢复为sourceCodeMode
-export function recoverSourceCode(
+export let recoverSourceCodeMode = function (
 	event: FocusEvent,
+	bParsed: { value: boolean },
 	currentNode: cTreeNode,
-	bParsed: { value: boolean }
 ) {
+	let target = event.target as unknown as HTMLElement
 	if (bParsed) {
-		let target = event.target as unknown as HTMLElement
 		target.innerText = currentNode.originalMarkdown
 		bParsed.value = false
 	}
@@ -84,7 +79,7 @@ export function recoverSourceCode(
 //* 存储NodeList，保存文件
 export function saveArticle(nodeLists: cTreeNode[], fileName: string) {
 
-	fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(v => {
+	fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(() => {
 		console.log("保存成功")
 	})
 }

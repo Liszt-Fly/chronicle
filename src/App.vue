@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import TabBar from '@/views/TabBar.vue'
-import Editor from '@/views/Main/Editor.vue';
 </script>
 
 <template>
   <div id="main">
     <tab-bar></tab-bar>
-    <editor></editor>
+    <div class="main">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 

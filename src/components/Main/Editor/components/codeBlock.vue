@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { onMounted, ref, Ref } from "vue"
 import { v4 } from "uuid"
-import {EditorSelection, EditorState} from "@codemirror/state"
-import {keymap, EditorView } from "@codemirror/view"
+import { EditorSelection, EditorState } from "@codemirror/state"
+import { keymap, EditorView } from "@codemirror/view"
 import "codemirror/mode/javascript/javascript.js"
 import { javascriptLanguage } from "@codemirror/lang-javascript"
-import {python, pythonLanguage} from '@codemirror/lang-python'
+import { python, pythonLanguage } from '@codemirror/lang-python'
 import { syntaxTree } from "@codemirror/language"
 import { autocompletion } from "@codemirror/autocomplete"
 import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark"
-import { cCodeBlockNode, cTreeNode } from "@/Type/type"
-import {cursorDocEnd} from '@codemirror/commands'
+import { cCodeBlockNode, cTreeNode } from "@/types/type"
+import { cursorDocEnd } from '@codemirror/commands'
 import { currentFile, paragraphs } from "@/api/configdb"
 
 const props = defineProps({
@@ -19,7 +19,7 @@ const props = defineProps({
 	},
 })
 
-let codeBlock=ref<HTMLElement|null>(null)
+let codeBlock = ref<HTMLElement | null>(null)
 let currentNode: cCodeBlockNode = props.paragraph!
 function saveNode(event: FocusEvent) {
 	currentNode = {
@@ -112,78 +112,19 @@ let code: Ref<string> = ref("")
 let content: Ref<HTMLTextAreaElement | null> = ref(null)
 onMounted(() => {
 
-  let mytheme= EditorView.theme({
-	     "&": {
 
-        color: "#2c313a",
-        backgroundColor: "#222222",
+	let mytheme = EditorView.theme({}, { dark: true });
 
 
-    },
-    ".cm-content": {
-        caretColor: "#ddd",
-		fontFamily:"'cascadia code'"
-    },
-    "&.cm-focused .cm-cursor": { borderLeftColor: "#ddd" },
-    "&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection": { backgroundColor: "#F9F9F9" },
-    ".cm-panels": { backgroundColor: "#252525", color: "#F9F9F9" },
-    ".cm-panels.cm-panels-top": { borderBottom: "2px solid black" },
-    ".cm-panels.cm-panels-bottom": { borderTop: "2px solid black" },
-    ".cm-searchMatch": {
-        backgroundColor: "#72a1ff59",
-        outline: "1px solid #457dff"
-    },
-    ".cm-searchMatch.cm-searchMatch-selected": {
-        backgroundColor: "#6199ff2f"
-    },
-    ".cm-activeLine": { backgroundColor: "#252525" },
-    ".cm-selectionMatch": { backgroundColor: "#aafe661a" },
-    "&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket": {
-        backgroundColor: "#bad0f847",
-        outline: "1px solid #515a6b"
-    },
-    ".cm-gutters": {
-        backgroundColor: "#222222",
-        color: "#ddd",
-        border: "none"
-    },
-    ".cm-activeLineGutter": {
-        backgroundColor: "#222222"
-    },
-    ".cm-foldPlaceholder": {
-        backgroundColor: "#222222",
-        border: "none",
-        color: "#ddd"
-    },
-    ".cm-tooltip": {
-        border: "none",
-        backgroundColor: "#131313"
-    },
-    ".cm-tooltip .cm-tooltip-arrow:before": {
-        borderTopColor: "transparent",
-        borderBottomColor: "transparent"
-    },
-    ".cm-tooltip .cm-tooltip-arrow:after": {
-        borderTopColor:"#131313",
-        borderBottomColor: "#ddd"
-    },
-    ".cm-tooltip-autocomplete": {
-        "& > ul > li[aria-selected]": {
-            backgroundColor: "#131313",
-            color: "#ddd"
-        }
-    }
-}, { dark: true });
 
+	function addNode(es: EditorView): boolean {
+		//saveCurrentNode
+		currentNode.originalMarkdown = es.contentDOM.innerText
+		// saveNodeLists(paragraphs.value,currentFile.value)
+		//如果当前节点是最后的节点，新增一个节点
+		if (paragraphs.value.indexOf(currentNode) == paragraphs.value.length - 1) {
 
-function addNode(es:EditorView):boolean{
-//saveCurrentNode
-currentNode.originalMarkdown=es.contentDOM.innerText
-// saveNodeLists(paragraphs.value,currentFile.value)
-//如果当前节点是最后的节点，新增一个节点
-if(paragraphs.value.indexOf(currentNode)==paragraphs.value.length-1){
-
-   	let newNode: cTreeNode = {
+			let newNode: cTreeNode = {
 				title: v4(),
 				originalMarkdown: "",
 				type: "paragraph",
@@ -191,38 +132,36 @@ if(paragraphs.value.indexOf(currentNode)==paragraphs.value.length-1){
 			paragraphs.value.push(newNode)
 
 			console.log(paragraphs.value.length)
-}
+		}
 
- return false;
-}
+		return false;
+	}
 	let editorview = new EditorView({
 
 		state: EditorState.create({
-
-			doc: currentNode.originalMarkdown==""?"// If you want to go out of the block, just type tab\n":currentNode.originalMarkdown,
 			extensions: [
 				javascriptLanguage,
 				globalJavaScriptCompletions,
 				mytheme,
 				oneDarkHighlightStyle,
 				pythonLanguage,
-				keymap.of([{key:"Tab",run:(editorview)=>{addNode(editorview);return true;}},{key:"ArrowDown",run:cursorDocEnd}]),
+				keymap.of([{ key: "Tab", run: (editorview) => { addNode(editorview); return true; } }, { key: "ArrowDown", run: cursorDocEnd }]),
 				autocompletion(),
 			],
 		}),
 		parent: codeBlock.value!,
 	})
-function setSel(state:EditorState, selection:any) {
-    return state.update({ selection, scrollIntoView: true, userEvent: "select" });
-}
+	function setSel(state: EditorState, selection: any) {
+		return state.update({ selection, scrollIntoView: true, userEvent: "select" });
+	}
 
-const cursorDocEnds = (state:any,dispatch:any) => {
-    dispatch(setSel(state,{anchor:state.doc.length}))
-};
+	const cursorDocEnds = (state: any, dispatch: any) => {
+		dispatch(setSel(state, { anchor: state.doc.length }))
+	};
 
 
-editorview.focus()
-cursorDocEnds(editorview.state,editorview.dispatch)
+	editorview.focus()
+	cursorDocEnds(editorview.state, editorview.dispatch)
 })
 
 
@@ -237,32 +176,25 @@ cursorDocEnds(editorview.state,editorview.dispatch)
 			<div class="yellow"></div>
 			<div class="green"></div>
 		</div>
-	<div class="language" >{{currentNode.language}}</div>
+		<div class="language" spellcheck="false">{{ currentNode.language }}</div>
 	</div>
-
 </template>
 <style scoped lang="scss">
-
 .editor .code-block {
-	position:relative;
-    background-color: #222;
+	position: relative;
 	margin-bottom: 1rem;
-	width:80%;
 }
 .CodeMirror {
 	border: none;
 	width: 100%;
 	height: 300px;
-
 }
-.language{
+.language {
 	margin-right: auto;
-	display:inline-block;
-	position:absolute;
-	right:10px;
-	top:5px;
-}
-.cm-editor ͼ1 ͼ3 ͼ1a{
-	background-color:red;
+	display: inline-block;
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	font-size: 0.8rem;
 }
 </style>

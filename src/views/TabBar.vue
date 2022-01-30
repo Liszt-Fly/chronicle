@@ -2,6 +2,7 @@
 import { dialog } from "@electron/remote"
 import { display, files } from "@/api/configdb";
 import { sortFileInDepth } from "@/api/ExtendedPanel/FileSystem/util";
+import router from "@/api/router/router";
 
 function openRepository() {
 	files.value = []
@@ -9,37 +10,45 @@ function openRepository() {
 	if (path) {
 		sortFileInDepth(path[0], files.value)
 	}
-	else{
+	else {
 		alert("Please choose a folder as  Reponsitory ")
 	}
 }
 
-function empty() {}
+function empty() { }
 
-let tabBarItems = [
-	{
-		item: "folder",
-		icon: "bi bi-archive",
-		func: openRepository,
-		to: "/",
-	},
-	{ item: "tag", icon: "bi bi-bookmark-heart", func: empty, to: "/tag" },
-	{ item: "search", icon: "bi bi-search", func: empty, to: "/search" },
-	{ item: "setting", icon: "bi bi-sliders", func: empty, to: "/setting" },
-]
 </script>
 
 <template>
 	<div class="tab-system">
-		<div class="tab-bar" v-if="display">
-			<template v-for="tabItem in tabBarItems">
-				<div class="tab-item" @click="tabItem.func()">
-					<router-link :class="tabItem.icon" :to="tabItem.to"></router-link>
+		<div class="tab-bar">
+			<div class="sub-tab">
+				<div class="tab-item" @click="openRepository" id="folder">
+					<router-link to="/editor">
+						<i class="bi bi-archive"></i>
+					</router-link>
 				</div>
-			</template>
-		</div>
-		<div class="extendedPanel">
-			<router-view></router-view>
+				<div class="tab-item" @click="empty" id="search">
+					<router-link to="/search">
+						<i class="bi bi-search"></i>
+					</router-link>
+				</div>
+				<div class="tab-item" @click="empty" id="tag">
+					<router-link to="/tag">
+						<i class="bi bi-bookmark-heart"></i>
+					</router-link>
+				</div>
+				<div class="tab-item" @click="empty" id="timeline">
+					<router-link to="/timeline">
+						<i class="bi bi-calendar-event"></i>
+					</router-link>
+				</div>
+			</div>
+			<div class="tab-item" @click="empty" id="setting">
+				<router-link to="/setting">
+					<i class="bi bi-gear-wide-connected"></i>
+				</router-link>
+			</div>
 		</div>
 	</div>
 </template>

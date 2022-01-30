@@ -17,27 +17,11 @@
       }
     }
   }
-
-  .extendedPanel {
-    background-color: #fafafa;
-
-    .file-system {
-      .folder {
-        .item {
-          &:hover {
-            background-color: #e7e7e7;
-          }
-        }
-      }
-    }
-  }
 }
 
-/* 滚动条 */
-::-webkit-scrollbar {
-  width: 4px;
-  height: 8px;
-  background-color: #f5f5f5;
+.main {
+  color: #444;
+  background-color: #ffffff;
 }
 
 ::-webkit-scrollbar-track {

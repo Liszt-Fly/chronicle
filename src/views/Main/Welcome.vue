@@ -1,7 +1,7 @@
 <script setup lang="ts">
 </script>
 
-<template>tag page</template>
+<template>欢迎使用 chronicle 🎉</template>
 
 <style >
 </style>

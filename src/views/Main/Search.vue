@@ -1,7 +1,7 @@
 <script setup lang="ts">
 </script>
 
-<template>tag page</template>
+<template>search page</template>
 
 <style >
 </style>
