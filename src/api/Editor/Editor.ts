@@ -55,12 +55,12 @@ export let addNewNode = async function (
 		nextElement.focus()
 	}
 	//对于blur来说，如果内容为空，就要删除当前的节点
-	if (!bKeyBoardTarget(event)) {
-		if (currentNode.originalMarkdown == "") {
-			let index = paragraphs.value.indexOf(currentNode)
-			paragraphs.value.splice(index, 1)
-		}
-	}
+	// if (!bKeyBoardTarget(event)) {
+	// 	if (currentNode.originalMarkdown == "") {
+	// 		let index = paragraphs.value.indexOf(currentNode)
+	// 		paragraphs.value.splice(index, 1)
+	// 	}
+	// }
 }
 
 //* sum focus状态恢复为sourceCodeMode
