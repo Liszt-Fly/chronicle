@@ -16,16 +16,16 @@
       }
     }
   }
+}
 
-  .extendedPanel {
-    background-color: #222;
+.extendedPanel {
+  background-color: #222;
 
-    .file-system {
-      .folder {
-        .item {
-          &:hover {
-            background-color: #333;
-          }
+  .file-system {
+    .folder {
+      .item {
+        &:hover {
+          background-color: #333;
         }
       }
     }
