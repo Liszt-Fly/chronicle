@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {  Menu, MenuItem } from "@electron/remote"
-import {  reactive, ref } from "vue"
+import { Menu, MenuItem } from "@electron/remote"
+import { reactive, ref } from "vue"
 import { msfile } from "@/types/type"
 import fsp from "fs-extra"
 import path from "path"
@@ -14,7 +14,7 @@ let subfolder = ref<HTMLDivElement | null>(null)
 let refSubfolder = reactive({ dom: subfolder })
 let namebox = ref<HTMLElement | null>(null)
 const fileDom = ref<HTMLElement | null>(null)
- function openFile(event: MouseEvent, file: msfile) {
+function openFile(event: MouseEvent, file: msfile) {
 	//如果是文件
 	if (!file.isDirectory) {
 		console.log(basePath.value)
@@ -33,7 +33,7 @@ function renameNote(file: msfile) {
 	namebox.value!.contentEditable = "true"
 	namebox.value!.focus()
 }
- function toggleSubfolder(
+function toggleSubfolder(
 	event: MouseEvent,
 	file: msfile,
 	subfolder: { dom: HTMLElement | null }
@@ -63,7 +63,7 @@ function finishReanmeNote(file: msfile) {
 	namebox.value!.contentEditable = "false"
 	console.log(file.path + pathObjcet.ext)
 
-fsp.renameSync(
+	fsp.renameSync(
 		props!.file!.path!,
 		path.resolve(pathObjcet.dir, namebox.value!.innerText) + pathObjcet.ext
 	)
@@ -74,11 +74,11 @@ function deleteNote(file: msfile) {
 	fsp.unlinkSync(file.path!)
 }
 
-function enter(event:KeyboardEvent){
-	let target=event.target as HTMLDivElement
+function enter(event: KeyboardEvent) {
+	let target = event.target as HTMLDivElement
 	target.blur()
 }
-function addTag(file:msfile){
+function addTag(file: msfile) {
 
 
 }
@@ -98,7 +98,7 @@ const menuItems = [
 			renameNote(props.file!)
 		},
 	}),
-		new MenuItem({
+	new MenuItem({
 		label: "addTag",
 		click: () => {
 
@@ -116,7 +116,6 @@ menuItems.forEach((item) => {
 		<div
 			class="item"
 			tabindex="1"
-
 			@click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
 			v-if="validateFilename(file.name!)"
 			@contextmenu.stop="menu.popup()"
@@ -130,7 +129,11 @@ menuItems.forEach((item) => {
 					'file-icon',
 				]"
 			></span>
-			<span ref="namebox" @blur="finishReanmeNote(props.file!)" @keydown.enter.prevent="enter($event)">{{ validateFilename(file.name!) }}</span>
+			<span
+				ref="namebox"
+				@blur="finishReanmeNote(props.file!)"
+				@keydown.enter.prevent="enter($event)"
+			>{{ validateFilename(file.name!) }}</span>
 		</div>
 		<div
 			class="subfolder"
