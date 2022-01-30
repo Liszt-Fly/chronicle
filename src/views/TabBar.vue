@@ -9,22 +9,18 @@ function openRepository() {
 	if (path) {
 		sortFileInDepth(path[0], files.value)
 	}
-	else{
+	else {
 		alert("Please choose a folder as  Reponsitory ")
 	}
 }
 
-function empty() {}
+function empty() { }
 
 let tabBarItems = [
-	{
-		item: "folder",
-		icon: "bi bi-archive",
-		func: openRepository,
-		to: "/",
-	},
-	{ item: "tag", icon: "bi bi-bookmark-heart", func: empty, to: "/tag" },
+	{ item: "folder", icon: "bi bi-archive", func: openRepository, to: "/fileSystem", },
 	{ item: "search", icon: "bi bi-search", func: empty, to: "/search" },
+	{ item: "tag", icon: "bi bi-bookmark-heart", func: empty, to: "/tag" },
+	{ item: "timeline", icon: "bi bi-calendar-event", func: empty, to: "/timeline" },
 	{ item: "setting", icon: "bi bi-sliders", func: empty, to: "/setting" },
 ]
 </script>

@@ -4,9 +4,7 @@
 </script>
 
 <template>
-    <div class="search-system">
-
-    </div>
+    <div class="search-system"></div>
 </template>
 
 <style >

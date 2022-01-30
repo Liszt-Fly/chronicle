@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {  Menu, MenuItem } from "@electron/remote"
 import {  reactive, ref } from "vue"
-import { msfile } from "@/Type/type"
+import { msfile } from "@/types/type"
 import fsp from "fs-extra"
 import path from "path"
 import { flushFiles, validateFilename } from "@/api/ExtendedPanel/FileSystem/util"
