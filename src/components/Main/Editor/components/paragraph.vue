@@ -26,7 +26,7 @@ let bParsed = reactive({ value: false }) //是否转化为markdown
 		contenteditable="true"
 		ref="paragraph"
 		spellcheck="false"
-		@keydown.enter="addNewNode($event, bParsed, currentNode)"
+		@keydown.enter.prevent="addNewNode($event, bParsed, currentNode)"
 		@blur="addNewNode($event, bParsed, currentNode)"
 		@focus="recoverSourceCodeMode($event, bParsed, currentNode)"
 	></div>

@@ -162,7 +162,9 @@ body {
   /* 分割线 */
   hr {
     height: 0;
-    margin: 15px 0;
+    margin: 1rem 0;
+    top: 0.5rem;
+    position: relative;
     overflow: hidden;
     background: transparent;
     border: 0;
@@ -206,6 +208,7 @@ body {
   ul,
   ol {
     padding-left: 0;
+    text-indent: 0.5rem;
     margin: 20px;
   }
 
@@ -291,17 +294,18 @@ body {
     }
   }
 
-  .code-hint {
-    width: calc(100% - 16px);
-    margin: auto;
-    font-size: 0.8rem;
-    background-color: #ff00001c;
-    padding: 8px;
-    border-radius: 0 0 8px 8px;
-    border-top: 3px red solid;
-    margin-top: 4px;
-    font-family: "cascadia code";
-    white-space: pre;
+  .magic {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    border-radius: 5px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    cursor: pointer;
   }
 }
 ::-webkit-scrollbar {
