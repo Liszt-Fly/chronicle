@@ -8,7 +8,7 @@ import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
 
 let rContainer = ref<HTMLBaseElement | null>(null)
 function save(event: KeyboardEvent) {
-	if (event.metaKey && event.keyCode == 83 && currentFile.value != "") {
+	if ((event.metaKey||event.altKey) && event.keyCode == 83 && currentFile.value != "") {
 		saveArticle(paragraphs.value, currentFile.value)
 	}
 }
