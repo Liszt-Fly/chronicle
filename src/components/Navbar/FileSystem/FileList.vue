@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {  Menu, MenuItem } from "@electron/remote"
 import {  reactive, ref } from "vue"
-import { msfile } from "@/Type/type"
+import { msfile } from "@/types/type"
 import fsp from "fs-extra"
 import path from "path"
 import { flushFiles, validateFilename } from "@/api/ExtendedPanel/FileSystem/util"
@@ -18,7 +18,7 @@ const fileDom = ref<HTMLElement | null>(null)
 	//如果是文件
 	if (!file.isDirectory) {
 		console.log(basePath.value)
-		if (path.extname(path.resolve(basePath.value, file.name!)) === ".json") {
+		if (path.extname(path.resolve(basePath.value, file.name!)) === ".chron") {
 			//首先保存上一个文件
 			if (currentFile.value != "") {
 

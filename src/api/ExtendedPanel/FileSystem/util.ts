@@ -48,7 +48,7 @@ export let validateFilename = function validateFilename(
 
 	// 只保留 json 文件
 
-	if (path.extname(filename) == ".json" || path.extname(filename) == "")
+	if (path.extname(filename) == ".chron" || path.extname(filename) == "")
 		return filename.substring(0, length)
 	else return undefined
 }

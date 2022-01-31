@@ -46,7 +46,7 @@ function ifFileHasExtname(file: string): string {
 	if (path.extname(file)) {
 		return file
 	} else {
-		return file.concat(".json")
+		return file.concat(".chron")
 	}
 }
 

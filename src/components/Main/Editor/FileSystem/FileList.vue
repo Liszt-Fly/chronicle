@@ -17,7 +17,7 @@ function openFile(event: MouseEvent, file: msfile) {
 	//如果是文件
 	if (!file.isDirectory) {
 		console.log(basePath.value)
-		if (path.extname(path.resolve(basePath.value, file.name!)) === ".json") {
+		if (path.extname(path.resolve(basePath.value, file.name!)) === ".chron") {
 			//首先保存上一个文件
 			if (currentFile.value != "") {
 
@@ -44,7 +44,7 @@ function toggleSubfolder(
 			let item = event.currentTarget as HTMLElement
 			let folder = item.firstElementChild!
 
-			folder.classList.toggle("bi-folder")
+			folder.classList.toggle("bi-folder-fill")
 			folder.classList.toggle("bi-folder2-open")
 			if (folder.classList.contains("bi-folder2-open")) {
 				subfolder.dom!.style.display = "block"
@@ -144,4 +144,4 @@ menuItems.forEach((item) => {
 		</div>
 	</div>
 </template>
- git checkout 
+ git checkout
