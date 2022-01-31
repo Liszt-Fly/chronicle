@@ -71,7 +71,7 @@ export let recoverSourceCodeMode = function (
 ) {
 	let target = event.target as unknown as HTMLElement
 	if (bParsed) {
-		target.innerText = currentNode.originalMarkdown
+		target.innerText = currentNode.originalMarkdown.trim()
 		bParsed.value = false
 	}
 }

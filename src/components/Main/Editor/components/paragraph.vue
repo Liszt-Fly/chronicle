@@ -22,12 +22,18 @@ let bParsed = reactive({ value: false }) //是否转化为markdown
 
 <template>
 	<div
+		class="paragraph"
 		contenteditable="true"
 		ref="paragraph"
 		spellcheck="false"
-		@keydown.enter.prevent="addNewNode($event, bParsed, currentNode)"
+		@keydown.enter="addNewNode($event, bParsed, currentNode)"
 		@blur="addNewNode($event, bParsed, currentNode)"
 		@focus="recoverSourceCodeMode($event, bParsed, currentNode)"
-		style="min-height: 24px;"
 	></div>
 </template>
+
+<style>
+.paragraph {
+	min-height: 24px;
+}
+</style>
