@@ -48,50 +48,44 @@ body {
 }
 
 .main {
-  width: 100%;
+  width: calc(100% - 2.5rem);
 }
 
-.extendedPanel {
-  max-height: 100vh;
-  overflow: auto;
+.file-system {
+  height: 100vh;
+  min-width: 8rem;
 
-  .file-system {
-    padding: 6px;
-    height: calc(100% - 12px);
-    min-width: 8rem;
+  .subfolder {
+    text-indent: 10px;
+    width: 18vw;
+    display: none;
+  }
 
-    .subfolder {
-      text-indent: 10px;
-      width: 18vw;
-      display: none;
-    }
+  .file-name {
+    display: inline-block;
+  }
 
-    .file-name {
-      display: inline-block;
-    }
+  .folder {
+    white-space: nowrap;
+    overflow-x: hidden;
+    display: block;
+    overflow-y: auto;
 
-    .folder {
-      white-space: nowrap;
+    .item {
+      padding: 0.5rem 1rem;
+      font-size: 0.7rem;
       overflow-x: hidden;
-      display: block;
-      overflow-y: auto;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
-      .item {
-        padding: 6px;
-        font-size: 0.7rem;
-        overflow-x: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+      &:hover {
+        cursor: pointer;
+      }
 
-        &:hover {
-          cursor: pointer;
-        }
-
-        .file-icon {
-          font-size: 0.8rem;
-          position: relative;
-          right: 2px;
-        }
+      .file-icon {
+        font-size: 0.8rem;
+        position: relative;
+        right: 2px;
       }
     }
   }
