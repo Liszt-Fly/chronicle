@@ -296,7 +296,7 @@ body {
 
   .magic {
     position: fixed;
-    top: 20px;
+    bottom: 20px;
     right: 20px;
     width: 32px;
     height: 32px;
@@ -306,6 +306,7 @@ body {
     justify-items: center;
     align-items: center;
     cursor: pointer;
+    z-index: 999 !important;
   }
 }
 
