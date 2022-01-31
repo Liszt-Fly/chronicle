@@ -55,6 +55,8 @@ body {
   height: 100vh;
   min-width: 8rem;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 
   .subfolder {
     text-indent: 10px;
@@ -69,7 +71,7 @@ body {
   .folder {
     white-space: nowrap;
     overflow-x: hidden;
-    display: block;
+    display: inline-block;
     overflow-y: auto;
 
     .item {
