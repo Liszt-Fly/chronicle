@@ -26,25 +26,19 @@ let bParsed = reactive({ value: false }) //是否转化为markdown
 
 <template>
 	<div
-
-		tabindex="-1"
-		contenteditable="true" class="reading"
+		class="paragraph"
+		contenteditable="true"
 		ref="paragraph"
 		spellcheck="false"
 		@active="modify"
 		@keydown.enter.prevent="addNewNode($event, bParsed, currentNode)"
 		@blur="addNewNode($event, bParsed, currentNode)"
 		@focus="recoverSourceCodeMode($event, bParsed, currentNode)"
-		style="min-height: 24px;"
-
 	></div>
 </template>
+
 <style>
-.reading{}
-.reading:active{
-	border:solid 1px green;
-}
-.reading:focus{
-	border:solid 1px red;
+.paragraph {
+	min-height: 24px;
 }
 </style>

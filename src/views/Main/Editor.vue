@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, Ref, ref, watch, watchEffect } from "vue"
+import { onMounted, Ref, ref, watchEffect } from "vue"
 import { currentFile, paragraphs } from "@/api/configdb"
 import { initMarked } from "@/api/init"
 import { loadNodeLists, saveArticle } from "@/api/Editor/Editor"
@@ -12,14 +12,9 @@ function save(event: KeyboardEvent) {
 		saveArticle(paragraphs.value, currentFile.value)
 	}
 }
-let consolew=()=>{
-	console.log(1)
-}
 initMarked()
 onMounted(() => {
-
 	watchEffect(() => {
-
 		if (currentFile.value != "") {
 			paragraphs.value = loadNodeLists(currentFile.value)
 
@@ -29,47 +24,25 @@ onMounted(() => {
 	})
 })
 
+let editable: Ref<boolean> = ref(false)
+let edit = function () {
+	editable.value = !editable.value
+}
 
 </script>
 
 <template>
 	<div style="display: flex;">
-		<div class="extendedPanel">
-			<FileSystem></FileSystem>
-		</div>
-		<!-- <div class="magic" @click="edit()" title="点击改变选择模式">
-			<i
-				:class="[
-					'bi',
-					{ 'bi-textarea-t': editable },
-					{ 'bi-fonts': !editable },
-				]"
-			></i>
-		</div>-->
+		<FileSystem></FileSystem>
 
-		<div class="editor" ref="rContainer" @keydown="save($event)" contenteditable="true" @enter.capture >
+		<div class="editor" ref="rContainer" @keydown="save($event)" :contenteditable="editable">
+			<div class="magic" @click="edit()" title="点击改变选择模式">
+				<span v-show="editable">🐯</span>
+				<span v-show="!editable">🐱</span>
+			</div>
 			<template v-for="paragraph in paragraphs" :key="paragraph.title">
-				<component :is="paragraph.type" :paragraph="paragraph" @active="consolew" ></component>
+				<component :is="paragraph.type" :paragraph="paragraph"></component>
 			</template>
 		</div>
 	</div>
 </template>
-
-<style>
-
-.magic {
-	position: fixed;
-	top: 20px;
-	right: 20px;
-	width: 32px;
-	height: 32px;
-	text-align: center;
-	background-color: #fff;
-	border-radius: 5px;
-	display: grid;
-	color: #444;
-	justify-items: center;
-	align-items: center;
-	cursor: pointer;
-}
-</style>

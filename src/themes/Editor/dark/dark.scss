@@ -1,13 +1,10 @@
-.extendedPanel {
+.file-system {
   color: #b4b4b4;
   background-color: #222;
-
-  .file-system {
-    .folder {
-      .item {
-        &:hover {
-          background-color: #333;
-        }
+  .folder {
+    .item {
+      &:hover {
+        background-color: #333;
       }
     }
   }
@@ -37,8 +34,7 @@
     background-color: #222;
   }
 
-  .code-hint {
-    background-color: #ff00001c;
-    border-top: 3px red solid;
+  .magic {
+    background-color: #444;
   }
 }

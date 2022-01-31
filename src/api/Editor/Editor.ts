@@ -7,7 +7,7 @@ import { currentFile, paragraphs } from "@/api/configdb"
 import { initNode } from "@/api/init"
 import path from "path"
 import { cCodeBlockNode, cTreeNode } from "@/types/type"
-import { bKeyBoardTarget } from "../ExtendedPanel/FileSystem/util"
+import { bKeyBoardTarget } from "./FileSystem/util"
 
 //* sum 添加新的节点
 export let addNewNode = async function (
@@ -71,7 +71,7 @@ export let recoverSourceCodeMode = function (
 ) {
 	let target = event.target as unknown as HTMLElement
 	if (bParsed) {
-		target.innerText = currentNode.originalMarkdown
+		target.innerText = currentNode.originalMarkdown.trim()
 		bParsed.value = false
 	}
 }

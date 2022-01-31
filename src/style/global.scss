@@ -1,6 +1,6 @@
 * {
   margin: 0;
-  outline: none;
+  // outline: none;
 }
 
 body {
@@ -48,50 +48,44 @@ body {
 }
 
 .main {
-  width: 100%;
+  width: calc(100% - 2.5rem);
 }
 
-.extendedPanel {
-  max-height: 100vh;
-  overflow: auto;
+.file-system {
+  height: 100vh;
+  min-width: 8rem;
 
-  .file-system {
-    padding: 6px;
-    height: calc(100% - 12px);
-    min-width: 8rem;
+  .subfolder {
+    text-indent: 10px;
+    width: 18vw;
+    display: none;
+  }
 
-    .subfolder {
-      text-indent: 10px;
-      width: 18vw;
-      display: none;
-    }
+  .file-name {
+    display: inline-block;
+  }
 
-    .file-name {
-      display: inline-block;
-    }
+  .folder {
+    white-space: nowrap;
+    overflow-x: hidden;
+    display: block;
+    overflow-y: auto;
 
-    .folder {
-      white-space: nowrap;
+    .item {
+      padding: 0.5rem 1rem;
+      font-size: 0.7rem;
       overflow-x: hidden;
-      display: block;
-      overflow-y: auto;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
-      .item {
-        padding: 6px;
-        font-size: 0.7rem;
-        overflow-x: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+      &:hover {
+        cursor: pointer;
+      }
 
-        &:hover {
-          cursor: pointer;
-        }
-
-        .file-icon {
-          font-size: 0.8rem;
-          position: relative;
-          right: 2px;
-        }
+      .file-icon {
+        font-size: 0.8rem;
+        position: relative;
+        right: 2px;
       }
     }
   }
@@ -162,7 +156,9 @@ body {
   /* 分割线 */
   hr {
     height: 0;
-    margin: 15px 0;
+    margin: 1rem 0;
+    top: 0.5rem;
+    position: relative;
     overflow: hidden;
     background: transparent;
     border: 0;
@@ -206,6 +202,7 @@ body {
   ul,
   ol {
     padding-left: 0;
+    text-indent: 0.5rem;
     margin: 20px;
   }
 
@@ -291,17 +288,18 @@ body {
     }
   }
 
-  .code-hint {
-    width: calc(100% - 16px);
-    margin: auto;
-    font-size: 0.8rem;
-    background-color: #ff00001c;
-    padding: 8px;
-    border-radius: 0 0 8px 8px;
-    border-top: 3px red solid;
-    margin-top: 4px;
-    font-family: "cascadia code";
-    white-space: pre;
+  .magic {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    border-radius: 5px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    cursor: pointer;
   }
 }
 ::-webkit-scrollbar {
