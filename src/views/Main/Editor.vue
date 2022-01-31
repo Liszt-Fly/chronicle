@@ -12,20 +12,11 @@ function save(event: KeyboardEvent) {
 		saveArticle(paragraphs.value, currentFile.value)
 	}
 }
-let shouldChange:Ref<boolean> =ref(false)
-let editable: Ref<boolean> = ref(false)
+let consolew=()=>{
+	console.log(1)
+}
 initMarked()
 onMounted(() => {
-//如果应该change,那么就应该Change
-watch(shouldChange,(value,oldvalue)=>{
-editable.value = !editable.value
-})
-
-	setInterval(()=>{
-		//如果value不为0说明应该进行change
-		shouldChange.value=!(window.getSelection()!.focusOffset-(window.getSelection()!.anchorOffset)==0)
-			console.log(shouldChange.value)
-	})
 
 	watchEffect(() => {
 
@@ -39,10 +30,6 @@ editable.value = !editable.value
 })
 
 
-
-const drag = () => {
-	console.log("drag")
-}
 </script>
 
 <template>
@@ -60,15 +47,16 @@ const drag = () => {
 			></i>
 		</div>-->
 
-		<div class="editor" ref="rContainer" @keydown="save($event)" :contenteditable="editable" >
+		<div class="editor" ref="rContainer" @keydown="save($event)" contenteditable="true" @enter.capture >
 			<template v-for="paragraph in paragraphs" :key="paragraph.title">
-				<component :is="paragraph.type" :paragraph="paragraph" ></component>
+				<component :is="paragraph.type" :paragraph="paragraph" @active="consolew" ></component>
 			</template>
 		</div>
 	</div>
 </template>
 
 <style>
+
 .magic {
 	position: fixed;
 	top: 20px;
