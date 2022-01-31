@@ -25,3 +25,15 @@ export interface cTreeNode {
 export interface cCodeBlockNode extends cTreeNode {
 	language: string
 }
+
+export interface abstractNode {
+	//uuid
+	title: string,
+	content: string,
+	type: string,
+
+}
+
+export interface paragraphNode extends abstractNode {
+
+}

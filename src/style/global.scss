@@ -54,6 +54,7 @@ body {
 .file-system {
   height: 100vh;
   min-width: 8rem;
+  overflow-y: auto;
 
   .subfolder {
     text-indent: 10px;
@@ -302,6 +303,7 @@ body {
     cursor: pointer;
   }
 }
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;

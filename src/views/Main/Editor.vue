@@ -3,7 +3,6 @@ import { onMounted, Ref, ref, watchEffect } from "vue"
 import { currentFile, paragraphs } from "@/api/configdb"
 import { initMarked } from "@/api/init"
 import { loadNodeLists, saveArticle } from "@/api/Editor/Editor"
-
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
 
 let rContainer = ref<HTMLBaseElement | null>(null)
@@ -28,7 +27,9 @@ let editable: Ref<boolean> = ref(false)
 let edit = function () {
 	editable.value = !editable.value
 }
-
+let enter=()=>{
+	console.log("enter")
+}
 </script>
 
 <template>
@@ -37,7 +38,7 @@ let edit = function () {
 
 		<div class="editor" ref="rContainer" @keydown="save($event)" :contenteditable="editable">
 			<div class="magic" @click="edit()" title="点击改变选择模式">
-				<span v-show="editable">🐯</span>
+				<span v-show="editable">🐼</span>
 				<span v-show="!editable">🐱</span>
 			</div>
 			<template v-for="paragraph in paragraphs" :key="paragraph.title">
