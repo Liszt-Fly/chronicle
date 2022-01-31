@@ -4,7 +4,7 @@ import { reactive, ref } from "vue"
 import { msfile } from "@/types/type"
 import fsp from "fs-extra"
 import path from "path"
-import { flushFiles, validateFilename } from "@/api/ExtendedPanel/FileSystem/util"
+import { flushFiles, validateFilename } from "@/api/Editor/FileSystem/util"
 import { basePath, currentFile } from "@/api/configdb"
 const props = defineProps({
 	file: Object as () => msfile,

@@ -33,9 +33,7 @@ let edit = function () {
 
 <template>
 	<div style="display: flex;">
-		<div class="extendedPanel">
-			<FileSystem></FileSystem>
-		</div>
+		<FileSystem></FileSystem>
 
 		<div class="editor" ref="rContainer" @keydown="save($event)" :contenteditable="editable">
 			<div class="magic" @click="edit()" title="点击改变选择模式">

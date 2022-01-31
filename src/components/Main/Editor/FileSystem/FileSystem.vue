@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { basePath, files } from "@/api/configdb"
-import { createNote } from "@/api/ExtendedPanel/FileSystem/filesystem";
-import { flushFiles } from "@/api/ExtendedPanel/FileSystem/util";
+import { createNote } from "@/api/Editor/FileSystem/filesystem";
+import { flushFiles } from "@/api/Editor/FileSystem/util";
 import FileList from "@/components/Main/Editor/FileSystem/FileList.vue"
 import { Menu, MenuItem } from "@electron/remote"
 import { ref } from "vue"
