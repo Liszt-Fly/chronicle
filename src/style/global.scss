@@ -59,9 +59,10 @@ body {
   flex-direction: column;
 
   .subfolder {
-    text-indent: 10px;
+    padding-left: 10px;
     width: 18vw;
     display: none;
+    flex-direction: column;
   }
 
   .file-name {
@@ -71,10 +72,12 @@ body {
   .folder {
     white-space: nowrap;
     overflow-x: hidden;
-    display: inline-block;
+    display: flex;
     overflow-y: auto;
+    flex-direction: column;
 
     .item {
+
       padding: 0.5rem 1rem;
       font-size: 0.7rem;
       overflow-x: hidden;
