@@ -12,10 +12,14 @@ import "@/themes/Frame/dark/dark.scss"
 import "@/themes/Editor/dark/dark.scss"
 import "@/themes/Editor/Code/dark/dark.scss"
 import "bootstrap-icons/font/bootstrap-icons.css"
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
 const app = createApp(App)
 
-// app.use(hljsVuePlugin)
 app.component("paragraph", paragraph)
 app.component("codeBlock", codeBlock)
-app.use(router).mount("#app")
+app.use(router)
+app.use(ElementPlus)
+
+app.mount("#app")
