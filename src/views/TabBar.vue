@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import { dialog } from "@electron/remote"
-import { display, files } from "@/api/configdb";
+import { files } from "@/api/configdb";
 import { sortFileInDepth } from "@/api/Editor/FileSystem/util";
-import router from "@/api/router/router";
 
 function openRepository() {
 	files.value = []
-	let path = dialog.showOpenDialogSync({ properties: ["openDirectory"] })
-	if (path) {
-		sortFileInDepth(path[0], files.value)
-	}
-	else {
-		alert("Please choose a folder as  Reponsitory ")
-	}
+	let path = process.cwd() + "/example/assets"
+	console.log(path)
+	sortFileInDepth(path, files.value)
+
+	// let path = dialog.showOpenDialogSync({ properties: ["openDirectory"] })
+	// if (path) {
+	// 	sortFileInDepth(path[0], files.value)
+	// }
+	// else {
+	// 	alert("Please choose a folder as  Reponsitory ")
+	// }
 }
 
 function empty() { }
