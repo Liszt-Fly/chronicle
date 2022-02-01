@@ -1,0 +1,55 @@
+.cm-editor {
+  color: #444;
+  background-color: #fafafa;
+}
+.cm-editor .cm-content {
+  caret-color: #ddd;
+  font-family: "cascadia code";
+}
+.cm-editor.cm-focused .cm-cursor {
+  border-left-color: #ddd;
+}
+.cm-editor.cm-focused .cm-selectionBackground,
+.cm-editor .cm-selectionBackground,
+.cm-editor .cm-content ::selection {
+  background-color: whitesmoke;
+}
+.cm-editor .cm-searchMatch {
+  background-color: #72a1ff59;
+  outline: 1px solid #457dff;
+}
+.cm-editor .cm-searchMatch.cm-searchMatch-selected {
+  background-color: #6199ff2f;
+}
+.cm-editor .cm-selectionMatch {
+  background-color: #aafe661a;
+}
+.cm-editor.cm-focused .cm-matchingBracket,
+.cm-editor.cm-focused .cm-nonmatchingBracket {
+  background-color: #bad0f847;
+  outline: 1px solid #515a6b;
+}
+.cm-editor .cm-gutters {
+  border: none;
+}
+.cm-editor .cm-foldPlaceholder {
+  border: none;
+}
+.cm-editor .cm-tooltip {
+  border: none;
+}
+.cm-editor .cm-tooltip .cm-tooltip-arrow:before {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+.cm-tooltip-autocomplete ul li[aria-selected] {
+  background: #4fc08d !important;
+  color: #444;
+}
+.cm-editor.cm-focused {
+  outline: none !important;
+}
+.cm-tooltip {
+  background-color: whitesmoke !important;
+  color: #444 !important;
+}
