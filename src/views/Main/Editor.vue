@@ -34,8 +34,8 @@ let edit = function () {
 
 		<div class="editor" ref="rContainer" @keydown="save($event)" :contenteditable="editable">
 			<div class="selection" @click="edit()" title="点击改变选择模式">
-				<span v-show="editable">🐯 框选模式 ✅</span>
-				<span v-show="!editable">🐱 框选模式 ❎</span>
+				<span v-show="editable">框选模式开 ✅</span>
+				<span v-show="!editable">框选模式关 ❎</span>
 			</div>
 			<template v-for="paragraph in paragraphs" :key="paragraph.title">
 				<component :is="paragraph.type" :paragraph="paragraph"></component>

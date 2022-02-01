@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { files } from "@/api/configdb";
 import { sortFileInDepth } from "@/api/Editor/FileSystem/util";
+import { chroniclePath } from "@/api/init"
+import { onMounted } from "vue"
+
+onMounted(() => {
+	openRepository()
+})
 
 function openRepository() {
 	files.value = []
-	let path = process.cwd() + "/example/assets"
+	let path = chroniclePath + "/assets"
 	console.log(path)
 	sortFileInDepth(path, files.value)
 

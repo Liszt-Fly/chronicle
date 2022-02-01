@@ -28,7 +28,7 @@
             </el-form-item>
         </el-form>
 
-        <el-dialog v-model="saveDialogVisible" width="30%">
+        <el-dialog v-model="saveDialogVisible" width="16rem">
             <span>确定保存吗？</span>
             <template #footer>
                 <span class="dialog-footer">
@@ -38,7 +38,7 @@
             </template>
         </el-dialog>
 
-        <el-dialog v-model="restoreDialogVisible" width="30%">
+        <el-dialog v-model="restoreDialogVisible" width="16rem">
             <span>确定恢复默认设置吗？</span>
             <template #footer>
                 <span class="dialog-footer">
