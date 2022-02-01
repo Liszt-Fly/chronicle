@@ -44,7 +44,7 @@ function toggleSubfolder(
 			let item = event.currentTarget as HTMLElement
 			let folder = item.firstElementChild!
 
-			folder.classList.toggle("bi-folder-fill")
+			folder.classList.toggle("bi-folder")
 			folder.classList.toggle("bi-folder2-open")
 			if (folder.classList.contains("bi-folder2-open")) {
 				subfolder.dom!.style.display = "block"
