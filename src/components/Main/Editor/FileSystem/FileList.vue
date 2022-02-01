@@ -78,28 +78,26 @@ function enter(event: KeyboardEvent) {
 }
 
 function addTag(file: msfile) {
-
-
 }
 
 // 右键菜单
 const menu = new Menu()
 const menuItems = [
 	new MenuItem({
-		label: "delete note",
+		label: "删除",
 		click: () => {
 			deleteNote(props.file!)
 			flushFiles()
 		},
 	}),
 	new MenuItem({
-		label: "rename note",
+		label: "重命名",
 		click: () => {
 			renameNote(props.file!)
 		},
 	}),
 	new MenuItem({
-		label: "addTag",
+		label: "添加话题",
 		click: () => {
 
 		},

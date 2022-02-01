@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { onMounted, Ref, ref, watchEffect } from "vue"
 import { currentFile, paragraphs } from "@/api/configdb"
-import { initMarked } from "@/api/init"
-import { loadNodeLists, saveArticle } from "@/api/Editor/Editor"
+import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
 
 let rContainer = ref<HTMLBaseElement | null>(null)
 function save(event: KeyboardEvent) {
-	if ((event.metaKey||event.altKey) && event.keyCode == 83 && currentFile.value != "") {
+	if ((event.metaKey || event.altKey) && event.keyCode == 83 && currentFile.value != "") {
 		saveArticle(paragraphs.value, currentFile.value)
 	}
 }
@@ -27,9 +26,6 @@ let editable: Ref<boolean> = ref(false)
 let edit = function () {
 	editable.value = !editable.value
 }
-let enter=()=>{
-	console.log("enter")
-}
 </script>
 
 <template>
@@ -37,9 +33,9 @@ let enter=()=>{
 		<FileSystem></FileSystem>
 
 		<div class="editor" ref="rContainer" @keydown="save($event)" :contenteditable="editable">
-			<div class="magic" @click="edit()" title="点击改变选择模式">
-				<span v-show="editable">🐼</span>
-				<span v-show="!editable">🐱</span>
+			<div class="selection" @click="edit()" title="点击改变选择模式">
+				<span v-show="editable">🐯 框选模式 ✅</span>
+				<span v-show="!editable">🐱 框选模式 ❎</span>
 			</div>
 			<template v-for="paragraph in paragraphs" :key="paragraph.title">
 				<component :is="paragraph.type" :paragraph="paragraph"></component>

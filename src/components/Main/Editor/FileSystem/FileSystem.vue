@@ -9,28 +9,26 @@ let filesystem = ref<HTMLElement | null>()
 let menu = new Menu()
 const fileSystemMenu = [
 	new MenuItem({
-		label: "create note",
+		label: "新建笔记",
 		click: function () {
-
 			createNote(basePath.value)
 			files.value = []
 			flushFiles()
 		},
 	}),
-
 	new MenuItem({
-		label: "sort",
-		submenu: [
-			{ label: "sort by created time", },
-			{ label: "sort by last modified time", },
-		],
-	}),
-	new MenuItem({
-		label: "delete note",
+		label: "新建仓库",
 		click: function () {
+		},
+	}),
 
-		}
-	})
+	// new MenuItem({
+	// 	label: "sort",
+	// 	submenu: [
+	// 		{ label: "sort by created time", },
+	// 		{ label: "sort by last modified time", },
+	// 	],
+	// }),
 ]
 fileSystemMenu.forEach((item) => {
 	menu.append(item)

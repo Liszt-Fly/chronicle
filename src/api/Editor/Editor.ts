@@ -4,10 +4,32 @@ import { marked } from "marked"
 import { v4 } from "uuid"
 import fsp from "fs-extra"
 import { currentFile, paragraphs } from "@/api/configdb"
-import { initNode } from "@/api/init"
 import path from "path"
 import { cCodeBlockNode, cTreeNode } from "@/types/type"
 import { bKeyBoardTarget } from "./FileSystem/util"
+
+//sum markedjs初始化
+export function initMarked() {
+	marked.setOptions({
+		renderer: new marked.Renderer(),
+		highlight: function (code) {
+			return hljs.highlightAuto(code).value
+		},
+		pedantic: false,
+		gfm: true,
+		breaks: false,
+		sanitize: false,
+		smartLists: true,
+		smartypants: false,
+		xhtml: false,
+		langPrefix: "hljs",
+	})
+}
+
+//sum 如果是空白文件进行初始化最初节点
+export let initNode = function (): cTreeNode {
+	return { title: v4(), originalMarkdown: " ", type: "paragraph" }
+}
 
 //* sum 添加新的节点
 export let addNewNode = async function (

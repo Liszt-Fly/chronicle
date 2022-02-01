@@ -1,29 +1,7 @@
-//sum 配置init初始化的ts文件
+// 样式初始化
+export let addStyle = (styleFile: string) => {
+	const head = document.head || document.getElementsByTagName('head')[0];
+	let style = document.createElement('style');
 
-import { marked } from "marked"
-import hljs from "highlight.js"
-
-import { v4 } from "uuid"
-import { cTreeNode } from "@/types/type"
-
-//sum markedjs初始化
-export function initMarked() {
-	marked.setOptions({
-		renderer: new marked.Renderer(),
-		highlight: function (code) {
-			return hljs.highlightAuto(code).value
-		},
-		pedantic: false,
-		gfm: true,
-		breaks: false,
-		sanitize: false,
-		smartLists: true,
-		smartypants: false,
-		xhtml: false,
-		langPrefix: "hljs",
-	})
-}
-//sum 如果是空白文件进行初始化最初节点
-export function initNode(): cTreeNode {
-	return { title: v4(), originalMarkdown: " ", type: "paragraph" }
+	head.appendChild(style);
 }
