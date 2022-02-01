@@ -126,7 +126,7 @@ currentNode.originalMarkdown=es.contentDOM.innerText
   let editorview = new EditorView({
 
     state: EditorState.create({
-doc:currentNode.originalMarkdown?currentNode.originalMarkdown:"//you can tab the tab to escape from the block\n ",
+doc:currentNode.originalMarkdown?currentNode.originalMarkdown:"// Tab `Ctrl + Enter` to enter next line\n",
       extensions: [
         javascriptLanguage,
         globalJavaScriptCompletions,

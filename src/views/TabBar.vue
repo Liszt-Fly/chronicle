@@ -11,7 +11,6 @@ onMounted(() => {
 function openRepository() {
 	files.value = []
 	let path = chroniclePath + "/assets"
-	console.log(path)
 	sortFileInDepth(path, files.value)
 
 	// let path = dialog.showOpenDialogSync({ properties: ["openDirectory"] })
