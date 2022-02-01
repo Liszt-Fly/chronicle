@@ -14,12 +14,10 @@ export interface cTree {
 }
 
 export interface cTreeNode {
-
 	title: string
 	originalMarkdown: string
 	type: string
 	editorView?: any
-
 }
 
 export interface cCodeBlockNode extends cTreeNode {
@@ -31,7 +29,6 @@ export interface abstractNode {
 	title: string,
 	content: string,
 	type: string,
-
 }
 
 export interface paragraphNode extends abstractNode {

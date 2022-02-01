@@ -1,11 +1,10 @@
 //sum 虚拟Node节点操作
-
 import { marked } from "marked"
 import { v4 } from "uuid"
 import fsp from "fs-extra"
 import { currentFile, paragraphs } from "@/api/configdb"
 import path from "path"
-import { cCodeBlockNode, cTreeNode } from "@/types/type"
+import { cCodeBlockNode, cTreeNode } from "@/api/types/type"
 import { bKeyBoardTarget } from "./FileSystem/util"
 
 //sum markedjs初始化

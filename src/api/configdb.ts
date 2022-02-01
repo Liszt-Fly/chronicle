@@ -1,4 +1,4 @@
-import { cTreeNode } from "@/types/type"
+import { cTreeNode } from "@/api/types/type"
 import { ref } from "vue"
 export let files = ref([])
 export let display = ref(true)
