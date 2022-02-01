@@ -30,7 +30,7 @@ npm install
 # 建议使用 cnpm install
 
 # Compiles and hot-reloads for development
-npm run electron:serve
+npm run chronicle
 ```
 
 ## 技术栈
@@ -43,6 +43,7 @@ npm run electron:serve
 
 ```txt
 📁 public
+📁 example        # 示例文件夹
 📁 src
    🗂️ api         # 公用接口
       🗂️ router      # 路由
