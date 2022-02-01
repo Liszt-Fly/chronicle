@@ -249,6 +249,23 @@ body {
     font-family: "cascadia code" !important;
     min-height: 24px;
   }
+  
+  .code-block {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .cm-editor {
+    border: none;
+    width: 100%;
+  }
+  .language {
+    margin-right: auto;
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 0.8rem;
+  }
 
   .code-block {
     border-radius: 5px;

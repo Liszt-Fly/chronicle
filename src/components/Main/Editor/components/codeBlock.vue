@@ -108,7 +108,7 @@ onMounted(() => {
   function addNode(es: EditorView) {
 
     //saveCurrentNode
-currentNode.originalMarkdown=es.contentDOM.innerText
+    currentNode.originalMarkdown = es.contentDOM.innerText
     // saveNodeLists(paragraphs.value,currentFile.value)
     //如果当前节点是最后的节点，新增一个节点
 
@@ -117,7 +117,7 @@ currentNode.originalMarkdown=es.contentDOM.innerText
       originalMarkdown: "",
       type: "paragraph",
     };
-	paragraphs.value.splice(paragraphs.value.indexOf(currentNode)+1, 0, newNode)
+    paragraphs.value.splice(paragraphs.value.indexOf(currentNode) + 1, 0, newNode)
 
 
     console.log(paragraphs.value.length);
@@ -126,7 +126,7 @@ currentNode.originalMarkdown=es.contentDOM.innerText
   let editorview = new EditorView({
 
     state: EditorState.create({
-doc:currentNode.originalMarkdown?currentNode.originalMarkdown:"// Tab `Ctrl + Enter` to enter next line\n",
+      doc: currentNode.originalMarkdown ? currentNode.originalMarkdown : "// Tab `Ctrl + Enter` to enter next line\n",
       extensions: [
         javascriptLanguage,
         globalJavaScriptCompletions,
@@ -173,22 +173,4 @@ doc:currentNode.originalMarkdown?currentNode.originalMarkdown:"// Tab `Ctrl + En
     <div class="language" spellcheck="false">{{ currentNode.language }}</div>
   </div>
 </template>
-<style scoped lang="scss">
-.editor .code-block {
-  position: relative;
-  margin-bottom: 1rem;
-}
-.cm-editor {
-  border: none;
-  width: 100%;
-  height: 8000px;
-}
-.language {
-  margin-right: auto;
-  display: inline-block;
-  position: absolute;
-  right: 10px;
-  top: 5px;
-  font-size: 0.8rem;
-}
-</style>
+
