@@ -1,17 +1,17 @@
 <template>
-    <div class="setting">
-        <el-form ref="formRef" :model="setting" label-width="6rem" label-position="left">
+    <div class="config">
+        <el-form ref="formRef" :model="config" label-width="6rem" label-position="left">
             <el-form-item label="欢迎页面">
-                <el-checkbox v-model="setting.welcome_switch" label="启动时显示欢迎页面"></el-checkbox>
+                <el-checkbox v-model="config.welcome_switch" label="启动时显示欢迎页面"></el-checkbox>
             </el-form-item>
             <el-form-item label="全局样式">
-                <el-select v-model="setting.frame_style" placeholder="选择全局样式">
+                <el-select v-model="config.global_style" placeholder="选择全局样式">
                     <el-option label="浅色模式" value="light"></el-option>
                     <el-option label="暗黑模式" value="dark"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="编辑器样式">
-                <el-select v-model="setting.editor_style" placeholder="选择编辑器样式">
+                <el-select v-model="config.editor_style" placeholder="选择编辑器样式">
                     <el-option label="浅色模式" value="light"></el-option>
                     <el-option label="暗黑模式" value="dark"></el-option>
                 </el-select>
@@ -26,27 +26,41 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue'
-
-let setting = reactive({
-    frame_style: '',
-    editor_style: '',
-    welcome_switch: false,
+const fs = window.require('fs');
+let configFile = process.cwd() + "/example/chronicle.config.json"
+let config = reactive({
+    "global_style": "",
+    "editor_style": "",
+    "welcome_switch": false,
 })
 
 const readSetting = () => {
-    // todo:
-    console.log("读取配置文件");
+    try {
+        const data = fs.readFileSync(configFile)
+        let JSONData = JSON.parse(data)
+        for (let key in JSONData) {
+            config[key] = JSONData[key]
+        }
+    } catch {
+        restoreDefault()
+        saveSetting()
+    }
 }
 
 const saveSetting = () => {
-    // todo:
-    console.log(JSON.stringify(setting))
+    const data = JSON.stringify(config);
+
+    fs.writeFile(configFile, data, (err: ErrorEvent) => {
+        if (err) {
+            throw err;
+        }
+    });
 }
 
 const restoreDefault = () => {
-    setting.frame_style = 'light'
-    setting.editor_style = 'light'
-    setting.welcome_switch = true
+    config.global_style = 'light'
+    config.editor_style = 'light'
+    config.welcome_switch = true
 }
 
 onMounted(() => {
@@ -55,7 +69,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.setting {
+.config {
     padding: 1rem;
     margin: auto;
     text-align: center;
