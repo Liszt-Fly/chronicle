@@ -23,9 +23,6 @@
 .editor table td {
   border: 1px solid #f5f5f5;
 }
-.editor .code-block {
-  background-color: #222;
-}
 .editor .selection {
   background-color: #444;
 }
