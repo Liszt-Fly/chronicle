@@ -6,7 +6,7 @@ import path from "path"
 export function createNote(currentPath: string, noteName?: string) {
 	//创建默认文件
 	if (noteName == undefined) {
-		noteName = "chronicle"
+		noteName = "undefined"
 	}
 
 	let index = ifNoteNameExists(currentPath, removeExtName(noteName), 1)

@@ -3,9 +3,7 @@ import path from "path"
 import { basePath, files } from "@/api/configdb"
 import { msfile } from "@/types/type"
 
-
-
-export let sortFileInDepth = function sortFileInDepth(
+export let sortFileInDepth = function (
 	dir: string,
 	storage: msfile[]
 ) {

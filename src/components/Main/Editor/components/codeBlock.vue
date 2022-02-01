@@ -135,7 +135,7 @@ doc:currentNode.originalMarkdown?currentNode.originalMarkdown:"//you can tab the
         pythonLanguage,
         keymap.of([
           {
-            key: "Shift-Enter",
+            key: "Ctrl-Enter",
             run: (editorview) => {
               addNode(editorview);
               return true;

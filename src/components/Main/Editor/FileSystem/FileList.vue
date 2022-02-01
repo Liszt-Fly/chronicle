@@ -6,6 +6,7 @@ import fsp from "fs-extra"
 import path from "path"
 import { flushFiles, validateFilename } from "@/api/Editor/FileSystem/util"
 import { basePath, currentFile } from "@/api/configdb"
+
 const props = defineProps({
 	file: Object as () => msfile,
 })
@@ -61,14 +62,12 @@ function finishReanmeNote(file: msfile) {
 	pathObjcet.base = namebox.value!.innerText
 	namebox.value!.contentEditable = "false"
 	console.log(file.path + pathObjcet.ext)
-
 	fsp.renameSync(
 		props!.file!.path!,
 		path.resolve(pathObjcet.dir, namebox.value!.innerText) + pathObjcet.ext
 	)
-
-
 }
+
 function deleteNote(file: msfile) {
 	fsp.unlinkSync(file.path!)
 }
@@ -77,10 +76,12 @@ function enter(event: KeyboardEvent) {
 	let target = event.target as HTMLDivElement
 	target.blur()
 }
+
 function addTag(file: msfile) {
 
 
 }
+
 // 右键菜单
 const menu = new Menu()
 const menuItems = [
@@ -103,8 +104,8 @@ const menuItems = [
 
 		},
 	}),
-
 ]
+
 menuItems.forEach((item) => {
 	menu.append(item)
 })
