@@ -8,13 +8,12 @@ import codeBlock from "@/components/Main/Editor/components/codeBlock.vue"
 
 // 样式
 import "@/style/global.scss"
-import "@/themes/Frame/light/light.scss"
-import "@/themes/Editor/light/light.scss"
-import "@/themes/Editor/Code/dark/dark.scss"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import '@/style/element-variables.scss'
+
+import { addStyle } from "./api/init"
 
 const app = createApp(App)
 
@@ -24,3 +23,5 @@ app.use(router)
 app.use(ElementPlus)
 
 app.mount("#app")
+
+addStyle()

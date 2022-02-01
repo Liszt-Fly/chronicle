@@ -1,40 +1,75 @@
 <template>
-    <div class="config">
+    <div class="setting">
         <el-form ref="formRef" :model="config" label-width="6rem" label-position="left">
             <el-form-item label="欢迎页面">
                 <el-checkbox v-model="config.welcome_switch" label="启动时显示欢迎页面"></el-checkbox>
             </el-form-item>
-            <el-form-item label="全局样式">
-                <el-select v-model="config.global_style" placeholder="选择全局样式">
-                    <el-option label="浅色模式" value="light"></el-option>
-                    <el-option label="暗黑模式" value="dark"></el-option>
+            <el-form-item label="全局主题">
+                <el-select v-model="config.global_theme" placeholder="选择全局主题">
+                    <el-option label="light" value="light"></el-option>
+                    <el-option label="dark" value="dark"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="编辑器样式">
-                <el-select v-model="config.editor_style" placeholder="选择编辑器样式">
-                    <el-option label="浅色模式" value="light"></el-option>
-                    <el-option label="暗黑模式" value="dark"></el-option>
+            <el-form-item label="编辑器主题">
+                <el-select v-model="config.editor_theme" placeholder="选择编辑器主题">
+                    <el-option label="light" value="light"></el-option>
+                    <el-option label="dark" value="dark"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="代码块主题">
+                <el-select v-model="config.code_theme" placeholder="选择代码块主题">
+                    <el-option label="light" value="light"></el-option>
+                    <el-option label="dark" value="dark"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="saveSetting">保存</el-button>
-                <el-button @click="restoreDefault">恢复默认值</el-button>
+                <el-button type="primary" @click="saveDialogVisible = true">保存</el-button>
+                <el-button @click="restoreDialogVisible = true">恢复默认值</el-button>
             </el-form-item>
         </el-form>
+
+        <el-dialog v-model="saveDialogVisible" width="30%">
+            <span>确定保存吗？</span>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="saveDialogVisible = false">取消</el-button>
+                    <el-button type="primary" @click="saveSetting(), saveDialogVisible = false">确定</el-button>
+                </span>
+            </template>
+        </el-dialog>
+
+        <el-dialog v-model="restoreDialogVisible" width="30%">
+            <span>确定恢复默认设置吗？</span>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="restoreDialogVisible = false">取消</el-button>
+                    <el-button
+                        type="primary"
+                        @click="restoreDefault(), restoreDialogVisible = false"
+                    >确定</el-button>
+                </span>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
+import { configFile, defaultConfigFile } from "@/api/init"
+
 const fs = window.require('fs');
-let configFile = process.cwd() + "/example/chronicle.config.json"
+
+const saveDialogVisible = ref(false)
+const restoreDialogVisible = ref(false)
+
 let config = reactive({
-    "global_style": "",
-    "editor_style": "",
+    "global_theme": "",
+    "editor_theme": "",
+    "code_theme": "",
     "welcome_switch": false,
 })
 
-const readSetting = () => {
+const readSetting = (configFile: string) => {
     try {
         const data = fs.readFileSync(configFile)
         let JSONData = JSON.parse(data)
@@ -43,35 +78,36 @@ const readSetting = () => {
         }
     } catch {
         restoreDefault()
-        saveSetting()
     }
 }
 
 const saveSetting = () => {
     const data = JSON.stringify(config);
 
-    fs.writeFile(configFile, data, (err: ErrorEvent) => {
+    fs.writeFileSync(configFile, data, (err: ErrorEvent) => {
         if (err) {
             throw err;
         }
     });
+
+    location.reload()
 }
 
 const restoreDefault = () => {
-    config.global_style = 'light'
-    config.editor_style = 'light'
-    config.welcome_switch = true
+    readSetting(defaultConfigFile)
+    saveSetting()
 }
 
 onMounted(() => {
-    readSetting()
+    readSetting(configFile)
 })
 </script>
 
 <style scoped>
-.config {
+.setting {
     padding: 1rem;
     margin: auto;
     text-align: center;
+    width: 60%;
 }
 </style>

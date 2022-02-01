@@ -1,20 +1,15 @@
 .tab-system {
   color: #444;
   background-color: whitesmoke;
-
-  .tab-bar {
-    a {
-      color: #444;
-    }
-
-    .tab-item:hover {
-      background-color: #fafafa;
-
-      &:hover a {
-        color: blue;
-      }
-    }
-  }
+}
+.tab-system .tab-bar a {
+  color: #444;
+}
+.tab-system .tab-bar .tab-item:hover {
+  background-color: #fafafa;
+}
+.tab-system .tab-bar .tab-item:hover:hover a {
+  color: blue;
 }
 
 .main {
@@ -30,5 +25,5 @@
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: rgb(218, 218, 218);
+  background-color: #dadada;
 }

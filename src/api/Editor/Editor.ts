@@ -12,9 +12,6 @@ import { bKeyBoardTarget } from "./FileSystem/util"
 export function initMarked() {
 	marked.setOptions({
 		renderer: new marked.Renderer(),
-		highlight: function (code) {
-			return hljs.highlightAuto(code).value
-		},
 		pedantic: false,
 		gfm: true,
 		breaks: false,
@@ -22,7 +19,6 @@ export function initMarked() {
 		smartLists: true,
 		smartypants: false,
 		xhtml: false,
-		langPrefix: "hljs",
 	})
 }
 
