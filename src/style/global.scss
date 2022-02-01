@@ -77,7 +77,6 @@ body {
     flex-direction: column;
 
     .item {
-
       padding: 0.5rem 1rem;
       font-size: 0.7rem;
       overflow-x: hidden;
@@ -294,11 +293,12 @@ body {
     }
   }
 
-  .magic {
+  .selection {
+    font-size: 0.8rem;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 32px;
+    width: 100px;
     height: 32px;
     text-align: center;
     border-radius: 5px;
