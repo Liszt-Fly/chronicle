@@ -126,7 +126,7 @@ onMounted(() => {
   let editorview = new EditorView({
 
     state: EditorState.create({
-      doc: currentNode.originalMarkdown ? currentNode.originalMarkdown : "// Tab `Ctrl + Enter` to enter next line\n",
+      doc: currentNode.originalMarkdown ? currentNode.originalMarkdown : "",
       extensions: [
         javascriptLanguage,
         globalJavaScriptCompletions,
@@ -165,12 +165,10 @@ onMounted(() => {
 
 <template>
   <div class="code-block" ref="codeBlock">
-    <div class="appendix">
-      <div class="pink"></div>
-      <div class="yellow"></div>
-      <div class="green"></div>
+    <div class="language" spellcheck="false">
+      <span>{{ currentNode.language }}</span>
+      <i class="bi bi-front"></i>
     </div>
-    <div class="language" spellcheck="false">{{ currentNode.language }}</div>
   </div>
 </template>
 

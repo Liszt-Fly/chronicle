@@ -249,59 +249,32 @@ body {
     font-family: "cascadia code" !important;
     min-height: 24px;
   }
-  
-  .code-block {
-    position: relative;
-    margin-bottom: 1rem;
-  }
-  .cm-editor {
-    border: none;
-    width: 100%;
-  }
-  .language {
-    margin-right: auto;
-    display: inline-block;
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    font-size: 0.8rem;
-  }
 
+  .language {
+    font-size: 0.8rem;
+    float: right;
+    width: 2rem;
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+  }
   .code-block {
     border-radius: 5px;
     padding: 8px;
     width: calc(100% - 16px);
-    margin: auto;
     font-family: "cascadia code";
 
-    .appendix {
-      display: flex;
+    .cm-editor {
+      margin-bottom: 0;
+      border: none;
+      width: 100%;
+    }
+    .cm-scroller {
+      margin-bottom: 0;
+    }
 
-      div {
-        width: 0.7rem;
-        height: 0.7rem;
-        border-radius: 50%;
-        margin-right: 10px;
-      }
-
-      div:nth-child(1) {
-        background-color: #ec5e50;
-      }
-
-      div:nth-child(2) {
-        background-color: #f4b63d;
-      }
-
-      div:nth-child(3) {
-        background-color: #4ebd45;
-      }
-
-      .code-language {
-        width: 100%;
-        flex: 1;
-        text-align: right;
-        font-size: 0.7rem;
-      }
+    .cm-content {
+      padding: 0px;
     }
 
     .content {
@@ -309,24 +282,22 @@ body {
       padding: 0;
     }
   }
-
-  .selection {
-    font-size: 0.8rem;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 100px;
-    height: 32px;
-    text-align: center;
-    border-radius: 5px;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 999 !important;
-  }
 }
-
+.selection {
+  font-size: 0.8rem;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  height: 32px;
+  text-align: center;
+  border-radius: 5px;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 999 !important;
+}
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
