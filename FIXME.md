@@ -21,13 +21,12 @@
   - [ ] 修改的 language
   - [ ] 复制粘贴
 
----
-
 ## HYF
 
-- [ ] 欢迎页面显示逻辑
-
----
+- stream 页面
+  - [ ] search
+  - [ ] topic filter
+  - [ ] 展示：1/2/3 栏
 
 ## later
 
