@@ -9,7 +9,7 @@ import { python, pythonLanguage } from "@codemirror/lang-python";
 import { syntaxTree } from "@codemirror/language";
 import { autocompletion } from "@codemirror/autocomplete";
 import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
-import { cCodeBlockNode, cTreeNode } from "@/types/type";
+import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type";
 import { cursorDocEnd } from "@codemirror/commands";
 import { currentFile, paragraphs } from "@/api/configdb";
 

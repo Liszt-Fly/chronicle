@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { addNewNode, recoverSourceCodeMode } from "@/api/Editor/Editor"
-import { cTreeNode } from "@/types/type";
+import { cTreeNode } from "@/api/interfaces/type";
 import { onMounted, reactive, Ref, ref } from "vue"
 //sum Props
 let edible:Ref<boolean> =ref(false)
