@@ -8,7 +8,7 @@ onMounted(() => {
 	openRepository()
 })
 
-function openRepository() {
+function openRepository(deefaultPath:String=chroniclePath) {
 	files.value = []
 	let path = chroniclePath + "/assets"
 	sortFileInDepth(path, files.value)
@@ -30,7 +30,7 @@ function empty() { }
 	<div class="tab-system">
 		<div class="tab-bar">
 			<div class="sub-tab">
-				<div class="tab-item" @click="openRepository" id="archive">
+				<div class="tab-item" @click="openRepository()" id="archive">
 					<router-link to="/editor">
 						<i class="bi bi-archive"></i>
 					</router-link>

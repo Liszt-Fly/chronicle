@@ -3,6 +3,7 @@ import { onMounted, Ref, ref, watchEffect } from "vue"
 import { currentFile, paragraphs } from "@/api/configdb"
 import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
+import CodeBlock from "@/components/Main/Editor/components/codeBlock.vue";
 
 let rContainer = ref<HTMLBaseElement | null>(null)
 function save(event: KeyboardEvent) {
@@ -41,4 +42,5 @@ let edit = function () {
 			<span v-show="!editable">框选模式关 ❎</span>
 		</div>
 	</div>
+
 </template>

@@ -30,12 +30,16 @@ const fileSystemMenu = [
 	// 	],
 	// }),
 ]
+
 fileSystemMenu.forEach((item) => {
 	menu.append(item)
 })
+const popMenu=(event:MouseEvent)=>{
+
+}
 </script>
 <template>
-	<div class="file-system" ref="filesystem" @contextmenu="menu.popup()">
+	<div class="file-system" ref="filesystem" @contextmenu="menu.popup($event)">
 		<template v-for="file in files">
 			<file-list :file="file"></file-list>
 		</template>

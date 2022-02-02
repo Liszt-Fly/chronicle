@@ -8,7 +8,7 @@ export let content = ref("")
 export let paragraphs = ref<cTreeNode[]>([])
 //* 加载的当前默认文件
 export let currentFile = ref<string>("")
-
+export let rootPath = ref("")
 
 
 
