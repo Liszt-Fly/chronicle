@@ -30,30 +30,20 @@ function empty() { }
 	<div class="tab-system">
 		<div class="tab-bar">
 			<div class="sub-tab">
-				<div class="tab-item" @click="openRepository" id="folder">
+				<div class="tab-item" @click="openRepository" id="archive">
 					<router-link to="/editor">
 						<i class="bi bi-archive"></i>
 					</router-link>
 				</div>
-				<div class="tab-item" @click="empty" id="search">
-					<router-link to="/search">
-						<i class="bi bi-search"></i>
-					</router-link>
-				</div>
-				<div class="tab-item" @click="empty" id="tag">
-					<router-link to="/tag">
-						<i class="bi bi-bookmark-heart"></i>
-					</router-link>
-				</div>
-				<div class="tab-item" @click="empty" id="timeline">
-					<router-link to="/timeline">
-						<i class="bi bi-calendar-event"></i>
+				<div class="tab-item" @click="empty" id="stream">
+					<router-link to="/stream">
+						<i class="bi bi-layout-wtf"></i>
 					</router-link>
 				</div>
 			</div>
 			<div class="tab-item" @click="empty" id="setting">
 				<router-link to="/setting">
-					<i class="bi bi-gear-wide-connected"></i>
+					<i class="bi bi-tools"></i>
 				</router-link>
 			</div>
 		</div>

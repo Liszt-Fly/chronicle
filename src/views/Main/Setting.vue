@@ -1,9 +1,6 @@
 <template>
     <div class="setting">
         <el-form ref="formRef" :model="config" label-width="6rem" label-position="left">
-            <el-form-item label="欢迎页面">
-                <el-checkbox v-model="config.welcome_switch" label="启动时显示欢迎页面"></el-checkbox>
-            </el-form-item>
             <el-form-item label="全局主题">
                 <el-select v-model="config.global_theme" placeholder="选择全局主题">
                     <el-option label="light" value="light"></el-option>
@@ -66,7 +63,6 @@ let config = reactive({
     "global_theme": "",
     "editor_theme": "",
     "code_theme": "",
-    "welcome_switch": false,
 })
 
 const readSetting = (configFile: string) => {
