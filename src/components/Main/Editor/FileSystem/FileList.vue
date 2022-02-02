@@ -45,9 +45,9 @@ function toggleSubfolder(
 			let item = event.currentTarget as HTMLElement
 			let folder = item.firstElementChild!
 
-			folder.classList.toggle("bi-folder")
-			folder.classList.toggle("bi-folder2-open")
-			if (folder.classList.contains("bi-folder2-open")) {
+			folder.classList.toggle("bi-caret-right")
+			folder.classList.toggle("bi-caret-down")
+			if (folder.classList.contains("bi-caret-down")) {
 				subfolder.dom!.style.display = "block"
 			} else {
 				subfolder.dom!.style.display = ""
@@ -121,7 +121,7 @@ menuItems.forEach((item) => {
 			<span
 				:class="[
 					'iconfont',
-					{ 'bi bi-folder': file.isDirectory },
+					{ 'bi bi-caret-right': file.isDirectory },
 					{ 'bi bi-journal-bookmark-fill': !file.isDirectory },
 					'file-name',
 					'file-icon',

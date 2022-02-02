@@ -9,7 +9,7 @@ let filesystem = ref<HTMLElement | null>()
 let menu = new Menu()
 const fileSystemMenu = [
 	new MenuItem({
-		label: "新建笔记",
+		label: "新建记录",
 		click: function () {
 			createNote(basePath.value)
 			files.value = []
@@ -17,7 +17,7 @@ const fileSystemMenu = [
 		},
 	}),
 	new MenuItem({
-		label: "新建仓库",
+		label: "新建栏目",
 		click: function () {
 		},
 	}),
