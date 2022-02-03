@@ -26,13 +26,13 @@
 
 - stream 页面
 
-  - [ ] search
+  - [ ] search——`Ctrl+F`
   - [ ] topic filter
   - [ ] 展示：1/2/3 栏
-
-- **MD...?**
+  - [ ] 时间正反序
 
 ## later
 
 - [ ] 多语言支持（cn/en）
 - [ ] context menu 更新为组件
+- [ ] MD?
