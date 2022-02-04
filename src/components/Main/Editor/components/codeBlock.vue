@@ -205,7 +205,6 @@ onMounted(() => {
 .appendix {
 	display: flex;
 	position: absolute;
-
 	div {
 		left: 0;
 		top: 0;
