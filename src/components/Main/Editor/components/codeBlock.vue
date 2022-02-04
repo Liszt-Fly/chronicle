@@ -126,7 +126,7 @@ onMounted(() => {
 	let editorview = new EditorView({
 
 		state: EditorState.create({
-			doc: currentNode.originalMarkdown ? currentNode.originalMarkdown : "",
+			doc: currentNode.originalMarkdown ? currentNode.originalMarkdown : "test",
 			extensions: [
 				javascriptLanguage,
 				globalJavaScriptCompletions,

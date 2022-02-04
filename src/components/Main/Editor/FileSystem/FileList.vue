@@ -20,7 +20,7 @@ const props = defineProps({
 });
 let subfolder = ref<HTMLDivElement | null>(null);
 let refSubfolder = reactive({ dom: subfolder });
-let namebox = ref<HTMLElement | null>(null);
+let namebox = ref<HTMLSpanElement | null>(null);
 const fileDom = ref<HTMLElement | null>(null);
 function openFile(event: MouseEvent, file: msfile) {
 	//如果是文件
@@ -33,6 +33,9 @@ function renameNote(file: msfile) {
 	//启用contentEdible
 	namebox.value!.contentEditable = "true";
 	namebox.value!.focus();
+	namebox.value!.innerText = " "
+
+
 }
 function toggleSubfolder(
 	event: MouseEvent,
@@ -107,18 +110,7 @@ const menuItems = [
 			refresh(chronicleArticlePath);
 		},
 	}),
-	new MenuItem({
-		label: "添加话题",
-		click: () => {
-			let index = ifNoteNameExists(props.file!.path!, "undefined", 1);
 
-			createNote(props.file!.path!, `undefined`);
-			refresh(chronicleArticlePath);
-
-			currentFile.value = path.resolve(props.file!.path!, `undefined${index}.chron`,)
-
-		},
-	}),
 ];
 if (props.file!.isDirectory) {
 	let item = new MenuItem({
@@ -135,7 +127,25 @@ if (props.file!.isDirectory) {
 		},
 	});
 	menuItems.push(item);
+	menuItems.push(new MenuItem({
+		label: "添加话题",
+		click: () => {
+			let index = ifNoteNameExists(props.file!.path!, "undefined", 1);
+
+			createNote(props.file!.path!, `undefined`);
+			refresh(chronicleArticlePath);
+
+			currentFile.value = path.resolve(props.file!.path!, `undefined${index}.chron`,)
+
+		},
+	}))
+	menuItems.push(item);
 }
+
+
+
+
+
 
 menuItems.forEach((item) => {
 	menu.append(item);
