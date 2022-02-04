@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Menu, MenuItem } from "@electron/remote"
-import { reactive, ref } from "vue"
+import { onMounted, reactive, ref } from "vue"
 import { msfile } from "@/api/interfaces/type"
 import fsp from "fs-extra"
 import path from "path"
+import rmrf from 'rimraf'
 import { flushFiles, refresh, validateFilename } from "@/api/Editor/FileSystem/util"
 import { basePath, currentFile } from "@/api/configdb"
 import { createNote, ifNoteNameExists, ifSectionExists } from "@/api/Editor/FileSystem/filesystem"
@@ -80,8 +81,17 @@ function finishReanmeNote(file: msfile) {
 	)
 }
 
-function deleteNote(file: msfile) {
-	fsp.unlinkSync(file.path!)
+function deleteNoteOrSection(file: msfile) {
+	if (!file.isDirectory) {
+		fsp.unlinkSync(file.path!)
+	}
+	else {
+		rmrf(file.path!, (err) => {
+			console.log(err)
+		})
+		refresh(chronicleArticlePath)
+	}
+
 }
 
 function enter(event: KeyboardEvent) {
@@ -98,25 +108,27 @@ const menuItems = [
 	new MenuItem({
 		label: "删除",
 		click: () => {
-			deleteNote(props.file!)
-			flushFiles()
+			deleteNoteOrSection(props.file!)
+			refresh(chronicleArticlePath)
 		},
 	}),
 	new MenuItem({
 		label: "重命名",
 		click: () => {
 			renameNote(props.file!)
+			refresh(chronicleArticlePath)
 		},
 	}),
 	new MenuItem({
 		label: "添加话题",
 		click: () => {
 			let index = ifNoteNameExists(props.file!.path!, "undefined", 1)
-			console.log(index)
+
 			createNote(props.file!.path!, `undefined`)
 			refresh(chronicleArticlePath)
 		},
 	}),
+
 
 
 ]
@@ -148,6 +160,7 @@ menuItems.forEach((item) => {
 const popMenu = (event: MouseEvent) => {
 	menu.popup()
 }
+
 </script>
 
 <template>

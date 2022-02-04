@@ -57,6 +57,7 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  user-select: none;
 
   .subfolder {
     padding-left: 10px;
