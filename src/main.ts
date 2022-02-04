@@ -13,7 +13,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import '@/style/element-variables.scss'
 
-import { addStyle } from "./api/init"
+import { initSetting } from "./api/init"
 
 const app = createApp(App)
 
@@ -24,4 +24,4 @@ app.use(ElementPlus)
 
 app.mount("#app")
 
-addStyle()
+initSetting()

@@ -12,7 +12,7 @@ let filesystem = ref<HTMLElement | null>()
 let menu = new Menu()
 const fileSystemMenu = [
 	new MenuItem({
-		label: "新建记录",
+		label: "新建随笔",
 		click: function () {
 
 			createNote(path.resolve(chroniclePath, "assets"))

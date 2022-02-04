@@ -1,3 +1,6 @@
+code {
+  background-color: #fafafa;
+}
 .editor .code-block {
   background-color: #fafafa;
 }
@@ -55,4 +58,9 @@
 .cm-tooltip {
   background-color: whitesmoke !important;
   color: #444 !important;
+}
+.cm-editor.cm-focused .cm-selectionBackground,
+.cm-editor .cm-selectionBackground,
+.cm-editor .cm-content ::selection {
+  background-color: #ddd;
 }

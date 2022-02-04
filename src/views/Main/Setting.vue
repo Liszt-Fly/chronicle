@@ -19,6 +19,16 @@
                     <el-option label="dark" value="dark"></el-option>
                 </el-select>
             </el-form-item>
+
+            <el-divider></el-divider>
+
+            <el-form-item label="全局字体">
+                <el-input v-model="config.global_font" clearable spellcheck="false" />
+            </el-form-item>
+            <el-form-item label="代码块字体">
+                <el-input v-model="config.code_font" clearable spellcheck="false" />
+            </el-form-item>
+
             <el-form-item>
                 <el-button type="primary" @click="saveDialogVisible = true">保存</el-button>
                 <el-button @click="restoreDialogVisible = true">恢复默认值</el-button>
@@ -63,7 +73,8 @@ let config = reactive({
     "global_theme": "",
     "editor_theme": "",
     "code_theme": "",
-
+    "global_font": "",
+    "code_font": ""
 })
 
 const readSetting = (configFile: string) => {
@@ -105,6 +116,6 @@ onMounted(() => {
     padding: 1rem;
     margin: auto;
     text-align: center;
-    width: 60%;
+    width: 20rem;
 }
 </style>

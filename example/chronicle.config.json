@@ -1,5 +1,1 @@
-{
-    "global_theme": "dark",
-    "editor_theme": "dark",
-    "code_theme": "dark"
-}
+{"global_theme":"light","editor_theme":"light","code_theme":"light","global_font":"\"Sarasa UI SC\", \"Open Sans\", \"Clear Sans\", \"Helvetica Neue\", Helvetica, Arial, \"Segoe UI Emoji\", sans-serif","code_font":"\"cascadia code\", \"Sarasa UI SC\", \"Open Sans\", \"Clear Sans\", \"Helvetica Neue\", Helvetica, Arial, \"Segoe UI Emoji\", sans-serif"}

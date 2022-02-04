@@ -1,3 +1,7 @@
+code {
+  background-color: #222;
+  color: whitesmoke;
+}
 .editor .code-block {
   background-color: #222;
 }
@@ -15,7 +19,7 @@
 .cm-editor.cm-focused .cm-selectionBackground,
 .cm-editor .cm-selectionBackground,
 .cm-editor .cm-content ::selection {
-  background-color: #f9f9f9;
+  background-color: #ddd;
 }
 .cm-editor .cm-panels {
   background-color: #252525;
@@ -71,6 +75,9 @@
   border-bottom-color: #ddd;
 }
 .cm-editor .cm-tooltip-autocomplete > ul > li[aria-selected] {
-  background-color: #131313;
+  background-color: #777;
   color: #ddd;
+}
+.cm-editor .cm-line {
+  color: grey;
 }

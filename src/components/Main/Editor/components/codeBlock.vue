@@ -194,6 +194,7 @@ onMounted(() => {
 		</div>
 		<div class="language" spellcheck="false">
 			<span>{{ currentNode.language }}</span>
+			<el-divider direction="vertical"></el-divider>
 			<i class="bi bi-front"></i>
 		</div>
 	</div>
