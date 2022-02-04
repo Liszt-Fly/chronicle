@@ -7,7 +7,7 @@ import CodeBlock from "@/components/Main/Editor/components/codeBlock.vue";
 
 let rContainer = ref<HTMLBaseElement | null>(null)
 function save(event: KeyboardEvent) {
-	if ((event.metaKey || event.altKey) && event.keyCode == 83 && currentFile.value != "") {
+	if ((event.metaKey || event.ctrlKey) && event.keyCode == 83 && currentFile.value != "") {
 		saveArticle(paragraphs.value, currentFile.value)
 	}
 }
@@ -15,10 +15,12 @@ initMarked()
 onMounted(() => {
 	watchEffect(() => {
 		if (currentFile.value != "") {
-			paragraphs.value = loadNodeLists(currentFile.value)
 
-		} else {
-	
+			console.log("开始执行")
+			paragraphs.value = loadNodeLists(currentFile.value)
+		}
+		else {
+
 		}
 	})
 })
@@ -42,5 +44,4 @@ let edit = function () {
 			<span v-show="!editable">框选模式关 ❎</span>
 		</div>
 	</div>
-
 </template>

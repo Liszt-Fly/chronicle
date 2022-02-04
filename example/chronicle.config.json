@@ -1,1 +1,5 @@
-{"global_theme":"dark","editor_theme":"dark","code_theme":"dark"}
+{
+    "global_theme": "dark",
+    "editor_theme": "dark",
+    "code_theme": "dark"
+}

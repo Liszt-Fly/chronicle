@@ -1,40 +1,38 @@
 <script setup lang="ts">
-import { Menu, MenuItem } from "@electron/remote"
-import { onMounted, reactive, ref } from "vue"
-import { msfile } from "@/api/interfaces/type"
-import fsp from "fs-extra"
-import path from "path"
-import rmrf from 'rimraf'
-import { flushFiles, refresh, validateFilename } from "@/api/Editor/FileSystem/util"
-import { basePath, currentFile } from "@/api/configdb"
-import { createNote, ifNoteNameExists, ifSectionExists } from "@/api/Editor/FileSystem/filesystem"
-import { chronicleArticlePath } from "@/api/init"
+import { Menu, MenuItem } from "@electron/remote";
+import { onMounted, reactive, ref } from "vue";
+import { msfile } from "@/api/interfaces/type";
+import fsp from "fs-extra";
+import path from "path";
+import rmrf from "rimraf";
+import { flushFiles, refresh, validateFilename } from "@/api/Editor/FileSystem/util";
+import { basePath, currentFile, paragraphs } from "@/api/configdb";
+import {
+	createNote,
+	ifNoteNameExists,
+	ifSectionExists,
+} from "@/api/Editor/FileSystem/filesystem";
+import { chronicleArticlePath } from "@/api/init";
+import { loadNodeLists } from "@/api/Editor/Editor";
 
 const props = defineProps({
 	file: Object as () => msfile,
-})
-let subfolder = ref<HTMLDivElement | null>(null)
-let refSubfolder = reactive({ dom: subfolder })
-let namebox = ref<HTMLElement | null>(null)
-const fileDom = ref<HTMLElement | null>(null)
+});
+let subfolder = ref<HTMLDivElement | null>(null);
+let refSubfolder = reactive({ dom: subfolder });
+let namebox = ref<HTMLElement | null>(null);
+const fileDom = ref<HTMLElement | null>(null);
 function openFile(event: MouseEvent, file: msfile) {
 	//如果是文件
 	if (!file.isDirectory) {
-		console.log(basePath.value)
-		if (path.extname(path.resolve(basePath.value, file.name!)) === ".chron") {
-			//首先保存上一个文件
-			if (currentFile.value != "") {
+		currentFile.value = props.file!.path!
 
-			}
-			currentFile.value = path.resolve(basePath.value, file.name!)
-		} else {
-		}
 	}
 }
 function renameNote(file: msfile) {
 	//启用contentEdible
-	namebox.value!.contentEditable = "true"
-	namebox.value!.focus()
+	namebox.value!.contentEditable = "true";
+	namebox.value!.focus();
 }
 function toggleSubfolder(
 	event: MouseEvent,
@@ -45,24 +43,17 @@ function toggleSubfolder(
 
 	if (file.isDirectory) {
 		if (event) {
-			let item = event.currentTarget as HTMLElement
-			let folder = item.firstElementChild!
-			folder.classList.toggle("bi-caret-right")
-			folder.classList.toggle("bi-caret-down")
+			let item = event.currentTarget as HTMLElement;
+			let folder = item.firstElementChild!;
+			folder.classList.toggle("bi-caret-right");
+			folder.classList.toggle("bi-caret-down");
 			if (folder.classList.contains("bi-caret-down")) {
 				if (subfolder.dom) {
-
-					subfolder.dom.style.display = "block"
-
+					subfolder.dom.style.display = "block";
 				}
 			} else {
 				if (subfolder.dom) {
-
-					subfolder.dom.style.display = ""
-
-
-
-
+					subfolder.dom.style.display = "";
 				}
 			}
 		}
@@ -71,96 +62,87 @@ function toggleSubfolder(
 function finishReanmeNote(file: msfile) {
 	// file.name = namebox.value!.innerText
 
-	let pathObjcet = path.parse(file.path!)
-	pathObjcet.base = namebox.value!.innerText
-	namebox.value!.contentEditable = "false"
-	console.log(file.path + pathObjcet.ext)
+	let pathObjcet = path.parse(file.path!);
+	pathObjcet.base = namebox.value!.innerText;
+	namebox.value!.contentEditable = "false";
+	console.log(file.path + pathObjcet.ext);
 	fsp.renameSync(
 		props!.file!.path!,
 		path.resolve(pathObjcet.dir, namebox.value!.innerText) + pathObjcet.ext
-	)
+	);
 }
 
 function deleteNoteOrSection(file: msfile) {
 	if (!file.isDirectory) {
-		fsp.unlinkSync(file.path!)
-	}
-	else {
+		fsp.unlinkSync(file.path!);
+	} else {
 		rmrf(file.path!, (err) => {
-			console.log(err)
-		})
-		refresh(chronicleArticlePath)
+			console.log(err);
+		});
+		refresh(chronicleArticlePath);
 	}
-
 }
 
 function enter(event: KeyboardEvent) {
-	let target = event.target as HTMLDivElement
-	target.blur()
+	let target = event.target as HTMLDivElement;
+	target.blur();
 }
 
-function addTag(file: msfile) {
-}
+function addTag(file: msfile) { }
 
 // 右键菜单
-const menu = new Menu()
+const menu = new Menu();
 const menuItems = [
 	new MenuItem({
 		label: "删除",
 		click: () => {
-			deleteNoteOrSection(props.file!)
-			refresh(chronicleArticlePath)
+			deleteNoteOrSection(props.file!);
+			refresh(chronicleArticlePath);
 		},
 	}),
 	new MenuItem({
 		label: "重命名",
 		click: () => {
-			renameNote(props.file!)
-			refresh(chronicleArticlePath)
+			renameNote(props.file!);
+			refresh(chronicleArticlePath);
 		},
 	}),
 	new MenuItem({
 		label: "添加话题",
 		click: () => {
-			let index = ifNoteNameExists(props.file!.path!, "undefined", 1)
+			let index = ifNoteNameExists(props.file!.path!, "undefined", 1);
 
-			createNote(props.file!.path!, `undefined`)
-			refresh(chronicleArticlePath)
+			createNote(props.file!.path!, `undefined`);
+			refresh(chronicleArticlePath);
+
+			currentFile.value = path.resolve(props.file!.path!, `undefined${index}.chron`,)
+
 		},
 	}),
-
-
-
-]
+];
 if (props.file!.isDirectory) {
 	let item = new MenuItem({
 		label: "添加子栏目",
 		click: () => {
-
-
-			let index = ifSectionExists(props.file!.path!, "section", 1)
-			fsp.mkdir(path.resolve(props.file!.path!, `section${index}`)).then(() => {
-
-			})
-				.catch(err => {
-					console.log(err)
-				})
-			refresh(path.resolve(process.cwd(), "example", "assets"))
-
-		}
-	})
-	menuItems.push(item)
+			let index = ifSectionExists(props.file!.path!, "section", 1);
+			fsp
+				.mkdir(path.resolve(props.file!.path!, `section${index}`))
+				.then(() => { })
+				.catch((err) => {
+					console.log(err);
+				});
+			refresh(path.resolve(process.cwd(), "example", "assets"));
+		},
+	});
+	menuItems.push(item);
 }
 
 menuItems.forEach((item) => {
-	menu.append(item)
-
-
-})
+	menu.append(item);
+});
 const popMenu = (event: MouseEvent) => {
-	menu.popup()
-}
-
+	menu.popup();
+};
 </script>
 
 <template>
