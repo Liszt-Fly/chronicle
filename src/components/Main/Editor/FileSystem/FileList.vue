@@ -80,10 +80,11 @@ function deleteNoteOrSection(file: msfile) {
 		fsp.unlinkSync(file.path!);
 	} else {
 		rmrf(file.path!, (err) => {
-			console.log(err);
+			refresh(chronicleArticlePath);
 		});
-		refresh(chronicleArticlePath);
+
 	}
+	refresh(chronicleArticlePath);
 }
 
 function enter(event: KeyboardEvent) {
@@ -126,7 +127,7 @@ if (props.file!.isDirectory) {
 			refresh(path.resolve(process.cwd(), "example", "assets"));
 		},
 	});
-	menuItems.push(item);
+
 	menuItems.push(new MenuItem({
 		label: "添加话题",
 		click: () => {
