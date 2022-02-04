@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref, Ref } from "vue";
+import { onMounted, ref, Ref, watchEffect } from "vue";
 import { v4 } from "uuid";
-import { EditorSelection, EditorState } from "@codemirror/state";
+import { EditorSelection, EditorState, Compartment, Extension } from "@codemirror/state";
 import { keymap, EditorView } from "@codemirror/view";
 import "codemirror/mode/javascript/javascript.js";
 import { javascriptLanguage } from "@codemirror/lang-javascript";
@@ -12,7 +12,11 @@ import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
 import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type";
 import { cursorDocEnd } from "@codemirror/commands";
 import { currentFile, paragraphs } from "@/api/configdb";
-
+import { StreamLanguage } from "@codemirror/stream-parser"
+import { dart } from '@codemirror/legacy-modes/mode/clike'
+import { language } from "@codemirror/language"
+import { htmlLanguage, html } from "@codemirror/lang-html"
+import { javascript } from "@codemirror/lang-javascript"
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
@@ -99,9 +103,30 @@ const globalJavaScriptCompletions = javascriptLanguage.data.of({
 	autocomplete: completeFromGlobalScope,
 });
 
-let language: Ref<string> = ref(currentNode.language);
+
+let languagemode: Ref<string> = ref(currentNode.language ? currentNode.language : "undefined")
 let code: Ref<string> = ref("");
 let content: Ref<HTMLTextAreaElement | null> = ref(null);
+let extensions: Ref<Extension[]> = ref([])
+watchEffect(() => {
+
+	//TODO 此处有问题，使用Vue响应式处理，先清空，再添加
+	switch (languagemode.value) {
+		case 'javascript': case 'js': case 'JAVASCRIPT':
+
+			extensions.value.push(javascriptLanguage, globalJavaScriptCompletions)
+		case 'python': case 'PYTHON': case 'py':
+
+			extensions.value.push(pythonLanguage,
+				StreamLanguage.define(dart))
+		case 'dart': case 'DART':
+
+			extensions.value.push(StreamLanguage.define(dart))
+		case 'html': case "HTML":
+			extensions.value.push(htmlLanguage)
+	}
+
+})
 onMounted(() => {
 	let mytheme = EditorView.theme({}, { dark: true });
 
@@ -126,13 +151,11 @@ onMounted(() => {
 	let editorview = new EditorView({
 
 		state: EditorState.create({
-			doc: currentNode.originalMarkdown ? currentNode.originalMarkdown : "test",
+			doc: currentNode.originalMarkdown ? currentNode.originalMarkdown : "",
 			extensions: [
-				javascriptLanguage,
-				globalJavaScriptCompletions,
 				mytheme,
 				oneDarkHighlightStyle,
-				pythonLanguage,
+				...extensions.value,
 				keymap.of([
 					{
 						key: "Ctrl-Enter",
@@ -148,7 +171,6 @@ onMounted(() => {
 		}),
 		parent: codeBlock.value!,
 	});
-
 
 	function setSel(state: EditorState, selection: any) {
 		return state.update({ selection, scrollIntoView: true, userEvent: "select" });
@@ -171,7 +193,7 @@ onMounted(() => {
 			<div class="green"></div>
 		</div>
 		<div class="language" spellcheck="false">
-			<!-- <span>{{ currentNode.language }}</span> -->
+			<span>{{ currentNode.language }}</span>
 			<i class="bi bi-front"></i>
 		</div>
 	</div>

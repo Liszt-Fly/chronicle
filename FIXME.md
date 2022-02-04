@@ -24,6 +24,9 @@
   - [ ] 一键复制
 
 ## HYF
+- codeBlock
+  - 长度较长的语言显示有问题
+  - 修改highlight样式
 - 设置
  - [ ] 字体修改
 - stream 页面
