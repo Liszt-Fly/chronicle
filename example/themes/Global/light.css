@@ -6,7 +6,7 @@
   color: #444;
 }
 .tab-system .tab-bar .tab-item:hover {
-  background-color: #fafafa;
+  background-color: #fff;
 }
 .tab-system .tab-bar .tab-item:hover:hover a {
   color: blue;
