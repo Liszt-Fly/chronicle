@@ -102,7 +102,7 @@ body {
   line-height: 1.5;
   word-wrap: break-word;
   width: 100%;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 1.1rem);
   padding: 0.1rem 1rem 1rem 1rem;
   overflow-y: auto;
 
@@ -245,11 +245,12 @@ body {
   }
 
   code {
-    display: block;
-    background: transparent;
+    display: inline-block;
     border: none;
     font-family: "cascadia code" !important;
     min-height: 24px;
+    padding: 3px;
+    border-radius: 5px;
   }
 
   .language {
