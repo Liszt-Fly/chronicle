@@ -1,6 +1,6 @@
 * {
   margin: 0;
-  // outline: none;
+  outline: none;
 }
 
 body {
@@ -107,6 +107,7 @@ body {
 
   div {
     margin-bottom: 0.5rem;
+    word-break: break-all;
   }
 
   /* 标题 */
@@ -258,6 +259,7 @@ body {
     justify-content: space-between;
     color: gray;
   }
+
   .code-block {
     border-radius: 5px;
     padding: 8px;
@@ -269,6 +271,7 @@ body {
       border: none;
       width: 100%;
     }
+
     .cm-scroller {
       margin-bottom: 0;
     }
@@ -283,6 +286,7 @@ body {
     }
   }
 }
+
 .selection {
   font-size: 0.8rem;
   position: fixed;
@@ -298,6 +302,7 @@ body {
   cursor: pointer;
   z-index: 999 !important;
 }
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;

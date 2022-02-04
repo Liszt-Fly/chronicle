@@ -63,6 +63,7 @@ let config = reactive({
     "global_theme": "",
     "editor_theme": "",
     "code_theme": "",
+
 })
 
 const readSetting = (configFile: string) => {

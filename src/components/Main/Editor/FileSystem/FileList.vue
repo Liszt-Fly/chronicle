@@ -4,8 +4,10 @@ import { reactive, ref } from "vue"
 import { msfile } from "@/api/interfaces/type"
 import fsp from "fs-extra"
 import path from "path"
-import { flushFiles, validateFilename } from "@/api/Editor/FileSystem/util"
+import { flushFiles, refresh, validateFilename } from "@/api/Editor/FileSystem/util"
 import { basePath, currentFile } from "@/api/configdb"
+import { createNote, ifNoteNameExists, ifSectionExists } from "@/api/Editor/FileSystem/filesystem"
+import { chronicleArticlePath } from "@/api/init"
 
 const props = defineProps({
 	file: Object as () => msfile,
@@ -44,13 +46,23 @@ function toggleSubfolder(
 		if (event) {
 			let item = event.currentTarget as HTMLElement
 			let folder = item.firstElementChild!
-
 			folder.classList.toggle("bi-caret-right")
 			folder.classList.toggle("bi-caret-down")
 			if (folder.classList.contains("bi-caret-down")) {
-				subfolder.dom!.style.display = "block"
+				if (subfolder.dom) {
+
+					subfolder.dom.style.display = "block"
+
+				}
 			} else {
-				subfolder.dom!.style.display = ""
+				if (subfolder.dom) {
+
+					subfolder.dom.style.display = ""
+
+
+
+
+				}
 			}
 		}
 	}
@@ -99,14 +111,43 @@ const menuItems = [
 	new MenuItem({
 		label: "添加话题",
 		click: () => {
-
+			let index = ifNoteNameExists(props.file!.path!, "undefined", 1)
+			console.log(index)
+			createNote(props.file!.path!, `undefined`)
+			refresh(chronicleArticlePath)
 		},
 	}),
+
+
 ]
+if (props.file!.isDirectory) {
+	let item = new MenuItem({
+		label: "添加子栏目",
+		click: () => {
+
+
+			let index = ifSectionExists(props.file!.path!, "section", 1)
+			fsp.mkdir(path.resolve(props.file!.path!, `section${index}`)).then(() => {
+
+			})
+				.catch(err => {
+					console.log(err)
+				})
+			refresh(path.resolve(process.cwd(), "example", "assets"))
+
+		}
+	})
+	menuItems.push(item)
+}
 
 menuItems.forEach((item) => {
 	menu.append(item)
+
+
 })
+const popMenu = (event: MouseEvent) => {
+	menu.popup()
+}
 </script>
 
 <template>
@@ -116,7 +157,7 @@ menuItems.forEach((item) => {
 			tabindex="1"
 			@click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
 			v-if="validateFilename(file.name!)"
-			@contextmenu.stop="menu.popup()"
+			@contextmenu.stop="popMenu($event)"
 		>
 			<span
 				:class="[
@@ -126,6 +167,7 @@ menuItems.forEach((item) => {
 					'file-name',
 					'file-icon',
 				]"
+				@context.stop
 			></span>
 			<span
 				ref="namebox"
@@ -143,4 +185,3 @@ menuItems.forEach((item) => {
 		</div>
 	</div>
 </template>
- git checkout

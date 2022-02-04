@@ -41,6 +41,15 @@ export function ifNoteNameExists(
 	}
 }
 
+export function ifSectionExists(PATH: string, section: string, index: number): number {
+	if (fsp.existsSync(path.resolve(PATH, section + index))) {
+		return ifSectionExists(PATH, section, index + 1)
+	}
+	else {
+		return index;
+	}
+}
+
 //* 判断文件是否有后缀,如果没有，添加后缀
 function ifFileHasExtname(file: string): string {
 	if (path.extname(file)) {

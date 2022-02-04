@@ -8,7 +8,7 @@ onMounted(() => {
 	openRepository()
 })
 
-function openRepository(deefaultPath:String=chroniclePath) {
+function openRepository() {
 	files.value = []
 	let path = chroniclePath + "/assets"
 	sortFileInDepth(path, files.value)

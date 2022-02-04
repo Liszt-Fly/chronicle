@@ -99,6 +99,7 @@ export function saveArticle(nodeLists: cTreeNode[], fileName: string) {
 	fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(() => {
 		console.log("保存成功")
 	})
+
 }
 
 //* 加载NodeList,加载文件

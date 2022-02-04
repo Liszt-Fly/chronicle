@@ -13,7 +13,8 @@ export let sortFileInDepth = function (
 		let item: msfile = {}
 		item.name = f
 		item.stat = fs.statSync(path.resolve(dir, f))
-		item.path = path.resolve(basePath.value, f)
+
+		item.path = path.resolve(dir, f)
 
 
 		let stat = fs.lstatSync(path.resolve(dir, f)).isDirectory()
@@ -56,6 +57,11 @@ export function bKeyBoardTarget(object: any): object is KeyboardEvent {
 }
 //* 刷新files.value，UI界面刷新
 export function flushFiles() {
+	console.log(basePath.value)
 	files.value = []
 	sortFileInDepth(basePath.value, files.value)
+}
+export function refresh(PATH: string) {
+	files.value = []
+	sortFileInDepth(PATH, files.value)
 }

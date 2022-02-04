@@ -18,7 +18,7 @@ onMounted(() => {
 			paragraphs.value = loadNodeLists(currentFile.value)
 
 		} else {
-			console.log("当前无文件")
+	
 		}
 	})
 })
