@@ -23,10 +23,10 @@
             <el-divider></el-divider>
 
             <el-form-item label="全局字体">
-                <el-input v-model="config.global_font" clearable />
+                <el-input v-model="config.global_font" clearable spellcheck="false" />
             </el-form-item>
             <el-form-item label="代码块字体">
-                <el-input v-model="config.code_font" clearable />
+                <el-input v-model="config.code_font" clearable spellcheck="false" />
             </el-form-item>
 
             <el-form-item>
