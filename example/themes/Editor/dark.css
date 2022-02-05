@@ -2,7 +2,6 @@
 .file-system {
   color: #b4b4b4;
   background-color: #222;
-  
 }
 .file-system .folder .item:hover {
   background-color: #333;
@@ -26,4 +25,11 @@
 }
 .selection {
   background-color: #444;
+}
+.resize-line {
+  border-right: 2px solid gray;
+}
+.resize-bar:hover ~ .resize-line,
+.resize-bar:active ~ .resize-line {
+  border-right: 2px solid whitesmoke;
 }

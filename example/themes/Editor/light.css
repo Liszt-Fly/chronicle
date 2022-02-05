@@ -26,3 +26,10 @@
 .selection {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.06), 0 0 4px rgba(0, 0, 0, 0.02);
 }
+.resize-line {
+  border-right: 2px solid whitesmoke;
+}
+.resize-bar:hover ~ .resize-line,
+.resize-bar:active ~ .resize-line {
+  border-right: 2px solid gray;
+}

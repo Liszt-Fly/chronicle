@@ -53,17 +53,22 @@ body {
 
 .file-system {
   height: 100vh;
-  min-width: 8rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   user-select: none;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   .subfolder {
     padding-left: 10px;
-    width: 18vw;
+    width: 100%;
     display: none;
     flex-direction: column;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .file-name {
@@ -72,10 +77,12 @@ body {
 
   .folder {
     white-space: nowrap;
-    overflow-x: hidden;
     display: flex;
     overflow-y: auto;
     flex-direction: column;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     .item {
       padding: 0.5rem 1rem;
@@ -101,9 +108,9 @@ body {
   font-size: 1rem;
   line-height: 1.5;
   word-wrap: break-word;
-  width: 100%;
-  height: calc(100vh - 40px);
-  padding: 0.1rem 1rem 1rem 1rem;
+  width: inherit;
+  height: calc(100vh - 0.2rem);
+  padding: 0.1rem 1rem 0.1rem 1rem;
   overflow-y: auto;
 
   div {
@@ -262,7 +269,6 @@ body {
   .code-block {
     border-radius: 5px;
     padding: 8px;
-    width: calc(100% - 16px);
     font-family: "cascadia code";
 
     .cm-editor {
