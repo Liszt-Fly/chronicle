@@ -297,7 +297,6 @@ body {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 100px;
   height: 32px;
   text-align: center;
   border-radius: 5px;
@@ -306,6 +305,7 @@ body {
   align-items: center;
   cursor: pointer;
   z-index: 999 !important;
+  padding: 0 4px;
 }
 
 ::-webkit-scrollbar {
