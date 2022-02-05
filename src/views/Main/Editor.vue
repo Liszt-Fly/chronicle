@@ -94,7 +94,7 @@ let edit = function () {
 	opacity: 0;
 	overflow: scroll;
 	max-width: 80vw;
-	min-width: 20vw;
+	min-width: 120px;
 }
 
 /* 拖拽线 */
