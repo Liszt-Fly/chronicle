@@ -224,5 +224,8 @@ onMounted(() => {
 .green {
 	background-color: #4ebd45;
 }
+.el-divider {
+	margin-bottom: 0 !important;
+}
 </style>
 
