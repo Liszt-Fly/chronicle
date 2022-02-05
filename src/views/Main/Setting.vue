@@ -38,7 +38,7 @@
             <el-divider></el-divider>
 
             <el-form-item :label="$t('setting.language')">
-                <el-select v-model="$i18n.locale" :placeholder="$t('setting.select_language')">
+                <el-select v-model="config.locale" :placeholder="$t('setting.select_language')">
                     <el-option
                         v-for="locale in $i18n.availableLocales"
                         :label="locale"
@@ -93,7 +93,8 @@ let config = reactive({
     "editor_theme": "",
     "code_theme": "",
     "global_font": "",
-    "code_font": ""
+    "code_font": "",
+    "locale": ""
 })
 
 const readSetting = (configFile: string) => {

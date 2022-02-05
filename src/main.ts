@@ -31,3 +31,5 @@ app.mount('#app')
 // init
 import { initSetting } from "@/api/init"
 initSetting()
+import { locale } from "@/api/init"
+i18n.global.locale = locale
