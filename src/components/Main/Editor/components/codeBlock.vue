@@ -199,7 +199,7 @@ onMounted(() => {
 		</div>
 	</div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .code-block {
 	position: relative;
 }
