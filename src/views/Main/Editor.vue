@@ -54,8 +54,8 @@ let edit = function () {
 	</div>
 
 	<div class="selection" @click="edit()" title="点击改变选择模式">
-		<span v-show="editable">框选模式开 ✅</span>
-		<span v-show="!editable">框选模式关 ❎</span>
+		<span v-show="editable">{{ $t("editor.edit_mode_on") }}</span>
+		<span v-show="!editable">{{ $t("editor.edit_mode_off") }}</span>
 	</div>
 </template>
 

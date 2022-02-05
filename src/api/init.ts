@@ -52,6 +52,8 @@ let initFont = () => {
 	head.appendChild(fontStyle);
 }
 
+export const locale = config.locale
+
 // 初始化设置
 export let initSetting = () => {
 	initTheme()
