@@ -1,37 +1,56 @@
 <template>
     <div class="setting">
-        <el-form ref="formRef" :model="config" label-width="6rem" label-position="left">
-            <el-form-item label="全局主题">
-                <el-select v-model="config.global_theme" placeholder="选择全局主题">
-                    <el-option label="light" value="light"></el-option>
-                    <el-option label="dark" value="dark"></el-option>
+        <el-form ref="formRef" :model="config" label-width="8rem" label-position="left">
+            <el-form-item :label="$t('setting.global_theme')">
+                <el-select
+                    v-model="config.global_theme"
+                    :placeholder="$t('setting.select_global_theme')"
+                >
+                    <el-option :label="$t('setting.light')" value="light"></el-option>
+                    <el-option :label="$t('setting.dark')" value="dark"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="编辑器主题">
-                <el-select v-model="config.editor_theme" placeholder="选择编辑器主题">
-                    <el-option label="light" value="light"></el-option>
-                    <el-option label="dark" value="dark"></el-option>
+            <el-form-item :label="$t('setting.editor_theme')">
+                <el-select v-model="config.editor_theme" :placeholder="$t('setting.editor_theme')">
+                    <el-option :label="$t('setting.light')" value="light"></el-option>
+                    <el-option :label="$t('setting.dark')" value="dark"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="代码块主题">
-                <el-select v-model="config.code_theme" placeholder="选择代码块主题">
-                    <el-option label="light" value="light"></el-option>
-                    <el-option label="dark" value="dark"></el-option>
+            <el-form-item :label="$t('setting.code_theme')">
+                <el-select
+                    v-model="config.code_theme"
+                    :placeholder="$t('setting.select_code_theme')"
+                >
+                    <el-option :label="$t('setting.light')" value="light"></el-option>
+                    <el-option :label="$t('setting.dark')" value="dark"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-divider></el-divider>
 
-            <el-form-item label="全局字体">
+            <el-form-item :label="$t('setting.global_font')">
                 <el-input v-model="config.global_font" clearable spellcheck="false" />
             </el-form-item>
-            <el-form-item label="代码块字体">
+            <el-form-item :label="$t('setting.code_font')">
                 <el-input v-model="config.code_font" clearable spellcheck="false" />
             </el-form-item>
 
+            <el-divider></el-divider>
+
+            <el-form-item :label="$t('setting.language')">
+                <el-select v-model="config.locale" :placeholder="$t('setting.select_language')">
+                    <el-option
+                        v-for="locale in $i18n.availableLocales"
+                        :label="locale"
+                        :key="`locale-${locale}`"
+                        :value="locale"
+                    >{{ locale }}</el-option>
+                </el-select>
+            </el-form-item>
+
             <el-form-item>
-                <el-button type="primary" @click="saveDialogVisible = true">保存</el-button>
-                <el-button @click="restoreDialogVisible = true">恢复默认值</el-button>
+                <el-button type="primary" @click="saveDialogVisible = true">{{ $t("setting.save") }}</el-button>
+                <el-button @click="restoreDialogVisible = true">{{ $t("setting.default") }}</el-button>
             </el-form-item>
         </el-form>
 
@@ -74,7 +93,8 @@ let config = reactive({
     "editor_theme": "",
     "code_theme": "",
     "global_font": "",
-    "code_font": ""
+    "code_font": "",
+    "locale": ""
 })
 
 const readSetting = (configFile: string) => {

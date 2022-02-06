@@ -1,7 +1,11 @@
 <script setup lang="ts">
 </script>
 
-<template>stream page</template>
+<template>
+    <div>
+        <p>{{ $t("stream.hello") }}</p>
+    </div>
+</template>
 
 <style >
 </style>
