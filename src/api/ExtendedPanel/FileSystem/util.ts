@@ -29,7 +29,7 @@ export let sortFileInDepth = function sortFileInDepth(
 			sortFileInDepth(path.resolve(dir, f), item["children"])
 		} else {
 			item.name = f
-			item.tag = ""
+
 			if (item["children"]) {
 				item["children"].push(item)
 			} else {

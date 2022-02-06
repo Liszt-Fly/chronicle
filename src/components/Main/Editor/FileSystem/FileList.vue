@@ -14,7 +14,7 @@ import {
 } from "@/api/Editor/FileSystem/filesystem";
 import { chronicleArticlePath } from "@/api/init";
 import { loadNodeLists } from "@/api/Editor/Editor";
-
+import { ElMessage, ElMessageBox } from 'element-plus'
 const props = defineProps({
 	file: Object as () => msfile,
 });
@@ -147,6 +147,31 @@ if (props.file!.isDirectory) {
 		},
 	}))
 	menuItems.push(item);
+}
+else {
+	menuItems.push(new MenuItem({
+		label: "添加便签",
+		click: () => {
+			ElMessageBox.prompt('Please Add Tag', 'Add Tag', {
+				confirmButtonText: 'OK',
+				cancelButtonText: 'Cancel',
+
+			})
+				.then(({ value }) => {
+
+					ElMessage({
+						type: 'success',
+						message: `Your email is:${value}`,
+					})
+				})
+				.catch(() => {
+					ElMessage({
+						type: 'info',
+						message: 'Input canceled',
+					})
+				})
+		}
+	}))
 }
 
 

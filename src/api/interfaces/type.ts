@@ -6,7 +6,7 @@ export interface msfile {
 	children?: msfile[] | null
 	stat?: fs.Stats
 	path?: string
-	tag?: string
+
 }
 
 export interface cTree {
@@ -31,6 +31,3 @@ export interface abstractNode {
 	type: string,
 }
 
-export interface paragraphNode extends abstractNode {
-
-}
