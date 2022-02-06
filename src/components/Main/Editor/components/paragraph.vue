@@ -3,15 +3,15 @@ import { addNewNode, recoverSourceCodeMode } from "@/api/Editor/Editor"
 import { cTreeNode } from "@/api/interfaces/type";
 import { onMounted, reactive, Ref, ref } from "vue"
 //sum Props
-let edible:Ref<boolean> =ref(false)
+let edible: Ref<boolean> = ref(false)
 
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cTreeNode,
 	},
 })
-let modify=()=>{
-edible.value=true;
+let modify = () => {
+	edible.value = true;
 }
 //sum DOM
 let paragraph = ref<HTMLElement | null>(null)

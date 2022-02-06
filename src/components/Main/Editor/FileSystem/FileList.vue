@@ -32,8 +32,14 @@ function openFile(event: MouseEvent, file: msfile) {
 function renameNote(file: msfile) {
 	//启用contentEdible
 	namebox.value!.contentEditable = "true";
+
 	namebox.value!.focus();
-	namebox.value!.innerText = " "
+
+	var sel = window.getSelection()
+	let range = sel!.getRangeAt(0);
+	range.setEnd(namebox.value!, 5)
+
+
 
 
 }
@@ -176,6 +182,7 @@ const popMenu = (event: MouseEvent) => {
 				@context.stop
 			></span>
 			<span
+				class="cursor"
 				ref="namebox"
 				@blur="finishReanmeNote(props.file!)"
 				@keydown.enter.prevent="enter($event)"
