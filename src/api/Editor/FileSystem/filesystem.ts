@@ -16,7 +16,6 @@ export function createNote(currentPath: string, noteName?: string) {
 
 	fsp.createFileSync(path.resolve(currentPath, `${fileName}`))
 	fsp.writeFileSync(path.resolve(currentPath, `${fileName}`), "")
-
 }
 
 //* 删除Note
@@ -56,7 +55,7 @@ function ifFileHasExtname(file: string): string {
 	if (path.extname(file)) {
 		return file
 	} else {
-		return file.concat(".chron")
+		return file.concat(".md")
 	}
 }
 
@@ -64,7 +63,6 @@ function removeExtName(file: string): string {
 	if (path.extname(file)) {
 		let remainedLength = file.length - path.extname(file).length
 		//截取字符串
-		console.log(file.substring(0, remainedLength - 1))
 		return file.substring(0, remainedLength - 1)
 	} else {
 		return file

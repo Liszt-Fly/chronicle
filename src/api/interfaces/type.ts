@@ -1,4 +1,3 @@
-import { EditorView } from '@codemirror/view'
 import fs from 'fs'
 export interface msfile {
 	name?: string
@@ -6,18 +5,11 @@ export interface msfile {
 	children?: msfile[] | null
 	stat?: fs.Stats
 	path?: string
-
-}
-
-export interface cTree {
-	children?: cTreeNode | null
 }
 
 export interface cTreeNode {
-	title: string
 	originalMarkdown: string
 	type: string
-	editorView?: any
 }
 
 export interface cCodeBlockNode extends cTreeNode {
@@ -31,3 +23,6 @@ export interface abstractNode {
 	type: string,
 }
 
+export interface Iconfig {
+	[key: string]: string
+}

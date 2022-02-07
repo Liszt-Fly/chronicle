@@ -14,7 +14,6 @@ const fileSystemMenu = [
 	new MenuItem({
 		label: "新建随笔",
 		click: function () {
-
 			createNote(path.resolve(chroniclePath, "assets"))
 			refresh(path.resolve(chroniclePath, "assets"))
 		},

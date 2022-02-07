@@ -1,22 +1,19 @@
 <script setup lang="ts">
 import { onMounted, ref, Ref, watchEffect } from "vue";
-import { v4 } from "uuid";
-import { EditorSelection, EditorState, Compartment, Extension } from "@codemirror/state";
+import { EditorState, Extension } from "@codemirror/state";
 import { keymap, EditorView } from "@codemirror/view";
 import "codemirror/mode/javascript/javascript.js";
 import { javascriptLanguage } from "@codemirror/lang-javascript";
-import { python, pythonLanguage } from "@codemirror/lang-python";
+import { pythonLanguage } from "@codemirror/lang-python";
 import { syntaxTree } from "@codemirror/language";
 import { autocompletion } from "@codemirror/autocomplete";
 import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
 import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type";
 import { cursorDocEnd } from "@codemirror/commands";
-import { currentFile, paragraphs } from "@/api/configdb";
+import { nodes } from "@/api/configdb";
 import { StreamLanguage } from "@codemirror/stream-parser"
 import { dart } from '@codemirror/legacy-modes/mode/clike'
-import { language } from "@codemirror/language"
-import { htmlLanguage, html } from "@codemirror/lang-html"
-import { javascript } from "@codemirror/lang-javascript"
+import { htmlLanguage } from "@codemirror/lang-html"
 const props = defineProps({
 	paragraph: {
 		type: Object as () => cCodeBlockNode,
@@ -138,14 +135,10 @@ onMounted(() => {
 		//如果当前节点是最后的节点，新增一个节点
 
 		let newNode: cTreeNode = {
-			title: v4(),
 			originalMarkdown: "",
 			type: "paragraph",
 		};
-		paragraphs.value.splice(paragraphs.value.indexOf(currentNode) + 1, 0, newNode)
-
-
-		console.log(paragraphs.value.length);
+		nodes.value.splice(nodes.value.indexOf(currentNode) + 1, 0, newNode)
 	}
 
 	let editorview = new EditorView({

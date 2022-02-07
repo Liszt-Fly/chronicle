@@ -1,23 +1,14 @@
 <script setup lang="ts">
 import { onMounted, Ref, ref, watchEffect } from "vue"
-import { currentFile, paragraphs } from "@/api/configdb"
+import { currentFile, nodes } from "@/api/configdb"
 import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
-import CodeBlock from "@/components/Main/Editor/components/codeBlock.vue";
-let rContainer = ref<HTMLBaseElement | null>(null)
-function save(event: KeyboardEvent) {
-	if ((event.metaKey || event.ctrlKey) && event.keyCode == 83 && currentFile.value != "") {
-		saveArticle(paragraphs.value, currentFile.value)
-	}
-}
 initMarked()
 onMounted(() => {
 	watchEffect(() => {
 		if (currentFile.value != "") {
-			paragraphs.value = loadNodeLists(currentFile.value)
-		}
-		else {
-
+			nodes.value = []
+			nodes.value = loadNodeLists(currentFile.value)
 		}
 	})
 })
@@ -28,8 +19,8 @@ let edit = function () {
 }
 </script>
 
-<template>
-	<div class="column">
+<template >
+	<div class="column" @keydown="save($event)">
 		<div class="column-left">
 			<!-- 中间调整大小 -->
 			<div class="resize-bar"></div>
@@ -42,9 +33,9 @@ let edit = function () {
 		</div>
 		<div class="column-right">
 			<!-- 右侧 editor -->
-			<div class="editor" ref="rContainer" @keydown="save($event)" :contenteditable="editable">
-				<template v-for="paragraph in paragraphs" :key="paragraph.title">
-					<component :is="paragraph.type" :paragraph="paragraph"></component>
+			<div class="editor" :contenteditable="editable">
+				<template v-for="node in nodes" :key="node">
+					<component :is="node.type" :paragraph="node"></component>
 				</template>
 			</div>
 		</div>

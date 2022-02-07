@@ -1,8 +1,7 @@
 //sum 虚拟Node节点操作
 import { marked } from "marked"
-import { v4 } from "uuid"
 import fsp from "fs-extra"
-import { currentFile, paragraphs } from "@/api/configdb"
+import { currentFile, nodes } from "@/api/configdb"
 import path from "path"
 import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type"
 import { bKeyBoardTarget } from "./FileSystem/util"
@@ -23,7 +22,7 @@ export function initMarked() {
 
 //sum 如果是空白文件进行初始化最初节点
 export let initNode = function (): cTreeNode {
-	return { title: v4(), originalMarkdown: " ", type: "paragraph" }
+	return { originalMarkdown: "", type: "paragraph" }
 }
 
 //* sum 添加新的节点
@@ -51,33 +50,24 @@ export let addNewNode = async function (
 			let language = /^`{3}([a-z]+)/.exec(target.innerText)![1]
 
 			let newNode: cCodeBlockNode = {
-				title: v4(),
 				originalMarkdown: "",
 				type: "codeBlock",
-				language: /^`{3}([a-z]+)/.exec(target.innerText)![1],
+				language: language
 			}
-			paragraphs.value.splice(paragraphs.value.indexOf(currentNode), 1, newNode)
+			nodes.value.splice(nodes.value.indexOf(currentNode), 1, newNode)
 			return
 		}
 
 		let newNode: cTreeNode = {
-			title: v4(),
 			originalMarkdown: "",
-			type: "paragraph",
+			type: "paragraph"
 		}
-		await paragraphs.value.splice(paragraphs.value.indexOf(currentNode) + 1, 0, newNode)
+		await nodes.value.splice(nodes.value.indexOf(currentNode) + 1, 0, newNode)
 		target.blur()
 
 		let nextElement: HTMLElement = target.nextElementSibling as HTMLElement
 		nextElement.focus()
 	}
-	//对于blur来说，如果内容为空，就要删除当前的节点
-	// if (!bKeyBoardTarget(event)) {
-	// 	if (currentNode.originalMarkdown == "") {
-	// 		let index = paragraphs.value.indexOf(currentNode)
-	// 		paragraphs.value.splice(index, 1)
-	// 	}
-	// }
 }
 
 //* sum focus状态恢复为sourceCodeMode
@@ -94,28 +84,64 @@ export let recoverSourceCodeMode = function (
 }
 
 //* 存储NodeList，保存文件
-export function saveArticle(nodeLists: cTreeNode[], fileName: string) {
+export function saveArticle() {
+	let markdown: string[] = []
+	console.log(nodes);
 
-	// fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(() => {
-	// 	console.log("保存成功")
-	// })
-	// for (let i = 0; i < nodeLists.length; i++){
-	// 	fsp.writeFileSync(`${path.resolve(currentFile.value)}`,)
-	// }
+	for (const node of nodes.value) {
+		console.log(node);
 
+		if (node.type === "codeBlock") {
+			markdown.push("```" + (node as cCodeBlockNode).language + "\n" + node.originalMarkdown + "\n```\n")
+		} else {
+			markdown.push(node.originalMarkdown)
+		}
+	}
 
+	fsp.writeFileSync(`${path.resolve(currentFile.value)}`, markdown.join("\n"))
+
+	console.log("file saved");
 }
 
 //* 加载NodeList,加载文件
 export function loadNodeLists(fileName: string): cTreeNode[] {
-	let file: cTreeNode[] = fsp.readJSONSync(`${fileName}`)
+	let markdown: string[] = fsp.readFileSync(`${fileName}`).toString().split("\n")
+	let nodes: cTreeNode[] = []
+	let codeFlag = false
+	let codeMarkdown: string[] = []
+	let language = ""
 
-	if (file.length == 0) {
+	markdown.forEach(line => {
+		if (/^`{3}[a-zA-z]+/.test(line)) {
+			codeFlag = true
+			language = /^`{3}([a-z]+)/.exec(line)![1]
+		}
+		else if (line === "```") {
+			let newNode: cCodeBlockNode = {
+				originalMarkdown: codeMarkdown.join("\n"),
+				type: "codeBlock",
+				language: language
+			}
+			nodes.push(newNode)
+
+			codeFlag = false
+			codeMarkdown = []
+			language = ""
+		}
+		else if (codeFlag) {
+			codeMarkdown.push(line)
+		}
+		else {
+			nodes.push({ originalMarkdown: line, type: "paragraph" })
+		}
+	});
+
+	if (nodes.length == 0) {
 		let newNodeList: cTreeNode[] = []
 		newNodeList.push(initNode())
 
 		return newNodeList
 	} else {
-		return file
+		return nodes
 	}
 }
