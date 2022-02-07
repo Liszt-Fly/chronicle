@@ -1,6 +1,6 @@
 * {
   margin: 0;
-  outline: none;
+  // outline: none;
 }
 
 body {
@@ -105,7 +105,7 @@ body {
 }
 
 .editor {
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.5;
   word-wrap: break-word;
   width: inherit;
@@ -252,11 +252,12 @@ body {
   }
 
   code {
-    display: block;
+    display: inline-block;
     background: transparent;
     border: none;
     font-family: "cascadia code" !important;
-    min-height: 24px;
+    padding: 2px;
+    border-radius: 4px;
   }
 
   .language {
