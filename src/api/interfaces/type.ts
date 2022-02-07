@@ -31,3 +31,6 @@ export interface abstractNode {
 	type: string,
 }
 
+export interface Iconfig {
+	[key: string]:string
+}

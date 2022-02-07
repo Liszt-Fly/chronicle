@@ -82,13 +82,14 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
 import { configFile, defaultConfigFile } from "@/api/init"
+import { Iconfig } from '@/api/interfaces/type';
 
 const fs = window.require('fs');
 
 const saveDialogVisible = ref(false)
 const restoreDialogVisible = ref(false)
 
-let config = reactive({
+let config: Iconfig = reactive({
     "global_theme": "",
     "editor_theme": "",
     "code_theme": "",
