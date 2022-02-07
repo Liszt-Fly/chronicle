@@ -134,8 +134,6 @@ onMounted(() => {
 <style scoped>
 .setting {
     padding: 1rem;
-    margin: auto;
     text-align: center;
-    width: 20rem;
 }
 </style>
