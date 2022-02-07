@@ -6,7 +6,7 @@ import fsp from "fs-extra";
 import path from "path";
 import rmrf from "rimraf";
 import { flushFiles, refresh, validateFilename } from "@/api/Editor/FileSystem/util";
-import { basePath, currentFile, paragraphs } from "@/api/configdb";
+import { basePath, currentFile, nodes } from "@/api/configdb";
 import {
 	createNote,
 	ifNoteNameExists,

@@ -9,9 +9,9 @@ import { python, pythonLanguage } from "@codemirror/lang-python";
 import { syntaxTree } from "@codemirror/language";
 import { autocompletion } from "@codemirror/autocomplete";
 import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
-import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type";
+import { cTreeNode } from "@/api/interfaces/type";
 import { cursorDocEnd } from "@codemirror/commands";
-import { currentFile, paragraphs } from "@/api/configdb";
+import { nodes } from "@/api/configdb";
 import { StreamLanguage } from "@codemirror/stream-parser"
 import { dart } from '@codemirror/legacy-modes/mode/clike'
 import { language } from "@codemirror/language"
@@ -19,12 +19,12 @@ import { htmlLanguage, html } from "@codemirror/lang-html"
 import { javascript } from "@codemirror/lang-javascript"
 const props = defineProps({
 	paragraph: {
-		type: Object as () => cCodeBlockNode,
+		type: Object as () => cTreeNode,
 	},
 });
 
 let codeBlock = ref<HTMLElement | null>(null);
-let currentNode: cCodeBlockNode = props.paragraph!;
+let currentNode: cTreeNode = props.paragraph!;
 
 const completePropertyAfter = ["PropertyName", ".", "?."];
 const dontCompleteIn = [
@@ -104,27 +104,26 @@ const globalJavaScriptCompletions = javascriptLanguage.data.of({
 });
 
 
-let languagemode: Ref<string> = ref(currentNode.language ? currentNode.language : "undefined")
 let code: Ref<string> = ref("");
 let content: Ref<HTMLTextAreaElement | null> = ref(null);
 let extensions: Ref<Extension[]> = ref([])
 watchEffect(() => {
 
 	//TODO 此处有问题，使用Vue响应式处理，先清空，再添加
-	switch (languagemode.value) {
-		case 'javascript': case 'js': case 'JAVASCRIPT':
+	// switch (languagemode.value) {
+	// 	case 'javascript': case 'js': case 'JAVASCRIPT':
 
-			extensions.value.push(javascriptLanguage, globalJavaScriptCompletions)
-		case 'python': case 'PYTHON': case 'py':
+	// 		extensions.value.push(javascriptLanguage, globalJavaScriptCompletions)
+	// 	case 'python': case 'PYTHON': case 'py':
 
-			extensions.value.push(pythonLanguage,
-				StreamLanguage.define(dart))
-		case 'dart': case 'DART':
+	// 		extensions.value.push(pythonLanguage,
+	// 			StreamLanguage.define(dart))
+	// 	case 'dart': case 'DART':
 
-			extensions.value.push(StreamLanguage.define(dart))
-		case 'html': case "HTML":
-			extensions.value.push(htmlLanguage)
-	}
+	// 		extensions.value.push(StreamLanguage.define(dart))
+	// 	case 'html': case "HTML":
+	// 		extensions.value.push(htmlLanguage)
+	// }
 
 })
 onMounted(() => {
@@ -134,18 +133,14 @@ onMounted(() => {
 
 		//saveCurrentNode
 		currentNode.originalMarkdown = es.contentDOM.innerText
-		// saveNodeLists(paragraphs.value,currentFile.value)
-		//如果当前节点是最后的节点，新增一个节点
 
 		let newNode: cTreeNode = {
-			title: v4(),
 			originalMarkdown: "",
-			type: "paragraph",
 		};
-		paragraphs.value.splice(paragraphs.value.indexOf(currentNode) + 1, 0, newNode)
+		nodes.value.splice(nodes.value.indexOf(currentNode) + 1, 0, newNode)
 
 
-		console.log(paragraphs.value.length);
+		console.log(nodes.value.length);
 	}
 
 	let editorview = new EditorView({
@@ -193,7 +188,7 @@ onMounted(() => {
 			<div class="green"></div>
 		</div>
 		<div class="language" spellcheck="false">
-			<span>{{ currentNode.language }}</span>
+			<!-- <span>{{ currentNode }}</span> -->
 			<el-divider direction="vertical"></el-divider>
 			<i class="bi bi-front"></i>
 		</div>

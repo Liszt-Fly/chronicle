@@ -15,8 +15,7 @@ export function createNote(currentPath: string, noteName?: string) {
 	)
 
 	fsp.createFileSync(path.resolve(currentPath, `${fileName}`))
-	fsp.writeFileSync(path.resolve(currentPath, `${fileName}`), "[]")
-
+	fsp.writeFileSync(path.resolve(currentPath, `${fileName}`), "")
 }
 
 //* 删除Note
@@ -56,7 +55,7 @@ function ifFileHasExtname(file: string): string {
 	if (path.extname(file)) {
 		return file
 	} else {
-		return file.concat(".chron")
+		return file.concat(".md")
 	}
 }
 

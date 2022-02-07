@@ -1,10 +1,9 @@
 //sum 虚拟Node节点操作
 import { marked } from "marked"
-import { v4 } from "uuid"
 import fsp from "fs-extra"
-import { currentFile, paragraphs } from "@/api/configdb"
+import { currentFile, nodes } from "@/api/configdb"
 import path from "path"
-import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type"
+import { cTreeNode } from "@/api/interfaces/type"
 import { bKeyBoardTarget } from "./FileSystem/util"
 
 //sum markedjs初始化
@@ -23,7 +22,7 @@ export function initMarked() {
 
 //sum 如果是空白文件进行初始化最初节点
 export let initNode = function (): cTreeNode {
-	return { title: v4(), originalMarkdown: " ", type: "paragraph" }
+	return { originalMarkdown: " " }
 }
 
 //* sum 添加新的节点
@@ -32,6 +31,8 @@ export let addNewNode = async function (
 	bParsed: { value: boolean },
 	currentNode: cTreeNode
 ) {
+	console.log(currentNode);
+	
 	let target = event.target as unknown as HTMLElement
 
 	//修改保存当前的node
@@ -50,34 +51,22 @@ export let addNewNode = async function (
 		if (/^`{3}[a-zA-z]+/.test(target.innerText)) {
 			let language = /^`{3}([a-z]+)/.exec(target.innerText)![1]
 
-			let newNode: cCodeBlockNode = {
-				title: v4(),
+			let newNode: cTreeNode = {
 				originalMarkdown: "",
-				type: "codeBlock",
-				language: /^`{3}([a-z]+)/.exec(target.innerText)![1],
 			}
-			paragraphs.value.splice(paragraphs.value.indexOf(currentNode), 1, newNode)
+			nodes.value.splice(nodes.value.indexOf(currentNode), 1, newNode)
 			return
 		}
 
 		let newNode: cTreeNode = {
-			title: v4(),
 			originalMarkdown: "",
-			type: "paragraph",
 		}
-		await paragraphs.value.splice(paragraphs.value.indexOf(currentNode) + 1, 0, newNode)
+		await nodes.value.splice(nodes.value.indexOf(currentNode) + 1, 0, newNode)
 		target.blur()
 
 		let nextElement: HTMLElement = target.nextElementSibling as HTMLElement
 		nextElement.focus()
 	}
-	//对于blur来说，如果内容为空，就要删除当前的节点
-	// if (!bKeyBoardTarget(event)) {
-	// 	if (currentNode.originalMarkdown == "") {
-	// 		let index = paragraphs.value.indexOf(currentNode)
-	// 		paragraphs.value.splice(index, 1)
-	// 	}
-	// }
 }
 
 //* sum focus状态恢复为sourceCodeMode
@@ -95,23 +84,29 @@ export let recoverSourceCodeMode = function (
 
 //* 存储NodeList，保存文件
 export function saveArticle(nodeLists: cTreeNode[], fileName: string) {
-
-	fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(() => {
+	let markdown = ""
+	nodeLists.forEach(node => {
+		markdown += node.originalMarkdown + "\n"
+	});
+	fsp.writeFile(`${path.resolve(currentFile.value)}`, markdown).then(() => {
 		console.log("保存成功")
 	})
-
 }
 
 //* 加载NodeList,加载文件
 export function loadNodeLists(fileName: string): cTreeNode[] {
-	let file: cTreeNode[] = fsp.readJSONSync(`${fileName}`)
+	let markdown: string[] = fsp.readFileSync(`${fileName}`).toString().split("\n")
+	let nodes: cTreeNode[] = []
+	markdown.forEach(line => {
+		nodes.push({ originalMarkdown: line })
+	});
 
-	if (file.length == 0) {
+	if (nodes.length == 0) {
 		let newNodeList: cTreeNode[] = []
 		newNodeList.push(initNode())
 
 		return newNodeList
 	} else {
-		return file
+		return nodes
 	}
 }

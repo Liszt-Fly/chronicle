@@ -28,7 +28,7 @@ export let sortFileInDepth = function (
 			sortFileInDepth(path.resolve(dir, f), item["children"])
 		} else {
 			item.name = f
-			
+
 			if (item["children"]) {
 				item["children"].push(item)
 			} else {
@@ -45,9 +45,7 @@ export let validateFilename = function validateFilename(
 	//省略扩展名
 	let length = filename.length - path.extname(filename).length
 
-	// 只保留 json 文件
-
-	if (path.extname(filename) == ".chron" || path.extname(filename) == "")
+	if (path.extname(filename) == ".md" || path.extname(filename) == "")
 		return filename.substring(0, length)
 	else return undefined
 }
