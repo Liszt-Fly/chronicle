@@ -63,7 +63,6 @@ function removeExtName(file: string): string {
 	if (path.extname(file)) {
 		let remainedLength = file.length - path.extname(file).length
 		//截取字符串
-		console.log(file.substring(0, remainedLength - 1))
 		return file.substring(0, remainedLength - 1)
 	} else {
 		return file

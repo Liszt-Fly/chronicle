@@ -9,6 +9,11 @@ export interface msfile {
 
 export interface cTreeNode {
 	originalMarkdown: string
+	type: string
+}
+
+export interface cCodeBlockNode extends cTreeNode {
+	language: string
 }
 
 export interface abstractNode {

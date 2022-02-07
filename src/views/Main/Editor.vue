@@ -3,12 +3,11 @@ import { onMounted, Ref, ref, watchEffect } from "vue"
 import { currentFile, nodes } from "@/api/configdb"
 import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
-import CodeBlock from "@/components/Main/Editor/components/codeBlock.vue";
 
-let rContainer = ref<HTMLBaseElement | null>(null)
-function save(event: KeyboardEvent) {
-	if ((event.metaKey || event.ctrlKey) && event.keyCode == 83 && currentFile.value != "") {
-		saveArticle(nodes.value, currentFile.value)
+function save(e: KeyboardEvent) {
+	if ((e.key == 's' || e.key == 'S') && (e.metaKey || e.ctrlKey)) {
+		e.preventDefault();
+		saveArticle()
 	}
 }
 initMarked()
@@ -17,7 +16,6 @@ onMounted(() => {
 		if (currentFile.value != "") {
 			nodes.value = []
 			nodes.value = loadNodeLists(currentFile.value)
-			console.log(nodes.value);
 		}
 	})
 })
@@ -28,8 +26,8 @@ let edit = function () {
 }
 </script>
 
-<template>
-	<div class="column">
+<template >
+	<div class="column" @keydown="save($event)">
 		<div class="column-left">
 			<!-- 中间调整大小 -->
 			<div class="resize-bar"></div>
@@ -42,11 +40,9 @@ let edit = function () {
 		</div>
 		<div class="column-right">
 			<!-- 右侧 editor -->
-			<div class="editor" ref="rContainer" @keydown="save($event)" :contenteditable="editable">
+			<div class="editor" :contenteditable="editable">
 				<template v-for="node in nodes" :key="node">
-					<!-- <component :is="paragraph" :paragraph="paragraph"></component> -->
-
-					<paragraph :paragraph="node"></paragraph>
+					<component :is="node.type" :paragraph="node"></component>
 				</template>
 			</div>
 		</div>

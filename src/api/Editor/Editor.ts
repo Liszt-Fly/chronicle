@@ -3,7 +3,7 @@ import { marked } from "marked"
 import fsp from "fs-extra"
 import { currentFile, nodes } from "@/api/configdb"
 import path from "path"
-import { cTreeNode } from "@/api/interfaces/type"
+import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type"
 import { bKeyBoardTarget } from "./FileSystem/util"
 
 //sum markedjs初始化
@@ -22,7 +22,7 @@ export function initMarked() {
 
 //sum 如果是空白文件进行初始化最初节点
 export let initNode = function (): cTreeNode {
-	return { originalMarkdown: " " }
+	return { originalMarkdown: "", type: "paragraph" }
 }
 
 //* sum 添加新的节点
@@ -31,8 +31,6 @@ export let addNewNode = async function (
 	bParsed: { value: boolean },
 	currentNode: cTreeNode
 ) {
-	console.log(currentNode);
-	
 	let target = event.target as unknown as HTMLElement
 
 	//修改保存当前的node
@@ -51,8 +49,10 @@ export let addNewNode = async function (
 		if (/^`{3}[a-zA-z]+/.test(target.innerText)) {
 			let language = /^`{3}([a-z]+)/.exec(target.innerText)![1]
 
-			let newNode: cTreeNode = {
+			let newNode: cCodeBlockNode = {
 				originalMarkdown: "",
+				type: "codeBlock",
+				language: language
 			}
 			nodes.value.splice(nodes.value.indexOf(currentNode), 1, newNode)
 			return
@@ -60,6 +60,7 @@ export let addNewNode = async function (
 
 		let newNode: cTreeNode = {
 			originalMarkdown: "",
+			type: "paragraph"
 		}
 		await nodes.value.splice(nodes.value.indexOf(currentNode) + 1, 0, newNode)
 		target.blur()
@@ -83,22 +84,56 @@ export let recoverSourceCodeMode = function (
 }
 
 //* 存储NodeList，保存文件
-export function saveArticle(nodeLists: cTreeNode[], fileName: string) {
-	let markdown = ""
-	nodeLists.forEach(node => {
-		markdown += node.originalMarkdown + "\n"
-	});
-	fsp.writeFile(`${path.resolve(currentFile.value)}`, markdown).then(() => {
-		console.log("保存成功")
-	})
+export function saveArticle() {
+	let markdown: string[] = []
+	console.log(nodes);
+
+	for (const node of nodes.value) {
+		console.log(node);
+
+		if (node.type === "codeBlock") {
+			markdown.push("```" + (node as cCodeBlockNode).language + "\n" + node.originalMarkdown + "\n```\n")
+		} else {
+			markdown.push(node.originalMarkdown)
+		}
+	}
+
+	fsp.writeFileSync(`${path.resolve(currentFile.value)}`, markdown.join("\n"))
+
+	console.log("file saved");
 }
 
 //* 加载NodeList,加载文件
 export function loadNodeLists(fileName: string): cTreeNode[] {
 	let markdown: string[] = fsp.readFileSync(`${fileName}`).toString().split("\n")
 	let nodes: cTreeNode[] = []
+	let codeFlag = false
+	let codeMarkdown: string[] = []
+	let language = ""
+
 	markdown.forEach(line => {
-		nodes.push({ originalMarkdown: line })
+		if (/^`{3}[a-zA-z]+/.test(line)) {
+			codeFlag = true
+			language = /^`{3}([a-z]+)/.exec(line)![1]
+		}
+		else if (line === "```") {
+			let newNode: cCodeBlockNode = {
+				originalMarkdown: codeMarkdown.join("\n"),
+				type: "codeBlock",
+				language: language
+			}
+			nodes.push(newNode)
+
+			codeFlag = false
+			codeMarkdown = []
+			language = ""
+		}
+		else if (codeFlag) {
+			codeMarkdown.push(line)
+		}
+		else {
+			nodes.push({ originalMarkdown: line, type: "paragraph" })
+		}
 	});
 
 	if (nodes.length == 0) {

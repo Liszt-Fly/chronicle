@@ -1,30 +1,27 @@
 <script setup lang="ts">
 import { onMounted, ref, Ref, watchEffect } from "vue";
-import { v4 } from "uuid";
-import { EditorSelection, EditorState, Compartment, Extension } from "@codemirror/state";
+import { EditorState, Extension } from "@codemirror/state";
 import { keymap, EditorView } from "@codemirror/view";
 import "codemirror/mode/javascript/javascript.js";
 import { javascriptLanguage } from "@codemirror/lang-javascript";
-import { python, pythonLanguage } from "@codemirror/lang-python";
+import { pythonLanguage } from "@codemirror/lang-python";
 import { syntaxTree } from "@codemirror/language";
 import { autocompletion } from "@codemirror/autocomplete";
 import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
-import { cTreeNode } from "@/api/interfaces/type";
+import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type";
 import { cursorDocEnd } from "@codemirror/commands";
 import { nodes } from "@/api/configdb";
 import { StreamLanguage } from "@codemirror/stream-parser"
 import { dart } from '@codemirror/legacy-modes/mode/clike'
-import { language } from "@codemirror/language"
-import { htmlLanguage, html } from "@codemirror/lang-html"
-import { javascript } from "@codemirror/lang-javascript"
+import { htmlLanguage } from "@codemirror/lang-html"
 const props = defineProps({
 	paragraph: {
-		type: Object as () => cTreeNode,
+		type: Object as () => cCodeBlockNode,
 	},
 });
 
 let codeBlock = ref<HTMLElement | null>(null);
-let currentNode: cTreeNode = props.paragraph!;
+let currentNode: cCodeBlockNode = props.paragraph!;
 
 const completePropertyAfter = ["PropertyName", ".", "?."];
 const dontCompleteIn = [
@@ -104,26 +101,27 @@ const globalJavaScriptCompletions = javascriptLanguage.data.of({
 });
 
 
+let languagemode: Ref<string> = ref(currentNode.language ? currentNode.language : "undefined")
 let code: Ref<string> = ref("");
 let content: Ref<HTMLTextAreaElement | null> = ref(null);
 let extensions: Ref<Extension[]> = ref([])
 watchEffect(() => {
 
 	//TODO 此处有问题，使用Vue响应式处理，先清空，再添加
-	// switch (languagemode.value) {
-	// 	case 'javascript': case 'js': case 'JAVASCRIPT':
+	switch (languagemode.value) {
+		case 'javascript': case 'js': case 'JAVASCRIPT':
 
-	// 		extensions.value.push(javascriptLanguage, globalJavaScriptCompletions)
-	// 	case 'python': case 'PYTHON': case 'py':
+			extensions.value.push(javascriptLanguage, globalJavaScriptCompletions)
+		case 'python': case 'PYTHON': case 'py':
 
-	// 		extensions.value.push(pythonLanguage,
-	// 			StreamLanguage.define(dart))
-	// 	case 'dart': case 'DART':
+			extensions.value.push(pythonLanguage,
+				StreamLanguage.define(dart))
+		case 'dart': case 'DART':
 
-	// 		extensions.value.push(StreamLanguage.define(dart))
-	// 	case 'html': case "HTML":
-	// 		extensions.value.push(htmlLanguage)
-	// }
+			extensions.value.push(StreamLanguage.define(dart))
+		case 'html': case "HTML":
+			extensions.value.push(htmlLanguage)
+	}
 
 })
 onMounted(() => {
@@ -133,14 +131,14 @@ onMounted(() => {
 
 		//saveCurrentNode
 		currentNode.originalMarkdown = es.contentDOM.innerText
+		// saveNodeLists(paragraphs.value,currentFile.value)
+		//如果当前节点是最后的节点，新增一个节点
 
 		let newNode: cTreeNode = {
 			originalMarkdown: "",
+			type: "paragraph",
 		};
 		nodes.value.splice(nodes.value.indexOf(currentNode) + 1, 0, newNode)
-
-
-		console.log(nodes.value.length);
 	}
 
 	let editorview = new EditorView({
@@ -188,7 +186,7 @@ onMounted(() => {
 			<div class="green"></div>
 		</div>
 		<div class="language" spellcheck="false">
-			<!-- <span>{{ currentNode }}</span> -->
+			<span>{{ currentNode.language }}</span>
 			<el-divider direction="vertical"></el-divider>
 			<i class="bi bi-front"></i>
 		</div>

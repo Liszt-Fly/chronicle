@@ -7,6 +7,3 @@ export let basePath = ref("")
 export let nodes = ref<cTreeNode[]>([])
 //* 加载的当前默认文件
 export let currentFile = ref<string>("")
-
-
-
