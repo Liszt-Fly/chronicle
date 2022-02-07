@@ -42,7 +42,7 @@ let edit = function () {
 			<!-- 右侧 editor -->
 			<div class="editor" :contenteditable="editable">
 				<template v-for="node in nodes" :key="node">
-					<component :is="node.type" :paragraph="node"></component>
+					<component :is="node.type" :value="node"></component>
 				</template>
 			</div>
 		</div>

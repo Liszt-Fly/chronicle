@@ -7,20 +7,17 @@ export interface msfile {
 	path?: string
 }
 
-export interface cTreeNode {
-	originalMarkdown: string
+export interface cNode {
+	text: string
 	type: string
 }
 
-export interface cCodeBlockNode extends cTreeNode {
-	language: string
+export interface cAlertNode extends cNode {
+	color: string
 }
 
-export interface abstractNode {
-	//uuid
-	title: string,
-	content: string,
-	type: string,
+export interface cCodeBlockNode extends cNode {
+	language: string
 }
 
 export interface Iconfig {

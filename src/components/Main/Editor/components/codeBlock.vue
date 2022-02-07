@@ -8,20 +8,20 @@ import { pythonLanguage } from "@codemirror/lang-python";
 import { syntaxTree } from "@codemirror/language";
 import { autocompletion } from "@codemirror/autocomplete";
 import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
-import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type";
+import { cCodeBlockNode, cNode } from "@/api/interfaces/type";
 import { cursorDocEnd } from "@codemirror/commands";
 import { nodes } from "@/api/configdb";
 import { StreamLanguage } from "@codemirror/stream-parser"
 import { dart } from '@codemirror/legacy-modes/mode/clike'
 import { htmlLanguage } from "@codemirror/lang-html"
 const props = defineProps({
-	paragraph: {
+	value: {
 		type: Object as () => cCodeBlockNode,
 	},
 });
 
 let codeBlock = ref<HTMLElement | null>(null);
-let currentNode: cCodeBlockNode = props.paragraph!;
+let currentNode: cCodeBlockNode = props.value!;
 
 const completePropertyAfter = ["PropertyName", ".", "?."];
 const dontCompleteIn = [
@@ -103,7 +103,7 @@ const globalJavaScriptCompletions = javascriptLanguage.data.of({
 
 let languagemode: Ref<string> = ref(currentNode.language ? currentNode.language : "undefined")
 let code: Ref<string> = ref("");
-let content: Ref<HTMLTextAreaElement | null> = ref(null);
+let value: Ref<HTMLTextAreaElement | null> = ref(null);
 let extensions: Ref<Extension[]> = ref([])
 watchEffect(() => {
 
@@ -130,12 +130,10 @@ onMounted(() => {
 	function addNode(es: EditorView) {
 
 		//saveCurrentNode
-		currentNode.originalMarkdown = es.contentDOM.innerText
-		// saveNodeLists(paragraphs.value,currentFile.value)
-		//如果当前节点是最后的节点，新增一个节点
+		currentNode.text = es.contentDOM.innerText
 
-		let newNode: cTreeNode = {
-			originalMarkdown: "",
+		let newNode: cNode = {
+			text: "",
 			type: "paragraph",
 		};
 		nodes.value.splice(nodes.value.indexOf(currentNode) + 1, 0, newNode)
@@ -144,7 +142,7 @@ onMounted(() => {
 	let editorview = new EditorView({
 
 		state: EditorState.create({
-			doc: currentNode.originalMarkdown ? currentNode.originalMarkdown : "",
+			doc: currentNode.text ? currentNode.text : "",
 			extensions: [
 				mytheme,
 				oneDarkHighlightStyle,
