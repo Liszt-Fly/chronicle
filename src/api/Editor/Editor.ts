@@ -96,9 +96,13 @@ export let recoverSourceCodeMode = function (
 //* 存储NodeList，保存文件
 export function saveArticle(nodeLists: cTreeNode[], fileName: string) {
 
-	fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(() => {
-		console.log("保存成功")
-	})
+	// fsp.writeJSON(`${path.resolve(currentFile.value)}`, nodeLists).then(() => {
+	// 	console.log("保存成功")
+	// })
+	// for (let i = 0; i < nodeLists.length; i++){
+	// 	fsp.writeFileSync(`${path.resolve(currentFile.value)}`,)
+	// }
+
 
 }
 

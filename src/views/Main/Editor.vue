@@ -4,7 +4,6 @@ import { currentFile, paragraphs } from "@/api/configdb"
 import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
 import CodeBlock from "@/components/Main/Editor/components/codeBlock.vue";
-
 let rContainer = ref<HTMLBaseElement | null>(null)
 function save(event: KeyboardEvent) {
 	if ((event.metaKey || event.ctrlKey) && event.keyCode == 83 && currentFile.value != "") {
@@ -15,8 +14,6 @@ initMarked()
 onMounted(() => {
 	watchEffect(() => {
 		if (currentFile.value != "") {
-
-			console.log("开始执行")
 			paragraphs.value = loadNodeLists(currentFile.value)
 		}
 		else {
