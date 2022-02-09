@@ -53,3 +53,16 @@ npm run chronicle
 📃 README
 📑 FIXME
 ```
+
+## 🖖 致敬
+
+- 编辑器
+
+  - [Vanessa219/vditor](https://github.com/Vanessa219/vditor)
+  - [ckeditor/ckeditor5](https://github.com/ckeditor/ckeditor5)
+
+- App
+
+  - [Notable](https://notable.app/)
+  - [zadam/trilium](https://github.com/zadam/trilium)
+  - [Typora](https://typora.io/)
