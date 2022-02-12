@@ -1,33 +1,51 @@
-<template>
-	<div class="tab-bar" v-if="display">
-		<template v-for="tabItem in tabBarItems">
-			<tab-item :class-name="tabItem.icon" :func="tabItem.func" :to="tabItem.to"></tab-item>
-		</template>
-	</div>
-	<router-view></router-view>
-</template>
-
 <script setup lang="ts">
-import { tabBarItems, display, files } from "../composables/config"
-import TabItem from "../components/TabItem.vue"
-import FileList from "@/components/FileList.vue"
+import { files } from "@/api/configdb";
+import { sortFileInDepth } from "@/api/Editor/FileSystem/util";
+import { chroniclePath } from "@/api/init"
+import { onMounted } from "vue"
+
+onMounted(() => {
+	openRepository()
+})
+
+function openRepository() {
+	files.value = []
+	let path = chroniclePath + "/assets"
+	sortFileInDepth(path, files.value)
+
+	// let path = dialog.showOpenDialogSync({ properties: ["openDirectory"] })
+	// if (path) {
+	// 	sortFileInDepth(path[0], files.value)
+	// }
+	// else {
+	// 	alert("Please choose a folder as  Reponsitory ")
+	// }
+}
+
+function empty() { }
+
 </script>
 
-<style scoped lang="scss">
-.tab-bar {
-	width: 5vw;
-	height: 100vh;
-	background-color: #1f1f1f;
-	color: white;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-evenly;
-}
-.file-system {
-	width: 18vw;
-	height: 100vh;
-	background-color: #252525;
-	color: #ddd;
-}
-</style>
+<template>
+	<div class="tab-system">
+		<div class="tab-bar">
+			<div class="sub-tab">
+				<div class="tab-item" @click="openRepository()" id="archive">
+					<router-link to="/editor">
+						<i class="bi bi-archive"></i>
+					</router-link>
+				</div>
+				<div class="tab-item" @click="empty" id="stream">
+					<router-link to="/stream">
+						<i class="bi bi-layout-wtf"></i>
+					</router-link>
+				</div>
+			</div>
+			<div class="tab-item" @click="empty" id="setting">
+				<router-link to="/setting">
+					<i class="bi bi-tools"></i>
+				</router-link>
+			</div>
+		</div>
+	</div>
+</template>

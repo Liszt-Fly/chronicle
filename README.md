@@ -1,38 +1,37 @@
-# 🍼🎓🦯 Chronicle
+# Chronicle
 
+> 🍼🎓🦯
+>
 > 🏃‍🧘🏄🏊🤾🏋️🚴🏂
 
-## 介绍
+## 简介
 
-1. 记录生活
+记录生活
 
 ## 功能
 
-1. 记录排序，按照
+1. 记录
 
-   1. 时间顺序
-   2. 话题 `#topic` （可重复设置话题，且会提示已有话题）
-
-   > 可能需要用到文件系统（最简单就是 JSON 文件保存属性）
+   - 记下随想
+   - 随想排序（时间顺序、话题 `#topic`）
 
 2. 支持
 
-   1. 多媒体
+   - markdown 及扩展语法
+   - 多媒体：音频、视频
+   - 自定义样式
+   - 自定义组件（内置：思维导图、待办事项）
 
-      - 音频
-      - 视频
+## 使用方法
 
-      > 用 web 技术实现
+```bash
+# set up
+npm install
+# 建议使用 cnpm install
 
-   2. markdown
-
-   3. 自定义 component
-
-   4. 自定义 css
-
-   5. 链接（不同记录间的双向链接）
-
-   6. 思维导图（展示记录间的关系）
+# Compiles and hot-reloads for development
+npm run chronicle
+```
 
 ## 技术栈
 
@@ -40,23 +39,30 @@
 2. vue
 3. electron
 
-## 实现规格
+## 项目结构
 
-1. 最小单位为“记录”，是一段时间内编辑修改的“块”
-
-## 计划
-
-todo
-
-## 使用方法
-
-```bash
-# set up
-npm install
-
-# Compiles and hot-reloads for development
-npm run serve
-
-### Compiles and minifies for production
-npm run build
+```txt
+📁 public
+📁 example        # 示例文件夹
+📁 src
+   🗂️ api         # 公用接口
+      🗂️ router      # 路由
+   🗂️ components   # 子组件
+   🗂️ view        # 页面
+   🗂️ style       # 页面样式
+📃 README
+📑 FIXME
 ```
+
+## 🖖 致敬
+
+- 编辑器
+
+  - [Vanessa219/vditor](https://github.com/Vanessa219/vditor)
+  - [ckeditor/ckeditor5](https://github.com/ckeditor/ckeditor5)
+
+- App
+
+  - [Notable](https://notable.app/)
+  - [zadam/trilium](https://github.com/zadam/trilium)
+  - [Typora](https://typora.io/)

@@ -1,16 +1,20 @@
+<script setup lang="ts">
+import TabBar from '@/views/TabBar.vue'
+</script>
+
 <template>
-  <div id="app">
+  <div id="main">
     <tab-bar></tab-bar>
+    <div class="main">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import TabBar from './views/TabBar.vue'
-</script>
-
-<style scoped>
-#app {
+<style >
+#main {
   display: flex;
   flex-direction: row;
+  height: 100vh;
 }
 </style>
