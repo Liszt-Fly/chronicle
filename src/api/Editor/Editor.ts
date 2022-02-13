@@ -47,8 +47,8 @@ export let addNewNode = async function (
 		let newNode: cCodeBlockNode | cNode | cAlertNode
 
 		// 代码块
-		if (/^`{3}[a-zA-z]+/.test(target.innerText)) {
-			let language = /^`{3}([a-z]+)/.exec(target.innerText)![1]
+		if (/^```[a-zA-z]+/.test(target.innerText)) {
+			let language = /^```([a-z]+)/.exec(target.innerText)![1]
 
 			newNode = {
 				text: "",
@@ -57,8 +57,8 @@ export let addNewNode = async function (
 			}
 			nodes.value.splice(nodes.value.indexOf(currentNode), 1, newNode)
 		}
-		else if (/^:::{3}[a-zA-z]+/.test(target.innerText)) {
-			let color = /^:::{3}([a-z]+)/.exec(target.innerText)![1]
+		else if (/^:::[a-zA-z]+/.test(target.innerText)) {
+			let color = /^:::([a-z]+)/.exec(target.innerText)![1]
 
 			newNode = {
 				text: "",
@@ -75,7 +75,7 @@ export let addNewNode = async function (
 			nodes.value.splice(nodes.value.indexOf(currentNode) + 1, 0, newNode)
 		}
 
-		(target.nextElementSibling as HTMLElement).focus()
+		// (target.nextElementSibling as HTMLElement).focus()
 	}
 }
 
