@@ -4,4 +4,6 @@
 This is blue
 :::
 
-as
+```ts
+console.log(123);
+```

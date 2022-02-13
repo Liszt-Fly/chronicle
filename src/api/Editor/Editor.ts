@@ -127,11 +127,13 @@ export function loadNodeLists(fileName: string): cNode[] {
 	let color = ""
 
 	markdown.forEach(line => {
-		if (/^`{3}[a-zA-z]+/.test(line)) {
+		if (/^```[a-zA-z]+/.test(line)) {
 			codeFlag = true
 			language = /^`{3}([a-z]+)/.exec(line)![1]
 		}
-		else if (line === "```") {
+		else if (/^```\t?/.test(line)) {
+			console.log(line);
+
 			let newNode: cCodeBlockNode = {
 				text: codeMarkdown.join("\n"),
 				type: "codeBlock",
@@ -146,11 +148,13 @@ export function loadNodeLists(fileName: string): cNode[] {
 		else if (codeFlag) {
 			codeMarkdown.push(line)
 		}
-		else if (/^:{3}[a-zA-z]+/.test(line)) {
+		else if (/^:::[a-zA-z]+/.test(line)) {
 			alertFlag = true
 			color = /^:{3}([a-z]+)/.exec(line)![1]
 		}
-		else if (line === ":::") {
+		else if (/^:::\t?/.test(line)) {
+			console.log(line);
+
 			let newNode: cAlertNode = {
 				text: alertMarkdown.join("\n"),
 				type: "alert",
@@ -168,8 +172,8 @@ export function loadNodeLists(fileName: string): cNode[] {
 		else {
 			nodes.push({ text: line, type: "paragraph" })
 		}
+		// console.log(line);
 	});
-
 	if (nodes.length == 0) {
 		let newNodeList: cNode[] = []
 		newNodeList.push(initNode())
