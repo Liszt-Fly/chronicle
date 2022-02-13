@@ -33,12 +33,3 @@ import { initSetting } from "@/api/init"
 initSetting()
 import { locale } from "@/api/init"
 i18n.global.locale = locale
-
-// component
-import paragraph from "@/components/Main/Editor/components/paragraph.vue"
-import codeBlock from "@/components/Main/Editor/components/codeBlock.vue"
-import Alert from "@/components/Main/Editor/components/alert.vue"
-
-app.component("paragraph", paragraph)
-app.component("codeBlock", codeBlock)
-app.component("Alert", Alert)
