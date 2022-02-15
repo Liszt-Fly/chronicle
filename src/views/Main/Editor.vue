@@ -13,7 +13,9 @@ onMounted(() => {
 	let newParser = new Parser("", " ")
 	newParser.type = ChronicleNode.paragraph
 	article.value.push(newParser)
-	Parser.currentNodeId = newParser.id
+	article.value.set(newParser.id,newParser)
+
+	Parser.currentParser = newParser
 
 })
 
@@ -37,28 +39,11 @@ const enter = (event: KeyboardEvent) => {
 
 	let target = event.target as HTMLDivElement
 	let index: number | undefined
-	article.value.map(item => {
-		if (item.id == Parser.currentNodeId) {
+	index = article.value.indexOf(Parser.currentParser!)
+	let item = article.value[index]
+	item.parse()
+	article.value.splice(index, 1, item)
 
-			index = article.value.indexOf(item)
-
-
-			article.value.splice(index, 1, item)
-
-			let target = event.target as HTMLDivElement;
-			item.parse()
-			article.value.splice(index, 1, item)
-
-
-
-			// range.selectNodeContents(target.children[index + 1]);
-
-			// range.collapse(false)
-			// let sel = window.getSelection();
-			// sel?.removeAllRanges()
-			// sel?.addRange(range)
-		}
-	})
 	let newParser = new Parser("", " ")
 	newParser.type = ChronicleNode.paragraph
 	article.value.push(newParser)
@@ -74,30 +59,17 @@ const enter = (event: KeyboardEvent) => {
 			((target.children[index!]) as HTMLInputElement).blur()
 	}, 0);
 
-	// Parser.currentNodeId = newParser.id
+
 
 }
 const change = (event: Event) => {
+	console.log(event.target.innerText)
+	let index = article.value.indexOf(Parser.currentParser!)
+	let item = article.value[index]
+	let target = event.target as HTMLDivElement
+	let content = (target.children[index]).textContent
+	item.content = content!
 
-	//更新当前行的内容
-	article.value.map(item => {
-
-		if (item.id == Parser.currentNodeId) {
-			let target = event.target as HTMLDivElement
-			let index = article.value.indexOf(item)
-			let content = (target.children[index]).textContent
-
-			if (item.bMarked == false) {
-				item.content = content!
-
-
-			}
-
-
-
-
-		}
-	})
 }
 
 </script>

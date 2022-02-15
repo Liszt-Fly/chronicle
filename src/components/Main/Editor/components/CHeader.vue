@@ -17,22 +17,17 @@ let Block = ref<HTMLElement | null>()
 const click = () => {
     //将原先focus的内容进行渲染
 
-    article.value.map(item => {
+    // article.value.map(item => {
 
-        if (item.id == Parser.currentNodeId) {
+    //     if (item.id == Parser.currentNodeId) {
 
-            let index = article.value.indexOf(item)
-        }
-    })
-    Parser.currentNodeId = props.parser!.id
+    //         let index = article.value.indexOf(item)
+    //     }
+    // })
+
+    Parser.currentParser = props.parser!
     props.parser!.bMarked = false
-    let index;
-    article.value.map(item => {
-        if (item.id == Parser.currentNodeId) {
-            index = article.value.indexOf(item)
-            emits("render", index)
-        }
-    })
+    emits("render")
 
     // let range = document.createRange()
     // range.setEndBefore(Block.value!)

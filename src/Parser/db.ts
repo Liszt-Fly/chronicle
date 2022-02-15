@@ -1,4 +1,5 @@
 import { Parser } from "./Parser";
 import { ref } from 'vue'
-export let article = ref<Parser[]>([])
+let map = new Map<string, Parser>();
+export let article = ref<Map<string, Parser>>(map)
 

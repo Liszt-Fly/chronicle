@@ -7,10 +7,10 @@ export class Parser {
     private rule: string
     public content: string
     public type?: ChronicleNode
-    public static currentNodeId: string
     public tag: string = ""
     public bMarked: boolean = false
     public text: string = ""
+    public static currentParser?: Parser
     public level: number | undefined;
     public dom: Ref = ref<HTMLElement | null>()
     public renderedContent: string = ""
@@ -34,7 +34,7 @@ export class Parser {
 
         }
         else {
-         
+
             return this.content
         }
     }

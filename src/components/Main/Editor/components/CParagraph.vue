@@ -13,26 +13,27 @@ watch(article, () => {
     content.value = props.parser!.content
 }, { deep: true })
 onMounted(() => {
-    Parser.currentNodeId = props.parser!.id
+
+    Parser.currentParser = props.parser
     paragraph.value!.innerText = content.value
 
 })
 const click = () => {
     //将原先focus的内容进行渲染
+    // article.value.map(item => {
 
-    article.value.map(item => {
+    //     if (item.id == Parser.currentNodeId) {
 
-        if (item.id == Parser.currentNodeId) {
-
-            let index = article.value.indexOf(item)
-            emits("render", index)
-
+    //         let index = article.value.indexOf(item)
+    //         emits("render", index)
 
 
 
-        }
-    })
-    Parser.currentNodeId = props.parser!.id
+
+    //     }
+    // })
+
+    Parser.currentParser = props.parser!
     props.parser!.bMarked = false
     paragraph.value!.innerHTML = props.parser!.content!
 }
