@@ -3,24 +3,107 @@ import { onMounted, Ref, ref, watchEffect } from "vue"
 import { currentFile, nodes } from "@/api/configdb"
 import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
+import { Parser } from "@/Parser/Parser"
+import { article } from "@/Parser/db"
+import { c } from "@codemirror/legacy-modes/mode/clike"
+import { ChronicleNode } from "@/Parser/Node"
+let editor = ref<HTMLElement | null>()
 initMarked()
 onMounted(() => {
-	watchEffect(() => {
-		if (currentFile.value != "") {
-			nodes.value = []
-			nodes.value = loadNodeLists(currentFile.value)
-		}
-	})
+	let newParser = new Parser("", " ")
+	newParser.type = ChronicleNode.paragraph
+	article.value.push(newParser)
+	Parser.currentNodeId = newParser.id
+
 })
 
-let editable: Ref<boolean> = ref(false)
-let edit = function () {
-	editable.value = !editable.value
+watchEffect(() => {
+	if (currentFile.value != "") {
+		nodes.value = []
+		nodes.value = loadNodeLists(currentFile.value)
+	}
+})
+const render = (index: number) => {
+
+	console.log(index)
+	let item = article.value[index]
+	item.type = ChronicleNode.header
+	article.value.splice(index, 1, item)
+
 }
+
+//敲击回车键的时候渲染上面的内容
+const enter = (event: KeyboardEvent) => {
+
+	let target = event.target as HTMLDivElement
+	let index: number | undefined
+	article.value.map(item => {
+		if (item.id == Parser.currentNodeId) {
+
+			index = article.value.indexOf(item)
+
+
+			article.value.splice(index, 1, item)
+
+			let target = event.target as HTMLDivElement;
+			item.parse()
+			article.value.splice(index, 1, item)
+
+
+
+			// range.selectNodeContents(target.children[index + 1]);
+
+			// range.collapse(false)
+			// let sel = window.getSelection();
+			// sel?.removeAllRanges()
+			// sel?.addRange(range)
+		}
+	})
+	let newParser = new Parser("", " ")
+	newParser.type = ChronicleNode.paragraph
+	article.value.push(newParser)
+
+	setTimeout(() => {
+		let range = document.createRange()
+		range.setStartAfter(target.children[index! + 1])
+		range.collapse(false)
+		let sel = window.getSelection();
+		sel?.removeAllRanges()
+		sel?.addRange(range)
+
+			((target.children[index!]) as HTMLInputElement).blur()
+	}, 0);
+
+	// Parser.currentNodeId = newParser.id
+
+}
+const change = (event: Event) => {
+
+	//更新当前行的内容
+	article.value.map(item => {
+
+		if (item.id == Parser.currentNodeId) {
+			let target = event.target as HTMLDivElement
+			let index = article.value.indexOf(item)
+			let content = (target.children[index]).textContent
+
+			if (item.bMarked == false) {
+				item.content = content!
+
+
+			}
+
+
+
+
+		}
+	})
+}
+
 </script>
 
 <template >
-	<div class="column" @keydown="save($event)">
+	<div class="column">
 		<div class="column-left">
 			<!-- 中间调整大小 -->
 			<div class="resize-bar"></div>
@@ -33,17 +116,24 @@ let edit = function () {
 		</div>
 		<div class="column-right">
 			<!-- 右侧 editor -->
-			<div class="editor" :contenteditable="editable">
-				<template v-for="node in nodes" :key="node">
-					<component :is="node.type" :paragraph="node"></component>
-				</template>
+			<div
+				class="editor"
+				contenteditable="true"
+				ref="editor"
+				tabindex="-1"
+				@keydown.enter.prevent="enter($event)"
+				@input="change($event)"
+			>
+				<component
+					:is="parser.type"
+					v-for="parser in article"
+					:parser="parser"
+					:key="parser.id"
+					:level="parser.level"
+					@render="render"
+				></component>
 			</div>
 		</div>
-	</div>
-
-	<div class="selection" @click="edit()" title="点击改变选择模式">
-		<span v-show="editable">{{ $t("editor.edit_mode_on") }}</span>
-		<span v-show="!editable">{{ $t("editor.edit_mode_off") }}</span>
 	</div>
 </template>
 

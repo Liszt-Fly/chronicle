@@ -14,6 +14,7 @@ app.use(ElementPlus)
 // i18n
 import { createI18n } from 'vue-i18n'
 import { messages } from "@/api/language"
+import path from 'path'
 const i18n = createI18n({
     locale: 'cn',
     fallbackLocale: 'en',
@@ -21,6 +22,14 @@ const i18n = createI18n({
 })
 app.use(i18n)
 
+// Freadline(path.resolve(process.cwd(), "src", "Parser", "example.md")).then(v => {
+//     v.map(item => {
+//         let parser = new Parser("", item)
+//         parser.parse()
+//         Parser.parserCollection.push(parser)
+//         console.log(Parser.parserCollection)
+//     })
+// })
 // router
 import router from "@/api/router/router"
 app.use(router)
@@ -37,5 +46,13 @@ i18n.global.locale = locale
 // component
 import paragraph from "@/components/Main/Editor/components/paragraph.vue"
 import codeBlock from "@/components/Main/Editor/components/codeBlock.vue"
+
+import CHeader from "@/components/Main/Editor/components/CHeader.vue"
+
+import CParagraph from "@/components/Main/Editor/components/CParagraph.vue"
+import { Freadline } from "./Parser/_readline"
+import { Parser } from "./Parser/Parser"
 app.component("paragraph", paragraph)
 app.component("codeBlock", codeBlock)
+app.component("CParagraph", CParagraph)
+app.component("CHeader", CHeader)
