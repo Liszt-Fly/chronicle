@@ -13,7 +13,7 @@ onMounted(() => {
 	let newParser = new Parser("", " ")
 	newParser.type = ChronicleNode.paragraph
 	article.value.push(newParser)
-	Parser.currentNodeId = newParser.id
+	Parser.currentNodeParser = newParser
 
 })
 
@@ -36,29 +36,12 @@ const render = (index: number) => {
 const enter = (event: KeyboardEvent) => {
 
 	let target = event.target as HTMLDivElement
-	let index: number | undefined
-	article.value.map(item => {
-		if (item.id == Parser.currentNodeId) {
+	let item = Parser.currentNodeParser
+	let index: number | undefined = article.value.indexOf(item)
+	item.content = item.content = editor.value!.children[index].textContent!
+	item.parse()
+	article.value.splice(index, 1, item)
 
-			index = article.value.indexOf(item)
-
-
-			article.value.splice(index, 1, item)
-
-			let target = event.target as HTMLDivElement;
-			item.parse()
-			article.value.splice(index, 1, item)
-
-
-
-			// range.selectNodeContents(target.children[index + 1]);
-
-			// range.collapse(false)
-			// let sel = window.getSelection();
-			// sel?.removeAllRanges()
-			// sel?.addRange(range)
-		}
-	})
 	let newParser = new Parser("", " ")
 	newParser.type = ChronicleNode.paragraph
 	article.value.push(newParser)
@@ -71,34 +54,12 @@ const enter = (event: KeyboardEvent) => {
 		sel?.removeAllRanges()
 		sel?.addRange(range)
 
-			((target.children[index!]) as HTMLInputElement).blur()
 	}, 0);
 
 	// Parser.currentNodeId = newParser.id
 
 }
-const change = (event: Event) => {
 
-	//更新当前行的内容
-	article.value.map(item => {
-
-		if (item.id == Parser.currentNodeId) {
-			let target = event.target as HTMLDivElement
-			let index = article.value.indexOf(item)
-			let content = (target.children[index]).textContent
-
-			if (item.bMarked == false) {
-				item.content = content!
-
-
-			}
-
-
-
-
-		}
-	})
-}
 
 </script>
 
@@ -122,7 +83,6 @@ const change = (event: Event) => {
 				ref="editor"
 				tabindex="-1"
 				@keydown.enter.prevent="enter($event)"
-				@input="change($event)"
 			>
 				<component
 					:is="parser.type"

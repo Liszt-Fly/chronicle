@@ -7,7 +7,7 @@ export class Parser {
     private rule: string
     public content: string
     public type?: ChronicleNode
-    public static currentNodeId: string
+    public static currentNodeParser: Parser
     public tag: string = ""
     public bMarked: boolean = false
     public text: string = ""
@@ -34,7 +34,7 @@ export class Parser {
 
         }
         else {
-         
+
             return this.content
         }
     }

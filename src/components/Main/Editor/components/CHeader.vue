@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { gotoEnd } from '@/api/Cursror/GoToEnd';
 import { article } from '@/Parser/db';
+import { ChronicleNode } from '@/Parser/Node';
 import { Parser } from '@/Parser/Parser';
 import { c } from '@codemirror/legacy-modes/mode/clike';
 import { onMounted, ref, watch } from 'vue';
@@ -9,38 +11,24 @@ const props = defineProps({
     parser: Parser
 })
 let emits = defineEmits(['render'])
+
+let Block = ref<HTMLElement | null>()
 onMounted(() => {
 
     Block.value!.innerText = props.parser!.text
 })
-let Block = ref<HTMLElement | null>()
+
+
 const click = () => {
-    //将原先focus的内容进行渲染
+    Parser.currentNodeParser = props.parser!
+    //* click将会从Parse渲染状态回到Normal状态
+    props.parser!.type = ChronicleNode.paragraph
+    //* 设置光标到末尾
+    console.log("click")
 
-    article.value.map(item => {
 
-        if (item.id == Parser.currentNodeId) {
 
-            let index = article.value.indexOf(item)
-        }
-    })
-    Parser.currentNodeId = props.parser!.id
-    props.parser!.bMarked = false
-    let index;
-    article.value.map(item => {
-        if (item.id == Parser.currentNodeId) {
-            index = article.value.indexOf(item)
-            emits("render", index)
-        }
-    })
 
-    // let range = document.createRange()
-    // range.setEndBefore(Block.value!)
-    // range.collapse(false);
-    // let sel = window.getSelection();
-    // sel!.removeAllRanges();
-
-    // sel!.addRange(range);
 }
 </script>
 
@@ -49,6 +37,7 @@ const click = () => {
         @click="click"
         tabindex="-1"
         ref="Block"
+        class="header"
         :data-level="'H' + parser?.level"
         :style="{ fontSize: 35 - 3 * (parser!.level!) + 'px' }"
     ></div>
