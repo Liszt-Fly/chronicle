@@ -5,18 +5,16 @@ import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
 import { Parser } from "@/Parser/Parser"
 import { article } from "@/Parser/db"
-import { c } from "@codemirror/legacy-modes/mode/clike"
 import { ChronicleNode } from "@/Parser/Node"
+import { createNode } from "@/Parser/_createNode"
+import { insertNode } from "@/Parser/_insertNode"
+import { moveCursorToNextLine } from "@/api/cursor"
 let editor = ref<HTMLElement | null>()
 initMarked()
 onMounted(() => {
-	let newParser = new Parser("", " ")
-	newParser.type = ChronicleNode.paragraph
-	article.value.push(newParser)
-	article.value.set(newParser.id,newParser)
-
-	Parser.currentParser = newParser
-
+	//TODO 加载文章情况待更新
+	//* 创建默认新节点
+	Parser.currentNodeParser = createNode()
 })
 
 watchEffect(() => {
@@ -36,42 +34,15 @@ const render = (index: number) => {
 
 //敲击回车键的时候渲染上面的内容
 const enter = (event: KeyboardEvent) => {
-
 	let target = event.target as HTMLDivElement
-	let index: number | undefined
-	index = article.value.indexOf(Parser.currentParser!)
-	let item = article.value[index]
+	let item = Parser.currentNodeParser
+	let index: number | undefined = article.value.indexOf(item)
+	item.content = editor.value!.children[index].textContent!
 	item.parse()
 	article.value.splice(index, 1, item)
-
-	let newParser = new Parser("", " ")
-	newParser.type = ChronicleNode.paragraph
-	article.value.push(newParser)
-
-	setTimeout(() => {
-		let range = document.createRange()
-		range.setStartAfter(target.children[index! + 1])
-		range.collapse(false)
-		let sel = window.getSelection();
-		sel?.removeAllRanges()
-		sel?.addRange(range)
-
-			((target.children[index!]) as HTMLInputElement).blur()
-	}, 0);
-
-
-
+	insertNode(index + 1)
+	moveCursorToNextLine(target, index)
 }
-const change = (event: Event) => {
-	console.log(event.target.innerText)
-	let index = article.value.indexOf(Parser.currentParser!)
-	let item = article.value[index]
-	let target = event.target as HTMLDivElement
-	let content = (target.children[index]).textContent
-	item.content = content!
-
-}
-
 </script>
 
 <template >
@@ -94,7 +65,6 @@ const change = (event: Event) => {
 				ref="editor"
 				tabindex="-1"
 				@keydown.enter.prevent="enter($event)"
-				@input="change($event)"
 			>
 				<component
 					:is="parser.type"

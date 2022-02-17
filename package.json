@@ -12,7 +12,7 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "main": "background.ts",
+  "main": "background.js",
   "dependencies": {
     "@codemirror/autocomplete": "^0.19.12",
     "@codemirror/basic-setup": "^0.19.1",
@@ -38,6 +38,7 @@
     "@types/codemirror": "^5.60.5",
     "@types/rimraf": "^3.0.2",
     "@types/uuid": "^8.3.4",
+    "axios": "^0.26.0",
     "bootstrap-icons": "^1.7.2",
     "codemirror": "^5.65.1",
     "core-js": "^3.6.5",
