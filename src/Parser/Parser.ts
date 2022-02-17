@@ -4,7 +4,6 @@ import { ChronicleNode } from "./Node"
 
 export class Parser {
     public id: string = v4()
-    private rule: string
     public content: string
     public type?: ChronicleNode
     public static currentNodeParser: Parser
@@ -14,8 +13,7 @@ export class Parser {
     public level: number | undefined;
     public dom: Ref = ref<HTMLElement | null>()
     public renderedContent: string = ""
-    constructor(rule: string, content: string) {
-        this.rule = rule
+    constructor(content: string) {
         this.content = content
     }
 

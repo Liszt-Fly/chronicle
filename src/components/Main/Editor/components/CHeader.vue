@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { gotoEnd } from '@/api/Cursror/GoToEnd';
 import { article } from '@/Parser/db';
 import { ChronicleNode } from '@/Parser/Node';
 import { Parser } from '@/Parser/Parser';
 import { c } from '@codemirror/legacy-modes/mode/clike';
 import { onMounted, ref, watch } from 'vue';
 
-// let content = ref<String>("")
+
 const props = defineProps({
     parser: Parser
 })
@@ -45,7 +44,6 @@ const click = () => {
 
 <style scoped>
 * {
-    color: orange;
     font-size: 18px;
 }
 div {

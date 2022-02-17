@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { gotoEnd } from '@/api/Cursror/GoToEnd';
+import EditorVue from '@/views/Main/Editor.vue';
 import { article } from '@/Parser/db';
 import { Parser } from '@/Parser/Parser';
 import { onMounted, ref, watch } from 'vue';
@@ -25,15 +25,6 @@ onMounted(() => {
 const click = () => {
     console.log("paragraph click")
     Parser.currentNodeParser = props.parser!
-
-    //将原先focus的内容进行渲染
-    //     if (props.parser !== Parser.currentNodeParser) {
-    //         emits("render")
-    //     }
-
-    //     Parser.currentNodeParser = props.parser!
-    //     props.parser!.bMarked = false
-    //     paragraph.value!.innerHTML = props.parser!.content!
 }
 
 </script>
