@@ -14,108 +14,31 @@ import { nodes } from "@/api/configdb";
 import { StreamLanguage } from "@codemirror/stream-parser"
 import { dart } from '@codemirror/legacy-modes/mode/clike'
 import { htmlLanguage } from "@codemirror/lang-html"
+import { Parser } from "@/Parser/Parser";
+import { article, bContentedible } from "@/Parser/db";
+import { insertNode } from "@/Parser/_insertNode";
+import { moveCursorToNextLine } from "@/api/cursor";
 const props = defineProps({
-	paragraph: {
-		type: Object as () => cCodeBlockNode,
-	},
+	parser: Parser
 });
 
 let codeBlock = ref<HTMLElement | null>(null);
-let currentNode: cCodeBlockNode = props.paragraph!;
-
-const completePropertyAfter = ["PropertyName", ".", "?."];
-const dontCompleteIn = [
-	"TemplateString",
-	"LineComment",
-	"BlockComment",
-	"VariableDefinition",
-	"PropertyDefinition",
-];
-function completeProperties(from: any, object: any) {
-	let options = [];
-	for (let name in object) {
-		options.push({
-			label: name,
-			type: typeof object[name] == "function" ? "function" : "variable",
-		});
-	}
-	return {
-		from,
-		options,
-		span: /^[\w$]*$/,
-	};
-}
-
-function _optionalChain(ops: string | any[]) {
-	let lastAccessLHS: undefined = undefined;
-	let value = ops[0];
-	let i = 1;
-	while (i < ops.length) {
-		const op = ops[i];
-		const fn = ops[i + 1];
-		i += 2;
-		if ((op === "optionalAccess" || op === "optionalCall") && value == null) {
-			return undefined;
-		}
-		if (op === "access" || op === "optionalAccess") {
-			lastAccessLHS = value;
-			value = fn(value);
-		} else if (op === "call" || op === "optionalCall") {
-			value = fn((...args: any) => value.call(lastAccessLHS, ...args));
-			lastAccessLHS = undefined;
-		}
-	}
-	return value;
-}
-function completeFromGlobalScope(context: any) {
-	let nodeBefore = syntaxTree(context.state).resolveInner(context.pos, -1);
-
-	if (
-		completePropertyAfter.includes(nodeBefore.name) &&
-		_optionalChain([
-			nodeBefore,
-			"access",
-			(_: any) => _.parent,
-			"optionalAccess",
-			(_2: any) => _2.name,
-		]) == "MemberExpression"
-	) {
-		let object = nodeBefore.parent.getChild("Expression");
-		if (
-			_optionalChain([object, "optionalAccess", (_3: any) => _3.name]) == "VariableName"
-		) {
-			let from = /\./.test(nodeBefore.name) ? nodeBefore.to : nodeBefore.from;
-			let variableName = context.state.sliceDoc(object.from, object.to);
-			if (typeof window[variableName] == "object")
-				return completeProperties(from, window[variableName]);
-		}
-	} else if (nodeBefore.name == "VariableName") {
-		return completeProperties(nodeBefore.from, window);
-	} else if (context.explicit && !dontCompleteIn.includes(nodeBefore.name)) {
-		return completeProperties(context.pos, window);
-	}
-	return null;
-}
-const globalJavaScriptCompletions = javascriptLanguage.data.of({
-	autocomplete: completeFromGlobalScope,
-});
 
 
-let languagemode: Ref<string> = ref(currentNode.language ? currentNode.language : "undefined")
-let code: Ref<string> = ref("");
-let content: Ref<HTMLTextAreaElement | null> = ref(null);
+
+
+
 let extensions: Ref<Extension[]> = ref([])
 watchEffect(() => {
 
 	//TODO 此处有问题，使用Vue响应式处理，先清空，再添加
-	switch (languagemode.value) {
+	switch (props.parser!.language) {
 		case 'javascript': case 'js': case 'JAVASCRIPT':
 
-			extensions.value.push(javascriptLanguage, globalJavaScriptCompletions)
+			extensions.value.push(javascriptLanguage)
 		case 'python': case 'PYTHON': case 'py':
 
-			extensions.value.push(pythonLanguage,
-				StreamLanguage.define(dart))
+			extensions.value.push(pythonLanguage)
 		case 'dart': case 'DART':
 
 			extensions.value.push(StreamLanguage.define(dart))
@@ -124,27 +47,20 @@ watchEffect(() => {
 	}
 
 })
+const click = () => {
+	Parser.currentNodeParser = props.parser!
+	bContentedible.value = false;
+}
+
+const blur = () => {
+	bContentedible.value = true
+}
 onMounted(() => {
+	Parser.currentNodeParser = props.parser!
 	let mytheme = EditorView.theme({}, { dark: true });
-
-	function addNode(es: EditorView) {
-
-		//saveCurrentNode
-		currentNode.originalMarkdown = es.contentDOM.innerText
-		// saveNodeLists(paragraphs.value,currentFile.value)
-		//如果当前节点是最后的节点，新增一个节点
-
-		let newNode: cTreeNode = {
-			originalMarkdown: "",
-			type: "paragraph",
-		};
-		nodes.value.splice(nodes.value.indexOf(currentNode) + 1, 0, newNode)
-	}
-
 	let editorview = new EditorView({
-
 		state: EditorState.create({
-			doc: currentNode.originalMarkdown ? currentNode.originalMarkdown : "",
+			doc: "//codeBlock",
 			extensions: [
 				mytheme,
 				oneDarkHighlightStyle,
@@ -153,13 +69,19 @@ onMounted(() => {
 					{
 						key: "Ctrl-Enter",
 						run: (editorview) => {
-							addNode(editorview);
+							setTimeout(() => {
+								bContentedible.value = true;
+								let item = Parser.currentNodeParser
+								let index: number = article.value.indexOf(item)
+								insertNode(index + 1)
+								moveCursorToNextLine(codeBlock.value as HTMLElement, index)
+							}, 0);
 							return true;
 						},
 					},
 					{ key: "ArrowDown", run: cursorDocEnd },
 				]),
-				autocompletion(),
+
 			],
 		}),
 		parent: codeBlock.value!,
@@ -168,7 +90,6 @@ onMounted(() => {
 	function setSel(state: EditorState, selection: any) {
 		return state.update({ selection, scrollIntoView: true, userEvent: "select" });
 	}
-
 	const cursorDocEnds = (state: any, dispatch: any) => {
 		dispatch(setSel(state, { anchor: state.doc.length }));
 	};
@@ -179,14 +100,14 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="code-block" ref="codeBlock">
-		<div class="appendix">
+	<div class="code-block" ref="codeBlock" @click="click" @blur="blur">
+		<div class="appendix" contenteditable="false">
 			<div class="pink"></div>
 			<div class="yellow"></div>
 			<div class="green"></div>
 		</div>
-		<div class="language" spellcheck="false">
-			<span>{{ currentNode.language }}</span>
+		<div class="language" spellcheck="false" contenteditable="false">
+			<span>{{ props.parser!.language }}</span>
 			<el-divider direction="vertical"></el-divider>
 			<i class="bi bi-front"></i>
 		</div>

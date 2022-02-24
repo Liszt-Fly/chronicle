@@ -50,9 +50,11 @@ import codeBlock from "@/components/Main/Editor/components/codeBlock.vue"
 import CHeader from "@/components/Main/Editor/components/CHeader.vue"
 
 import CParagraph from "@/components/Main/Editor/components/CParagraph.vue"
+import CTable from "@/components/Main/Editor/components/CTable.vue"
 import { Freadline } from "./Parser/_readline"
 import { Parser } from "./Parser/Parser"
 app.component("paragraph", paragraph)
 app.component("codeBlock", codeBlock)
 app.component("CParagraph", CParagraph)
 app.component("CHeader", CHeader)
+app.component("CTable", CTable)

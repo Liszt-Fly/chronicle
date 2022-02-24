@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { onMounted, Ref, ref, watchEffect } from "vue"
+import { onMounted, Ref, ref, watch, watchEffect } from "vue"
 import { currentFile, nodes } from "@/api/configdb"
 import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
 import { Parser } from "@/Parser/Parser"
-import { article } from "@/Parser/db"
+import { article, bContentedible } from "@/Parser/db"
 import { ChronicleNode } from "@/Parser/Node"
 import { createNode } from "@/Parser/_createNode"
 import { insertNode } from "@/Parser/_insertNode"
 import { moveCursorToNextLine } from "@/api/cursor"
+import { moveToLineEnd } from "@/Parser/_moveToLineEnd"
 let editor = ref<HTMLElement | null>()
-initMarked()
 onMounted(() => {
 	//TODO 加载文章情况待更新
 	//* 创建默认新节点
@@ -23,26 +23,50 @@ watchEffect(() => {
 		nodes.value = loadNodeLists(currentFile.value)
 	}
 })
-const render = (index: number) => {
-
-	console.log(index)
-	let item = article.value[index]
-	item.type = ChronicleNode.header
-	article.value.splice(index, 1, item)
-
-}
 
 //敲击回车键的时候渲染上面的内容
 const enter = (event: KeyboardEvent) => {
 	let target = event.target as HTMLDivElement
 	let item = Parser.currentNodeParser
-	let index: number | undefined = article.value.indexOf(item)
+	let index: number = article.value.indexOf(item)
 	item.content = editor.value!.children[index].textContent!
 	item.parse()
+	if (item.type == ChronicleNode.codeblock) {
+
+		bContentedible.value = false
+		return
+	}
+	//TODO 待完善 TABLE回归正常节点
+	if (item.type == ChronicleNode.table) {
+		event.preventDefault()
+		return
+	}
+	event.preventDefault()
 	article.value.splice(index, 1, item)
 	insertNode(index + 1)
 	moveCursorToNextLine(target, index)
+
 }
+const backspace = (event: KeyboardEvent) => {
+	if (Parser.currentNodeParser.type == ChronicleNode.codeblock) {
+		return
+	}
+	let target = event.target as HTMLDivElement
+	let item = Parser.currentNodeParser
+	let index: number = article.value.indexOf(item)
+	//* 当行清0回退到上一行
+	console.log(editor.value!.children[index].textContent)
+	if (editor.value!.children[index].textContent == "") {
+		event.preventDefault()
+		//把当前数组删掉
+		article.value.splice(index, 1)
+		Parser.currentNodeParser = article.value[index - 1]
+		Parser.currentNodeParser.type = ChronicleNode.paragraph
+		//* 光标回到上一行的末尾
+		moveToLineEnd(target.children[index - 1] as HTMLElement)
+	}
+}
+
 </script>
 
 <template >
@@ -61,10 +85,10 @@ const enter = (event: KeyboardEvent) => {
 			<!-- 右侧 editor -->
 			<div
 				class="editor"
-				contenteditable="true"
+				:contenteditable="bContentedible"
 				ref="editor"
-				tabindex="-1"
-				@keydown.enter.prevent="enter($event)"
+				@keydown.enter="enter($event)"
+				@keydown.backspace="backspace($event)"
 			>
 				<component
 					:is="parser.type"
@@ -72,7 +96,6 @@ const enter = (event: KeyboardEvent) => {
 					:parser="parser"
 					:key="parser.id"
 					:level="parser.level"
-					@render="render"
 				></component>
 			</div>
 		</div>

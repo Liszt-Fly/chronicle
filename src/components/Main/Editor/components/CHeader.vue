@@ -9,7 +9,6 @@ import { onMounted, ref, watch } from 'vue';
 const props = defineProps({
     parser: Parser
 })
-let emits = defineEmits(['render'])
 
 let Block = ref<HTMLElement | null>()
 onMounted(() => {
