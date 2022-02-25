@@ -67,7 +67,7 @@ const blur = () => {
 }
 onMounted(() => {
 	editorstate = EditorState.create({
-		doc: props.parser!.content ? props.parser!.content : "//This is a codeBlock...",
+		doc: props.parser!.text ? props.parser!.text : "//This is a codeBlock...",
 		extensions: [
 			mytheme,
 			oneDarkHighlightStyle,

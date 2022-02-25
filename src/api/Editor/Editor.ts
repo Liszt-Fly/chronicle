@@ -135,6 +135,9 @@ export function loadNodeLists(fileName: string) {
 				codeMarkdown.push(line)
 
 			}
+			else if (/^#+ (.+)/.test(line)) {
+				console.log(/^#+ (.+)/.test(line))
+			}
 			else {
 				let parser = new Parser("")
 				parser.type = ChronicleNode.paragraph
