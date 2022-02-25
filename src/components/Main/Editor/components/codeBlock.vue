@@ -24,11 +24,20 @@ const props = defineProps({
 
 let codeBlock = ref<HTMLElement | null>(null);
 
-
-
-
-
 let extensions: Ref<Extension[]> = ref([])
+
+let mytheme = EditorView.theme({}, { dark: true });
+let editorstate: EditorState
+let editorview: EditorView
+
+const save = () => {
+
+
+	let content = editorview.contentDOM.innerText
+	props.parser!.content = content
+	console.log(content)
+
+}
 watchEffect(() => {
 
 	//TODO 此处有问题，使用Vue响应式处理，先清空，再添加
@@ -54,36 +63,41 @@ const click = () => {
 
 const blur = () => {
 	bContentedible.value = true
+	save()
 }
 onMounted(() => {
-	Parser.currentNodeParser = props.parser!
-	let mytheme = EditorView.theme({}, { dark: true });
-	let editorview = new EditorView({
-		state: EditorState.create({
-			doc: "//codeBlock",
-			extensions: [
-				mytheme,
-				oneDarkHighlightStyle,
-				...extensions.value,
-				keymap.of([
-					{
-						key: "Ctrl-Enter",
-						run: (editorview) => {
-							setTimeout(() => {
-								bContentedible.value = true;
-								let item = Parser.currentNodeParser
-								let index: number = article.value.indexOf(item)
-								insertNode(index + 1)
-								moveCursorToNextLine(codeBlock.value as HTMLElement, index)
-							}, 0);
-							return true;
-						},
-					},
-					{ key: "ArrowDown", run: cursorDocEnd },
-				]),
+	editorstate = EditorState.create({
+		doc: props.parser!.content ? props.parser!.content : "//This is a codeBlock...",
+		extensions: [
+			mytheme,
+			oneDarkHighlightStyle,
+			...extensions.value,
+			keymap.of([
+				{
+					key: "Ctrl-Enter",
+					run: (editorview) => {
+						setTimeout(() => {
+							//保存当前的内容
 
-			],
-		}),
+							bContentedible.value = true;
+							save()
+							let item = Parser.currentNodeParser
+							let index: number = article.value.indexOf(item)
+							insertNode(index + 1)
+							moveCursorToNextLine(codeBlock.value as HTMLElement, index)
+						}, 0);
+						return true;
+					},
+				},
+				{ key: "ArrowDown", run: cursorDocEnd },
+			]),
+
+		],
+	})
+	Parser.currentNodeParser = props.parser!
+
+	editorview = new EditorView({
+		state: editorstate,
 		parent: codeBlock.value!,
 	});
 
@@ -93,7 +107,6 @@ onMounted(() => {
 	const cursorDocEnds = (state: any, dispatch: any) => {
 		dispatch(setSel(state, { anchor: state.doc.length }));
 	};
-
 	editorview.focus();
 	cursorDocEnds(editorview.state, editorview.dispatch);
 });

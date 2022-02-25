@@ -5,6 +5,11 @@ import { currentFile, nodes } from "@/api/configdb"
 import path from "path"
 import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type"
 import { bKeyBoardTarget } from "./FileSystem/util"
+import { Freadline } from "@/Parser/_readline"
+import { ChronicleNode } from "@/Parser/Node"
+import { Parser } from "@/Parser/Parser"
+import { article } from "@/Parser/db"
+import { v4 } from "uuid"
 
 //sum markedjs初始化
 export function initMarked() {
@@ -104,44 +109,39 @@ export function saveArticle() {
 }
 
 //* 加载NodeList,加载文件
-export function loadNodeLists(fileName: string): cTreeNode[] {
+export function loadNodeLists(fileName: string) {
 	let markdown: string[] = fsp.readFileSync(`${fileName}`).toString().split("\n")
-	let nodes: cTreeNode[] = []
 	let codeFlag = false
 	let codeMarkdown: string[] = []
 	let language = ""
-
-	markdown.forEach(line => {
-		if (/^`{3}[a-zA-z]+/.test(line)) {
-			codeFlag = true
-			language = /^`{3}([a-z]+)/.exec(line)![1]
-		}
-		else if (line === "```") {
-			let newNode: cCodeBlockNode = {
-				originalMarkdown: codeMarkdown.join("\n"),
-				type: "codeBlock",
-				language: language
+	Freadline(path.resolve(process.cwd(), "test.md")).then(markdown => {
+		markdown.forEach(line => {
+			if (/^`{3}[a-zA-z]+/.test(line)) {
+				codeFlag = true
+				language = /^`{3}([a-z]+)/.exec(line)![1]
 			}
-			nodes.push(newNode)
+			else if (line === "```") {
+				let parser = new Parser("")
+				parser.id = v4()
+				parser.type = ChronicleNode.codeblock
+				parser.language = language
+				parser.content = codeMarkdown.join("\n")
+				article.value.push(parser)
+				codeFlag = false
+				codeMarkdown = []
+				language = ""
+			}
+			else if (codeFlag) {
+				codeMarkdown.push(line)
 
-			codeFlag = false
-			codeMarkdown = []
-			language = ""
-		}
-		else if (codeFlag) {
-			codeMarkdown.push(line)
-		}
-		else {
-			nodes.push({ originalMarkdown: line, type: "paragraph" })
-		}
-	});
+			}
+			else {
+				let parser = new Parser("")
+				parser.type = ChronicleNode.paragraph
+				parser.content = line
+				article.value.push(parser)
+			}
+		});
+	})
 
-	if (nodes.length == 0) {
-		let newNodeList: cTreeNode[] = []
-		newNodeList.push(initNode())
-
-		return newNodeList
-	} else {
-		return nodes
-	}
 }

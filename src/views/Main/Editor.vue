@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { onMounted, Ref, ref, watch, watchEffect } from "vue"
+import fsp from 'fs-extra'
+import path from 'path'
 import { currentFile, nodes } from "@/api/configdb"
 import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
@@ -10,17 +12,51 @@ import { createNode } from "@/Parser/_createNode"
 import { insertNode } from "@/Parser/_insertNode"
 import { moveCursorToNextLine } from "@/api/cursor"
 import { moveToLineEnd } from "@/Parser/_moveToLineEnd"
+import { toCodeBlock } from "@/api/ToMd/ToMd"
+import { Freadline } from "@/Parser/_readline"
+import { v4 } from "uuid"
 let editor = ref<HTMLElement | null>()
+//存储文章
+function save(event: KeyboardEvent) {
+	if (event.keyCode == 83) {
+		let content = ""
+		article.value.forEach(e => {
+			if (e.type == ChronicleNode.codeblock) {
+				content += toCodeBlock(e) + "\n"
+			}
+			else {
+				content += e.content + '\n'
+			}
+		})
+		fsp.writeFileSync(path.resolve(process.cwd(), "test.md"), content)
+		console.log("保存成功")
+	}
+}
 onMounted(() => {
 	//TODO 加载文章情况待更新
+
 	//* 创建默认新节点
-	Parser.currentNodeParser = createNode()
+	console.log(currentFile.value)
+	loadNodeLists(path.resolve(process.cwd(), "test.md"))
+	setTimeout(() => {
+
+		console.log(article.value)
+	}, 2000);
+	// Freadline(path.resolve(process.cwd(), "test.md")).then(v => {
+	// 	let parser = new Parser("hello")
+	// 	parser.id = v4()
+
+
+	// })
+	// Parser.currentNodeParser = createNode()
+	// setTimeout(() => {
+	// 	save()
+	// }, 10000);
 })
 
 watchEffect(() => {
 	if (currentFile.value != "") {
-		nodes.value = []
-		nodes.value = loadNodeLists(currentFile.value)
+
 	}
 })
 
@@ -47,6 +83,7 @@ const enter = (event: KeyboardEvent) => {
 	moveCursorToNextLine(target, index)
 
 }
+
 const backspace = (event: KeyboardEvent) => {
 	if (Parser.currentNodeParser.type == ChronicleNode.codeblock) {
 		return
@@ -89,6 +126,7 @@ const backspace = (event: KeyboardEvent) => {
 				ref="editor"
 				@keydown.enter="enter($event)"
 				@keydown.backspace="backspace($event)"
+				@keydown.ctrl="save"
 			>
 				<component
 					:is="parser.type"
