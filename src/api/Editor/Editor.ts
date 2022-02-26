@@ -1,10 +1,8 @@
 //sum 虚拟Node节点操作
 import { marked } from "marked"
 import fsp from "fs-extra"
-import { currentFile } from "@/api/configdb"
+
 import path from "path"
-import { cCodeBlockNode, cTreeNode } from "@/interfaces/type"
-import { bKeyBoardTarget } from "../FileSystem/util"
 import { Freadline } from "@/Parser/_readline"
 import { ChronicleNode } from "@/Parser/Node"
 import { Parser } from "@/Parser/Parser"
@@ -23,11 +21,6 @@ export function initMarked() {
 		smartypants: false,
 		xhtml: false,
 	})
-}
-
-//sum 如果是空白文件进行初始化最初节点
-export let initNode = function (): cTreeNode {
-	return { originalMarkdown: "", type: "paragraph" }
 }
 
 // //* sum 添加新的节点
@@ -75,19 +68,6 @@ export let initNode = function (): cTreeNode {
 // 	}
 // }
 
-//* sum focus状态恢复为sourceCodeMode
-export let recoverSourceCodeMode = function (
-	event: FocusEvent,
-	bParsed: { value: boolean },
-	currentNode: cTreeNode,
-) {
-	let target = event.target as unknown as HTMLElement
-	if (bParsed) {
-		target.innerText = currentNode.originalMarkdown.trim()
-		bParsed.value = false
-	}
-}
-
 // //* 存储NodeList，保存文件
 // export function saveArticle() {
 // 	let markdown: string[] = []
@@ -121,24 +101,25 @@ export function loadNodeLists(fileName: string) {
 				codeFlag = true
 				language = /^`{3}([a-z]+)/.exec(line)![1]
 			}
-			else if (codeFlag) {
-				codeMarkdown.push(line)
-			}
 			else if (line === "```") {
 				let parser = new Parser("")
 				parser.id = v4()
 				parser.type = ChronicleNode.codeblock
 				parser.language = language
-				parser.content = codeMarkdown.join("\n")
+				parser.text = codeMarkdown.join("\n")
 				article.value.push(parser)
 				codeFlag = false
 				codeMarkdown = []
 				language = ""
 			}
+			else if (codeFlag) {
+				codeMarkdown.push(line)
+			}
 			else if (/^#+ (.+)/.test(line)) {
 				let result = /^(#+) (.+)/.exec(line)
 				let parser = new Parser("")
 				parser.type = ChronicleNode.header
+				parser.content = line;
 				parser.level = result![1].length
 				parser.text = result![2]
 				article.value.push(parser)

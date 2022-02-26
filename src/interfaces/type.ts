@@ -6,23 +6,6 @@ export interface msfile {
 	stat?: fs.Stats
 	path?: string
 }
-
-export interface cTreeNode {
-	originalMarkdown: string
-	type: string
-}
-
-export interface cCodeBlockNode extends cTreeNode {
-	language: string
-}
-
-export interface abstractNode {
-	//uuid
-	title: string,
-	content: string,
-	type: string,
-}
-
 export interface Iconfig {
 	[key: string]: string
 }

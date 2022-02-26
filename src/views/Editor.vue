@@ -26,6 +26,7 @@ function save(event: KeyboardEvent) {
 			}
 			else {
 				content += e.content + '\n'
+				console.log(e.content);
 			}
 		})
 		fsp.writeFileSync(test_path, content)
@@ -66,6 +67,7 @@ const enter = (event: KeyboardEvent) => {
 	let item = Parser.currentNodeParser
 	let index: number = article.value.indexOf(item)
 	item.content = editor.value!.children[index].textContent!
+	console.log(item.content);
 	item.parse()
 	if (item.type == ChronicleNode.codeblock) {
 

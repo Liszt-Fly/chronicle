@@ -8,7 +8,6 @@ import { pythonLanguage } from "@codemirror/lang-python";
 import { syntaxTree } from "@codemirror/language";
 import { autocompletion } from "@codemirror/autocomplete";
 import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
-import { cCodeBlockNode, cTreeNode } from "@/interfaces/type";
 import { cursorDocEnd } from "@codemirror/commands";
 import { StreamLanguage } from "@codemirror/stream-parser"
 import { dart } from '@codemirror/legacy-modes/mode/clike'
@@ -30,25 +29,17 @@ let editorstate: EditorState
 let editorview: EditorView
 
 const save = () => {
-
-
 	let content = editorview.contentDOM.innerText
 	props.parser!.content = content
-	console.log(content)
-
 }
 watchEffect(() => {
-
 	//TODO 此处有问题，使用Vue响应式处理，先清空，再添加
 	switch (props.parser!.language) {
 		case 'javascript': case 'js': case 'JAVASCRIPT':
-
 			extensions.value.push(javascriptLanguage)
 		case 'python': case 'PYTHON': case 'py':
-
 			extensions.value.push(pythonLanguage)
 		case 'dart': case 'DART':
-
 			extensions.value.push(StreamLanguage.define(dart))
 		case 'html': case "HTML":
 			extensions.value.push(htmlLanguage)

@@ -1,4 +1,3 @@
-import { cTreeNode } from "@/interfaces/type"
 import { ref } from "vue"
 export let files = ref([])
 export let basePath = ref("")

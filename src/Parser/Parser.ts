@@ -20,14 +20,12 @@ export class Parser {
     public renderedContent: string = ""
     constructor(content: string) {
         this.content = content
-
     }
 
     parse() {
         this.bMarked = true
         //sum 正则解析模块
         if (this.content.startsWith("#")) {
-
             let tag = this.content.match(/(^#{1,}) (.+)/)
 
             let level = tag![1].length
@@ -35,11 +33,8 @@ export class Parser {
             this.type = ChronicleNode.header
             this.text = text
             this.level = level
-
-
         }
         else if (/\|([^\|]+)\|*?/g.test(this.content)) {
-
             let reg = /\|([^\|]+)\|*?/g
 
 
