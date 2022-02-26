@@ -36,22 +36,13 @@ const click = () => {
         tabindex="-1"
         ref="Block"
         class="header"
+        :class="'h' + parser!.level!"
         :data-level="'H' + parser?.level"
-        :style="{ fontSize: 35 - 3 * (parser!.level!) + 'px' }"
     ></div>
 </template>
 
 <style scoped>
-* {
-    font-size: 18px;
-}
 div {
     min-height: 20px;
-}
-div::before {
-    content: attr(data-level);
-    left: -2;
-    color: #ddd;
-    border: solid 1px #ddd;
 }
 </style>

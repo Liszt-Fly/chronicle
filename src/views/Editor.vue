@@ -2,8 +2,8 @@
 import { onMounted, Ref, ref, watch, watchEffect } from "vue"
 import fsp from 'fs-extra'
 import path from 'path'
-import { currentFile, nodes } from "@/api/configdb"
-import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
+import { currentFile } from "@/api/configdb"
+import { initMarked, loadNodeLists, test_path } from "@/api/Editor/Editor"
 import FileSystem from "@/components/FileSystem/FileSystem.vue"
 import { Parser } from "@/Parser/Parser"
 import { article, bContentedible } from "@/Parser/db"
@@ -28,7 +28,7 @@ function save(event: KeyboardEvent) {
 				content += e.content + '\n'
 			}
 		})
-		fsp.writeFileSync(path.resolve(process.cwd(), "test.md"), content)
+		fsp.writeFileSync(test_path, content)
 		console.log("保存成功")
 	}
 }
@@ -37,12 +37,12 @@ onMounted(() => {
 
 	//* 创建默认新节点
 	console.log(currentFile.value)
-	loadNodeLists(path.resolve(process.cwd(), "test.md"))
+	loadNodeLists(test_path)
 	setTimeout(() => {
 
 		console.log(article.value)
 	}, 2000);
-	// Freadline(path.resolve(process.cwd(), "test.md")).then(v => {
+	// Freadline(test_path).then(v => {
 	// 	let parser = new Parser("hello")
 	// 	parser.id = v4()
 

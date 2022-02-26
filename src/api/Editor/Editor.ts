@@ -107,6 +107,7 @@ export let recoverSourceCodeMode = function (
 
 // 	console.log("file saved");
 // }
+export let test_path = path.resolve(process.cwd(), "test.md")
 
 //* 加载NodeList,加载文件
 export function loadNodeLists(fileName: string) {
@@ -114,7 +115,7 @@ export function loadNodeLists(fileName: string) {
 	let codeFlag = false
 	let codeMarkdown: string[] = []
 	let language = ""
-	Freadline(path.resolve(process.cwd(), "test.md")).then(markdown => {
+	Freadline(test_path).then(markdown => {
 		markdown.forEach(line => {
 			if (/^`{3}[a-zA-z]+/.test(line)) {
 				codeFlag = true
