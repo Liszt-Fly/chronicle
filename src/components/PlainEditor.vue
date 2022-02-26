@@ -24,7 +24,7 @@ watch(markdown, (newValue, oldValue) => {
 
 <template>
     <div class="plainEditor">
-        <textarea class="markdown" v-model="markdown" spellcheck="false"></textarea>
+        <textarea class="markdown" v-model="markdown"></textarea>
         <div class="editor" ref="html"></div>
     </div>
 </template>

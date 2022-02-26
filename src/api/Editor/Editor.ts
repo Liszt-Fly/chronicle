@@ -121,6 +121,9 @@ export function loadNodeLists(fileName: string) {
 				codeFlag = true
 				language = /^`{3}([a-z]+)/.exec(line)![1]
 			}
+			else if (codeFlag) {
+				codeMarkdown.push(line)
+			}
 			else if (line === "```") {
 				let parser = new Parser("")
 				parser.id = v4()
@@ -132,12 +135,13 @@ export function loadNodeLists(fileName: string) {
 				codeMarkdown = []
 				language = ""
 			}
-			else if (codeFlag) {
-				codeMarkdown.push(line)
-
-			}
 			else if (/^#+ (.+)/.test(line)) {
-				console.log(/^#+ (.+)/.test(line))
+				let result = /^(#+) (.+)/.exec(line)
+				let parser = new Parser("")
+				parser.type = ChronicleNode.header
+				parser.level = result![1].length
+				parser.text = result![2]
+				article.value.push(parser)
 			}
 			else {
 				let parser = new Parser("")

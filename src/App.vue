@@ -3,7 +3,7 @@ import TabBar from '@/views/TabBar.vue'
 </script>
 
 <template>
-  <div id="main">
+  <div id="main" spellcheck="false">
     <tab-bar></tab-bar>
     <div class="main">
       <router-view></router-view>

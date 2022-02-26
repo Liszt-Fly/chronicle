@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { article } from '@/Parser/db';
 import { ChronicleNode } from '@/Parser/Node';
 import { Parser } from '@/Parser/Parser';
-import { c } from '@codemirror/legacy-modes/mode/clike';
 import { onMounted, ref, watch } from 'vue';
-
 
 const props = defineProps({
     parser: Parser
@@ -12,7 +9,6 @@ const props = defineProps({
 
 let Block = ref<HTMLElement | null>()
 onMounted(() => {
-
     Block.value!.innerText = props.parser!.text
 })
 
@@ -23,10 +19,6 @@ const click = () => {
     props.parser!.type = ChronicleNode.paragraph
     //* 设置光标到末尾
     console.log("click")
-
-
-
-
 }
 </script>
 

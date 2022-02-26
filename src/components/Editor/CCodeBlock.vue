@@ -8,9 +8,8 @@ import { pythonLanguage } from "@codemirror/lang-python";
 import { syntaxTree } from "@codemirror/language";
 import { autocompletion } from "@codemirror/autocomplete";
 import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
-import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type";
+import { cCodeBlockNode, cTreeNode } from "@/interfaces/type";
 import { cursorDocEnd } from "@codemirror/commands";
-import { nodes } from "@/api/configdb";
 import { StreamLanguage } from "@codemirror/stream-parser"
 import { dart } from '@codemirror/legacy-modes/mode/clike'
 import { htmlLanguage } from "@codemirror/lang-html"
@@ -119,7 +118,7 @@ onMounted(() => {
 			<div class="yellow"></div>
 			<div class="green"></div>
 		</div>
-		<div class="language" spellcheck="false" contenteditable="false">
+		<div class="language" contenteditable="false">
 			<span>{{ props.parser!.language }}</span>
 			<el-divider direction="vertical"></el-divider>
 			<i class="bi bi-front"></i>

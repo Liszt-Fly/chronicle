@@ -29,10 +29,10 @@
             <el-divider></el-divider>
 
             <el-form-item :label="$t('setting.global_font')">
-                <el-input v-model="config.global_font" clearable spellcheck="false" />
+                <el-input v-model="config.global_font" clearable />
             </el-form-item>
             <el-form-item :label="$t('setting.code_font')">
-                <el-input v-model="config.code_font" clearable spellcheck="false" />
+                <el-input v-model="config.code_font" clearable />
             </el-form-item>
 
             <el-divider></el-divider>
