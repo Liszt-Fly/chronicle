@@ -1,4 +1,4 @@
-# Chronicle
+# 📓 Chronicle
 
 > 🍼🎓🦯
 >
