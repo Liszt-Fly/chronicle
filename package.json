@@ -8,7 +8,7 @@
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "chronicle": "vue-cli-service electron:serve",
-    "doc": "cd doc, docsify serve",
+    "doc": "cd doc && docsify serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
