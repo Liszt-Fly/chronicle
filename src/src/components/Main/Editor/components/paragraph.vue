@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import { addNewNode, recoverSourceCodeMode } from "@/api/Editor/Editor"
-import { cNode } from "@/api/interfaces/type";
-import { onMounted, reactive, ref } from "vue"
+import { cTreeNode } from "@/api/interfaces/type";
+import { onMounted, reactive, Ref, ref } from "vue"
+//sum Props
+let edible: Ref<boolean> = ref(false)
+
 const props = defineProps({
-	value: {
-		type: Object as () => cNode,
+	paragraph: {
+		type: Object as () => cTreeNode,
 	},
 })
+let modify = () => {
+	edible.value = true;
+}
 //sum DOM
-let value = ref<HTMLElement | null>(null)
+let paragraph = ref<HTMLElement | null>(null)
 //对于新生成的节点，进行Focus
 onMounted(() => {
-	value.value?.focus()
+	paragraph.value?.focus()
 })
 //当前paragraph所使用的node
-let currentNode: cNode = props.value!
+let currentNode: cTreeNode = props.paragraph!
 let bParsed = reactive({ value: false }) //是否转化为markdown
 </script>
 
@@ -22,8 +28,9 @@ let bParsed = reactive({ value: false }) //是否转化为markdown
 	<div
 		class="paragraph"
 		contenteditable="true"
-		ref="value"
+		ref="paragraph"
 		spellcheck="false"
+		@active="modify"
 		@keydown.enter.prevent="addNewNode($event, bParsed, currentNode)"
 		@blur="addNewNode($event, bParsed, currentNode)"
 		@focus="recoverSourceCodeMode($event, bParsed, currentNode)"

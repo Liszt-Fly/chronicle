@@ -8,7 +8,7 @@ import { pythonLanguage } from "@codemirror/lang-python";
 import { syntaxTree } from "@codemirror/language";
 import { autocompletion } from "@codemirror/autocomplete";
 import { oneDarkHighlightStyle } from "@codemirror/theme-one-dark";
-import { cCodeBlockNode, cNode } from "@/api/interfaces/type";
+import { cCodeBlockNode, cTreeNode } from "@/api/interfaces/type";
 import { cursorDocEnd } from "@codemirror/commands";
 import { nodes } from "@/api/configdb";
 import { StreamLanguage } from "@codemirror/stream-parser"
