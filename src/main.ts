@@ -13,7 +13,7 @@ app.use(ElementPlus)
 
 // i18n
 import { createI18n } from 'vue-i18n'
-import { messages } from "@/api/language"
+import { messages } from "@/languages/language"
 import path from 'path'
 const i18n = createI18n({
     locale: 'cn',
@@ -31,7 +31,7 @@ app.use(i18n)
 //     })
 // })
 // router
-import router from "@/api/router/router"
+import router from "@/router/router"
 app.use(router)
 
 // mount
@@ -44,17 +44,11 @@ import { locale } from "@/api/init"
 i18n.global.locale = locale
 
 // component
-import paragraph from "@/components/Main/Editor/components/paragraph.vue"
-import codeBlock from "@/components/Main/Editor/components/codeBlock.vue"
-
-import CHeader from "@/components/Main/Editor/components/CHeader.vue"
-
-import CParagraph from "@/components/Main/Editor/components/CParagraph.vue"
-import CTable from "@/components/Main/Editor/components/CTable.vue"
-import { Freadline } from "./Parser/_readline"
-import { Parser } from "./Parser/Parser"
-app.component("paragraph", paragraph)
-app.component("codeBlock", codeBlock)
+import CCodeBlock from "@/components/Editor/CCodeBlock.vue"
+import CHeader from "@/components/Editor/CHeader.vue"
+import CParagraph from "@/components/Editor/CParagraph.vue"
+import CTable from "@/components/Editor/CTable.vue"
+app.component("CCodeBlock", CCodeBlock)
 app.component("CParagraph", CParagraph)
 app.component("CHeader", CHeader)
 app.component("CTable", CTable)

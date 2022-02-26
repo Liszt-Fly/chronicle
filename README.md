@@ -17,7 +17,7 @@
 
 2. 支持
 
-   - markdown 及扩展语法
+   - [markdown 及扩展语法](https://markdown.com.cn/)
    - 多媒体：音频、视频
    - 自定义样式
    - 自定义组件（内置：思维导图、待办事项）

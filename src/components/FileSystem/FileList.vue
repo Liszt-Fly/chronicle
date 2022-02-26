@@ -5,13 +5,13 @@ import { msfile } from "@/api/interfaces/type";
 import fsp from "fs-extra";
 import path from "path";
 import rmrf from "rimraf";
-import { flushFiles, refresh, validateFilename } from "@/api/Editor/FileSystem/util";
+import { flushFiles, refresh, validateFilename } from "@/api/FileSystem/util";
 import { basePath, currentFile, nodes } from "@/api/configdb";
 import {
 	createNote,
 	ifNoteNameExists,
 	ifSectionExists,
-} from "@/api/Editor/FileSystem/filesystem";
+} from "@/api/FileSystem/filesystem";
 import { chronicleArticlePath } from "@/api/init";
 import { loadNodeLists } from "@/api/Editor/Editor";
 import { ElMessage, ElMessageBox } from 'element-plus'

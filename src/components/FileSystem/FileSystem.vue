@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import path from 'path'
 import { basePath, files } from "@/api/configdb"
-import { createNote, ifSectionExists } from "@/api/Editor/FileSystem/filesystem";
-import { flushFiles, refresh } from "@/api/Editor/FileSystem/util";
+import { createNote, ifSectionExists } from "@/api/FileSystem/filesystem";
+import { flushFiles, refresh } from "@/api/FileSystem/util";
 import { chronicleArticlePath, chroniclePath } from "@/api/init";
-import FileList from "@/components/Main/Editor/FileSystem/FileList.vue"
+import FileList from "@/components/FileSystem/FileList.vue"
 import { Menu, MenuItem } from "@electron/remote"
 import { ref } from "vue"
 import fsp from 'fs-extra'

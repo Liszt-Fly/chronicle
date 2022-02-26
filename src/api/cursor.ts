@@ -4,7 +4,6 @@ export function moveCursorToNextLine(target: HTMLElement, index: number) {
 
         let range = document.createRange()
 
-
         range.setStartAfter(target.children[index!])
         range.collapse(false)
 

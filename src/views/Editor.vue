@@ -4,7 +4,7 @@ import fsp from 'fs-extra'
 import path from 'path'
 import { currentFile, nodes } from "@/api/configdb"
 import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
-import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
+import FileSystem from "@/components/FileSystem/FileSystem.vue"
 import { Parser } from "@/Parser/Parser"
 import { article, bContentedible } from "@/Parser/db"
 import { ChronicleNode } from "@/Parser/Node"
