@@ -26,7 +26,6 @@ function save(event: KeyboardEvent) {
 			}
 			else {
 				content += e.content + '\n'
-				console.log(e.content);
 			}
 		})
 		fsp.writeFileSync(test_path, content)
@@ -37,22 +36,7 @@ onMounted(() => {
 	//TODO 加载文章情况待更新
 
 	//* 创建默认新节点
-	console.log(currentFile.value)
 	loadNodeLists(test_path)
-	setTimeout(() => {
-
-		console.log(article.value)
-	}, 2000);
-	// Freadline(test_path).then(v => {
-	// 	let parser = new Parser("hello")
-	// 	parser.id = v4()
-
-
-	// })
-	// Parser.currentNodeParser = createNode()
-	// setTimeout(() => {
-	// 	save()
-	// }, 10000);
 })
 
 watchEffect(() => {
@@ -67,10 +51,8 @@ const enter = (event: KeyboardEvent) => {
 	let item = Parser.currentNodeParser
 	let index: number = article.value.indexOf(item)
 	item.content = editor.value!.children[index].textContent!
-	console.log(item.content);
 	item.parse()
 	if (item.type == ChronicleNode.codeblock) {
-
 		bContentedible.value = false
 		return
 	}
@@ -83,7 +65,6 @@ const enter = (event: KeyboardEvent) => {
 	article.value.splice(index, 1, item)
 	insertNode(index + 1)
 	moveCursorToNextLine(target, index)
-
 }
 
 const backspace = (event: KeyboardEvent) => {

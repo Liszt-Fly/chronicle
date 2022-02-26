@@ -87,7 +87,7 @@ export function initMarked() {
 
 // 	console.log("file saved");
 // }
-export let test_path = path.resolve(process.cwd(), "test.md")
+export let test_path = path.resolve(process.cwd(), "example", "assets", "Standard.md")
 
 //* 加载NodeList,加载文件
 export function loadNodeLists(fileName: string) {
