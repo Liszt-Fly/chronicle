@@ -31,6 +31,9 @@ npm install
 
 # Compiles and hot-reloads for development
 npm run chronicle
+
+# see document
+npm run doc
 ```
 
 ## 技术栈
