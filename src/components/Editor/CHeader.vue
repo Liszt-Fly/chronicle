@@ -29,6 +29,7 @@ const click = () => {
         class="header"
         :class="'h' + parser!.level!"
         :data-level="'H' + parser?.level"
+        :id="parser!.text"
     ></div>
 </template>
 

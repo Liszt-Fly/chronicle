@@ -3,7 +3,7 @@ import { onMounted, Ref, ref, watch, watchEffect } from "vue"
 import fsp from 'fs-extra'
 import path from 'path'
 import { currentFile } from "@/api/configdb"
-import { initMarked, loadNodeLists, test_path } from "@/api/Editor/Editor"
+import { initMarked, loadNodeLists, default_path } from "@/api/Editor/Editor"
 import FileSystem from "@/components/FileSystem/FileSystem.vue"
 import { Parser } from "@/Parser/Parser"
 import { article, bContentedible } from "@/Parser/db"
@@ -20,6 +20,8 @@ let editor = ref<HTMLElement | null>()
 function save(event: KeyboardEvent) {
 	if (event.keyCode == 83) {
 		let content = ""
+		console.log(article.value);
+		
 		article.value.forEach(e => {
 			if (e.type == ChronicleNode.codeblock) {
 				content += toCodeBlock(e) + "\n"
@@ -36,7 +38,7 @@ onMounted(() => {
 	//TODO 加载文章情况待更新
 
 	//* 创建默认新节点
-	loadNodeLists(test_path)
+	loadNodeLists(default_path)
 })
 
 watchEffect(() => {

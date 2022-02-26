@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import path from 'path'
 import { basePath, files } from "@/api/configdb"
-import { createNote, ifSectionExists } from "@/api/FileSystem/filesystem";
-import { flushFiles, refresh } from "@/api/FileSystem/util";
+import { createNote, ifSectionExists, flushFiles, refresh } from "@/api/FileSystem/filesystem";
 import { chronicleArticlePath, chroniclePath } from "@/api/init";
 import FileList from "@/components/FileSystem/FileList.vue"
 import { Menu, MenuItem } from "@electron/remote"

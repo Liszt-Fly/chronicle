@@ -1,6 +1,9 @@
 //sum filesystem使用的api
 import fsp from "fs-extra"
 import path from "path"
+import fs from "fs"
+import { basePath, files } from "@/api/configdb"
+import { msfile } from "@/interfaces/type"
 
 //* 创建新的Note文件
 export function createNote(currentPath: string, noteName?: string) {
@@ -30,11 +33,7 @@ export function ifNoteNameExists(
 ): number {
 	//如果名字存在，进行递归
 
-	if (
-		fsp.existsSync(
-			path.resolve(currentPath, ifFileHasExtname(noteName + index))
-		)
-	) {
+	if (fsp.existsSync(path.resolve(currentPath, ifFileHasExtname(noteName + index)))) {
 		return ifNoteNameExists(currentPath, removeExtName(noteName), index + 1)
 	} else {
 		return index
@@ -67,4 +66,65 @@ function removeExtName(file: string): string {
 	} else {
 		return file
 	}
+}
+
+export let sortFileInDepth = function (
+	dir: string,
+	storage: msfile[]
+) {
+	let files: string[] = fs.readdirSync(dir)
+	basePath.value = dir
+	files.forEach((f) => {
+		let item: msfile = {}
+		item.name = f
+		item.stat = fs.statSync(path.resolve(dir, f))
+
+		item.path = path.resolve(dir, f)
+		let stat = fs.lstatSync(path.resolve(dir, f)).isDirectory()
+		if (fs.lstatSync(path.resolve(dir, f)).isDirectory()) {
+			item.isDirectory = true
+			if (item.children) {
+			}
+			else {
+				item.children = []
+			}
+			storage.push(item)
+			sortFileInDepth(path.resolve(dir, f), item["children"])
+		} else {
+			item.name = f
+
+			if (item["children"]) {
+				item["children"].push(item)
+			} else {
+				item.isDirectory = false
+				storage.push(item)
+			}
+		}
+	})
+}
+
+export let validateFilename = function validateFilename(
+	filename: string
+): string | undefined {
+	//省略扩展名
+	let length = filename.length - path.extname(filename).length
+	if (filename == ".DS_Store") return undefined
+	else if (path.extname(filename) == ".md" || path.extname(filename) == "")
+		return filename.substring(0, length)
+	else return undefined
+}
+
+export function bKeyBoardTarget(object: any): object is KeyboardEvent {
+	return "altKey" in object
+}
+//* 刷新files.value，UI界面刷新
+export function flushFiles() {
+
+	files.value = []
+	sortFileInDepth(basePath.value, files.value)
+}
+
+export function refresh(PATH: string) {
+	files.value = []
+	sortFileInDepth(PATH, files.value)
 }

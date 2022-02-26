@@ -23,7 +23,7 @@ export function initMarked() {
 		xhtml: false,
 	})
 }
-export let test_path = path.resolve(process.cwd(), "example", "assets", "Standard.md")
+export let default_path = path.resolve(process.cwd(), "example", "assets", "Standard.md")
 
 //* 加载NodeList,加载文件
 export function loadNodeLists(fileName: string) {

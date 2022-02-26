@@ -5,7 +5,7 @@ import { msfile } from "@/interfaces/type";
 import fsp from "fs-extra";
 import path from "path";
 import rmrf from "rimraf";
-import { flushFiles, refresh, validateFilename } from "@/api/FileSystem/util";
+import { flushFiles, refresh, validateFilename } from "@/api/FileSystem/filesystem";
 import { currentFile } from "@/api/configdb";
 import {
 	createNote,
@@ -32,16 +32,11 @@ function openFile(event: MouseEvent, file: msfile) {
 function renameNote(file: msfile) {
 	//启用contentEdible
 	namebox.value!.contentEditable = "true";
-
 	namebox.value!.focus();
-
 	var sel = window.getSelection()
 	let range = sel!.getRangeAt(0);
-	range.setEnd(namebox.value!, 5)
-
-
-
-
+	range.setStart(namebox.value!, 0)
+	range.setEnd(namebox.value!, namebox.value!.innerText.length - 1)
 }
 function toggleSubfolder(
 	event: MouseEvent,
