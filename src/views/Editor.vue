@@ -28,7 +28,7 @@ function save(event: KeyboardEvent) {
 				content += e.content + '\n'
 			}
 		})
-		fsp.writeFileSync(test_path, content)
+		fsp.writeFileSync(currentFile.value, content)
 		console.log("保存成功")
 	}
 }
@@ -41,7 +41,8 @@ onMounted(() => {
 
 watchEffect(() => {
 	if (currentFile.value != "") {
-
+		article.value = []
+		loadNodeLists(currentFile.value)
 	}
 })
 

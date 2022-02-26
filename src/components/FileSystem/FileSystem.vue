@@ -6,10 +6,14 @@ import { flushFiles, refresh } from "@/api/FileSystem/util";
 import { chronicleArticlePath, chroniclePath } from "@/api/init";
 import FileList from "@/components/FileSystem/FileList.vue"
 import { Menu, MenuItem } from "@electron/remote"
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import fsp from 'fs-extra'
 let filesystem = ref<HTMLElement | null>()
 let menu = new Menu()
+onMounted(() => {
+	refresh(path.resolve(chronicleArticlePath))
+})
+
 const fileSystemMenu = [
 	new MenuItem({
 		label: "新建随笔",
@@ -21,8 +25,6 @@ const fileSystemMenu = [
 	new MenuItem({
 		label: "新建栏目",
 		click: function () {
-
-
 			let index = ifSectionExists(chronicleArticlePath, "section", 1)
 			fsp.mkdir(path.resolve(chronicleArticlePath, `section${index}`)).then(() => {
 				refresh(path.resolve(chronicleArticlePath))
@@ -30,7 +32,6 @@ const fileSystemMenu = [
 				.catch(err => {
 					console.log(err)
 				})
-
 		},
 	}),
 

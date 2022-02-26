@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { Menu, MenuItem } from "@electron/remote";
 import { onMounted, reactive, ref } from "vue";
-import { msfile } from "@/api/interfaces/type";
+import { msfile } from "@/interfaces/type";
 import fsp from "fs-extra";
 import path from "path";
 import rmrf from "rimraf";
 import { flushFiles, refresh, validateFilename } from "@/api/FileSystem/util";
-import { basePath, currentFile, nodes } from "@/api/configdb";
+import { currentFile } from "@/api/configdb";
 import {
 	createNote,
 	ifNoteNameExists,
