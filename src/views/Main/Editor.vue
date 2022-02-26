@@ -1,33 +1,113 @@
 <script setup lang="ts">
-import { onMounted, Ref, ref, watchEffect } from "vue"
+import { onMounted, Ref, ref, watch, watchEffect } from "vue"
+import fsp from 'fs-extra'
+import path from 'path'
 import { currentFile, nodes } from "@/api/configdb"
 import { initMarked, loadNodeLists, saveArticle } from "@/api/Editor/Editor"
 import FileSystem from "@/components/Main/Editor/FileSystem/FileSystem.vue"
-
-function save(e: KeyboardEvent) {
-	if ((e.key == 's' || e.key == 'S') && (e.metaKey || e.ctrlKey)) {
-		e.preventDefault();
-		saveArticle()
+import { Parser } from "@/Parser/Parser"
+import { article, bContentedible } from "@/Parser/db"
+import { ChronicleNode } from "@/Parser/Node"
+import { createNode } from "@/Parser/_createNode"
+import { insertNode } from "@/Parser/_insertNode"
+import { moveCursorToNextLine } from "@/api/cursor"
+import { moveToLineEnd } from "@/Parser/_moveToLineEnd"
+import { toCodeBlock } from "@/api/ToMd/ToMd"
+import { Freadline } from "@/Parser/_readline"
+import { v4 } from "uuid"
+let editor = ref<HTMLElement | null>()
+//存储文章
+function save(event: KeyboardEvent) {
+	if (event.keyCode == 83) {
+		let content = ""
+		article.value.forEach(e => {
+			if (e.type == ChronicleNode.codeblock) {
+				content += toCodeBlock(e) + "\n"
+			}
+			else {
+				content += e.content + '\n'
+			}
+		})
+		fsp.writeFileSync(path.resolve(process.cwd(), "test.md"), content)
+		console.log("保存成功")
 	}
 }
-initMarked()
 onMounted(() => {
-	watchEffect(() => {
-		if (currentFile.value != "") {
-			nodes.value = []
-			nodes.value = loadNodeLists(currentFile.value)
-		}
-	})
+	//TODO 加载文章情况待更新
+
+	//* 创建默认新节点
+	console.log(currentFile.value)
+	loadNodeLists(path.resolve(process.cwd(), "test.md"))
+	setTimeout(() => {
+
+		console.log(article.value)
+	}, 2000);
+	// Freadline(path.resolve(process.cwd(), "test.md")).then(v => {
+	// 	let parser = new Parser("hello")
+	// 	parser.id = v4()
+
+
+	// })
+	// Parser.currentNodeParser = createNode()
+	// setTimeout(() => {
+	// 	save()
+	// }, 10000);
 })
 
-let editable: Ref<boolean> = ref(false)
-let edit = function () {
-	editable.value = !editable.value
+watchEffect(() => {
+	if (currentFile.value != "") {
+
+	}
+})
+
+//敲击回车键的时候渲染上面的内容
+const enter = (event: KeyboardEvent) => {
+	let target = event.target as HTMLDivElement
+	let item = Parser.currentNodeParser
+	let index: number = article.value.indexOf(item)
+	item.content = editor.value!.children[index].textContent!
+	item.parse()
+	if (item.type == ChronicleNode.codeblock) {
+
+		bContentedible.value = false
+		return
+	}
+	//TODO 待完善 TABLE回归正常节点
+	if (item.type == ChronicleNode.table) {
+		event.preventDefault()
+		return
+	}
+	event.preventDefault()
+	article.value.splice(index, 1, item)
+	insertNode(index + 1)
+	moveCursorToNextLine(target, index)
+
 }
+
+const backspace = (event: KeyboardEvent) => {
+	if (Parser.currentNodeParser.type == ChronicleNode.codeblock) {
+		return
+	}
+	let target = event.target as HTMLDivElement
+	let item = Parser.currentNodeParser
+	let index: number = article.value.indexOf(item)
+	//* 当行清0回退到上一行
+	console.log(editor.value!.children[index].textContent)
+	if (editor.value!.children[index].textContent == "") {
+		event.preventDefault()
+		//把当前数组删掉
+		article.value.splice(index, 1)
+		Parser.currentNodeParser = article.value[index - 1]
+		Parser.currentNodeParser.type = ChronicleNode.paragraph
+		//* 光标回到上一行的末尾
+		moveToLineEnd(target.children[index - 1] as HTMLElement)
+	}
+}
+
 </script>
 
 <template >
-	<div class="column" @keydown="save($event)">
+	<div class="column">
 		<div class="column-left">
 			<!-- 中间调整大小 -->
 			<div class="resize-bar"></div>
@@ -40,17 +120,23 @@ let edit = function () {
 		</div>
 		<div class="column-right">
 			<!-- 右侧 editor -->
-			<div class="editor" :contenteditable="editable">
-				<template v-for="node in nodes" :key="node">
-					<component :is="node.type" :value="node"></component>
-				</template>
+			<div
+				class="editor"
+				:contenteditable="bContentedible"
+				ref="editor"
+				@keydown.enter="enter($event)"
+				@keydown.backspace="backspace($event)"
+				@keydown.ctrl="save"
+			>
+				<component
+					:is="parser.type"
+					v-for="parser in article"
+					:parser="parser"
+					:key="parser.id"
+					:level="parser.level"
+				></component>
 			</div>
 		</div>
-	</div>
-
-	<div class="selection" @click="edit()" title="点击改变选择模式">
-		<span v-show="editable">{{ $t("editor.edit_mode_on") }}</span>
-		<span v-show="!editable">{{ $t("editor.edit_mode_off") }}</span>
 	</div>
 </template>
 

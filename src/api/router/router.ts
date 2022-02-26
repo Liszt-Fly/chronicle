@@ -1,9 +1,10 @@
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router"
 import Editor from "@/views/Main/Editor.vue"
 import Setting from "@/views/Main/Setting.vue"
 import Stream from "@/views/Main/Stream.vue"
 const router = createRouter({
-	history: createWebHistory(),
+
+	history: createWebHashHistory(),
 	routes: [
 		{ path: "/", component: Editor, },
 		{ path: "/editor", component: Editor, },

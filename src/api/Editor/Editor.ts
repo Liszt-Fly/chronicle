@@ -5,6 +5,11 @@ import { currentFile, nodes } from "@/api/configdb"
 import path from "path"
 import { cAlertNode, cCodeBlockNode, cNode } from "@/api/interfaces/type"
 import { bKeyBoardTarget } from "./FileSystem/util"
+import { Freadline } from "@/Parser/_readline"
+import { ChronicleNode } from "@/Parser/Node"
+import { Parser } from "@/Parser/Parser"
+import { article } from "@/Parser/db"
+import { v4 } from "uuid"
 
 //sum markedjs初始化
 export function initMarked() {
@@ -178,8 +183,4 @@ export function loadNodeLists(fileName: string): cNode[] {
 		let newNodeList: cNode[] = []
 		newNodeList.push(initNode())
 
-		return newNodeList
-	} else {
-		return nodes
-	}
 }

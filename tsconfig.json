@@ -33,7 +33,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/Parser/_readlinecopy.js"  ],
   "exclude": [
     "node_modules"
   ]
