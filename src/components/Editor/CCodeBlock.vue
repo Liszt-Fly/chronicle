@@ -16,6 +16,7 @@ import { Parser } from "@/Parser/Parser";
 import { article, bContentedible } from "@/Parser/db";
 import { insertNode } from "@/Parser/_insertNode";
 import { moveCursorToNextLine } from "@/api/cursor";
+import { clipboard } from "electron";
 const props = defineProps({
 	parser: Parser
 });
@@ -100,6 +101,10 @@ onMounted(() => {
 	editorview.focus();
 	cursorDocEnds(editorview.state, editorview.dispatch);
 });
+const copy = () => {
+	clipboard.writeText(editorview.contentDOM.innerText)
+	alert("copy successfully")
+}
 </script>
 
 <template>
@@ -112,7 +117,7 @@ onMounted(() => {
 		<div class="language" contenteditable="false">
 			<span>{{ props.parser!.language }}</span>
 			<el-divider direction="vertical"></el-divider>
-			<i class="bi bi-front"></i>
+			<i class="bi bi-front" @click="copy" style="cursor:pointer;"></i>
 		</div>
 	</div>
 </template>
