@@ -15,9 +15,10 @@ let initTheme = () => {
 	let editor_theme = config.editor_theme
 	let code_theme = config.code_theme
 
-	const global_theme_path = `${chroniclePath}/themes/Global/${global_theme}.css`
-	const editor_theme_path = `${chroniclePath}/themes/Editor/${editor_theme}.css`
-	const code_theme_path = `${chroniclePath}/themes/Editor/Code/${code_theme}.css`
+	// fixme
+	const global_theme_path = `${chroniclePath}/../src/themes/Global/${global_theme}.css`
+	const editor_theme_path = `${chroniclePath}/../src/themes/Editor/${editor_theme}.css`
+	const code_theme_path = `${chroniclePath}/../src/themes/Editor/Code/${code_theme}.css`
 
 	const head = document.head || document.getElementsByTagName('head')[0];
 
