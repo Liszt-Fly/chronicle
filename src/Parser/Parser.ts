@@ -14,6 +14,8 @@ export class Parser {
     public bMarked: boolean = false
     public text: string = ""
     public table?: string[][] = []
+    //* 是否使用**进行了包裹?
+    public bEmphasized?: boolean=false
     public static currentParser?: Parser
     public level: number | undefined;
     public dom: Ref = ref<HTMLElement | null>()

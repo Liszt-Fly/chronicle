@@ -3,6 +3,7 @@ import { article, bContentedible } from '@/Parser/db';
 import { Parser } from '@/Parser/Parser';
 import { onMounted, ref, watch } from 'vue';
 import { moveToLineEnd } from '@/Parser/_moveToLineEnd';
+
 let paragraph = ref<HTMLElement | null>()
 let props = defineProps({
     parser: Parser
@@ -24,15 +25,18 @@ onMounted(() => {
 const click = () => {
     console.log("paragraph click")
     bContentedible.value = true
+    if (props.parser!.bEmphasized == true) {
+        console.log(props.parser!.content)
+        paragraph.value!.innerText = props.parser!.content
+        moveToLineEnd(paragraph.value!)
+    }
     Parser.currentNodeParser = props.parser!
 }
 
 </script>
 
 <template>
-    <div>
-        <div ref="paragraph" @click="click"></div>
-    </div>
+    <div ref="paragraph" @click="click"></div>
 </template>
 
 <style scoped>

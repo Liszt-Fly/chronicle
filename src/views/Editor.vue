@@ -21,7 +21,7 @@ function save(event: KeyboardEvent) {
 	if (event.keyCode == 83) {
 		let content = ""
 		console.log(article.value);
-		
+
 		article.value.forEach(e => {
 			if (e.type == ChronicleNode.codeblock) {
 				content += toCodeBlock(e) + "\n"
@@ -53,7 +53,15 @@ const enter = (event: KeyboardEvent) => {
 	let target = event.target as HTMLDivElement
 	let item = Parser.currentNodeParser
 	let index: number = article.value.indexOf(item)
+	let inlineRules = [/\*(.+)\*/g, /\~~(.+)\~~/g]
+
 	item.content = editor.value!.children[index].textContent!
+	if (item.type == ChronicleNode.paragraph) {
+		editor.value!.children[index].innerHTML = editor.value!.children[index].textContent!.replaceAll(/\*(.+)\*/g, `<b style="background-color:red" >$1</b>`)
+		Parser.currentNodeParser.bEmphasized = true
+		editor.value!.children[index].innerHTML = editor.value!.children[index].innerHTML!.replaceAll(/\~~(.+)\~~/g, `<b style="text-decoration:line-through;" >$1</b>`)
+	}
+
 	item.parse()
 	if (item.type == ChronicleNode.codeblock) {
 		bContentedible.value = false
@@ -77,6 +85,8 @@ const backspace = (event: KeyboardEvent) => {
 	let target = event.target as HTMLDivElement
 	let item = Parser.currentNodeParser
 	let index: number = article.value.indexOf(item)
+
+
 	//* 当行清0回退到上一行
 	console.log(editor.value!.children[index].textContent)
 	if (editor.value!.children[index].textContent == "") {

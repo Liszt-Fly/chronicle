@@ -48,7 +48,9 @@ import CCodeBlock from "@/components/Editor/CCodeBlock.vue"
 import CHeader from "@/components/Editor/CHeader.vue"
 import CParagraph from "@/components/Editor/CParagraph.vue"
 import CTable from "@/components/Editor/CTable.vue"
+import CDeleteLine from '@/components/Editor/CDeleteLine.vue'
 app.component("CCodeBlock", CCodeBlock)
 app.component("CParagraph", CParagraph)
 app.component("CHeader", CHeader)
 app.component("CTable", CTable)
+app.component("CDeleteLine", CDeleteLine)
