@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { article } from '@/Parser/db';
 import { ChronicleNode } from '@/Parser/Node';
 import { Parser } from '@/Parser/Parser';
 import { onMounted, ref, watch } from 'vue';
@@ -9,15 +10,19 @@ const props = defineProps({
 
 let Block = ref<HTMLElement | null>()
 onMounted(() => {
+    console.log(props.parser)
     Block.value!.innerText = props.parser!.text
 })
 
 const click = () => {
     Parser.currentNodeParser = props.parser!
     //* click将会从Parse渲染状态回到Normal状态
-    props.parser!.type = ChronicleNode.paragraph
+    Parser.currentNodeParser.type = ChronicleNode.paragraph
+    let index: number = article.value.indexOf(Parser.currentNodeParser)
+    article.value.splice(index, 1, props.parser!)
     //* 设置光标到末尾
-    console.log("click")
+
+
 }
 </script>
 

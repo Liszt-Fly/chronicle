@@ -8,12 +8,12 @@ import FileSystem from "@/components/FileSystem/FileSystem.vue"
 import { Parser } from "@/Parser/Parser"
 import { article, bContentedible } from "@/Parser/db"
 import { ChronicleNode } from "@/Parser/Node"
-import { createNode } from "@/Parser/_createNode"
+
 import { insertNode } from "@/Parser/_insertNode"
 import { moveCursorToNextLine } from "@/api/cursor"
 import { moveToLineEnd } from "@/Parser/_moveToLineEnd"
 import { toCodeBlock } from "@/api/ToMd/ToMd"
-import { Freadline } from "@/Parser/_readline"
+
 import { v4 } from "uuid"
 let editor = ref<HTMLElement | null>()
 //存储文章
@@ -47,7 +47,16 @@ watchEffect(() => {
 		loadNodeLists(currentFile.value)
 	}
 })
-
+const down = () => {
+	let item = Parser.currentNodeParser
+	let index: number = article.value.indexOf(item)
+	Parser.currentNodeParser = article.value[index + 1]
+}
+const up = () => {
+	let item = Parser.currentNodeParser
+	let index: number = article.value.indexOf(item)
+	Parser.currentNodeParser = article.value[index - 1]
+}
 //敲击回车键的时候渲染上面的内容
 const enter = (event: KeyboardEvent) => {
 	let target = event.target as HTMLDivElement
@@ -57,12 +66,16 @@ const enter = (event: KeyboardEvent) => {
 
 	item.content = editor.value!.children[index].textContent!
 	if (item.type == ChronicleNode.paragraph) {
-		editor.value!.children[index].innerHTML = editor.value!.children[index].textContent!.replaceAll(/\*(.+)\*/g, `<b style="background-color:red" >$1</b>`)
-		Parser.currentNodeParser.bEmphasized = true
+
+		editor.value!.children[index].innerHTML = editor.value!.children[index].textContent!.replaceAll(/\*(.+)\*/g, `<b style="background-color:#1abc9c;color:white" >$1</b>`)
+
+
 		editor.value!.children[index].innerHTML = editor.value!.children[index].innerHTML!.replaceAll(/\~~(.+)\~~/g, `<b style="text-decoration:line-through;" >$1</b>`)
+
 	}
 
 	item.parse()
+
 	if (item.type == ChronicleNode.codeblock) {
 		bContentedible.value = false
 		return
@@ -79,6 +92,7 @@ const enter = (event: KeyboardEvent) => {
 }
 
 const backspace = (event: KeyboardEvent) => {
+
 	if (Parser.currentNodeParser.type == ChronicleNode.codeblock) {
 		return
 	}
@@ -86,17 +100,22 @@ const backspace = (event: KeyboardEvent) => {
 	let item = Parser.currentNodeParser
 	let index: number = article.value.indexOf(item)
 
-
-	//* 当行清0回退到上一行
-	console.log(editor.value!.children[index].textContent)
 	if (editor.value!.children[index].textContent == "") {
 		event.preventDefault()
 		//把当前数组删掉
 		article.value.splice(index, 1)
 		Parser.currentNodeParser = article.value[index - 1]
 		Parser.currentNodeParser.type = ChronicleNode.paragraph
-		//* 光标回到上一行的末尾
-		moveToLineEnd(target.children[index - 1] as HTMLElement)
+
+		setTimeout(() => {
+			console.log(editor.value!.children[index - 1])
+			editor.value!.children[index - 1].textContent = Parser.currentNodeParser.content
+			//* 光标回到上一行的末尾
+			moveToLineEnd(target.children[index - 1] as HTMLElement)
+		}, 0);
+
+
+
 	}
 }
 
@@ -123,14 +142,10 @@ const backspace = (event: KeyboardEvent) => {
 				@keydown.enter="enter($event)"
 				@keydown.backspace="backspace($event)"
 				@keydown.ctrl="save"
+				@keydown.down="down"
+				@keydown.up="up"
 			>
-				<component
-					:is="parser.type"
-					v-for="parser in article"
-					:parser="parser"
-					:key="parser.id"
-					:level="parser.level"
-				></component>
+				<component :is="parser.type" v-for="parser in article" :parser="parser" :key="parser.id"></component>
 			</div>
 		</div>
 	</div>

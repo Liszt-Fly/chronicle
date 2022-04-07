@@ -1,10 +1,9 @@
 //sum filesystem使用的api
-import fsp from "fs-extra"
+import fsp, { PathLike } from "fs-extra"
 import path from "path"
 import fs from "fs"
 import { basePath, files } from "@/api/configdb"
-import { msfile } from "@/interfaces/type"
-
+import { qFile, msfile } from "@/interfaces/type"
 //* 创建新的Note文件
 export function createNote(currentPath: string, noteName?: string) {
 	//创建默认文件
@@ -72,6 +71,7 @@ export let sortFileInDepth = function (
 	dir: string,
 	storage: msfile[]
 ) {
+
 	let files: string[] = fs.readdirSync(dir)
 	basePath.value = dir
 	files.forEach((f) => {
@@ -127,4 +127,23 @@ export function flushFiles() {
 export function refresh(PATH: string) {
 	files.value = []
 	sortFileInDepth(PATH, files.value)
+}
+
+export function getFiles(pathName: string, storage: qFile[]) {
+	let list = fs.readdirSync(pathName)
+	if (list.length == 0) return
+	for (let i of list) {
+		let stat = fs.lstatSync(path.resolve(pathName, i));
+		let bDir = stat.isDirectory()
+
+		if (bDir) {
+
+			let newStorage: any[] = []
+			storage.push({ name: i, children: newStorage, path: path.resolve(pathName, i) })
+			getFiles(path.resolve(pathName, i), newStorage)
+		}
+		else {
+			storage.push({ name: i, children: null, path: path.resolve(pathName, i) });
+		}
+	}
 }

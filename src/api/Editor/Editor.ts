@@ -38,6 +38,7 @@ export function loadNodeLists(fileName: string) {
 
 	Freadline(fileName).then(markdown => {
 		markdown.forEach(line => {
+			//sum 代码块处理
 			if (/^`{3}[a-zA-z]+/.test(line)) {
 				codeFlag = true
 				language = /^`{3}([a-z]+)/.exec(line)![1]
@@ -65,9 +66,27 @@ export function loadNodeLists(fileName: string) {
 				parser.text = result![2]
 				article.value.push(parser)
 			}
+			else if (/^> (.+)/.test(line)) {
+				let result = /^> (.+)/.exec(line)
+				let parser = new Parser("")
+				parser.type = ChronicleNode.quoteblock
+				parser.content = line;
+				parser.text = result![1]
+				article.value.push(parser)
+			}
 			else {
+
 				let parser = new Parser("")
 				parser.type = ChronicleNode.paragraph
+				if (/\*(.+)\*/g.test(line)) {
+					parser.bEmphasized = true
+					parser.text = line.replaceAll(/\*(.+)\*/g, `<b style="background-color:#1abc9c;color:white" >$1</b>`)
+				}
+				if (/\~~(.+)\~~/g.test(line)) {
+					parser.bDeleted = true
+					parser.text = parser.text.length == 0 ? line.replaceAll(/\~~(.+)\~~/g, `<b style="text-decoration:line-through;" >$1</b>`) : parser.text.replaceAll(/\~~(.+)\~~/g, `<b style="text-decoration:line-through;" >$1</b>`)
+					console.log(parser.text)
+				}
 				parser.content = line
 				article.value.push(parser)
 			}

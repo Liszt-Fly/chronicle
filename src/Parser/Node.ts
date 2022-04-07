@@ -3,5 +3,6 @@ export enum ChronicleNode {
     paragraph = "cParagraph",
     header = "cHeader",
     codeblock = "cCodeBlock",
-    table = "cTable"
+    table = "cTable",
+    quoteblock = "cQuoteBlock",
 }

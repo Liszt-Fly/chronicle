@@ -9,3 +9,13 @@ export interface msfile {
 export interface Iconfig {
 	[key: string]: string
 }
+export interface Emoji {
+	name: string,
+	content: string
+}
+
+export interface qFile {
+	name: string,
+	children: File[] | null,
+	path: string
+}

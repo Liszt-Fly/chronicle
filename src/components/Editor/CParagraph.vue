@@ -15,9 +15,21 @@ watch(article, () => {
     content.value = props.parser!.content
 }, { deep: true })
 onMounted(() => {
+    console.log("我进行了挂载！")
+    console.log(props.parser!)
+    console.log(props.parser!.content)
     Parser.currentNodeParser = props.parser!
-    bContentedible.value = true
-    paragraph.value!.innerText = content.value
+
+    if (props.parser!.bEmphasized == true || props.parser!.bDeleted == true) {
+        console.log("从未执行过")
+        paragraph.value!.innerHTML = props.parser!.text
+    }
+
+    else {
+        console.log(`内容为:${props.parser!.content}`)
+        paragraph.value!.innerText = props.parser!.content
+    }
+
     //鼠标自动聚焦到段落末尾
     moveToLineEnd(paragraph.value!)
 
@@ -26,11 +38,22 @@ const click = () => {
     console.log("paragraph click")
     bContentedible.value = true
     if (props.parser!.bEmphasized == true) {
-        console.log(props.parser!.content)
-        paragraph.value!.innerText = props.parser!.content
-        moveToLineEnd(paragraph.value!)
+
+        props.parser!.bEmphasized = false
+
+
+        // moveToLineEnd(paragraph.value!)
     }
+    if (props.parser!.bDeleted == true) {
+        props.parser!.bDeleted = false
+
+
+    }
+    paragraph.value!.innerText = props.parser!.content
     Parser.currentNodeParser = props.parser!
+
+    //鼠标自动聚焦到段落末尾
+    moveToLineEnd(paragraph.value!)
 }
 
 </script>

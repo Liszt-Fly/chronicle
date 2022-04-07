@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import path from 'path'
-import { basePath, files } from "@/api/configdb"
-import { createNote, ifSectionExists, flushFiles, refresh } from "@/api/FileSystem/filesystem";
+import { files, storage } from "@/api/configdb"
+import { createNote, ifSectionExists, refresh, getFiles } from "@/api/FileSystem/filesystem";
 import { chronicleArticlePath, chroniclePath } from "@/api/init";
 import FileList from "@/components/FileSystem/FileList.vue"
 import { Menu, MenuItem } from "@electron/remote"
 import { onMounted, ref } from "vue"
 import fsp from 'fs-extra'
-let filesystem = ref<HTMLElement | null>()
+
 let menu = new Menu()
 onMounted(() => {
-	refresh(path.resolve(chronicleArticlePath))
+	getFiles(path.resolve(chronicleArticlePath), storage.value)
+	fsp.watch(path.resolve(chronicleArticlePath)).on("change", () => {
+		storage.value = []
+		getFiles(path.resolve(chronicleArticlePath), storage.value)
+	})
 })
 
 const fileSystemMenu = [
@@ -33,14 +37,6 @@ const fileSystemMenu = [
 				})
 		},
 	}),
-
-	// new MenuItem({
-	// 	label: "sort",
-	// 	submenu: [
-	// 		{ label: "sort by created time", },
-	// 		{ label: "sort by last modified time", },
-	// 	],
-	// }),
 ]
 
 fileSystemMenu.forEach((item) => {
@@ -52,7 +48,7 @@ const popMenu = (event: MouseEvent) => {
 </script>
 <template>
 	<div class="file-system" ref="filesystem" @contextmenu="menu.popup()">
-		<template v-for="file in files">
+		<template v-for="file in storage">
 			<file-list :file="file" @contextmenu="popMenu($event)"></file-list>
 		</template>
 	</div>

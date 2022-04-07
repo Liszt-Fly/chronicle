@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Menu, MenuItem } from "@electron/remote";
 import { onMounted, reactive, ref } from "vue";
-import { msfile } from "@/interfaces/type";
+import { msfile, qFile } from "@/interfaces/type";
 import fsp from "fs-extra";
 import path from "path";
 import rmrf from "rimraf";
@@ -16,15 +16,15 @@ import { chronicleArticlePath } from "@/api/init";
 import { loadNodeLists } from "@/api/Editor/Editor";
 import { ElMessage, ElMessageBox } from 'element-plus'
 const props = defineProps({
-	file: Object as () => msfile,
+	file: Object as () => qFile,
 });
 let subfolder = ref<HTMLDivElement | null>(null);
 let refSubfolder = reactive({ dom: subfolder });
 let namebox = ref<HTMLSpanElement | null>(null);
 const fileDom = ref<HTMLElement | null>(null);
-function openFile(event: MouseEvent, file: msfile) {
+function openFile(event: MouseEvent, file: qFile) {
 	//如果是文件
-	if (!file.isDirectory) {
+	if (!file.children) {
 		currentFile.value = props.file!.path!
 
 	}
@@ -33,19 +33,16 @@ function renameNote(file: msfile) {
 	//启用contentEdible
 	namebox.value!.contentEditable = "true";
 	namebox.value!.focus();
-	var sel = window.getSelection()
-	let range = sel!.getRangeAt(0);
-	range.setStart(namebox.value!, 0)
-	range.setEnd(namebox.value!, namebox.value!.innerText.length - 1)
+
 }
 function toggleSubfolder(
 	event: MouseEvent,
-	file: msfile,
+	file: qFile,
 	subfolder: { dom: HTMLElement | null }
 ) {
 	//如果msfile是directory类型，进行图标转换，以及显隐转换
 
-	if (file.isDirectory) {
+	if (file.children) {
 		if (event) {
 			let item = event.currentTarget as HTMLElement;
 			let folder = item.firstElementChild!;
@@ -63,17 +60,19 @@ function toggleSubfolder(
 		}
 	}
 }
-function finishReanmeNote(file: msfile) {
+function finishRenameNote(file: msfile) {
 	// file.name = namebox.value!.innerText
 
 	let pathObjcet = path.parse(file.path!);
 	pathObjcet.base = namebox.value!.innerText;
 	namebox.value!.contentEditable = "false";
-	console.log(file.path + pathObjcet.ext);
+
 	fsp.renameSync(
 		props!.file!.path!,
 		path.resolve(pathObjcet.dir, namebox.value!.innerText) + pathObjcet.ext
 	);
+	console.log("修改成功！")
+	refresh(pathObjcet.dir)
 }
 
 function deleteNoteOrSection(file: msfile) {
@@ -93,7 +92,6 @@ function enter(event: KeyboardEvent) {
 	target.blur();
 }
 
-function addTag(file: msfile) { }
 
 // 右键菜单
 const menu = new Menu();
@@ -169,11 +167,6 @@ else {
 	}))
 }
 
-
-
-
-
-
 menuItems.forEach((item) => {
 	menu.append(item);
 });
@@ -194,8 +187,8 @@ const popMenu = (event: MouseEvent) => {
 			<span
 				:class="[
 					'iconfont',
-					{ 'bi bi-caret-right': file.isDirectory },
-					{ 'bi bi-journal-bookmark-fill': !file.isDirectory },
+					{ 'bi bi-caret-right': file.children },
+					{ 'bi bi-journal-bookmark-fill': !file.children },
 					'file-name',
 					'file-icon',
 				]"
@@ -204,7 +197,7 @@ const popMenu = (event: MouseEvent) => {
 			<span
 				class="cursor"
 				ref="namebox"
-				@blur="finishReanmeNote(props.file!)"
+				@blur="finishRenameNote(props.file!)"
 				@keydown.enter.prevent="enter($event)"
 			>{{ validateFilename(file.name!) }}</span>
 		</div>

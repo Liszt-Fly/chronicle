@@ -22,15 +22,6 @@ const i18n = createI18n({
 })
 app.use(i18n)
 
-// Freadline(path.resolve(process.cwd(), "src", "Parser", "example.md")).then(v => {
-//     v.map(item => {
-//         let parser = new Parser("", item)
-//         parser.parse()
-//         Parser.parserCollection.push(parser)
-//         console.log(Parser.parserCollection)
-//     })
-// })
-// router
 import router from "@/router/router"
 app.use(router)
 
@@ -49,8 +40,10 @@ import CHeader from "@/components/Editor/CHeader.vue"
 import CParagraph from "@/components/Editor/CParagraph.vue"
 import CTable from "@/components/Editor/CTable.vue"
 import CDeleteLine from '@/components/Editor/CDeleteLine.vue'
+import CQuoteBlock from '@/components/Editor/CQuoteBlock.vue'
 app.component("CCodeBlock", CCodeBlock)
 app.component("CParagraph", CParagraph)
 app.component("CHeader", CHeader)
 app.component("CTable", CTable)
+app.component("CQuoteBlock", CQuoteBlock)
 app.component("CDeleteLine", CDeleteLine)
