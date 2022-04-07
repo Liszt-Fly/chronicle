@@ -15,18 +15,16 @@ watch(article, () => {
     content.value = props.parser!.content
 }, { deep: true })
 onMounted(() => {
-    console.log("我进行了挂载！")
-    console.log(props.parser!)
-    console.log(props.parser!.content)
+
     Parser.currentNodeParser = props.parser!
 
     if (props.parser!.bEmphasized == true || props.parser!.bDeleted == true) {
-        console.log("从未执行过")
+
         paragraph.value!.innerHTML = props.parser!.text
     }
 
     else {
-        console.log(`内容为:${props.parser!.content}`)
+
         paragraph.value!.innerText = props.parser!.content
     }
 
@@ -35,7 +33,7 @@ onMounted(() => {
 
 })
 const click = () => {
-    console.log("paragraph click")
+
     bContentedible.value = true
     if (props.parser!.bEmphasized == true) {
 

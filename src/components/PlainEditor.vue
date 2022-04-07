@@ -16,7 +16,7 @@ marked.setOptions({
 let markdown = ref("");
 let html = ref(null)
 watch(markdown, (newValue, oldValue) => {
-    console.log(html.value);
+
     (html.value as unknown as HTMLDivElement).innerHTML = marked.parse(markdown.value)
 })
 

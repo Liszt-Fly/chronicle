@@ -16,6 +16,6 @@ export interface Emoji {
 
 export interface qFile {
 	name: string,
-	children: File[] | null,
+	children: qFile[] | null,
 	path: string
 }

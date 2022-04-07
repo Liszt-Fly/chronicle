@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import path from 'path'
 import { files, storage } from "@/api/configdb"
-import { createNote, ifSectionExists, refresh, getFiles } from "@/api/FileSystem/filesystem";
+import { createNote, ifSectionExists, getFiles } from "@/api/FileSystem/filesystem";
 import { chronicleArticlePath, chroniclePath } from "@/api/init";
 import FileList from "@/components/FileSystem/FileList.vue"
 import { Menu, MenuItem } from "@electron/remote"
@@ -10,6 +10,7 @@ import fsp from 'fs-extra'
 
 let menu = new Menu()
 onMounted(() => {
+	storage.value = []
 	getFiles(path.resolve(chronicleArticlePath), storage.value)
 	fsp.watch(path.resolve(chronicleArticlePath)).on("change", () => {
 		storage.value = []
@@ -22,7 +23,7 @@ const fileSystemMenu = [
 		label: "新建随笔",
 		click: function () {
 			createNote(path.resolve(chroniclePath, "assets"))
-			refresh(path.resolve(chroniclePath, "assets"))
+			// refresh(path.resolve(chroniclePath, "assets"))
 		},
 	}),
 	new MenuItem({
@@ -30,7 +31,7 @@ const fileSystemMenu = [
 		click: function () {
 			let index = ifSectionExists(chronicleArticlePath, "section", 1)
 			fsp.mkdir(path.resolve(chronicleArticlePath, `section${index}`)).then(() => {
-				refresh(path.resolve(chronicleArticlePath))
+				// refresh(path.resolve(chronicleArticlePath))
 			})
 				.catch(err => {
 					console.log(err)
@@ -42,14 +43,12 @@ const fileSystemMenu = [
 fileSystemMenu.forEach((item) => {
 	menu.append(item)
 })
-const popMenu = (event: MouseEvent) => {
-	console.log(1)
-}
+
 </script>
 <template>
-	<div class="file-system" ref="filesystem" @contextmenu="menu.popup()">
+	<div class="file-system" ref="filesystem">
 		<template v-for="file in storage">
-			<file-list :file="file" @contextmenu="popMenu($event)"></file-list>
+			<file-list :file="file"></file-list>
 		</template>
 	</div>
 </template>

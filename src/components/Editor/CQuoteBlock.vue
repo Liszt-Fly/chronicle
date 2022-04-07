@@ -9,7 +9,7 @@ let props = defineProps({
 })
 onMounted(() => {
     Parser.currentNodeParser = props.parser!
-    console.log("当前的Parser发生了变化")
+
     moveToLineEnd(content.value!)
 })
 const click = () => {

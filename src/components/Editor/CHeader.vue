@@ -10,7 +10,7 @@ const props = defineProps({
 
 let Block = ref<HTMLElement | null>()
 onMounted(() => {
-    console.log(props.parser)
+
     Block.value!.innerText = props.parser!.text
 })
 

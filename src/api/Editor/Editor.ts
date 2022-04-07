@@ -85,7 +85,7 @@ export function loadNodeLists(fileName: string) {
 				if (/\~~(.+)\~~/g.test(line)) {
 					parser.bDeleted = true
 					parser.text = parser.text.length == 0 ? line.replaceAll(/\~~(.+)\~~/g, `<b style="text-decoration:line-through;" >$1</b>`) : parser.text.replaceAll(/\~~(.+)\~~/g, `<b style="text-decoration:line-through;" >$1</b>`)
-					console.log(parser.text)
+			
 				}
 				parser.content = line
 				article.value.push(parser)

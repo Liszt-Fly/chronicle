@@ -49,7 +49,7 @@ export class Parser {
         else if (/\|([^\|]+)\|*?/g.test(this.content)) {
             let reg = /\|([^\|]+)\|*?/g
             let result: RegExpExecArray
-            console.log(this.table)
+
             this.table![0] = []
             while (result = reg.exec(this.content)!) {
                 let content = result[1]
@@ -59,7 +59,7 @@ export class Parser {
 
         }
         else if (/```\w+/.test(this.content)) {
-            console.log(this.content.match(/```(\w+)/))
+
             let reg = /```(\w+)/
             this.type = ChronicleNode.codeblock
             let content = reg.exec(this.content)

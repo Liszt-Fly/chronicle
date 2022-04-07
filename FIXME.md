@@ -39,5 +39,5 @@
 - [] 删除文件之后，右边的editor应该清空
 - [] 重命名指针直接全选
 - [] 在chronicle界面新建的folder无法创建文件
-- [] 双向绑定文件夹 eg：比如在vscode中创建，在chronicle要即时生成
+- [x] 双向绑定文件夹 eg：比如在vscode中创建，在chronicle要即时生成
 - [] 在子层文件夹中新建

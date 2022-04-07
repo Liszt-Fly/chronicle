@@ -117,17 +117,9 @@ export let validateFilename = function validateFilename(
 export function bKeyBoardTarget(object: any): object is KeyboardEvent {
 	return "altKey" in object
 }
-//* 刷新files.value，UI界面刷新
-export function flushFiles() {
 
-	files.value = []
-	sortFileInDepth(basePath.value, files.value)
-}
 
-export function refresh(PATH: string) {
-	files.value = []
-	sortFileInDepth(PATH, files.value)
-}
+
 
 export function getFiles(pathName: string, storage: qFile[]) {
 	let list = fs.readdirSync(pathName)

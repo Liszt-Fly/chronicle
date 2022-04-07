@@ -61,6 +61,6 @@ export let emoji: Emoji[] = [
 ]
 
 export function random() {
-    console.log(Math.floor(Math.random() * (emoji.length)))
+
     return Math.floor(Math.random() * (emoji.length))
 }

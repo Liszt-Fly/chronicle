@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { Menu, MenuItem } from "@electron/remote";
 import { onMounted, reactive, ref } from "vue";
-import { msfile, qFile } from "@/interfaces/type";
+import { qFile } from "@/interfaces/type";
 import fsp from "fs-extra";
 import path from "path";
 import rmrf from "rimraf";
-import { flushFiles, refresh, validateFilename } from "@/api/FileSystem/filesystem";
-import { currentFile } from "@/api/configdb";
+import { validateFilename, getFiles } from "@/api/FileSystem/filesystem";
+import { currentFile, storage } from "@/api/configdb";
 import {
 	createNote,
 	ifNoteNameExists,
@@ -29,7 +29,7 @@ function openFile(event: MouseEvent, file: qFile) {
 
 	}
 }
-function renameNote(file: msfile) {
+function renameNote(file: qFile) {
 	//启用contentEdible
 	namebox.value!.contentEditable = "true";
 	namebox.value!.focus();
@@ -40,7 +40,7 @@ function toggleSubfolder(
 	file: qFile,
 	subfolder: { dom: HTMLElement | null }
 ) {
-	//如果msfile是directory类型，进行图标转换，以及显隐转换
+	//如果qFile是directory类型，进行图标转换，以及显隐转换
 
 	if (file.children) {
 		if (event) {
@@ -60,7 +60,7 @@ function toggleSubfolder(
 		}
 	}
 }
-function finishRenameNote(file: msfile) {
+function finishRenameNote(file: qFile) {
 	// file.name = namebox.value!.innerText
 
 	let pathObjcet = path.parse(file.path!);
@@ -71,20 +71,20 @@ function finishRenameNote(file: msfile) {
 		props!.file!.path!,
 		path.resolve(pathObjcet.dir, namebox.value!.innerText) + pathObjcet.ext
 	);
-	console.log("修改成功！")
-	refresh(pathObjcet.dir)
+
+
 }
 
-function deleteNoteOrSection(file: msfile) {
-	if (!file.isDirectory) {
+function deleteNoteOrSection(file: qFile) {
+	if (!file.children) {
 		fsp.unlinkSync(file.path!);
 	} else {
 		rmrf(file.path!, (err) => {
-			refresh(chronicleArticlePath);
+			console.log("err")
 		});
 
 	}
-	refresh(chronicleArticlePath);
+	getFiles(path.resolve(chronicleArticlePath), storage.value)
 }
 
 function enter(event: KeyboardEvent) {
@@ -100,19 +100,19 @@ const menuItems = [
 		label: "删除",
 		click: () => {
 			deleteNoteOrSection(props.file!);
-			refresh(chronicleArticlePath);
+
 		},
 	}),
 	new MenuItem({
 		label: "重命名",
 		click: () => {
 			renameNote(props.file!);
-			refresh(chronicleArticlePath);
+
 		},
 	}),
 
 ];
-if (props.file!.isDirectory) {
+if (props.file!.children) {
 	let item = new MenuItem({
 		label: "添加子栏目",
 		click: () => {
@@ -121,9 +121,9 @@ if (props.file!.isDirectory) {
 				.mkdir(path.resolve(props.file!.path!, `section${index}`))
 				.then(() => { })
 				.catch((err) => {
-					console.log(err);
+
 				});
-			refresh(path.resolve(process.cwd(), "example", "assets"));
+
 		},
 	});
 
@@ -133,7 +133,7 @@ if (props.file!.isDirectory) {
 			let index = ifNoteNameExists(props.file!.path!, "undefined", 1);
 
 			createNote(props.file!.path!, `undefined`);
-			refresh(chronicleArticlePath);
+
 
 			currentFile.value = path.resolve(props.file!.path!, `undefined${index}.chron`,)
 
@@ -167,12 +167,15 @@ else {
 	}))
 }
 
-menuItems.forEach((item) => {
-	menu.append(item);
-});
+
 const popMenu = (event: MouseEvent) => {
 	menu.popup();
 };
+onMounted(() => {
+	menuItems.forEach((item) => {
+		menu.append(item);
+	});
+})
 </script>
 
 <template>

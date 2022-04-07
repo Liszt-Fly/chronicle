@@ -1,6 +1,7 @@
 // vue app
 import { createApp } from "vue"
 import App from "./App.vue"
+import 'default-passive-events'
 const app = createApp(App)
 
 // 样式

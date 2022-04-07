@@ -20,7 +20,7 @@ let editor = ref<HTMLElement | null>()
 function save(event: KeyboardEvent) {
 	if (event.keyCode == 83) {
 		let content = ""
-		console.log(article.value);
+
 
 		article.value.forEach(e => {
 			if (e.type == ChronicleNode.codeblock) {
