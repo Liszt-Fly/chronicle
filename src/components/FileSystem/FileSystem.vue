@@ -10,6 +10,9 @@ import fsp from 'fs-extra'
 
 let menu = new Menu()
 onMounted(() => {
+	fileSystemMenu.forEach((item) => {
+		menu.append(item)
+	})
 	storage.value = []
 	getFiles(path.resolve(chronicleArticlePath), storage.value)
 	fsp.watch(path.resolve(chronicleArticlePath), { recursive: true }).on("change", () => {
@@ -41,13 +44,13 @@ const fileSystemMenu = [
 	}),
 ]
 
-fileSystemMenu.forEach((item) => {
-	menu.append(item)
-})
 
+const popMenu = (event: MouseEvent) => {
+	menu.popup();
+};
 </script>
 <template>
-	<div class="file-system" ref="filesystem">
+	<div class="file-system" ref="filesystem" @contextmenu.stop="popMenu($event)">
 		<template v-for="file in storage">
 			<file-list :file="file"></file-list>
 		</template>

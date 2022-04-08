@@ -34,6 +34,13 @@ function renameNote(file: qFile) {
 	namebox.value!.contentEditable = "true";
 	namebox.value!.focus();
 
+	let range = new Range();
+	console.log(namebox.value!.innerText)
+	range.setStart(namebox.value as Node, 0);
+	range.setEnd(namebox.value as Node, 1);
+	document.getSelection()!.removeAllRanges();
+	document.getSelection()!.addRange(range);
+
 }
 function toggleSubfolder(
 	event: MouseEvent,
@@ -145,7 +152,7 @@ else {
 	menuItems.push(new MenuItem({
 		label: "添加便签",
 		click: () => {
-			ElMessageBox.prompt('Please Add Tag', 'Add Tag', {
+			ElMessageBox.prompt('如果需要添加多个标签，请使用逗号隔开', 'Add Tag', {
 				confirmButtonText: 'OK',
 				cancelButtonText: 'Cancel',
 
@@ -154,7 +161,7 @@ else {
 
 					ElMessage({
 						type: 'success',
-						message: `Your email is:${value}`,
+						message: `Add Tag:${value}`,
 					})
 				})
 				.catch(() => {

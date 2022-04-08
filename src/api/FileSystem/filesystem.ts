@@ -17,7 +17,7 @@ export function createNote(currentPath: string, noteName?: string) {
 	)
 
 	fsp.createFileSync(path.resolve(currentPath, `${fileName}`))
-	// fsp.writeFileSync(path.resolve(currentPath, `${fileName}`), "")
+
 }
 
 //* 删除Note
