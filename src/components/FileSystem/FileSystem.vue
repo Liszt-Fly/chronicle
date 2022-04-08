@@ -12,7 +12,8 @@ let menu = new Menu()
 onMounted(() => {
 	storage.value = []
 	getFiles(path.resolve(chronicleArticlePath), storage.value)
-	fsp.watch(path.resolve(chronicleArticlePath)).on("change", () => {
+	fsp.watch(path.resolve(chronicleArticlePath), { recursive: true }).on("change", () => {
+
 		storage.value = []
 		getFiles(path.resolve(chronicleArticlePath), storage.value)
 	})

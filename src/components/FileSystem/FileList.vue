@@ -135,7 +135,7 @@ if (props.file!.children) {
 			createNote(props.file!.path!, `undefined`);
 
 
-			currentFile.value = path.resolve(props.file!.path!, `undefined${index}.chron`,)
+			currentFile.value = path.resolve(props.file!.path!, `undefined${index}.md`,)
 
 		},
 	}))

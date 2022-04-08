@@ -17,7 +17,7 @@ export function createNote(currentPath: string, noteName?: string) {
 	)
 
 	fsp.createFileSync(path.resolve(currentPath, `${fileName}`))
-	fsp.writeFileSync(path.resolve(currentPath, `${fileName}`), "")
+	// fsp.writeFileSync(path.resolve(currentPath, `${fileName}`), "")
 }
 
 //* 删除Note
@@ -67,41 +67,6 @@ function removeExtName(file: string): string {
 	}
 }
 
-export let sortFileInDepth = function (
-	dir: string,
-	storage: msfile[]
-) {
-
-	let files: string[] = fs.readdirSync(dir)
-	basePath.value = dir
-	files.forEach((f) => {
-		let item: msfile = {}
-		item.name = f
-		item.stat = fs.statSync(path.resolve(dir, f))
-
-		item.path = path.resolve(dir, f)
-		let stat = fs.lstatSync(path.resolve(dir, f)).isDirectory()
-		if (fs.lstatSync(path.resolve(dir, f)).isDirectory()) {
-			item.isDirectory = true
-			if (item.children) {
-			}
-			else {
-				item.children = []
-			}
-			storage.push(item)
-			sortFileInDepth(path.resolve(dir, f), item["children"])
-		} else {
-			item.name = f
-
-			if (item["children"]) {
-				item["children"].push(item)
-			} else {
-				item.isDirectory = false
-				storage.push(item)
-			}
-		}
-	})
-}
 
 export let validateFilename = function validateFilename(
 	filename: string
