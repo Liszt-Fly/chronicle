@@ -12,7 +12,7 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "main": "background.js",
+  "main": "background.ts",
   "dependencies": {
     "@codemirror/autocomplete": "^0.19.12",
     "@codemirror/basic-setup": "^0.19.1",
@@ -54,6 +54,7 @@
     "katex": "^0.15.3",
     "marked": "^4.0.10",
     "mathjax": "^3.2.0",
+    "md-to-pdf": "^5.1.0",
     "rimraf": "^3.0.2",
     "uuid": "^8.3.2",
     "vue": "^3.0.0",

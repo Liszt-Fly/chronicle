@@ -51,7 +51,7 @@ const popMenu = (event: MouseEvent) => {
 </script>
 <template>
 	<div class="file-system" ref="filesystem" @contextmenu.stop="popMenu($event)">
-		<template v-for="file in storage">
+		<template v-for="file in storage" :key="file.path">
 			<file-list :file="file"></file-list>
 		</template>
 	</div>

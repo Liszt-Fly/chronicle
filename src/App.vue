@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import TabBar from '@/views/TabBar.vue'
+import Path from "path"
+
+import { onMounted } from 'vue';
+
+onMounted(() => {
+
+})
 </script>
 
 <template>

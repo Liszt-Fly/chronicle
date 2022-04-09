@@ -13,6 +13,7 @@ import {
 	ifSectionExists,
 } from "@/api/FileSystem/filesystem";
 import { chronicleArticlePath } from "@/api/init";
+
 import { loadNodeLists } from "@/api/Editor/Editor";
 import { ElMessage, ElMessageBox } from 'element-plus'
 const props = defineProps({
@@ -217,7 +218,7 @@ onMounted(() => {
 			ref="subfolder"
 			id="subfolder"
 		>
-			<file-list :files="file.children" :file="f" v-for="f in file.children"></file-list>
+			<file-list :files="file.children" :file="f" v-for="f in file.children" :key="f.path"></file-list>
 		</div>
 	</div>
 </template>

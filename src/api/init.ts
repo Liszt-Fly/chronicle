@@ -4,8 +4,7 @@ export let chroniclePath = process.cwd() + "/example"
 export let chronicleArticlePath = path.resolve(chroniclePath, "assets")
 export let configFile = chroniclePath + "/chronicle.config.json"
 export let defaultConfigFile = chroniclePath + "/chronicle.config.default.json"
-const fs = window.require('fs');
-
+const fs = require('fs')
 const configFileData = fs.readFileSync(configFile)
 let config = JSON.parse(configFileData)
 

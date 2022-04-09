@@ -1,8 +1,10 @@
 "use strict"
-
 import { app, protocol, BrowserWindow } from "electron"
-import { createProtocol } from "vue-cli-plugin-electron-builder/lib"
+import { createProtocol } from
+	"vue-cli-plugin-electron-builder/lib"
 import path from "path"
+import { template } from "./menu"
+import { Menu } from "electron"
 // import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer"
 const isDevelopment = process.env.NODE_ENV !== "production"
 require("@electron/remote/main").initialize()
@@ -11,10 +13,10 @@ require("@electron/remote/main").initialize()
 protocol.registerSchemesAsPrivileged([
 	{ scheme: "app", privileges: { secure: true, standard: true } },
 ])
-
+let win: BrowserWindow;
 async function createWindow() {
 	// Create the browser window.
-	const win = new BrowserWindow({
+	win = new BrowserWindow({
 		width: 1200,
 		height: 600,
 
@@ -29,7 +31,10 @@ async function createWindow() {
 			preload: path.join(__dirname, "preload.js"),
 		},
 	})
+
 	require("@electron/remote/main").enable(win.webContents)
+	const menu = Menu.buildFromTemplate(template)
+	Menu.setApplicationMenu(menu)
 	if (process.env.WEBPACK_DEV_SERVER_URL) {
 		// Load the url of the dev server if in development mode
 		await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
@@ -38,6 +43,21 @@ async function createWindow() {
 		createProtocol("app")
 		// Load the index.html when not in development
 		win.loadURL("app://./index.html")
+		const fs = require('fs');
+
+		const { mdToPdf } = require('md-to-pdf');
+
+		(async () => {
+			const pdf = await mdToPdf({ path: 'readme.md' }).catch(console.error);
+
+			if (pdf) {
+				fs.writeFileSync(pdf.filename, pdf.content);
+			}
+			else {
+				console.log("error")
+			}
+		})();
+
 	}
 }
 
@@ -54,6 +74,7 @@ app.on("activate", () => {
 	// On macOS it's common to re-create a window in the app when the
 	// dock icon is clicked and there are no other windows open.
 	if (BrowserWindow.getAllWindows().length === 0) createWindow()
+	console.log("123")
 })
 
 // This method will be called when Electron has finished
@@ -66,6 +87,21 @@ app.on("ready", async () => {
 		// await installExtension(VUEJS_DEVTOOLS)
 	}
 	createWindow()
+	console.log(process.cwd())
+	const fs = require('fs');
+	const { mdToPdf } = require('md-to-pdf');
+
+	(async () => {
+		const pdf = await mdToPdf({ path: path.resolve(process.cwd(), "sb.md") }).catch(console.error);
+
+		if (pdf) {
+			fs.writeFileSync(path.resolve(process.cwd(), "sb.pdf"), pdf.content)
+		}
+		else {
+			console.log("err")
+		}
+	})();
+
 })
 
 // Exit cleanly on request from parent process in development mode.
