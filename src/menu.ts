@@ -1,5 +1,4 @@
 import { MenuItem } from "electron"
-import { mdToPdf } from 'md-to-pdf'
 import path from "path"
 import { currentFile } from "./api/configdb";
 const { app } = require('electron')
@@ -19,7 +18,6 @@ export const template: (Electron.MenuItemConstructorOptions | Electron.MenuItem)
             {
                 label: 'export to PDF', click: () => {
                     console.log(currentFile.value)
-                    mdToPdf({ path: path.resolve(currentFile.value), }, { dest: path.resolve(process.cwd(), "example.pdf") })
                 }
             },
             { label: '关于' }

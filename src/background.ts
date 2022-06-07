@@ -75,17 +75,7 @@ app.on("ready", async () => {
 	createWindow()
 	console.log(process.cwd())
 	const fs = require('fs');
-	const { mdToPdf } = require('md-to-pdf');
-
 	(async () => {
-		const pdf = await mdToPdf({ path: path.resolve(process.cwd(), "sb.md") }).catch(console.error);
-
-		if (pdf) {
-			fs.writeFileSync(path.resolve(process.cwd(), "sb.pdf"), pdf.content)
-		}
-		else {
-			console.log("err")
-		}
 	})();
 
 })
