@@ -44,20 +44,6 @@ async function createWindow() {
 		// Load the index.html when not in development
 		win.loadURL("app://./index.html")
 		const fs = require('fs');
-
-		const { mdToPdf } = require('md-to-pdf');
-
-		(async () => {
-			const pdf = await mdToPdf({ path: 'readme.md' }).catch(console.error);
-
-			if (pdf) {
-				fs.writeFileSync(pdf.filename, pdf.content);
-			}
-			else {
-				console.log("error")
-			}
-		})();
-
 	}
 }
 

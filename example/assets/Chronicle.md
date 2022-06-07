@@ -27,7 +27,7 @@
 ```bash
 # set up
 npm install
-# 也可使用 cnpm install
+# 建议使用 cnpm install
 
 # Compiles and hot-reloads for development
 npm run chronicle
