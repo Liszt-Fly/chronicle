@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './samples/node-api'
+import './api/node-api'
 import "@/style/global.scss"
 import '@/style/element-variables.scss'
 import "bootstrap-icons/font/bootstrap-icons.css"

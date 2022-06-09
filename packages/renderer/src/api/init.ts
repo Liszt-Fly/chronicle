@@ -1,6 +1,6 @@
 import path from 'path'
 
-export let chroniclePath = process.cwd() + "/packages" + "/renderer" + "/example"
+export let chroniclePath = path.resolve(process.cwd(), "packages", "renderer", "src", "example")
 
 export let chronicleArticlePath = path.resolve(chroniclePath, "assets")
 
@@ -17,9 +17,9 @@ let initTheme = () => {
     let code_theme = config.code_theme
 
     // fixme
-    const global_theme_path = `${chroniclePath}/../src/themes/Global/${global_theme}.scss`
-    const editor_theme_path = `${chroniclePath}/../src/themes/Editor/${editor_theme}.scss`
-    const code_theme_path = `${chroniclePath}/../src/themes/Editor/Code/${code_theme}.scss`
+    const global_theme_path = path.resolve(chroniclePath, "themes", "Global", global_theme)
+    const editor_theme_path = path.resolve(chroniclePath, "themes", "Editor", editor_theme)
+    const code_theme_path = path.resolve(chroniclePath, "themes", "Editor", "Code", code_theme)
 
     const head = document.head || document.getElementsByTagName('head')[0];
 

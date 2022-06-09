@@ -24,12 +24,12 @@ let win: BrowserWindow | null = null
 async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
-    height: 600,
-    width: 800,
+    height: 1600,
+    width: 900,
 
     resizable: true,
     frame: true,
-    titleBarStyle: 'hidden',
+    // titleBarStyle: 'hidden',
     webPreferences: {
       preload: join(__dirname, '../preload/index.cjs'),
       nodeIntegration: true,
