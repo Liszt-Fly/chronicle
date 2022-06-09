@@ -43,7 +43,7 @@ onMounted(() => {
       pin: false,
     },
     after: () => {
-      vditor!.setValue(editor.value!.innerText);
+      // vditor!.setValue(editor.value!.innerText);
     },
   });
 
