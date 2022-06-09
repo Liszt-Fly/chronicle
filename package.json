@@ -5,7 +5,7 @@
   "author": "草鞋没号 <308487730@qq.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "node scripts/watch.mjs",
+    "c": "node scripts/watch.mjs",
     "prebuild": "vue-tsc --noEmit --p packages/renderer/tsconfig.json && node scripts/build.mjs",
     "build": "electron-builder",
     "init": "git config core.hooksPath .git/hooks/ && rm -rf .git/hooks && npx simple-git-hooks",
@@ -49,6 +49,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.52.3",
     "vditor": "^3.8.15",
+    "vue-i18n": "^9.1.10",
     "vue-router": "^4.0.15"
   }
 }

@@ -91,7 +91,7 @@ if (process.platform === 'win32') {
 }
 
 // bootstrap
-const server = await createServer({ configFile: 'packages/renderer/vite.config.ts' })
+const server = await createServer({ configFile: 'packages/render/vite.config.ts' })
 
 await server.listen()
 await watchPreload(server)

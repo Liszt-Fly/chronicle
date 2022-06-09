@@ -38,7 +38,7 @@ async function createWindow() {
   })
   require("@electron/remote/main").enable(win.webContents)
   if (app.isPackaged) {
-    win.loadFile(join(__dirname, '../renderer/index.html'))
+    win.loadFile(join(__dirname, '../render/index.html'))
   } else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env['VITE_DEV_SERVER_HOST']}:${process.env['VITE_DEV_SERVER_PORT']}`
@@ -92,7 +92,7 @@ ipcMain.handle("open-win", (event, arg) => {
   });
 
   if (app.isPackaged) {
-    childWindow.loadFile(join(__dirname, `../renderer/index.html`), {
+    childWindow.loadFile(join(__dirname, `../render/index.html`), {
       hash: `${arg}`,
     })
   } else {

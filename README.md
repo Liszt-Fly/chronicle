@@ -1,74 +1,70 @@
-# electron-vite-vue
+# 📓 Chronicle
 
-[![awesome-vite](https://awesome.re/mentioned-badge.svg)](https://github.com/vitejs/awesome-vite)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/ae3863e3-1aec-4eb1-8f9f-1890af56929d/deploy-status)](https://app.netlify.com/sites/electron-vite/deploys)
-![GitHub license](https://img.shields.io/github/license/caoxiemeihao/electron-vite-vue?style=flat)
-![GitHub stars](https://img.shields.io/github/stars/caoxiemeihao/electron-vite-vue?color=fa6470&style=flat)
-![GitHub forks](https://img.shields.io/github/forks/caoxiemeihao/electron-vite-vue?style=flat)
+> 🍼🎓🦯
+>
+> 🏃‍🧘🏄🏊🤾🏋️🚴🏂
 
+## 简介
 
-**English | [简体中文](README.zh-CN.md)**
+记录生活
 
-🥳 Real simple `Electron` + `Vue` + `Vite` boilerplate.
+## 功能
 
-## Overview
+1. 记录
 
-📦 Out of the box  
-💪 Support C/C++ addons  
-🔩 Support Use Electron、Node.js API in Renderer-process  
-🌱 Simple directory structure，real flexible  
-🖥 It's easy to implement multiple windows  
+   - 记下随想
+   - 随想排序（时间顺序、话题 `#topic`）
 
-## Quick Start
+2. 支持
 
-```sh
-npm create electron-vite
+   - [markdown 及扩展语法](https://markdown.com.cn/)
+   - 多媒体：音频、视频
+   - 自定义样式
+   - 自定义组件（内置：思维导图、待办事项）
+
+## 使用方法
+
+```bash
+# set up
+npm install
+# 建议使用 cnpm install
+
+# Compiles and hot-reloads for development
+npm run chronicle
+
+# see document
+npm run doc
 ```
 
-<!-- [![quick-start](https://asciinema.org/a/483731.svg)](https://asciinema.org/a/483731) -->
+## 技术栈
 
-![electron-vite-vue.gif](https://github.com/electron-vite/electron-vite-vue/blob/main/packages/renderer/public/electron-vite-vue.gif?raw=true)
+1. nodejs
+2. vue
+3. electron
 
-## Debug
+## 项目结构
 
-![electron-vite-react-debug.gif](https://github.com/electron-vite/electron-vite-react/blob/main/packages/renderer/public/electron-vite-react-debug.gif?raw=true)
-
-## Directory
-
-A `dist` folder will be generated everytime when `dev` or `build` command is executed. File structure of `dist` is identical to the `packages` directory to avoid any potential path calculation errors.
-
-```tree
-├── dist                      Will be generated following the structure of "packages" directory
-|   ├── main
-|   ├── preload
-|   └── renderer
-|
-├── scripts
-|   ├── build.mjs             Build script -> npm run build
-|   └── watch.mjs             Develop script -> npm run dev
-|
-├── packages
-|   ├── main                  Main-process source code
-|   |   └── vite.config.ts
-|   ├── preload               Preload-script source code
-|   |   └── vite.config.ts
-|   └── renderer              Renderer-process source code
-|       └── vite.config.ts
+```txt
+📁 public
+📁 src
+   🗂️ api         # 公用接口
+      🗂️ router      # 路由
+   🗂️ components   # 子组件
+   🗂️ view        # 页面
+   🗂️ style       # 页面样式
+📃 README
+📑 FIXME
 ```
 
-## List the modules you may use as far as possible
+## 🖖 致敬
 
-Used in `Main-process` 👉 [electron-vite-boilerplate](https://github.com/caoxiemeihao/electron-vite-boilerplate)
+- 编辑器
 
-Used in `Renderer-process` 👉 [electron-vite-boilerplate/tree/nodeIntegration](https://github.com/caoxiemeihao/electron-vite-boilerplate/tree/nodeIntegration)
+  - [Vanessa219/vditor](https://github.com/Vanessa219/vditor)
+  - [ckeditor/ckeditor5](https://github.com/ckeditor/ckeditor5)
 
-**ES Modules**
+- App
 
-- [execa](https://www.npmjs.com/package/execa)
-- [node-fetch](https://www.npmjs.com/package/node-fetch)
-- [file-type](https://www.npmjs.com/package/file-type)
-
-**Native Addons(C/C++)**
-
-- [sqlite3](https://www.npmjs.com/package/sqlite3)
-- [serialport](https://www.npmjs.com/package/serialport)
+  - [Notable](https://notable.app/)
+  - [zadam/trilium](https://github.com/zadam/trilium)
+  - [Typora](https://typora.io/)

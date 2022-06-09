@@ -1,8 +1,0 @@
-{
-    "global_theme": "light.scss",
-    "editor_theme": "light.scss",
-    "code_theme": "light.scss",
-    "global_font": "\"Geogria\", \"Open Sans\", \"Clear Sans\", \"Helvetica Neue\", Helvetica, Arial, \"Segoe UI Emoji\", sans-serif",
-    "code_font": "\"cascadia code\", \"Sarasa UI SC\", \"Open Sans\", \"Clear Sans\", \"Helvetica Neue\", Helvetica, Arial, \"Segoe UI Emoji\", sans-serif",
-    "locale": "cn"
-}
