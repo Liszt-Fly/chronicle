@@ -1,5 +1,0 @@
-$--el-font-size-base: 1rem;
-
-@forward "element-plus/theme-chalk/src/common/var.scss"with ($colors: ("primary": ("base": #6a8372,
-                )));
-@use "element-plus/theme-chalk/src/index.scss"as *;
