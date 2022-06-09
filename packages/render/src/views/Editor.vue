@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref, watchEffect, } from "vue";
-import { onBeforeRouteLeave } from 'vue-router'
 import fsp from "fs-extra";
 import path from "path";
 import { currentFile } from "@/api/configdb";
@@ -24,10 +23,6 @@ const loadArticle = () => {
 };
 
 onMounted(() => {
-  console.time()
-  onBeforeRouteLeave(async (to, from) => {
-    console.timeEnd()
-  })
   vditor = new Vditor("vditor", {
     preview: {
       markdown: {

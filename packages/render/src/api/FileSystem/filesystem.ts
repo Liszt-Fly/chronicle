@@ -92,7 +92,7 @@ export function getFiles(pathName: string, storage: qFile[]) {
 		let bDir = stat.isDirectory()
 		console.log(stat.birthtime)
 		if (bDir) {
-			let newStorage: any[] = []		
+			let newStorage: any[] = []
 			storage.push({ name: i, children: newStorage, path: path.resolve(pathName, i), createdDate: stat.birthtime, lastUpdateDate: stat.mtime })
 			getFiles(path.resolve(pathName, i), newStorage)
 		}
@@ -110,10 +110,8 @@ export const writeFileTreeInJSonToStore = (storage: qFile[]) => {
 		path.resolve(chronicleUserPath, "config", "fileTree.json"),
 		JSON.stringify(storage, null, 2)
 	);
-	console.log("函数已经调用");
 };
 
 export const getFileTreeFromJsonToStore = (path: string = defaultFileTreePath): qFile[] => {
-	console.log("读取成功")
 	return fsp.readJSONSync(path)
 }

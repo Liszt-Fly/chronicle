@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { removeExtName } from "@/api/FileSystem/filesystem";
 import { Menu, MenuItem } from "@electron/remote";
-import { onMounted, reactive, ref } from "vue";
+import { useRouter } from 'vue-router'
 import { qFile } from "@/interfaces/type";
 import fsp from "fs-extra";
 import path from "path";
@@ -19,9 +18,11 @@ import {
 } from "@/api/FileSystem/filesystem";
 import { chronicleUserPath } from "@/api/init";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { onMounted, reactive, ref } from "vue";
 const props = defineProps({
   file: Object as () => qFile,
 });
+const router = useRouter()
 let subfolder = ref<HTMLDivElement | null>(null);
 let refSubfolder = reactive({ dom: subfolder });
 let namebox = ref<HTMLSpanElement | null>(null);
@@ -30,6 +31,8 @@ function openFile(event: MouseEvent, file: qFile) {
   //如果是文件
   if (!file.children) {
     currentFile.value = props.file!.path!;
+    let params = path.relative(path.resolve(chronicleUserPath, "assets"), file.path)
+    router.push(`/Editor/:${params}`)
   }
 }
 function renameNote(file: qFile) {
@@ -180,7 +183,6 @@ const popMenu = (event: MouseEvent) => {
   menu.popup();
 };
 onMounted(() => {
-  console.log(props.file!.name);
   menuItems.forEach((item) => {
     menu.append(item);
   });

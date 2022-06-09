@@ -25,9 +25,6 @@ onMounted(() => {
   });
   if (fsp.pathExistsSync(defaultFileTreePath)) {
     storage.value = getFileTreeFromJsonToStore()
-    // getGlobal('sharedObject').data = storage.value
-    console.log("---------")
-    console.log(storage)
   }
   else {
     getFiles(path.resolve(chronicleUserPath, "assets"), storage.value)

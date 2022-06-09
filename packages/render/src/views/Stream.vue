@@ -13,7 +13,6 @@ function forEachWithNoChildren(Apath: string, storage: qFile[]) {
   if (list.length == 0) return;
   for (const item of list) {
     let file = fs.statSync(path.resolve(Apath, item));
-    console.log(file);
     if (file.isFile()) {
       storage.push({ name: item, path: path.resolve(Apath, item), createdDate: file.birthtime, lastUpdateDate: file.mtime });
     } else {
