@@ -8,12 +8,8 @@ export const en =
         hello: 'this is stream page'
     },
     setting: {
-        global_theme: "Global Theme",
-        select_global_theme: "Select Global Theme",
-        editor_theme: "Editor Theme",
-        select_editor_theme: "Select Editor Theme",
-        code_theme: "Code Theme",
-        select_code_theme: "Select Code Theme",
+        theme: "Theme",
+        select_theme: "Select Theme",
         light: "Light",
         dark: "Dark",
 

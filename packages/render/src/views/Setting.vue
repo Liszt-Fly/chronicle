@@ -1,23 +1,8 @@
 <template>
     <div class="setting">
         <el-form ref="formRef" :model="config" label-width="8rem" label-position="left">
-            <el-form-item :label="$t('setting.global_theme')">
-                <el-select v-model="config.global_theme" :placeholder="$t('setting.select_global_theme')">
-                    <el-option :label="$t('setting.light')" value="light"></el-option>
-                    <el-option :label="$t('setting.dark')" value="dark"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item :label="$t('setting.editor_theme')">
-                <el-select v-model="config.editor_theme" :placeholder="$t('setting.editor_theme')">
-                    <el-option :label="$t('setting.light')" value="light"></el-option>
-                    <el-option :label="$t('setting.dark')" value="dark"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item :label="$t('setting.code_theme')">
-                <el-select v-model="config.code_theme" :placeholder="$t('setting.select_code_theme')">
-                    <el-option :label="$t('setting.light')" value="light"></el-option>
-                    <el-option :label="$t('setting.dark')" value="dark"></el-option>
-                </el-select>
+            <el-form-item :label="$t('setting.select_theme')">
+                <el-switch v-model="config.theme" :inactive-icon="Moon" :active-icon="Sunny" />
             </el-form-item>
 
             <el-divider></el-divider>
@@ -70,6 +55,7 @@
 import { onMounted, reactive, ref } from 'vue'
 import { configFile, defaultConfigFile } from "@/api/init"
 import { Iconfig } from '../interfaces/type';
+import { Sunny, Moon } from '@element-plus/icons-vue'
 
 const fs = window.require('fs');
 
@@ -77,9 +63,7 @@ const saveDialogVisible = ref(false)
 const restoreDialogVisible = ref(false)
 
 let config: Iconfig = reactive({
-    "global_theme": "",
-    "editor_theme": "",
-    "code_theme": "",
+    "theme": "",
     "global_font": "",
     "code_font": "",
     "locale": ""
@@ -120,8 +104,14 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.el-select {
+    width: 270px;
+}
+
 .setting {
     padding: 1rem;
     text-align: center;
+    max-width: 400px;
+    margin: auto;
 }
 </style>

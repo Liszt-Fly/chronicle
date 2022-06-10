@@ -8,12 +8,8 @@ export let cn =
         hello: '这是流页面'
     },
     setting: {
-        global_theme: "全局主题",
-        select_global_theme: "选择全局主题",
-        editor_theme: "编辑器主题",
-        select_editor_theme: "选择编辑器主题",
-        code_theme: "代码块主题",
-        select_code_theme: "选择代码块主题",
+        theme: "主题",
+        select_theme: "选择主题",
         light: "浅色",
         dark: "深色",
 

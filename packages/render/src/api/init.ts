@@ -8,31 +8,19 @@ export let defaultConfigFile = path.resolve(chronicleUserPath, "config", "chroni
 import fs from "fs"
 const configFileData = fs.readFileSync(configFile) as unknown as string
 let config = JSON.parse(configFileData)
+export let theme = config.theme ? ("light" + ".scss") : ("dark" + ".scss")
 
 // 样式初始化
 let initTheme = () => {
-	let global_theme = config.global_theme + ".scss"
-	let editor_theme = config.editor_theme + ".scss"
-	let code_theme = config.code_theme + ".scss"
-
-	// fixme
-	const global_theme_path = path.resolve(chronicleUserPath, "themes", "Global", global_theme)
-	const editor_theme_path = path.resolve(chronicleUserPath, "themes", "Editor", editor_theme)
-	const code_theme_path = path.resolve(chronicleUserPath, "themes", "Editor", "Code", code_theme)
+	const theme_path = path.resolve(chronicleUserPath, "themes", theme)
 
 	const head = document.head || document.getElementsByTagName('head')[0];
 
 	let globalStyle = document.createElement('style');
-	globalStyle.innerText = fs.readFileSync(global_theme_path) as unknown as string
+	globalStyle.innerText = fs.readFileSync(theme_path) as unknown as string
 	head.appendChild(globalStyle);
 
-	let editorStyle = document.createElement('style');
-	editorStyle.innerText = fs.readFileSync(editor_theme_path) as unknown as string
-	head.appendChild(editorStyle);
-
-	let codeStyle = document.createElement('style');
-	codeStyle.innerText = fs.readFileSync(code_theme_path) as unknown as string
-	head.appendChild(codeStyle);
+	document.getElementsByTagName("html")[0].className = config.theme ? "light" : "dark"
 }
 
 // 字体初始化
