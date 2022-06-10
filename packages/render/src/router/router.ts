@@ -3,7 +3,7 @@ import Editor from "@/views/Editor.vue"
 import Setting from "@/views/Setting.vue"
 import Stream from "@/views/Stream.vue"
 import Home from "@/views/Home.vue"
-import Repositories from "@/views/Repositories.vue"
+import Repository from "@/views/Repository.vue"
 import { cFileStorage, currentFile } from "@/api/configdb"
 
 function setup() {
@@ -18,7 +18,7 @@ const router = createRouter({
 		{ path: "/Editor/:note", name: "Editor", component: Editor },
 		{ path: "/Stream", name: "Stream", component: Stream },
 		{ path: "/Setting", name: "Setting", component: Setting },
-		{ path: "/Repositories", name: "Repositories", component: Repositories }
+		{ path: "/Repository", name: "Repository", component: Repository }
 	],
 })
 

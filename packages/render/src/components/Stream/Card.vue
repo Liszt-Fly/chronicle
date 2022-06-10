@@ -1,8 +1,7 @@
 <template>
   <div class="card">
     <h3>{{ removeExtName(file!.name) }}</h3>
-    <el-divider></el-divider>
-    <div v-html="readFile()"></div>
+    <div v-text="readFile()"></div>
   </div>
 </template>
 
@@ -27,13 +26,13 @@ function readFile() {
 
   &:hover {
     overflow-y: auto;
+    box-shadow: rgb(15 0 0 / 10%) 0px 0px 0px 4px;
   }
 
-  box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px,
-  rgba(15, 15, 15, 0.1) 0px 2px 4px;
 
   h3 {
     text-align: center;
+    padding-bottom: 20px;
   }
 
   margin: 0 auto;

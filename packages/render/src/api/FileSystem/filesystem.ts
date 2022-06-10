@@ -111,7 +111,6 @@ export function getFiles(pathName: string, storage: qFile[]) {
 	for (let i of list) {
 		let stat = fs.lstatSync(path.resolve(pathName, i));
 		let bDir = stat.isDirectory()
-		console.log(stat.birthtime)
 		if (bDir) {
 			let node = new fileNode(path.resolve(pathName, i), i)
 

@@ -1,5 +1,8 @@
 <template>
-    Home
-
-    Welcome to use CHRONICLE 🎉
+    🎉 Welcome to Chronicle 😊
+    <Repository></Repository>
 </template>
+
+<script lang="ts" setup>
+import Repository from "@/views/Repository.vue";
+</script>

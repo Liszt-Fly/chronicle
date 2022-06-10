@@ -50,7 +50,6 @@ onMounted(() => { });
   overflow: scroll;
   box-sizing: border-box;
   padding: 15px;
-  max-height: calc(100vh - 30px);
   width: calc(100vw - 2.5rem);
   display: flex;
   justify-content: space-around;

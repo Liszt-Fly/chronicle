@@ -6,7 +6,7 @@ import { currentFile } from "@/api/configdb";
 import FileSystem from "@/views/FileSystem.vue";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
-import { fileNode } from "@/FileTree/fileNode";
+import { theme } from "@/api/init";
 
 let editor = ref<HTMLElement | null>();
 let vditor: Vditor | null = null;
@@ -30,9 +30,10 @@ onMounted(() => {
     counter: {
       "enable": true,
       after: (len) => {
-        console.log(len)
+        // console.log(len)
       }
     },
+    theme: theme ? "classic" : "dark",
     preview: {
       markdown: {
         sanitize: false,
@@ -90,18 +91,19 @@ onMounted(() => {
 <style lang="scss" scoped>
 .column {
   overflow: hidden;
+  height: 100%;
 }
 
 .column-left {
-  height: calc(100vh - 30px);
-  background-color: #fff;
   position: relative;
   float: left;
+  height: calc(100vh - 40px);
 }
 
 .column-right {
   overflow: hidden;
-  height: calc(100vh - 30px);
+  height: calc(100vh - 40px);
+
 }
 
 .resize-save {
@@ -149,16 +151,10 @@ onMounted(() => {
   margin: 0;
   padding: 0;
   border: none;
-  background-color: #fff !important;
   overflow: hidden;
 
   &:hover {
     overflow-y: auto;
   }
-}
-
-.vditor-ir {
-  height: calc(100vh - 30px);
-  background-color: #fff;
 }
 </style>

@@ -4,23 +4,19 @@ import TabBar from "@/views/TabBar.vue";
 
 <template>
   <div class="button-container">Chronicle</div>
-  <div id="main" spellcheck="false">
+  <div class="main" spellcheck="false">
     <tab-bar></tab-bar>
-    <div class="main">
+    <div>
       <router-view></router-view>
     </div>
   </div>
 </template>
 
 <style>
-#main {
-  display: flex;
-  flex-direction: row;
-  height: calc(100vh - 30px);
-}
-
 .button-container {
-  height: 30px;
+  height: 40px;
+  font-size: 0.8rem;
+  font-weight: 900;
   font-family: "Chalkboard SE";
   user-select: none;
   app-region: drag;

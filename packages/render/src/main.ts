@@ -7,6 +7,7 @@ const app = createApp(App)
 import "@/style/global.scss"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import '@/style/element-variables.scss'
+import 'element-plus/theme-chalk/dark/css-vars.css'
 
 import ElementPlus from 'element-plus'
 
