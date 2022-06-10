@@ -29,8 +29,8 @@ global.parms = {
 async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
-    height: 1600,
-    width: 900,
+    height: 600,
+    width: 800,
 
     resizable: true,
     frame: true,

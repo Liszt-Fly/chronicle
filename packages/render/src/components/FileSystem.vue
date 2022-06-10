@@ -45,13 +45,13 @@ onMounted(() => {
 
 const fileSystemMenu = [
   new MenuItem({
-    label: "新建随笔",
+    label: "新建文件",
     click: function () {
       createNote(path.resolve(chronicleUserPath, "assets"));
     },
   }),
   new MenuItem({
-    label: "新建栏目",
+    label: "新建文件夹",
     click: function () {
       let index = ifSectionExists(path.resolve(chronicleUserPath, "assets"), "section", 1);
       fsp

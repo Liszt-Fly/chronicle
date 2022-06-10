@@ -2,16 +2,18 @@
 import path from 'path'
 //* development mode
 export let chronicleUserPath = path.resolve(process.cwd(), "packages", "render", "src", "user")
-//* development mode 
+//* development mode
 export let configFile = path.resolve(chronicleUserPath, "config", "chronicle.config.json")
 export let defaultConfigFile = path.resolve(chronicleUserPath, "config", "chronicle.config.default.json")
 import fs from "fs"
+import { ref, Ref } from 'vue'
 const configFileData = fs.readFileSync(configFile) as unknown as string
 let config = JSON.parse(configFileData)
-export let theme = config.theme ? ("light" + ".scss") : ("dark" + ".scss")
-
+export let theme = config.theme
+export let vditorTheme: any = ref("classic")
 // 样式初始化
 let initTheme = () => {
+	theme = config.theme ? ("light" + ".scss") : ("dark" + ".scss")
 	const theme_path = path.resolve(chronicleUserPath, "themes", theme)
 
 	const head = document.head || document.getElementsByTagName('head')[0];

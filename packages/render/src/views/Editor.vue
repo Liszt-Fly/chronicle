@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref, watchEffect, } from "vue";
+import { onMounted, ref, watch, watchEffect, } from "vue";
 import fsp from "fs-extra";
 import path from "path";
 import { currentFile } from "@/api/configdb";
 import FileSystem from "@/components/FileSystem.vue";
 import Vditor from "vditor";
+
 import "vditor/dist/index.css";
-import { theme } from "@/api/init";
+
+import { vditorTheme } from "@/api/init";
 
 let editor = ref<HTMLElement | null>();
 let vditor: Vditor | null = null;
@@ -24,16 +26,17 @@ const loadArticle = () => {
   editor.value!.innerText = content;
 };
 
+
 onMounted(() => {
 
+
   vditor = new Vditor("vditor", {
+
     counter: {
       "enable": true,
       after: (len) => {
-        // console.log(len)
       }
     },
-    theme: theme ? "classic" : "dark",
     preview: {
       markdown: {
         sanitize: false,
@@ -48,11 +51,12 @@ onMounted(() => {
       pin: false,
     },
     after: () => {
-      // vditor!.setValue(editor.value!.innerText);
+
     },
   });
 
   watchEffect(() => {
+
     if (currentFile.value != "") {
       console.log();
       loadArticle();
