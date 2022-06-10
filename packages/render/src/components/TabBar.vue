@@ -17,25 +17,24 @@ function empty() { }
             <i class="bi bi-layout-wtf"></i>
           </router-link>
         </div>
-        <div class="tab-item" @click="empty" id="stream">
+        <!-- <div class="tab-item" @click="empty" id="stream">
           <router-link to="/Repository">
             <i class="bi bi-boxes"></i>
           </router-link>
+        </div> -->
+      </div>
+      <div class="sub-tab">
+        <div class="tab-item" @click="empty" id="home">
+          <router-link to="/">
+            <i class="bi bi-house-heart"></i>
+          </router-link>
+        </div>
+        <div class="tab-item" @click="empty" id="setting">
+          <router-link to="/Setting">
+            <i class="bi bi-tools"></i>
+          </router-link>
         </div>
       </div>
-
-      <div class="tab-item" @click="empty" id="home">
-        <router-link to="/">
-          <i class="bi bi-home"></i>
-        </router-link>
-      </div>
-
-      <div class="tab-item" @click="empty" id="setting">
-        <router-link to="/Setting">
-          <i class="bi bi-tools"></i>
-        </router-link>
-      </div>
-
     </div>
   </div>
 </template>

@@ -1,8 +1,9 @@
 <template>
-  <div class="card">
+  <el-card class="box-card" shadow="never">
     <h3>{{ removeExtName(file!.name) }}</h3>
+    <el-divider></el-divider>
     <div v-text="readFile()"></div>
-  </div>
+  </el-card>
 </template>
 
 <script lang="ts" setup>
@@ -20,30 +21,13 @@ function readFile() {
 </script>
 
 <style lang="scss" scoped>
-.card {
-  height: 200px;
-  overflow: hidden;
+.el-card {
+  padding: 12px;
+  margin: 12px;
 
   &:hover {
     overflow-y: auto;
     box-shadow: rgb(15 0 0 / 10%) 0px 0px 0px 4px;
-  }
-
-
-  h3 {
-    text-align: center;
-    padding-bottom: 20px;
-  }
-
-  margin: 0 auto;
-  color: #666;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  border: solid 1px #ddd;
-
-  div {
-    font-size: 0.8rem;
   }
 }
 </style>

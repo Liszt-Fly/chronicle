@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import TabBar from "@/views/TabBar.vue";
+import TabBar from "@/components/TabBar.vue";
 </script>
 
 <template>
   <div class="button-container">Chronicle</div>
   <div class="main" spellcheck="false">
     <tab-bar></tab-bar>
-    <div>
+    <div class="article">
       <router-view></router-view>
     </div>
   </div>
@@ -24,5 +24,10 @@ import TabBar from "@/views/TabBar.vue";
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.article {
+  width: 100%;
+  overflow: scroll;
 }
 </style>

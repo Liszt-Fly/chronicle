@@ -3,7 +3,7 @@ import Editor from "@/views/Editor.vue"
 import Setting from "@/views/Setting.vue"
 import Stream from "@/views/Stream.vue"
 import Home from "@/views/Home.vue"
-import Repository from "@/views/Repository.vue"
+import Repository from "@/components/Repository.vue"
 import { cFileStorage, currentFile } from "@/api/configdb"
 
 function setup() {

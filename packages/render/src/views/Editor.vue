@@ -3,7 +3,7 @@ import { onMounted, ref, watchEffect, } from "vue";
 import fsp from "fs-extra";
 import path from "path";
 import { currentFile } from "@/api/configdb";
-import FileSystem from "@/views/FileSystem.vue";
+import FileSystem from "@/components/FileSystem.vue";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
 import { theme } from "@/api/init";
