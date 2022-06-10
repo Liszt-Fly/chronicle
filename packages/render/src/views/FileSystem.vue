@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import path from "path";
-import { getGlobal } from '@electron/remote'
 import { defaultFileTreePath, storage } from "@/api/configdb";
 import {
   createNote,
@@ -11,15 +10,14 @@ import {
 } from "@/api/FileSystem/filesystem";
 import { chronicleUserPath } from "@/api/init";
 import FileList from "@/components/FileSystem/FileList.vue";
-import { Menu, MenuItem } from "@electron/remote";
+import { getGlobal, Menu, MenuItem } from "@electron/remote/";
 import { onMounted, ref, onBeforeUnmount } from "vue";
 import fsp from "fs-extra";
+
 let menu = new Menu();
-onBeforeUnmount(() => {
-  writeFileTreeInJSonToStore(storage.value)
-})
+
 onMounted(() => {
-  // let arg = getGlobal('sharedObject').data
+
   fileSystemMenu.forEach((item) => {
     menu.append(item);
   });
@@ -27,14 +25,16 @@ onMounted(() => {
     storage.value = getFileTreeFromJsonToStore()
   }
   else {
+
     getFiles(path.resolve(chronicleUserPath, "assets"), storage.value)
     console.log("---------")
-    console.log(storage)
+    getGlobal("parms").fileTree = storage.value
     writeFileTreeInJSonToStore(storage.value);
   }
   fsp.watch(path.resolve(chronicleUserPath, "assets"), { recursive: true }).on("change", () => {
     storage.value = [];
     getFiles(path.resolve(chronicleUserPath, "assets"), storage.value);
+    getGlobal("parms").fileTree = storage.value
     console.log("fileTree has updated")
   });
 });

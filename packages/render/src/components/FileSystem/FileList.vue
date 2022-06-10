@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Menu, MenuItem } from "@electron/remote";
+import { getGlobal, Menu, MenuItem } from "@electron/remote";
 import { useRouter } from 'vue-router'
 import { qFile } from "@/interfaces/type";
 import fsp from "fs-extra";
@@ -91,7 +91,8 @@ function deleteNoteOrSection(file: qFile) {
       console.log("err");
     });
   }
-  getFiles(path.resolve(chronicleUserPath, "assets"), storage.value);
+  getFiles(path.resolve(chronicleUserPath, "assets"),storage.value);
+  getGlobal("parms").fileTree=storage.value
 }
 
 function enter(event: KeyboardEvent) {

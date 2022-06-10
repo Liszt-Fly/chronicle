@@ -6,6 +6,7 @@ import { currentFile } from "@/api/configdb";
 import FileSystem from "@/views/FileSystem.vue";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
+
 let editor = ref<HTMLElement | null>();
 let vditor: Vditor | null = null;
 //存储文章
@@ -23,7 +24,14 @@ const loadArticle = () => {
 };
 
 onMounted(() => {
+
   vditor = new Vditor("vditor", {
+    counter: {
+      "enable": true,
+      after: (len) => {
+        console.log(len)
+      }
+    },
     preview: {
       markdown: {
         sanitize: false,

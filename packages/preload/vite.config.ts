@@ -1,6 +1,7 @@
 import { join } from 'path'
 import { builtinModules } from 'module'
 import { defineConfig } from 'vite'
+
 import pkg from '../../package.json'
 
 export default defineConfig({
@@ -13,7 +14,6 @@ export default defineConfig({
     sourcemap: 'inline',
     rollupOptions: {
       input: {
-        // multiple entry
         index: join(__dirname, 'index.ts'),
       },
       output: {

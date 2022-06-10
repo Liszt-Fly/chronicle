@@ -1,7 +1,9 @@
 import { app, BrowserWindow, shell, ipcMain, protocol } from 'electron'
 import { release } from 'os'
+import { chronicleUserPath } from 'packages/render/src/api/init'
+import path from "path"
 import { join } from 'path'
-
+import fsp from "fs-extra"
 
 protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
@@ -20,7 +22,10 @@ if (!app.requestSingleInstanceLock()) {
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let win: BrowserWindow | null = null
-
+//@ts-ignore
+global.parms = {
+  fileTree: []
+}
 async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
@@ -29,7 +34,7 @@ async function createWindow() {
 
     resizable: true,
     frame: true,
-    // titleBarStyle: 'hidden',
+    titleBarStyle: 'hidden',
     webPreferences: {
       preload: join(__dirname, '../preload/index.cjs'),
       nodeIntegration: true,
@@ -62,6 +67,14 @@ async function createWindow() {
 app.whenReady().then(createWindow)
 
 app.on('window-all-closed', () => {
+  //@ts-ignore
+  console.log(global.parms)
+  // @ts-ignore
+  fsp.writeFileSync(
+    path.resolve(path.resolve(process.cwd(), "packages", "render", "src", "user"), "config", "fileTree.json"),
+    //@ts-ignore
+    JSON.stringify(global.parms.fileTree, null, 2)
+  );
   win = null
   if (process.platform !== 'darwin') app.quit()
 })

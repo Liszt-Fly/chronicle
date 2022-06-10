@@ -5,6 +5,7 @@ import fs from "fs"
 import { qFile } from "@/interfaces/type"
 import { defaultFileTreePath } from "../configdb"
 import { chronicleUserPath } from "../init"
+import { getGlobal } from "@electron/remote"
 
 //* 创建新的Note文件
 export function createNote(currentPath: string, noteName?: string) {
@@ -105,7 +106,6 @@ export function getFiles(pathName: string, storage: qFile[]) {
 }
 //* 内存=>硬盘 JSON存储FileTree
 export const writeFileTreeInJSonToStore = (storage: qFile[]) => {
-
 	fsp.writeFileSync(
 		path.resolve(chronicleUserPath, "config", "fileTree.json"),
 		JSON.stringify(storage, null, 2)
