@@ -18,6 +18,7 @@
   "devDependencies": {
     "@playwright/test": "^1.22.2",
     "@types/rimraf": "^3.0.2",
+    "@types/uuid": "^8.3.4",
     "@vitejs/plugin-vue": "^2.3.2",
     "electron": "19.0.1",
     "electron-builder": "^23.0.3",
@@ -45,9 +46,11 @@
     "@electron/remote": "^2.0.8",
     "bootstrap-icons": "^1.8.3",
     "element-plus": "^2.2.5",
+    "flatted": "^3.2.5",
     "fs-extra": "^10.1.0",
     "rimraf": "^3.0.2",
     "sass": "^1.52.3",
+    "uuid": "^8.3.2",
     "vditor": "^3.8.15",
     "vue-i18n": "^9.1.10",
     "vue-router": "^4.0.15"

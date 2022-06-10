@@ -26,5 +26,5 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
-  ]
+, "src/FileTree/test.js"  ]
 }

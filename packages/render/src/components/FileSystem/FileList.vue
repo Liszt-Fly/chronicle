@@ -19,6 +19,7 @@ import {
 import { chronicleUserPath } from "@/api/init";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { onMounted, reactive, ref } from "vue";
+import { fileNode } from "@/FileTree/fileNode";
 const props = defineProps({
   file: Object as () => qFile,
 });
@@ -91,8 +92,8 @@ function deleteNoteOrSection(file: qFile) {
       console.log("err");
     });
   }
-  getFiles(path.resolve(chronicleUserPath, "assets"),storage.value);
-  getGlobal("parms").fileTree=storage.value
+  getFiles(path.resolve(chronicleUserPath, "assets"), storage.value);
+  getGlobal("parms").fileTree = storage.value
 }
 
 function enter(event: KeyboardEvent) {
@@ -184,6 +185,7 @@ const popMenu = (event: MouseEvent) => {
   menu.popup();
 };
 onMounted(() => {
+
   menuItems.forEach((item) => {
     menu.append(item);
   });

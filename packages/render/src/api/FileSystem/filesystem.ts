@@ -6,6 +6,8 @@ import { qFile } from "@/interfaces/type"
 import { defaultFileTreePath } from "../configdb"
 import { chronicleUserPath } from "../init"
 import { getGlobal } from "@electron/remote"
+import { fileNode } from "@/FileTree/fileNode"
+import { NodeType } from "@/FileTree/type"
 
 //* 创建新的Note文件
 export function createNote(currentPath: string, noteName?: string) {
@@ -85,6 +87,24 @@ export function bKeyBoardTarget(object: any): object is KeyboardEvent {
 	return "altKey" in object
 }
 
+
+export function constructFileTree(pathName: string, currentNode: fileNode) {
+	let list = fs.readdirSync(pathName)
+	if (list.length == 0) return
+	list.forEach(item => {
+		//* 对应的文件/文件夹路径
+		let currentPath = path.resolve(pathName, item)
+		//* 构建对应的node
+		let node = new fileNode(currentPath, item)
+		currentNode.children!.push(node)
+		//* parent链接
+		node.parent = currentNode
+		if (node.type == NodeType.DIR) {
+			constructFileTree(node.path, node)
+		}
+	})
+}
+
 export function getFiles(pathName: string, storage: qFile[]) {
 	let list = fs.readdirSync(pathName)
 	if (list.length == 0) return
@@ -93,6 +113,8 @@ export function getFiles(pathName: string, storage: qFile[]) {
 		let bDir = stat.isDirectory()
 		console.log(stat.birthtime)
 		if (bDir) {
+			let node = new fileNode(path.resolve(pathName, i), i)
+
 			let newStorage: any[] = []
 			storage.push({ name: i, children: newStorage, path: path.resolve(pathName, i), createdDate: stat.birthtime, lastUpdateDate: stat.mtime })
 			getFiles(path.resolve(pathName, i), newStorage)

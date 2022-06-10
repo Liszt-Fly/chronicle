@@ -6,6 +6,7 @@ import { currentFile } from "@/api/configdb";
 import FileSystem from "@/views/FileSystem.vue";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
+import { fileNode } from "@/FileTree/fileNode";
 
 let editor = ref<HTMLElement | null>();
 let vditor: Vditor | null = null;

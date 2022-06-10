@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div contenteditable="true" style="border:solid 1px #ddd; width:500px; height:500px;"></div>
+</body>
+<script>
+    let flag = false
+    let current = -1
+    let star_array = []
+    const div = document.querySelector("div").addEventListener("keydown", function (e) {
+
+        console.log([...(this.innerText)][current])
+        current++
+        if (e.key == "*" && flag == false) {
+
+            flag = true
+
+        }
+
+        else if (flag == true) {
+            if (e.key == "*") {
+
+                flag = false
+                star_array = []
+            }
+            else star_array.push(e.key)
+
+        }
+        // console.log(star_array)
+    })
+
+</script>
+
+</html>
