@@ -1,8 +1,12 @@
+.tab-system .tab-bar {
+  border-right: solid var(--chronicle-theme-color) 2px;
+}
+
 .tab-system .tab-bar a {
   color: #444;
 }
 .tab-system .tab-bar .tab-item:hover:hover a {
-  color: $themeColor;
+  color: var(--chronicle-theme-color);
 }
 
 ::-webkit-scrollbar-track {
@@ -17,7 +21,7 @@
 }
 
 .file-system .folder .item:active {
-  color: $themeColor;
+  color: var(--chronicle-theme-color);
 }
 
 .editor {

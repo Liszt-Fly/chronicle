@@ -1,17 +1,21 @@
 <template>
   <el-card class="box-card" shadow="never">
-    <template #header>
-      <div class="card-header">
-        <h3> {{ removeExtName(file!.name) }} </h3>
-        <el-row>
-          <el-tag effect="plain" size="small">Tag 1</el-tag>
-          <el-tag effect="plain" size="small">Tag 2</el-tag>
-          <el-tag effect="plain" size="small">Tag 3</el-tag>
-        </el-row>
-      </div>
-    </template>
     <div v-html="readFile()" class="content"></div>
+    <div class="tags">
+      <el-row :gutter="20" justify="space-evenly">
+        <el-col :span="6">
+          <el-tag size="small" effect="dark">Tag 1</el-tag>
+        </el-col>
+        <el-col :span="6">
+          <el-tag size="small" effect="dark">Tag 1</el-tag>
+        </el-col>
+        <el-col :span="6">
+          <el-tag size="small" effect="dark">Tag 1</el-tag>
+        </el-col>
+      </el-row>
+    </div>
   </el-card>
+  <div class="fileName"> {{ removeExtName(file!.name) }} </div>
 </template>
 
 <script lang="ts" setup>
@@ -35,17 +39,40 @@ function readFile() {
 .el-card {
   padding: 8px;
   margin: 12px;
-  height: 40vh;
+  height: 30vh;
   --el-card-padding: 12px;
   --el-font-size-base: 0.8rem;
+  position: relative;
 
-  h3 {
-    margin-bottom: 10px;
+  .tags {
+    display: none;
   }
 
   &:hover {
-    box-shadow: rgb(15 0 0 / 10%) 0px 0px 0px 4px;
+    box-shadow: var(--el-color-primary) 0px 0px 0px 4px;
 
+    +.fileName {
+      color: var(--el-color-primary);
+    }
+
+    .tags {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+
+      .el-row {
+        width: 90%;
+      }
+
+      .el-tag--small {
+        margin: 2px;
+      }
+    }
   }
 
   .content {
@@ -55,9 +82,11 @@ function readFile() {
     text-overflow: clip;
     white-space: nowrap;
   }
+}
 
-  .el-tag--small {
-    margin-right: 4px;
-  }
+.fileName {
+  text-align: center;
+  width: 100%;
+  display: inline-block;
 }
 </style>

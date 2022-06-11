@@ -1,19 +1,23 @@
 @import "element-variables.scss";
 
-$themeColor: $color-primary;
 $uiFont: "Geogrgia";
 
+:root {
+  --el-color-primary: #81a28b;
+}
+
 * {
+  --chronicle-theme-color: var(--el-color-primary);
   margin: 0;
   outline: none;
 }
 
 .clicked {
-  color: $themeColor;
+  color: var(--chronicle-theme-color);
 }
 
 .active {
-  background-color: $themeColor;
+  background-color: var(--chronicle-theme-color);
   color: white !important;
 }
 

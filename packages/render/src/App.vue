@@ -14,7 +14,7 @@ import TabBar from "@/components/TabBar.vue";
 
 <style>
 .button-container {
-  height: 40px;
+  height: 38px;
   font-size: 0.8rem;
   font-weight: 900;
   font-family: "Chalkboard SE";
@@ -24,6 +24,7 @@ import TabBar from "@/components/TabBar.vue";
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom: solid var(--chronicle-theme-color) 2px;
 }
 
 .article {
