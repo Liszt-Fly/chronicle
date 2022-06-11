@@ -84,7 +84,6 @@ const menuItems = [
     label: "重命名",
     click: () => {
       renameNote();
-
     },
   }),
 ];
@@ -95,13 +94,11 @@ if (props.file!.children) {
       props.file!.addChildren(NodeType.DIR)
     },
   });
-
   menuItems.push(
     new MenuItem({
       label: "添加文件",
       click: () => {
         props.file!.addChildren(NodeType.FILE)
-
       },
     })
   );
@@ -109,7 +106,7 @@ if (props.file!.children) {
 } else {
   menuItems.push(
     new MenuItem({
-      label: "添加便签",
+      label: "添加话题",
       click: () => {
         ElMessageBox.prompt("如果需要添加多个标签，请使用逗号隔开", "Add Tag", {
           confirmButtonText: "OK",
@@ -141,11 +138,10 @@ if (props.file!.children) {
   );
 }
 
-const popMenu = (event: MouseEvent) => {
+const popMenu = (e: MouseEvent) => {
   menu.popup();
 };
 onMounted(() => {
-
   menuItems.forEach((item) => {
     menu.append(item);
   });
@@ -155,7 +151,7 @@ onMounted(() => {
 <template>
   <div class="folder" v-if="file" ref="fileDom">
     <div class="item" tabindex="1" @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
-      v-if="validateFilename(file.name!)" @contextmenu.stop="popMenu($event)">
+      v-if="validateFilename(file.name!)">
       <span :class="[
         'iconfont',
         { 'icon-folder': file.children },

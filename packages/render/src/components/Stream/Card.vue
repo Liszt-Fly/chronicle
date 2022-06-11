@@ -49,11 +49,11 @@ function readFile() {
   }
 
   .content {
-    transform: scale(0.5);
-    position: relative;
-    top: -90px;
-    width: 200%;
-    left: -50%;
+    width: 100%;
+    font-size: 0.4rem;
+    overflow-x: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
   }
 
   .el-tag--small {
