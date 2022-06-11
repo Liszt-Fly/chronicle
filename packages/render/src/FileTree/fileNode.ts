@@ -1,7 +1,7 @@
 import fsp from "fs-extra"
 import { NodeType } from "./type"
 import p from "path"
-
+import { getValidName } from "@/api/util"
 export class fileNode {
     //* constructor
     constructor(path: string, name: string) {
@@ -30,23 +30,23 @@ export class fileNode {
     children?: fileNode[] | null
 
     //* methods
-    addChildren(name: string, type: string) {
+    addChildren(createdType: NodeType) {
+        let name = getValidName(this.path, createdType)
         if (this.type == NodeType.DIR) {
             //sum 两种情况，添加文件夹或者是添加子文件
-            let node: fileNode = new fileNode(p.resolve(this.path, name), name)
-            this.children!.push(node)
-            node.parent = this
-            if (node.type == NodeType.DIR) {
+            if (createdType == NodeType.DIR) {
                 fsp.mkdirsSync(p.resolve(this.path, name))
             }
-            else if (node.type == NodeType.FILE) {
+            else if (createdType == NodeType.FILE) {
                 fsp.createFileSync(p.resolve(this.path, name))
             }
-
         }
-        // else {
-        //     throw new Error("这不是文件夹，不能添加子节点!")
-        // }
+        let node: fileNode = new fileNode(p.resolve(this.path, name), name)
+        this.children!.push(node)
+        node.parent = this
+
+
+
     }
     //* 删除
     removeSelf() {
@@ -61,6 +61,7 @@ export class fileNode {
                     })
                 }
             }
+
         }
         //* 情况为文件
         else if (this.type == NodeType.FILE) {
@@ -68,6 +69,17 @@ export class fileNode {
                 this.parent.children = this.parent.children!.filter(item => item.name != this.name)
             }
         }
+        fsp.removeSync(this.path)
     }
-
+    //* 重命名
+    rename(newName: string) {
+        this.name = newName
+        let prevPath = this.path
+        let obj = p.parse(this.path)
+        obj.base = newName + ".md"
+        obj.name = newName
+        //更新
+        this.path = p.resolve(obj.dir, obj.base)
+        fsp.renameSync(prevPath, this.path)
+    }
 }

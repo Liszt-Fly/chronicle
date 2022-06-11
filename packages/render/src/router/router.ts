@@ -4,18 +4,15 @@ import Setting from "@/views/Setting.vue"
 import Stream from "@/views/Stream.vue"
 import Home from "@/views/Home.vue"
 import Repository from "@/components/Repository.vue"
-import { cFileStorage, currentFile } from "@/api/configdb"
 
-function setup() {
-	throw new Error("Function not implemented.")
-}
+
 
 const router = createRouter({
 	linkActiveClass: "active",
 	history: createWebHashHistory(),
 	routes: [
 		{ path: "/", name: "Home", component: Home },
-		{ path: "/Editor/:note", name: "Editor", component: Editor },
+		{ path: "/Editor/:note*", name: "Editor", component: Editor },
 		{ path: "/Stream", name: "Stream", component: Stream },
 		{ path: "/Setting", name: "Setting", component: Setting },
 		{ path: "/Repository", name: "Repository", component: Repository }

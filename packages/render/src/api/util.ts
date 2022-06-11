@@ -1,0 +1,42 @@
+//sum 常用的工具类文件
+import { NodeType } from "@/FileTree/type"
+import { NO } from "@vue/shared"
+import fsp from "fs-extra"
+import { indexOf } from "lodash"
+import path from "path"
+
+//* 设置文件和文件夹在没有命名的默认名称
+function getDefaultName(type: NodeType): string {
+    return type == NodeType.DIR ? "笔记本" : "笔记"
+}
+//* 获取不重复的数字
+export function getValidNumber(basePath: string, index: number, type: NodeType): number {
+
+    //* 如果是文件夹
+    if (type == NodeType.DIR) {
+        if (fsp.existsSync(path.resolve(basePath, getDefaultName(type) + index.toString()))) {
+            return getValidNumber(basePath, index + 1, type)
+        }
+    }
+    //* 如果是文件
+    else if (type == NodeType.FILE) {
+        if (fsp.existsSync(path.resolve(basePath, getDefaultName(type) + index.toString()) + ".md")) {
+            return getValidNumber(basePath, index + 1, type)
+        }
+    }
+    return index;
+}
+
+export function getValidName(basePath: string, type: NodeType): string {
+    //文件夹系统
+    if (type == NodeType.DIR) {
+        return `${getDefaultName(type)}${getValidNumber(basePath, 1, type)}`
+    }
+    //文件系统
+    else if (type == NodeType.FILE) {
+        return `${getDefaultName(type)}${getValidNumber(basePath, 1, type)}.md`
+    }
+    else {
+        return "error"
+    }
+}

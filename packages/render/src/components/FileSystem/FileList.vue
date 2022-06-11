@@ -1,34 +1,29 @@
 <script setup lang="ts">
-import { getGlobal, Menu, MenuItem } from "@electron/remote";
+import { Menu, MenuItem } from "@electron/remote";
 import { useRouter } from 'vue-router'
-import { qFile } from "@/interfaces/type";
-import fsp from "fs-extra";
+import { } from "@/interfaces/type";
 import path from "path";
-import rmrf from "rimraf";
 import {
   validateFilename,
-  getFiles,
-  writeFileTreeInJSonToStore,
 } from "@/api/FileSystem/filesystem";
-import { cTagContainer, currentFile, storage } from "@/api/configdb";
+import { cTagContainer, currentFile } from "@/api/configdb";
 import {
-  createNote,
-  ifNoteNameExists,
-  ifSectionExists,
 } from "@/api/FileSystem/filesystem";
 import { chronicleUserPath } from "@/api/init";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { onMounted, reactive, ref } from "vue";
 import { fileNode } from "@/FileTree/fileNode";
+import { NodeType } from "@/FileTree/type";
+
 const props = defineProps({
-  file: Object as () => qFile,
+  file: Object as () => fileNode,
 });
 const router = useRouter()
 let subfolder = ref<HTMLDivElement | null>(null);
 let refSubfolder = reactive({ dom: subfolder });
 let namebox = ref<HTMLSpanElement | null>(null);
 const fileDom = ref<HTMLElement | null>(null);
-function openFile(event: MouseEvent, file: qFile) {
+function openFile(event: MouseEvent, file: fileNode) {
   //如果是文件
   if (!file.children) {
     currentFile.value = props.file!.path!;
@@ -36,13 +31,12 @@ function openFile(event: MouseEvent, file: qFile) {
     router.push(`/Editor/:${params}`)
   }
 }
-function renameNote(file: qFile) {
+function renameNote() {
   //启用contentEdible
   namebox.value!.contentEditable = "true";
   namebox.value!.focus();
 
   let range = new Range();
-  console.log(namebox.value!.innerText);
   range.setStart(namebox.value as Node, 0);
   range.setEnd(namebox.value as Node, 1);
   document.getSelection()!.removeAllRanges();
@@ -50,11 +44,9 @@ function renameNote(file: qFile) {
 }
 function toggleSubfolder(
   event: MouseEvent,
-  file: qFile,
+  file: fileNode,
   subfolder: { dom: HTMLElement | null }
 ) {
-  //如果qFile是directory类型，进行图标转换，以及显隐转换
-
   if (file.children) {
     if (event) {
       let item = event.currentTarget as HTMLElement;
@@ -73,28 +65,6 @@ function toggleSubfolder(
     }
   }
 }
-function finishRenameNote(file: qFile) {
-  let pathObjcet = path.parse(file.path!);
-  pathObjcet.base = namebox.value!.innerText;
-  namebox.value!.contentEditable = "false";
-
-  fsp.renameSync(
-    props!.file!.path!,
-    path.resolve(pathObjcet.dir, namebox.value!.innerText) + pathObjcet.ext
-  );
-}
-
-function deleteNoteOrSection(file: qFile) {
-  if (!file.children) {
-    fsp.unlinkSync(file.path!);
-  } else {
-    rmrf(file.path!, (err) => {
-      console.log("err");
-    });
-  }
-  getFiles(path.resolve(chronicleUserPath, "assets"), storage.value);
-  getGlobal("parms").fileTree = storage.value
-}
 
 function enter(event: KeyboardEvent) {
   let target = event.target as HTMLDivElement;
@@ -107,39 +77,31 @@ const menuItems = [
   new MenuItem({
     label: "删除",
     click: () => {
-      deleteNoteOrSection(props.file!);
+      props.file!.removeSelf()
     },
   }),
   new MenuItem({
     label: "重命名",
     click: () => {
-      renameNote(props.file!);
+      renameNote();
+
     },
   }),
 ];
 if (props.file!.children) {
   let item = new MenuItem({
-    label: "添加子栏目",
+    label: "添加子文件夹",
     click: () => {
-      let index = ifSectionExists(props.file!.path!, "section", 1);
-      fsp
-        .mkdir(path.resolve(props.file!.path!, `section${index}`))
-        .then(() => { })
-        .catch((err) => {
-          console.log(err);
-        });
+      props.file!.addChildren(NodeType.DIR)
     },
   });
 
   menuItems.push(
     new MenuItem({
-      label: "添加话题",
+      label: "添加文件",
       click: () => {
-        let index = ifNoteNameExists(props.file!.path!, "undefined", 1);
+        props.file!.addChildren(NodeType.FILE)
 
-        createNote(props.file!.path!, `undefined`);
-
-        currentFile.value = path.resolve(props.file!.path!, `undefined${index}.md`);
       },
     })
   );
@@ -155,7 +117,7 @@ if (props.file!.children) {
         })
           .then(({ value }) => {
             ElMessage({
-              type: "success",
+              type: "info",
               message: `Add Tag:${value}`,
             });
             //将标签存储进tagContainer
@@ -167,8 +129,6 @@ if (props.file!.children) {
             }
 
             cTagContainer.value.push(...wordarray);
-            props!.file!.tag = cTagContainer.value;
-            writeFileTreeInJSonToStore(storage.value);
           })
           .catch(() => {
             ElMessage({
@@ -198,17 +158,17 @@ onMounted(() => {
       v-if="validateFilename(file.name!)" @contextmenu.stop="popMenu($event)">
       <span :class="[
         'iconfont',
-        { 'iconfont icon-folder': file.children },
-        { 'bi bi-filetype-txt': !file.children },
+        { 'icon-folder': file.children },
+        { 'icon-018bijiben-2': !file.children },
         'file-name',
         'file-icon',
       ]" @context.stop></span>
       <span :class="['cursor', { 'clicked': props.file!.path == currentFile }]" ref="namebox"
-        @blur="finishRenameNote(props.file!)" @keydown.enter.prevent="enter($event)">{{
+        @blur="props.file!.rename(namebox!.innerText)" @keydown.enter.prevent="enter($event)">{{
             validateFilename(file.name!)
         }}</span>
     </div>
-    <div class="subfolder" v-if="file.children && file.children.length > 0" ref="subfolder" id="subfolder">
+    <div class="subfolder" v-if="file.children" ref="subfolder" id="subfolder">
       <file-list :files="file.children" :file="f" v-for="f in file.children" :key="f.path"></file-list>
     </div>
   </div>
