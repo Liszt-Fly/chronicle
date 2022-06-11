@@ -9,7 +9,7 @@ export let cn =
     },
     setting: {
         theme: "主题",
-        select_theme: "选择主题",
+        select_theme: "主题",
         light: "浅色",
         dark: "深色",
 
