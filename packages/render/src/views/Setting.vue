@@ -4,6 +4,9 @@
             <el-form-item :label="$t('setting.select_theme')">
                 <el-switch v-model="config.theme" :inactive-icon="Moon" :active-icon="Sunny" />
             </el-form-item>
+            <el-form-item :label="$t('setting.select_color')">
+                <el-color-picker v-model="config.color" />
+            </el-form-item>
 
             <el-divider></el-divider>
 
@@ -64,6 +67,7 @@ const restoreDialogVisible = ref(false)
 
 let config: Iconfig = reactive({
     "theme": "",
+    color: "",
     "global_font": "",
     "code_font": "",
     "locale": ""

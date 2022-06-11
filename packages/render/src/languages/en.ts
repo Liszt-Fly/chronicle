@@ -13,6 +13,8 @@ export const en =
         light: "Light",
         dark: "Dark",
 
+        select_color: "Select Theme Color",
+
         global_font: "Global Font",
         code_font: "Code Font",
 

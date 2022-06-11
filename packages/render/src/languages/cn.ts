@@ -13,6 +13,8 @@ export let cn =
         light: "浅色",
         dark: "深色",
 
+        select_color: "主题色",
+
         global_font: "全局字体",
         code_font: "代码块字体",
 
