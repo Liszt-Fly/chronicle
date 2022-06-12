@@ -16,13 +16,15 @@ let initTheme = () => {
 	const head = document.head || document.getElementsByTagName('head')[0];
 
 	let color = config.color
-	let global_font = config.global_font
+	let global_en_font = config.global_en_font
+	let global_cn_font = config.global_cn_font
 	let code_font = config.code_font
 
 	let globalStyle = document.createElement('style');
 	globalStyle.innerText = `:root {
 		--el-color-primary:${color};
-		--chronicle-global-font: ${global_font};
+		--chronicle-global-en-font: ${global_en_font};
+		--chronicle-global-cn-font: ${global_cn_font};
 		--chronicle-code-font: ${code_font};
 	}`
 

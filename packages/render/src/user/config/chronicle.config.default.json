@@ -1,7 +1,8 @@
 {
     "theme": true,
     "color": "#81a28b",
-    "global_font": "\"Geogria\"",
-    "code_font": "\"cascadia code\"",
+    "global_en_font": "Times New Roman",
+    "global_cn_font": "楷体",
+    "code_font": "Consolas",
     "locale": "cn"
 }

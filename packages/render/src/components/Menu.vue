@@ -21,30 +21,38 @@ const addChildren = (t: NodeType) => {
 </script>
 
 <template>
-    <el-card class="box-card" shadow="never">
-        <div class="text-item" @click="Adelete">
-            <i class="bi bi-trash3"></i>
-            <el-divider direction="vertical" />
-            <span>删除</span>
-        </div>
-        <div class="text-item" @click="rename">
-            <i class="bi bi-input-cursor"></i>
-            <el-divider direction="vertical" /><span>重命名</span>
-        </div>
-        <div class="text-item" @click="addChildren(NodeType.FILE)" v-if="props.file!.type == NodeType.DIR">
-            <i class="bi bi-file-earmark-plus"></i>
-            <el-divider direction="vertical" /><span>新建文件</span>
-        </div>
-        <div class="text-item" @click="addChildren(NodeType.DIR)" v-if="props.file!.type == NodeType.DIR">
-            <i class="bi bi-folder-plus"></i>
-            <el-divider direction="vertical" /><span>新建文件夹</span>
-        </div>
+    <div class="box-card" shadow="never">
         <div class="text-item">
             <i class="bi bi-bookmarks"></i>
             <el-divider direction="vertical" />
             <span>添加话题</span>
         </div>
-    </el-card>
+
+        <el-divider />
+
+        <template v-if="props.file!.type == NodeType.DIR">
+            <div class="text-item" @click="addChildren(NodeType.FILE)">
+                <i class="bi bi-file-earmark-plus"></i>
+                <el-divider direction="vertical" /><span>新建文件</span>
+            </div>
+            <div class="text-item" @click="addChildren(NodeType.DIR)">
+                <i class="bi bi-folder-plus"></i>
+                <el-divider direction="vertical" /><span>新建文件夹</span>
+            </div>
+
+            <el-divider />
+        </template>
+
+        <div class="text-item" @click="rename">
+            <i class="bi bi-input-cursor"></i>
+            <el-divider direction="vertical" /><span>重命名</span>
+        </div>
+        <div class="text-item" @click="Adelete">
+            <i class="bi bi-trash3"></i>
+            <el-divider direction="vertical" />
+            <span>删除</span>
+        </div>
+    </div>
 </template>
 <style scoped lang="scss">
 :root {
@@ -55,16 +63,23 @@ const addChildren = (t: NodeType) => {
     width: 140px;
     position: fixed;
     z-index: 999;
-    --el-card-padding: 0;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: var(--el-bg-color);
     box-shadow: var(--el-box-shadow-lighter);
 
+    .el-divider--horizontal {
+        margin: 4px;
+    }
+
     .text-item {
+        border-radius: 4px;
         font-size: 0.8rem;
 
         padding: 8px 12px;
 
         &:hover {
-            background-color: var(--el-color-primary-light-9);
+            background-color: var(--el-color-info-light-9);
         }
     }
 }

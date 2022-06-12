@@ -113,7 +113,7 @@ onMounted(() => {
 .resize-save {
   position: absolute;
   top: 0;
-  right: 2px;
+  right: 8px;
   bottom: 0;
   left: 0;
   overflow-x: hidden;
@@ -152,7 +152,7 @@ onMounted(() => {
 
 .vditor,
 .vditor-reset {
-  font-family: var(--chronicle-global-font);
+  font-family: var(--chronicle-global-en-font), var(--chronicle-global-cn-font);
   margin: 0;
   padding: 0;
   border: none;

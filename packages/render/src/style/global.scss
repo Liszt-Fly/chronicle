@@ -2,12 +2,13 @@
 
 :root {
   --el-color-primary: #81a28b;
-  --chronicle-global-font: "cascadia code",
-  --chronicle-code-font: "Geogrgia",
+  --chronicle-code-font: "cascadia code";
+  --chronicle-global-en-font: "Geogrgia";
+  --chronicle-global-cn-font: "楷体";
+  --chronicle-theme-color: var(--el-color-primary);
 }
 
 * {
-  --chronicle-theme-color: var(--el-color-primary);
   margin: 0;
   outline: none;
 }
@@ -16,14 +17,9 @@
   color: var(--chronicle-theme-color);
 }
 
-.active {
-  background-color: var(--chronicle-theme-color);
-  color: white !important;
-}
-
 body {
   height: calc(100vh - 40px);
-  font-family: var(--chronicle-global-font);
+  font-family: var(--chronicle-global-en-font), var(--chronicle-global-cn-font);
   line-height: 1.5;
 }
 
@@ -47,6 +43,7 @@ body {
 
     .tab-item {
       width: 100%;
+      border-radius: 4px;
 
       &:hover {
         cursor: pointer;
@@ -56,7 +53,7 @@ body {
         display: block;
         width: 100%;
         padding: 6px 0;
-        font-weight: bold;
+        font-weight: bolder;
       }
     }
   }
@@ -283,7 +280,7 @@ body {
     display: inline-block;
     background: transparent;
     border: none;
- //   font-family: var(--chronicle-code-font);
+    //   font-family: var(--chronicle-code-font);
     padding: 2px;
     border-radius: 4px;
   }

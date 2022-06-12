@@ -15,13 +15,17 @@ export const en =
 
         select_color: "Select Theme Color",
 
-        global_font: "Global Font",
+        global_en_font: "English Character Font",
+        global_cn_font: "Chinese Character Font",
         code_font: "Code Font",
 
         language: "Language",
         select_language: "Select Language",
 
         save: "Save",
-        default: "Default"
+        default: "Default",
+
+        "cn": "cn",
+        "en": "en"
     }
 }

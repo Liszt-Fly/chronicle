@@ -15,13 +15,17 @@ export let cn =
 
         select_color: "主题色",
 
-        global_font: "全局字体",
+        global_en_font: "英文字体",
+        global_cn_font: "中文字体",
         code_font: "代码块字体",
 
         language: "语言",
         select_language: "选择语言",
 
         save: "保存",
-        default: "恢复默认值"
+        default: "恢复默认值",
+
+        "cn": "中文",
+        "en": "英文"
     }
 }

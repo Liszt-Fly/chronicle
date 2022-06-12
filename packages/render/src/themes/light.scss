@@ -1,13 +1,32 @@
 html.light {
   .tab-system .tab-bar {
     border-right: solid var(--chronicle-theme-color) 2px;
+    padding: 4px;
   }
 
-  .tab-system .tab-bar a {
-    color: #444;
-  }
-  .tab-system .tab-bar .tab-item:hover:hover a {
-    color: var(--chronicle-theme-color);
+  .tab-system .tab-bar .tab-item {
+    box-sizing: border-box;
+    border: 2px solid var(--el-bg-color);
+    border-radius: 4px;
+
+    &:hover {
+      cursor: pointer;
+      border: 2px solid var(--el-color-info-light-9);
+
+      a {
+        color: var(--chronicle-theme-color);
+      }
+    }
+
+    a {
+      color: var(--chronicle-theme-color);
+      border-radius: 4px;
+      
+      &.active {
+        background-color: var(--chronicle-theme-color);
+        color: white;
+      }
+    }
   }
 
   ::-webkit-scrollbar-track {
@@ -50,12 +69,12 @@ html.light {
   }
 
   .resize-line {
-    border-right: 2px solid whitesmoke;
+    border-right: 4px solid whitesmoke;
   }
 
   .resize-bar:hover ~ .resize-line,
   .resize-bar:active ~ .resize-line {
-    border-right: 2px solid gray;
+    border-right: 4px solid gray;
   }
 
   .editor {
@@ -83,11 +102,11 @@ html.light {
   }
 
   .resize-line {
-    border-right: 2px solid whitesmoke;
+    border-right: 4px solid whitesmoke;
   }
 
   .resize-bar:hover ~ .resize-line,
   .resize-bar:active ~ .resize-line {
-    border-right: 2px solid gray;
+    border-right: 4px solid var(--chronicle-theme-color);
   }
 }

@@ -10,9 +10,15 @@
 
             <el-divider></el-divider>
 
-            <el-form-item :label="$t('setting.global_font')">
-                <el-select v-model="config.global_font">
-                    <el-option v-for="gf in global_fonts" :label="gf" :key="gf" :value="gf">{{ gf }}</el-option>
+            <el-form-item :label="$t('setting.global_en_font')">
+                <el-select v-model="config.global_en_font">
+                    <el-option v-for="gf in global_en_fonts" :label="gf" :key="gf" :value="gf">{{ gf }}</el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item :label="$t('setting.global_cn_font')">
+                <el-select v-model="config.global_cn_font">
+                    <el-option v-for="gf in global_cn_fonts" :label="gf" :key="gf" :value="gf">{{ gf }}</el-option>
                 </el-select>
             </el-form-item>
 
@@ -32,7 +38,7 @@
             </el-form-item>
 
             <el-form-item>
-                <el-button @click="restoreDialogVisible = true">{{ $t("setting.default") }}</el-button>
+                <el-button type="primary" @click="restoreDialogVisible = true">{{ $t("setting.default") }}</el-button>
             </el-form-item>
         </el-form>
 
@@ -57,13 +63,15 @@ import { Sunny, Moon } from '@element-plus/icons-vue'
 const fs = window.require('fs');
 const restoreDialogVisible = ref(false)
 
-const global_fonts = ["Futura", "Verdana", "Arial", "Helvetica", "Adobe Garamond", "Caslon", "Bodoni", "Times New Roman"]
-const code_fonts = ["Hack", "Monaco", "Source Code Pro", "San Francisco Mono", "Consolas", "Cascadia Code", "Courier"]
+const global_en_fonts = ["Verdana", "Arial", "Times New Roman"]
+const global_cn_fonts = ["微软雅黑", "楷体", "宋体"]
+const code_fonts = ["Consolas", "Cascadia Code", "Courier"]
 
 let config: Iconfig = reactive({
     "theme": "",
     color: "",
-    "global_font": "",
+    "global_en_font": "",
+    global_cn_font: "",
     "code_font": "",
     "locale": ""
 })
