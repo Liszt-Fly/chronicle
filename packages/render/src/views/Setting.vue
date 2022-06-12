@@ -1,6 +1,6 @@
 <template>
     <div class="setting">
-        <el-form ref="formRef" :model="config" label-width="8rem" label-position="left">
+        <el-form ref="formRef" :model="config" label-width="10rem" label-position="left">
             <el-form-item :label="$t('setting.select_theme')">
                 <el-switch v-model="config.theme" :inactive-icon="Moon" :active-icon="Sunny" />
             </el-form-item>
