@@ -152,6 +152,7 @@ onMounted(() => {
 
 .vditor,
 .vditor-reset {
+  font-family: var(--chronicle-global-font);
   margin: 0;
   padding: 0;
   border: none;
@@ -160,5 +161,9 @@ onMounted(() => {
   &:hover {
     overflow-y: auto;
   }
+}
+
+.vditor-reset pre>code {
+  font-family: var(--chronicle-code-font);
 }
 </style>

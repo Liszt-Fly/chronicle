@@ -11,10 +11,15 @@
             <el-divider></el-divider>
 
             <el-form-item :label="$t('setting.global_font')">
-                <el-input v-model="config.global_font" clearable />
+                <el-select v-model="config.global_font">
+                    <el-option v-for="gf in global_fonts" :label="gf" :key="gf" :value="gf">{{ gf }}</el-option>
+                </el-select>
             </el-form-item>
+
             <el-form-item :label="$t('setting.code_font')">
-                <el-input v-model="config.code_font" clearable />
+                <el-select v-model="config.code_font">
+                    <el-option v-for="cf in code_fonts" :label="cf" :key="cf" :value="cf">{{ cf }}</el-option>
+                </el-select>
             </el-form-item>
 
             <el-divider></el-divider>
@@ -27,20 +32,9 @@
             </el-form-item>
 
             <el-form-item>
-                <el-button type="primary" @click="saveDialogVisible = true">{{ $t("setting.save") }}</el-button>
                 <el-button @click="restoreDialogVisible = true">{{ $t("setting.default") }}</el-button>
             </el-form-item>
         </el-form>
-
-        <el-dialog v-model="saveDialogVisible" width="16rem">
-            <span>确定保存吗？</span>
-            <template #footer>
-                <span class="dialog-footer">
-                    <el-button @click="saveDialogVisible = false">取消</el-button>
-                    <el-button type="primary" @click="saveSetting(), saveDialogVisible = false">确定</el-button>
-                </span>
-            </template>
-        </el-dialog>
 
         <el-dialog v-model="restoreDialogVisible" width="16rem">
             <span>确定恢复默认设置吗？</span>
@@ -55,15 +49,16 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref, watch, watchEffect } from 'vue'
 import { configFile, defaultConfigFile } from "@/api/init"
 import { Iconfig } from '../interfaces/type';
 import { Sunny, Moon } from '@element-plus/icons-vue'
 
 const fs = window.require('fs');
-
-const saveDialogVisible = ref(false)
 const restoreDialogVisible = ref(false)
+
+const global_fonts = ["Futura", "Verdana", "Arial", "Helvetica", "Adobe Garamond", "Caslon", "Bodoni", "Times New Roman"]
+const code_fonts = ["Hack", "Monaco", "Source Code Pro", "San Francisco Mono", "Consolas", "Cascadia Code", "Courier"]
 
 let config: Iconfig = reactive({
     "theme": "",
@@ -98,20 +93,20 @@ const saveSetting = () => {
 }
 
 const restoreDefault = () => {
-    readSetting(defaultConfigFile)
-    saveSetting()
+    fs.writeFile(configFile, fs.readFileSync(defaultConfigFile), () => {
+        location.reload()
+    })
 }
 
 onMounted(() => {
     readSetting(configFile)
+    watch(config, () => {
+        saveSetting()
+    })
 })
 </script>
 
 <style scoped>
-.el-select {
-    width: 270px;
-}
-
 .setting {
     padding: 1rem;
     text-align: center;
