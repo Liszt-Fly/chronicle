@@ -9,19 +9,22 @@ import FileList from "@/components/FileSystem/FileList.vue";
 // import { Menu, MenuItem } from "@electron/remote/";
 import { onMounted, ref } from "vue";
 import { fileNode } from "@/FileTree/fileNode";
-import { NodeType } from "@/FileTree/type";
 import Menu from "@/components/Menu.vue";
-let menuDisplay = ref(false)
+// let menuDisplay = ref(false)
 let menuX = ref(0)
 let menuY = ref(0)
-let showMenu = (e: MouseEvent) => {
+let clickPath = ref("")
+let showMenu = (e: MouseEvent, filePath: String) => {
   let target: HTMLElement = e.target as HTMLElement;
   if (target.classList[0] as string !== "item" && target.classList[0] as string !== "file-system")
     target = target.parentElement as HTMLElement;
-  console.log(target);
-  menuDisplay.value = false
+
+  clickPath.value = target.getAttribute("data-path")!
+  console.log(filePath == clickPath.value, filePath, clickPath.value);
+
+  // menuDisplay.value = false
   setTimeout(() => {
-    menuDisplay.value = true
+    // menuDisplay.value = true
     const height = document.body.clientHeight;
     const width = document.body.clientWidth;
     // width is 150, but there is box-shadowing, so ~172
@@ -33,8 +36,9 @@ let showMenu = (e: MouseEvent) => {
   }, 0)
 }
 let hideMenu = () => {
-  menuDisplay.value = false
+  clickPath.value = ""
 }
+
 // let menu = new Menu();
 
 onMounted(() => {
@@ -44,7 +48,6 @@ onMounted(() => {
   // });
 
   fileTree.value = new fileNode(path.resolve(chronicleUserPath, "assets"), "assets")
-  console.log(fileTree.value)
   constructFileTree(path.resolve(chronicleUserPath, "assets"), fileTree.value)
   // fsp.watch(path.resolve(chronicleUserPath, "assets"), { recursive: true }).on("change", () => {
   // });
@@ -71,12 +74,13 @@ onMounted(() => {
 </script>
 <template>
   <!-- @contextmenu.stop="popMenu($event)" -->
-  <div class="file-system" ref="filesystem" @contextmenu="showMenu($event)" @click="hideMenu">
+  <div class="file-system" ref="filesystem" @click="hideMenu">
     <template v-for="file in fileTree?.children" :key="file.path">
-      <file-list :file="file"></file-list>
-    </template>
-    <template v-if="menuDisplay">
-      <Menu :style="{ top: menuY + 'px', left: menuX + 'px' }" @click="hideMenu"></Menu>
+      <file-list :file="file" @contextmenu.stop="showMenu($event, file.path)">
+      </file-list>
+      <template v-if="file.path == clickPath">
+        <Menu :style="{ top: menuY + 'px', left: menuX + 'px' }" @click="hideMenu()" :file="file"></Menu>
+      </template>
     </template>
   </div>
 </template>

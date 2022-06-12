@@ -151,7 +151,7 @@ onMounted(() => {
 <template>
   <div class="folder" v-if="file" ref="fileDom">
     <div class="item" tabindex="1" @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
-      v-if="validateFilename(file.name!)">
+      :data-path="file.path" v-if="validateFilename(file.name!)">
       <span :class="[
         'iconfont',
         { 'icon-folder': file.children },
