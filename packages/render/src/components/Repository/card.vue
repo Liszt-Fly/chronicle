@@ -17,7 +17,7 @@
 
     &:hover {
         overflow-y: auto;
-        box-shadow: rgb(15 0 0 / 10%) 0px 0px 0px 4px;
+        box-shadow: var(--chronicle-theme-color) 0px 0px 0px 4px;
     }
 }
 </style>

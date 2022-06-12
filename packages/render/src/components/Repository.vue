@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import Card from "@/components/Repository/card.vue"
+import Card from "@/components/Repository/Card.vue"
 import { repositores } from '@/interfaces/repositories'
 </script>
 

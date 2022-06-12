@@ -1,9 +1,9 @@
 @import "element-variables.scss";
 
-$uiFont: "Geogrgia";
-
 :root {
   --el-color-primary: #81a28b;
+  --chronicle-global-font: "cascadia code",
+  --chronicle-code-font: "Geogrgia",
 }
 
 * {
@@ -23,7 +23,7 @@ $uiFont: "Geogrgia";
 
 body {
   height: calc(100vh - 40px);
-  font-family: $uiFont;
+  font-family: var(--chronicle-global-font);
   line-height: 1.5;
 }
 
@@ -276,14 +276,14 @@ body {
 
   /* 代码 */
   pre {
-    font-family: "cascadia code" !important;
+    // font-family: var(--chronicle-code-font);
   }
 
   code {
     display: inline-block;
     background: transparent;
     border: none;
-    font-family: "cascadia code" !important;
+ //   font-family: var(--chronicle-code-font);
     padding: 2px;
     border-radius: 4px;
   }
@@ -298,7 +298,7 @@ body {
   .code-block {
     border-radius: 5px;
     padding: 8px;
-    font-family: "cascadia code";
+    // font-family: var(--chronicle-code-font);
 
     .cm-editor {
       margin-bottom: 0;

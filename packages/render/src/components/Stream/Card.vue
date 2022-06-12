@@ -2,15 +2,9 @@
   <el-card class="box-card" shadow="never">
     <div v-html="readFile()" class="content"></div>
     <div class="tags">
-      <el-row :gutter="20" justify="space-evenly">
-        <el-col :span="6">
-          <el-tag size="small" effect="dark">Tag 1</el-tag>
-        </el-col>
-        <el-col :span="6">
-          <el-tag size="small" effect="dark">Tag 1</el-tag>
-        </el-col>
-        <el-col :span="6">
-          <el-tag size="small" effect="dark">Tag 1</el-tag>
+      <el-row :gutter="30" justify="start">
+        <el-col :span="6" :xs="12" :sm="8" :md="8" :lg="8" :xl="8" v-for="t in 4" :key="t">
+          <el-tag size="small" effect="dark">Tag {{ t }}</el-tag>
         </el-col>
       </el-row>
     </div>
@@ -49,10 +43,11 @@ function readFile() {
   }
 
   &:hover {
-    box-shadow: var(--el-color-primary) 0px 0px 0px 4px;
+    box-shadow: var(--chronicle-theme-color) 0px 0px 0px 4px;
 
     +.fileName {
-      color: var(--el-color-primary);
+      color: var(--chronicle-theme-color);
+      font-weight: 900;
     }
 
     .tags {
