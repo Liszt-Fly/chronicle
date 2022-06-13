@@ -1,8 +1,8 @@
 //sum 常用的工具类文件
+import { fileNode } from "@/FileTree/fileNode"
+import { fileTree } from "@/FileTree/fileTree"
 import { NodeType } from "@/FileTree/type"
-import { NO } from "@vue/shared"
 import fsp from "fs-extra"
-import { indexOf } from "lodash"
 import path from "path"
 
 //* 设置文件和文件夹在没有命名的默认名称
@@ -39,4 +39,8 @@ export function getValidName(basePath: string, type: NodeType): string {
     else {
         return "error"
     }
+}
+export function setCurrentFileNode(file: fileNode) {
+    fileTree.currentFileNode = file
+    console.log(`当前的node是${file!.path}`)
 }

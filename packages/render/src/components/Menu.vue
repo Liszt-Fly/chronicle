@@ -1,36 +1,57 @@
 <script setup lang="ts">
 import { fileNode } from "@/FileTree/fileNode"
+import { fileTree } from "@/FileTree/fileTree";
 import { NodeType } from "@/FileTree/type"
-
-const props = defineProps({
-    file: fileNode,
-});
+import { bClickedParent, fTree } from "@/api/configdb";
+import path from "path"
+import { chronicleUserPath } from "@/api/init";
 
 const Adelete = () => {
-    props.file!.removeSelf()
+
+    fileTree.currentFileNode.removeSelf()
 }
 
 const rename = () => {
-    props.file!.rename("111")
+    fileTree.currentFileNode.rename("vue")
 }
 
 const addChildren = (t: NodeType) => {
-    props.file!.addChildren(t)
+    console.log(`当前是否是Parent:${bClickedParent}`)
+    if (bClickedParent.value) {
+        fTree.value!.root.addChildren(t)
+    }
+    else {
+        fileTree.currentFileNode.addChildren(t)
+    }
 }
 
 </script>
 
 <template>
     <div class="box-card" shadow="never">
-        <div class="text-item">
-            <i class="bi bi-bookmarks"></i>
-            <el-divider direction="vertical" />
-            <span>添加话题</span>
-        </div>
+        <template v-if="!bClickedParent">
+            <div class="text-item">
+                <i class="bi bi-bookmarks"></i>
+                <el-divider direction="vertical" />
+                <span>添加话题</span>
+            </div>
+            <el-divider />
+        </template>
 
-        <el-divider />
+        <template v-if="!bClickedParent">
+            <template v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.DIR">
+                <div class="text-item" @click="addChildren(NodeType.FILE)">
+                    <i class="bi bi-file-earmark-plus"></i>
+                    <el-divider direction="vertical" /><span>新建文件</span>
+                </div>
+                <div class="text-item" @click="addChildren(NodeType.DIR)">
+                    <i class="bi bi-folder-plus"></i>
+                    <el-divider direction="vertical" /><span>新建文件夹</span>
 
-        <template v-if="props.file!.type == NodeType.DIR">
+                </div>
+            </template>
+        </template>
+        <template v-else-if="bClickedParent">
             <div class="text-item" @click="addChildren(NodeType.FILE)">
                 <i class="bi bi-file-earmark-plus"></i>
                 <el-divider direction="vertical" /><span>新建文件</span>
@@ -38,20 +59,23 @@ const addChildren = (t: NodeType) => {
             <div class="text-item" @click="addChildren(NodeType.DIR)">
                 <i class="bi bi-folder-plus"></i>
                 <el-divider direction="vertical" /><span>新建文件夹</span>
+
             </div>
 
-            <el-divider />
+
         </template>
 
-        <div class="text-item" @click="rename">
-            <i class="bi bi-input-cursor"></i>
-            <el-divider direction="vertical" /><span>重命名</span>
-        </div>
-        <div class="text-item" @click="Adelete">
-            <i class="bi bi-trash3"></i>
-            <el-divider direction="vertical" />
-            <span>删除</span>
-        </div>
+        <template v-if="!bClickedParent">
+            <div class="text-item" @click="rename">
+                <i class="bi bi-input-cursor"></i>
+                <el-divider direction="vertical" /><span>重命名</span>
+            </div>
+            <div class="text-item" @click="Adelete">
+                <i class="bi bi-trash3"></i>
+                <el-divider direction="vertical" />
+                <span>删除</span>
+            </div>
+        </template>
     </div>
 </template>
 <style scoped lang="scss">

@@ -69,12 +69,7 @@ app.whenReady().then(createWindow)
 app.on('window-all-closed', () => {
   //@ts-ignore
   console.log(global.parms)
-  // @ts-ignore
-  fsp.writeFileSync(
-    path.resolve(path.resolve(process.cwd(), "packages", "render", "src", "user"), "config", "fileTree.json"),
-    //@ts-ignore
-    JSON.stringify(global.parms.fileTree, null, 2)
-  );
+
   win = null
   if (process.platform !== 'darwin') app.quit()
 })
