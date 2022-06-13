@@ -12,8 +12,8 @@ import {
 import { chronicleUserPath } from "@/api/init";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { onMounted, reactive, ref } from "vue";
-import { fileNode } from "@/FileTree/fileNode";
-import { NodeType } from "@/FileTree/type";
+import { fileNode } from "@/api/FileTree/fileNode";
+import { NodeType } from "@/api/FileTree/type";
 
 const props = defineProps({
   file: Object as () => fileNode,

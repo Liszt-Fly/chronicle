@@ -3,11 +3,9 @@ import { onMounted, ref, watch, watchEffect, } from "vue";
 import fsp from "fs-extra";
 import path from "path";
 import { currentFile } from "@/api/configdb";
-import FileSystem from "@/components/FileSystem.vue";
+import FileSystem from "@/components/FileSystem/FileSystem.vue";
 import Vditor from "vditor";
-
 import "vditor/dist/index.css";
-
 import { vditorTheme } from "@/api/init";
 
 let editor = ref<HTMLElement | null>();
@@ -26,14 +24,9 @@ const loadArticle = () => {
 
 
 onMounted(() => {
-
-
   vditor = new Vditor("vditor", {
-
     counter: {
-      "enable": true,
-      after: (len) => {
-      }
+      "enable": true, after: (len) => { }
     },
     preview: {
       markdown: {
@@ -45,16 +38,14 @@ onMounted(() => {
       enable: false,
     },
     toolbarConfig: {
-      hide: true,
+      // hide: true,
       pin: false,
     },
     after: () => {
-
     },
   });
 
   watchEffect(() => {
-
     if (currentFile.value != "") {
       loadArticle();
       vditor = new Vditor("vditor", {
@@ -62,7 +53,7 @@ onMounted(() => {
           enable: false,
         },
         toolbarConfig: {
-          hide: true,
+          // hide: true,
           pin: false,
         },
       });
@@ -145,9 +136,9 @@ onMounted(() => {
 }
 </style>
 <style lang="scss" >
-.vditor-toolbar {
-  display: none !important;
-}
+// .vditor-toolbar {
+//   display: none !important;
+// }
 
 .vditor,
 .vditor-reset {
@@ -157,10 +148,6 @@ onMounted(() => {
   padding: 0px 35px !important;
   border: none;
   overflow: hidden;
-
-  &:hover {
-    overflow-y: auto;
-  }
 }
 
 .vditor-reset pre>code {

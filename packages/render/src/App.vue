@@ -43,6 +43,5 @@ document.getElementsByTagName('head')[0].appendChild(winStyle);
 
 .article {
   width: 100%;
-  overflow: scroll;
 }
 </style>

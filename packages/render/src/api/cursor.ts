@@ -1,4 +1,3 @@
-
 export function moveCursorToNextLine(target: HTMLElement, index: number) {
     setTimeout(() => {
 

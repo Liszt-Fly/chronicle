@@ -1,10 +1,10 @@
 import { Ref, ref } from "vue"
 import path from 'path'
 import { chronicleUserPath } from "./init"
-import { fileTree } from "@/FileTree/fileTree"
+import { fileTree } from "@/api/FileTree/fileTree"
 export let files = ref([])
 export let bClickedParent: Ref<boolean> = ref(false)
-export let default_path = path.resolve(chronicleUserPath, "assets", "Standard.md")
+export let default_path = path.resolve(chronicleUserPath, "assets", "README.md")
 //* 将所有的tag都存储在tag容器内
 export let cTagContainer: Ref<string[]> = ref([])
 //* 加载的当前默认文件

@@ -49,7 +49,6 @@ onMounted(() => { });
 
 <style>
 .stream {
-  overflow: scroll;
   box-sizing: border-box;
   padding: 15px;
 }

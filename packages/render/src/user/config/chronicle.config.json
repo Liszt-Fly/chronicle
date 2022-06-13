@@ -1,8 +1,1 @@
-{
-    "theme": true,
-    "color": "#cb4042",
-    "global_en_font": "Times New Roman",
-    "global_cn_font": "楷体",
-    "code_font": "Consolas",
-    "locale": "cn"
-}
+{"theme":true,"color":"#cb4042","global_en_font":"Times New Roman","global_cn_font":"楷体","code_font":"Consolas","locale":"cn"}

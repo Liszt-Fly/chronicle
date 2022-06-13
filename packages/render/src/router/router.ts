@@ -3,7 +3,6 @@ import Editor from "@/views/Editor.vue"
 import Setting from "@/views/Setting.vue"
 import Stream from "@/views/Stream.vue"
 import Home from "@/views/Home.vue"
-import Repository from "@/components/Repository.vue"
 
 const router = createRouter({
 	linkActiveClass: "active",
@@ -13,7 +12,6 @@ const router = createRouter({
 		{ path: "/Editor/:note([\\s\\S]*)", name: "Editor", component: Editor },
 		{ path: "/Stream", name: "Stream", component: Stream },
 		{ path: "/Setting", name: "Setting", component: Setting },
-		{ path: "/Repository", name: "Repository", component: Repository }
 	],
 })
 

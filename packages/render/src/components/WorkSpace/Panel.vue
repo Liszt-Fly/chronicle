@@ -1,5 +1,5 @@
 <template>
-    <el-card class="box-card" shadow="never">
+    <el-card class="panel" shadow="never">
         <h3 class="name">
             <slot></slot>
         </h3>
@@ -11,14 +11,13 @@
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
-.box-card {
+.panel {
     padding: 12px;
     margin: 12px;
     width: 150px;
     height: 200px;
 
     &:hover {
-        overflow-y: auto;
         box-shadow: var(--chronicle-theme-color) 0px 0px 0px 4px;
     }
 }

@@ -4,13 +4,13 @@
             <div class="info">
                 <h1> 🎉 Welcome to Chronicle 😊</h1>
             </div>
-            <Repository></Repository>
+            <WorkSpace></WorkSpace>
         </div>
     </el-scrollbar>
 </template>
 
 <script lang="ts" setup>
-import Repository from "@/components/Repository.vue";
+import WorkSpace from "@/components/WorkSpace/WorkSpace.vue";
 </script>
 
 <style>

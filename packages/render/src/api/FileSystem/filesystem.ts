@@ -2,8 +2,8 @@
 import fsp from "fs-extra"
 import path from "path"
 import fs from "fs"
-import { fileNode } from "@/FileTree/fileNode"
-import { NodeType } from "@/FileTree/type"
+import { fileNode } from "@/api/FileTree/fileNode"
+import { NodeType } from "@/api/FileTree/type"
 
 
 export function removeExtName(file: string): string {

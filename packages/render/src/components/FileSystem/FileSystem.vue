@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import path from "path";
 import { bClickedParent, fTree } from "@/api/configdb";
-import {
-  constructFileTree,
-} from "@/api/FileSystem/filesystem";
 import { chronicleUserPath } from "@/api/init";
 import FileList from "@/components/FileSystem/FileList.vue";
-// import { Menu, MenuItem } from "@electron/remote/";
-import { fileTree } from "@/FileTree/fileTree"
+import { fileTree } from "@/api/FileTree/fileTree"
 import { onMounted, ref } from "vue";
-import { fileNode } from "@/FileTree/fileNode";
-import Menu from "@/components/Menu.vue";
+import { fileNode } from "@/api/FileTree/fileNode";
+import Menu from "@/components/FileSystem/Menu.vue";
 let menuDisplay = ref("none")
 let menuX = ref(0)
 let menuY = ref(0)
@@ -21,7 +17,6 @@ let showParentMenu = (e: MouseEvent) => {
   setTimeout(() => {
     menuDisplay.value = "block"
     const height = document.body.clientHeight;
-    const width = document.body.clientWidth;
     // FIXME:
     let menuHeight = 80
 
@@ -38,8 +33,6 @@ let showMenu = (e: MouseEvent) => {
   setTimeout(() => {
     menuDisplay.value = "block"
     const height = document.body.clientHeight;
-    const width = document.body.clientWidth;
-    //@ts-ignore
     let menuHeight = document.getElementsByClassName("menu")[0].offsetHeight
 
     menuX.value = e.clientX
@@ -51,7 +44,6 @@ let showMenu = (e: MouseEvent) => {
 let hideMenu = () => {
   menuDisplay.value = "none"
 }
-
 
 onMounted(() => {
   fTree.value = new fileTree(new fileNode(path.resolve(chronicleUserPath, "assets"), "assets"))
@@ -66,7 +58,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="file-system" ref="filesystem" @click="hideMenu" @contextmenu.capture="showParentMenu($event)">
-    <el-scrollbar height="calc(100vh - 60px)">
+    <el-scrollbar height="calc(100vh - var(--is-win))">
       <template v-for="file in fTree?.tree.children" :key="file.path">
         <file-list :file="file" @contextmenu.stop="showMenu($event)">
         </file-list>

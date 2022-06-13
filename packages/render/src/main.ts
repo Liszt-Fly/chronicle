@@ -4,6 +4,7 @@ import App from "./App.vue"
 const app = createApp(App)
 
 // 样式
+import "@/style/reset.scss"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import '@/style/element-variables.scss'
 import 'element-plus/theme-chalk/dark/css-vars.css'

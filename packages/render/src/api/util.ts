@@ -1,7 +1,7 @@
 //sum 常用的工具类文件
-import { fileNode } from "@/FileTree/fileNode"
-import { fileTree } from "@/FileTree/fileTree"
-import { NodeType } from "@/FileTree/type"
+import { fileNode } from "@/api/FileTree/fileNode"
+import { fileTree } from "@/api/FileTree/fileTree"
+import { NodeType } from "@/api/FileTree/type"
 import fsp from "fs-extra"
 import path from "path"
 

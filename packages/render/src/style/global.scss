@@ -1,8 +1,3 @@
-* {
-  margin: 0;
-  outline: none;
-}
-
 body {
   font-family: var(--chronicle-global-en-font), var(--chronicle-global-cn-font);
   line-height: 1.5;
@@ -30,6 +25,8 @@ body {
     .tab-item {
       width: 100%;
       border-radius: 4px;
+      box-sizing: border-box;
+      border-radius: 4px;
 
       &:hover {
         cursor: pointer;
@@ -40,6 +37,7 @@ body {
         width: 100%;
         padding: 6px 0;
         font-weight: bolder;
+        border-radius: 4px;
       }
     }
   }
@@ -53,7 +51,6 @@ body {
 
 .file-system {
   height: 100vh;
-  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   user-select: none;
@@ -109,7 +106,6 @@ body {
   word-wrap: break-word;
   width: inherit;
   height: calc(100vh - 0.2rem);
-  overflow-y: auto;
 
   div {
     margin-bottom: 0.5rem;
