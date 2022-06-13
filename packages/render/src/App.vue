@@ -1,21 +1,11 @@
 <script setup lang="ts">
 import TabBar from "@/components/TabBar.vue";
-//首先获取设备类型
-let agent = navigator.userAgent.toLowerCase();
-//再用正则匹配出结果
-let iswin = /windows/i.test(agent);
-let winHeight = iswin ? "0px" : "40px"
-
-let winStyle = document.createElement('style');
-winStyle.innerText = `:root {
-		--is-win:${winHeight};
-	}`
-document.getElementsByTagName('head')[0].appendChild(winStyle);
+import Control from "@/components/Control.vue";
 </script>
 
 <template>
-  <div class="app-name" v-if="!iswin">
-    Chronicle
+  <div class="title">
+    <Control></Control>
   </div>
   <div class="main" spellcheck="false">
     <tab-bar></tab-bar>
@@ -26,19 +16,13 @@ document.getElementsByTagName('head')[0].appendChild(winStyle);
 </template>
 
 <style>
-.app-name {
+.title {
   height: 38px;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 900;
   font-family: "Chalkboard SE";
   user-select: none;
-  app-region: drag;
   text-align: left;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* border-bottom: 2px solid var(--chronicle-theme-color); */
-  /* color: white; */
 }
 
 .article {
