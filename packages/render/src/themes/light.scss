@@ -1,6 +1,5 @@
 html.light {
   .tab-system .tab-bar {
-    border-right: solid var(--chronicle-theme-color) 2px;
     padding: 4px;
   }
 
@@ -21,7 +20,7 @@ html.light {
     a {
       color: var(--chronicle-theme-color);
       border-radius: 4px;
-      
+
       &.active {
         background-color: var(--chronicle-theme-color);
         color: white;

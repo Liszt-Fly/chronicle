@@ -24,7 +24,8 @@ import TabBar from "@/components/TabBar.vue";
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: solid var(--chronicle-theme-color) 2px;
+  background-color: var(--chronicle-theme-color);
+  color: white;
 }
 
 .article {
