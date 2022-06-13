@@ -31,16 +31,16 @@ async function createWindow() {
     title: 'Main window',
     height: 600,
     width: 800,
-
     resizable: true,
     frame: true,
-    titleBarStyle: 'hidden',
+    titleBarStyle: process.platform != "win32" ? "hidden" : "default",
     webPreferences: {
       preload: join(__dirname, '../preload/index.cjs'),
       nodeIntegration: true,
       contextIsolation: false,
     },
   })
+  //@ts-ignore
   if (process.platform === 'win32') win.titleBarStyle = "default"
   require("@electron/remote/main").enable(win.webContents)
   if (app.isPackaged) {
