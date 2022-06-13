@@ -61,7 +61,7 @@ const addChildren = (t: NodeType) => {
         </template>
 
         <template v-if="!bClickedParent">
-            <el-divider v-if="fileTree.currentFileNode.type == NodeType.DIR" />
+            <el-divider v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.DIR" />
             <div class="text-item">
                 <i class="bi bi-files"></i>
                 <el-divider direction="vertical" /><span>创建副本</span>

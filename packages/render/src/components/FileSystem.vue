@@ -39,6 +39,7 @@ let showMenu = (e: MouseEvent) => {
     menuDisplay.value = "block"
     const height = document.body.clientHeight;
     const width = document.body.clientWidth;
+    //@ts-ignore
     let menuHeight = document.getElementsByClassName("menu")[0].offsetHeight
 
     menuX.value = e.clientX

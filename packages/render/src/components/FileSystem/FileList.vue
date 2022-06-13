@@ -35,7 +35,6 @@ function renameNote() {
   //启用contentEdible
   namebox.value!.contentEditable = "true";
   namebox.value!.focus();
-
   let range = new Range();
   range.setStart(namebox.value as Node, 0);
   range.setEnd(namebox.value as Node, 1);
