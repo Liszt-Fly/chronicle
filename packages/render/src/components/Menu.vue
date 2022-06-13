@@ -44,6 +44,11 @@ const addChildren = (t: NodeType) => {
         </template>
 
         <div class="text-item" @click="rename">
+            <i class="bi bi-files"></i>
+            <el-divider direction="vertical" /><span>创建副本</span>
+        </div>
+
+        <div class="text-item" @click="rename">
             <i class="bi bi-input-cursor"></i>
             <el-divider direction="vertical" /><span>重命名</span>
         </div>
@@ -70,6 +75,7 @@ const addChildren = (t: NodeType) => {
 
     .el-divider--horizontal {
         margin: 4px;
+        width: auto
     }
 
     .text-item {
