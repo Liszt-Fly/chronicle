@@ -103,12 +103,12 @@ onMounted(() => {
 .column-left {
   position: relative;
   float: left;
-  height: calc(100vh - 40px);
+  height: calc(100vh - var(--is-win));
 }
 
 .column-right {
   overflow: hidden;
-  height: calc(100vh - 40px);
+  height: calc(100vh - var(--is-win));
 
 }
 
@@ -157,7 +157,7 @@ onMounted(() => {
   --textarea-background-color: --el-bg-color;
   font-family: var(--chronicle-global-en-font), var(--chronicle-global-cn-font);
   margin: 0;
-  padding: 0;
+  padding: 0px 35px !important;
   border: none;
   overflow: hidden;
 
@@ -168,5 +168,14 @@ onMounted(() => {
 
 .vditor-reset pre>code {
   font-family: var(--chronicle-code-font);
+}
+
+.vditor-reset h1,
+.vditor-reset h2,
+.vditor-reset h3,
+.vditor-reset h4,
+.vditor-reset h5,
+.vditor-reset h6 {
+  margin-top: 0
 }
 </style>

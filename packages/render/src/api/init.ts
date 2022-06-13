@@ -27,7 +27,6 @@ let initTheme = () => {
 		--chronicle-global-cn-font: ${global_cn_font};
 		--chronicle-code-font: ${code_font};
 	}`
-
 	head.appendChild(globalStyle);
 
 	document.getElementsByTagName("html")[0].className = config.theme ? "light" : "dark"

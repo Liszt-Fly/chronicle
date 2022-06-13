@@ -37,7 +37,8 @@ function readFile() {
 .el-card {
   padding: 8px;
   margin: 12px;
-  height: 30vw;
+  width: 150px;
+  height: 200px;
   min-height: 200px;
   --el-card-padding: 12px;
   --el-font-size-base: 0.8rem;
@@ -72,6 +73,7 @@ function readFile() {
 
   .mask {
     display: none;
+    user-select: none;
   }
 
   &:hover {

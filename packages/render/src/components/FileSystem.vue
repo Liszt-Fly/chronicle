@@ -73,10 +73,8 @@ onMounted(() => {
 // };
 </script>
 <template>
-  <!-- @contextmenu.stop="popMenu($event)" -->
-
   <div class="file-system" ref="filesystem" @click="hideMenu">
-    <el-scrollbar height="calc(100vh - 60px)">
+    <el-scrollbar height="calc(100vh - var(--is-win))">
       <template v-for="file in fileTree?.children" :key="file.path">
         <file-list :file="file" @contextmenu.stop="showMenu($event, file.path)">
         </file-list>

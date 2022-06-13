@@ -28,7 +28,7 @@ function openFile(event: MouseEvent, file: fileNode) {
   if (!file.children) {
     currentFile.value = props.file!.path!;
     let params = path.relative(path.resolve(chronicleUserPath, "assets"), file.path)
-    router.push(`/Editor/:${params}`)
+    router.push(`/Editor/${params}`)
   }
 }
 function renameNote() {
@@ -177,5 +177,6 @@ onMounted(() => {
 <style scoped>
 i {
   padding-right: 4px;
+  font-size: 1rem
 }
 </style>
