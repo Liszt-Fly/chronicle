@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Menu, MenuItem } from "@electron/remote";
 import { useRouter } from 'vue-router'
-import { } from "@/interfaces/type";
+import { setCurrentFileNode } from '@/api/util'
 import path from "path";
 import {
   validateFilename,
@@ -138,9 +138,7 @@ if (props.file!.children) {
   );
 }
 
-const popMenu = (e: MouseEvent) => {
-  menu.popup();
-};
+
 onMounted(() => {
   menuItems.forEach((item) => {
     menu.append(item);
@@ -152,7 +150,7 @@ onMounted(() => {
   <div class="folder" v-if="file" ref="fileDom">
     <div class="item" tabindex="1" @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
       :data-path="file.path" v-if="validateFilename(file.name!)"
-      :class="[{ 'clicked': props.file!.path == currentFile }]">
+      :class="[{ 'clicked': props.file!.path == currentFile }]" @contextmenu="setCurrentFileNode(props.file!)">
       <i class="bi bi-file-earmark-text" v-if="file.type == NodeType.FILE"></i>
       <i class="bi bi-folder" v-if="file.type == NodeType.DIR"></i>
       <span ref="namebox" @blur="props.file!.rename(namebox!.innerText)" @keydown.enter.prevent="enter($event)"> {{
