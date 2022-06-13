@@ -155,15 +155,6 @@ onMounted(() => {
       :class="[{ 'clicked': props.file!.path == currentFile }]">
       <i class="bi bi-file-earmark-text" v-if="file.type == NodeType.FILE"></i>
       <i class="bi bi-folder" v-if="file.type == NodeType.DIR"></i>
-
-      <!-- <span :class="[
-        'iconfont',
-        { 'icon-folder': file.children },
-        { 'icon-018bijiben-2': !file.children },
-        'file-name',
-        'file-icon',
-      ]" @context.stop></span> -->
-
       <span ref="namebox" @blur="props.file!.rename(namebox!.innerText)" @keydown.enter.prevent="enter($event)"> {{
           validateFilename(file.name!)
       }}</span>

@@ -2,28 +2,51 @@
     <el-scrollbar>
         <div class="setting">
             <el-form ref="formRef" :model="config" label-width="10rem" label-position="left">
-                <el-form-item :label="$t('setting.select_theme')">
+                <div>
+                    <router-link to="/">
+                        <el-button type="primary"><i class="bi bi-house-heart"></i>回到主页</el-button>
+                    </router-link>
+                </div>
+
+                <el-divider></el-divider>
+
+                <el-form-item>
+                    <template #label>
+                        <i class="bi bi-brightness-alt-high"></i> {{ $t('setting.select_theme') }}
+                    </template>
                     <el-switch v-model="config.theme" :inactive-icon="Moon" :active-icon="Sunny" />
                 </el-form-item>
-                <el-form-item :label="$t('setting.select_color')">
-                    <el-color-picker v-model="config.color" />
+                <el-form-item>
+                    <template #label>
+                        <i class="bi bi-paint-bucket"></i> {{ $t('setting.select_color') }}
+                    </template>
+                    <el-color-picker v-model="config.color" :predefine="predefineColors" />
                 </el-form-item>
 
                 <el-divider></el-divider>
 
-                <el-form-item :label="$t('setting.global_en_font')">
+                <el-form-item>
+                    <template #label>
+                        <i class="bi bi-type"></i> {{ $t('setting.global_en_font') }}
+                    </template>
                     <el-select v-model="config.global_en_font">
                         <el-option v-for="gf in global_en_fonts" :label="gf" :key="gf" :value="gf">{{ gf }}</el-option>
                     </el-select>
                 </el-form-item>
 
-                <el-form-item :label="$t('setting.global_cn_font')">
+                <el-form-item>
+                    <template #label>
+                        <i class="bi bi-fonts"></i> {{ $t('setting.global_cn_font') }}
+                    </template>
                     <el-select v-model="config.global_cn_font">
                         <el-option v-for="gf in global_cn_fonts" :label="gf" :key="gf" :value="gf">{{ gf }}</el-option>
                     </el-select>
                 </el-form-item>
 
-                <el-form-item :label="$t('setting.code_font')">
+                <el-form-item>
+                    <template #label>
+                        <i class="bi bi-braces"></i> {{ $t('setting.code_font') }}
+                    </template>
                     <el-select v-model="config.code_font">
                         <el-option v-for="cf in code_fonts" :label="cf" :key="cf" :value="cf">{{ cf }}</el-option>
                     </el-select>
@@ -31,7 +54,10 @@
 
                 <el-divider></el-divider>
 
-                <el-form-item :label="$t('setting.language')">
+                <el-form-item>
+                    <template #label>
+                        <i class="bi bi-translate"></i> {{ $t('setting.language') }}
+                    </template>
                     <el-select v-model="config.locale" :placeholder="$t('setting.select_language')">
                         <el-option v-for="locale in $i18n.availableLocales" :label="locale" :key="`locale-${locale}`"
                             :value="locale">{{ locale }}</el-option>
@@ -70,6 +96,9 @@ const global_en_fonts = ["Verdana", "Arial", "Times New Roman"]
 const global_cn_fonts = ["微软雅黑", "楷体", "宋体"]
 const code_fonts = ["Consolas", "Cascadia Code", "Courier"]
 
+let predefineColors = [
+    "#f596aa", "#9f353a", "#cb4042", "#b9887d", "#947a6d", "#939650", "#89916b", "#b5caa0", "#58b2dc", "#6a4c9c", "#ffb11b"
+]
 let config: Iconfig = reactive({
     "theme": "",
     color: "",
@@ -117,11 +146,25 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .setting {
     padding: 1rem;
     text-align: center;
     max-width: 400px;
     margin: auto;
+    user-select: none;
+
+    .el-form-item__label i {
+        margin-right: 6px;
+        font-size: 1rem
+    }
+
+    a {
+        text-decoration: none;
+
+        .el-button {
+            width: 100%;
+        }
+    }
 }
 </style>

@@ -13,16 +13,16 @@ function empty() { }
         </div>
         <div class="tab-item" @click="empty" id="stream">
           <router-link to="/Stream">
-            <i class="bi bi-layout-wtf"></i>
+            <i class="bi bi-columns-gap"></i>
           </router-link>
         </div>
       </div>
       <div class="sub-tab">
-        <div class="tab-item" @click="empty" id="home">
+        <!-- <div class="tab-item" @click="empty" id="home">
           <router-link to="/">
             <i class="bi bi-house-heart"></i>
           </router-link>
-        </div>
+        </div> -->
         <div class="tab-item" @click="empty" id="setting">
           <router-link to="/Setting">
             <i class="bi bi-sliders2"></i>
