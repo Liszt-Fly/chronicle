@@ -17,35 +17,34 @@ let menuY = ref(0)
 
 let showParentMenu = (e: MouseEvent) => {
   bClickedParent.value = true
-  console.log(bClickedParent.value)
-  menuDisplay.value = "none"
+  menuDisplay.value = "hidden"
   setTimeout(() => {
     menuDisplay.value = "block"
     const height = document.body.clientHeight;
     const width = document.body.clientWidth;
-    // width is 150, but there is box-shadowing, so ~172
-    if (e.clientX + 172 < width) menuX.value = e.clientX;
-    else menuX.value = width - 172;
-    // height is ~160, padding top & bottom is 10
-    if (e.clientY + 160 < height) menuY.value = e.clientY - 10;
-    else menuY.value = e.clientY - 170;
+    // FIXME:
+    let menuHeight = 80
+
+    menuX.value = e.clientX
+
+    if (e.clientY + menuHeight < height) menuY.value = e.clientY;
+    else menuY.value = e.clientY - menuHeight;
   }, 0)
 }
 
 let showMenu = (e: MouseEvent) => {
   bClickedParent.value = false
-  console.log(bClickedParent.value)
-  menuDisplay.value = "none"
+  menuDisplay.value = "hidden"
   setTimeout(() => {
     menuDisplay.value = "block"
     const height = document.body.clientHeight;
     const width = document.body.clientWidth;
-    // width is 150, but there is box-shadowing, so ~172
-    if (e.clientX + 172 < width) menuX.value = e.clientX;
-    else menuX.value = width - 172;
-    // height is ~160, padding top & bottom is 10
-    if (e.clientY + 160 < height) menuY.value = e.clientY - 10;
-    else menuY.value = e.clientY - 170;
+    let menuHeight = document.getElementsByClassName("menu")[0].offsetHeight
+
+    menuX.value = e.clientX
+
+    if (e.clientY + menuHeight < height) menuY.value = e.clientY;
+    else menuY.value = e.clientY - menuHeight;
   }, 0)
 }
 let hideMenu = () => {

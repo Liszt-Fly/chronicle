@@ -7,7 +7,6 @@ import path from "path"
 import { chronicleUserPath } from "@/api/init";
 
 const Adelete = () => {
-
     fileTree.currentFileNode.removeSelf()
 }
 
@@ -16,7 +15,6 @@ const rename = () => {
 }
 
 const addChildren = (t: NodeType) => {
-    console.log(`当前是否是Parent:${bClickedParent}`)
     if (bClickedParent.value) {
         fTree.value!.root.addChildren(t)
     }
@@ -28,7 +26,7 @@ const addChildren = (t: NodeType) => {
 </script>
 
 <template>
-    <div class="box-card" shadow="never">
+    <div class="menu" shadow="never">
         <template v-if="!bClickedParent">
             <div class="text-item">
                 <i class="bi bi-bookmarks"></i>
@@ -47,10 +45,10 @@ const addChildren = (t: NodeType) => {
                 <div class="text-item" @click="addChildren(NodeType.DIR)">
                     <i class="bi bi-folder-plus"></i>
                     <el-divider direction="vertical" /><span>新建文件夹</span>
-
                 </div>
             </template>
         </template>
+
         <template v-else-if="bClickedParent">
             <div class="text-item" @click="addChildren(NodeType.FILE)">
                 <i class="bi bi-file-earmark-plus"></i>
@@ -59,10 +57,15 @@ const addChildren = (t: NodeType) => {
             <div class="text-item" @click="addChildren(NodeType.DIR)">
                 <i class="bi bi-folder-plus"></i>
                 <el-divider direction="vertical" /><span>新建文件夹</span>
-
             </div>
+        </template>
 
-
+        <template v-if="!bClickedParent">
+            <el-divider v-if="fileTree.currentFileNode.type == NodeType.DIR" />
+            <div class="text-item">
+                <i class="bi bi-files"></i>
+                <el-divider direction="vertical" /><span>创建副本</span>
+            </div>
         </template>
 
         <template v-if="!bClickedParent">
@@ -83,7 +86,7 @@ const addChildren = (t: NodeType) => {
     --el-transition-duration: 0;
 }
 
-.box-card {
+.menu {
     width: 140px;
     position: fixed;
     z-index: 999;

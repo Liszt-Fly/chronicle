@@ -36,7 +36,6 @@ function readFile() {
 }
 
 let openFile = () => {
-  console.log(`/Editor/${path.relative(path.join(chronicleUserPath, "assets"), props.file!.path).replaceAll("\\", "/")}`)
   router.push(`/Editor/${path.relative(path.join(chronicleUserPath, "assets"), props.file!.path).replaceAll("\\", "/")}`)
 }
 </script>

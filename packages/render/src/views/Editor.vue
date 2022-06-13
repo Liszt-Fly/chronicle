@@ -15,9 +15,7 @@ let vditor: Vditor | null = null;
 //存储文章
 function save(event: KeyboardEvent) {
   if (event.keyCode == 83) {
-    console.log(vditor!.getValue());
     fsp.writeFileSync(currentFile.value, vditor!.getValue());
-    console.log("保存成功");
   }
 }
 
@@ -58,7 +56,6 @@ onMounted(() => {
   watchEffect(() => {
 
     if (currentFile.value != "") {
-      console.log();
       loadArticle();
       vditor = new Vditor("vditor", {
         cache: {
