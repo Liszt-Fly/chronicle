@@ -5,8 +5,6 @@ import Stream from "@/views/Stream.vue"
 import Home from "@/views/Home.vue"
 import Repository from "@/components/Repository.vue"
 
-
-
 const router = createRouter({
 	linkActiveClass: "active",
 	history: createWebHashHistory(),

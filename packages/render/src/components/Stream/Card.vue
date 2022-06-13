@@ -10,7 +10,7 @@
         </el-row>
       </div>
     </div>
-    <div class="mask">
+    <div class="mask" @click="openFile">
       <div v-html="readFile()" class="thumbnail"></div>
     </div>
   </el-card>
@@ -21,15 +21,23 @@ import { marked } from 'marked';
 import { qFile } from "@/interfaces/type";
 import fsp from "fs-extra";
 import { removeExtName } from "@/api/FileSystem/filesystem";
+import path from "path"
+import router from '@/router/router';
+import { chronicleUserPath } from '@/api/init'
+
 const props = defineProps({
   file: Object as () => qFile,
 });
+
 function readFile() {
   let thumbnail = fsp.readFileSync(props.file!.path, { encoding: "utf-8" });
   thumbnail = marked.parse(thumbnail);
-  // console.log(thumbnail);
-
   return thumbnail;
+}
+
+let openFile = () => {
+  console.log(`/Editor/${path.relative(path.join(chronicleUserPath, "assets"), props.file!.path).replaceAll("\\", "/")}`)
+  router.push(`/Editor/${path.relative(path.join(chronicleUserPath, "assets"), props.file!.path).replaceAll("\\", "/")}`)
 }
 </script>
 
@@ -74,6 +82,7 @@ function readFile() {
   .mask {
     display: none;
     user-select: none;
+    cursor: pointer;
   }
 
   &:hover {
