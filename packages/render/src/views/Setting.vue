@@ -9,7 +9,7 @@
                     <Appearance></Appearance>
                 </el-tab-pane>
                 <el-tab-pane label="快捷键">
-                    <ShortCut></ShortCut>
+                    <Shortcut></Shortcut>
                 </el-tab-pane>
             </el-scrollbar>
         </el-tabs>
@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import ShortCut from "@/components/Setting/ShortCut.vue"
+import Shortcut from "@/components/Setting/Shortcut.vue"
 import Appearance from "@/components/Setting/Appearance.vue"
 import General from "@/components/Setting/General.vue"
 

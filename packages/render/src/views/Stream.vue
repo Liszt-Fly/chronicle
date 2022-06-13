@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import Card from "@/components/Stream/Card.vue";
+import Paper from "@/components/Stream/Paper.vue";
 import { qFile } from "@/interfaces/type";
 import { chronicleUserPath } from "@/api/init";
 import fs from "fs-extra";
@@ -39,7 +39,7 @@ onMounted(() => { });
       <el-row :gutter="30">
         <template v-for="file in filestorage">
           <el-col :span="8" :xs="12" :md="6" :sm="8" :lg="4">
-            <card :file="file"></card>
+            <Paper :file="file"></Paper>
           </el-col>
         </template>
       </el-row>

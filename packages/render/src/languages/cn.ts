@@ -23,7 +23,7 @@ export let cn =
         select_language: "选择语言",
 
         save: "保存",
-        default: "恢复默认值",
+        default: "恢复默认设置",
 
         "cn": "中文",
         "en": "英文"

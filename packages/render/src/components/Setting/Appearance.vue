@@ -120,19 +120,17 @@ onMounted(() => {
                         :value="locale">{{ locale }}</el-option>
                 </el-select>
             </el-form-item>
-
-            <el-form-item>
-                <el-button type="primary" @click="restoreDialogVisible = true">{{ $t("setting.default") }}
-                </el-button>
-            </el-form-item>
         </el-form>
+
+        <el-button class="default" type="primary" @click="restoreDialogVisible = true">{{ $t("setting.default") }}
+        </el-button>
 
         <el-dialog v-model="restoreDialogVisible" width="16rem">
             <span>确定恢复默认设置吗？</span>
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="restoreDialogVisible = false">取消</el-button>
-                    <el-button type="primary" @click="restoreDefault(), restoreDialogVisible = false">确定
+                    <el-button type="primary" @click="restoreDefault, restoreDialogVisible = false">确定
                     </el-button>
                 </span>
             </template>
@@ -151,6 +149,14 @@ onMounted(() => {
     .el-form-item__label i {
         margin-right: 6px;
         font-size: 1rem
+    }
+
+    .default {
+        width: 100%;
+    }
+
+    .el-dialog__body {
+        text-align: center;
     }
 }
 </style>
