@@ -34,15 +34,17 @@ onMounted(() => { });
 </script>
 
 <template>
-  <div class="stream">
-    <el-row :gutter="30">
-      <template v-for="file in filestorage">
-        <el-col :span="8" :xs="12" :md="6" :sm="8" :lg="4">
-          <card :file="file"></card>
-        </el-col>
-      </template>
-    </el-row>
-  </div>
+  <el-scrollbar>
+    <div class="stream">
+      <el-row :gutter="30">
+        <template v-for="file in filestorage">
+          <el-col :span="8" :xs="12" :md="6" :sm="8" :lg="4">
+            <card :file="file"></card>
+          </el-col>
+        </template>
+      </el-row>
+    </div>
+  </el-scrollbar>
 </template>
 
 <style>

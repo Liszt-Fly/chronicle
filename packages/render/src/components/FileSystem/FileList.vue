@@ -51,9 +51,9 @@ function toggleSubfolder(
     if (event) {
       let item = event.currentTarget as HTMLElement;
       let folder = item.firstElementChild!;
-      folder.classList.toggle("icon-folder");
-      folder.classList.toggle("icon-folder-open");
-      if (folder.classList.contains("icon-folder-open")) {
+      folder.classList.toggle("bi-folder");
+      folder.classList.toggle("bi-folder2-open");
+      if (folder.classList.contains("bi-folder2-open")) {
         if (subfolder.dom) {
           subfolder.dom.style.display = "block";
         }
@@ -151,21 +151,31 @@ onMounted(() => {
 <template>
   <div class="folder" v-if="file" ref="fileDom">
     <div class="item" tabindex="1" @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
-      :data-path="file.path" v-if="validateFilename(file.name!)">
-      <span :class="[
+      :data-path="file.path" v-if="validateFilename(file.name!)"
+      :class="[{ 'clicked': props.file!.path == currentFile }]">
+      <i class="bi bi-file-earmark-text" v-if="file.type == NodeType.FILE"></i>
+      <i class="bi bi-folder" v-if="file.type == NodeType.DIR"></i>
+
+      <!-- <span :class="[
         'iconfont',
         { 'icon-folder': file.children },
         { 'icon-018bijiben-2': !file.children },
         'file-name',
         'file-icon',
-      ]" @context.stop></span>
-      <span :class="['cursor', { 'clicked': props.file!.path == currentFile }]" ref="namebox"
-        @blur="props.file!.rename(namebox!.innerText)" @keydown.enter.prevent="enter($event)">{{
-            validateFilename(file.name!)
-        }}</span>
+      ]" @context.stop></span> -->
+
+      <span ref="namebox" @blur="props.file!.rename(namebox!.innerText)" @keydown.enter.prevent="enter($event)"> {{
+          validateFilename(file.name!)
+      }}</span>
     </div>
     <div class="subfolder" v-if="file.children" ref="subfolder" id="subfolder">
       <file-list :files="file.children" :file="f" v-for="f in file.children" :key="f.path"></file-list>
     </div>
   </div>
 </template>
+
+<style scoped>
+i {
+  padding-right: 4px;
+}
+</style>

@@ -21,7 +21,7 @@ let initTheme = () => {
 	let code_font = config.code_font
 
 	let globalStyle = document.createElement('style');
-	globalStyle.innerText = `:root {
+	globalStyle.innerText = `html.${config.theme ? "light" : "dark"} {
 		--el-color-primary:${color};
 		--chronicle-global-en-font: ${global_en_font};
 		--chronicle-global-cn-font: ${global_cn_font};

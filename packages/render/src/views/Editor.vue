@@ -87,7 +87,9 @@ onMounted(() => {
     </div>
     <div class="column-right">
       <!-- 右侧 editor -->
-      <div class="editor" id="vditor" ref="editor" @keydown.ctrl="save"></div>
+      <el-scrollbar>
+        <div class="editor" id="vditor" ref="editor" @keydown.ctrl="save"></div>
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -152,6 +154,7 @@ onMounted(() => {
 
 .vditor,
 .vditor-reset {
+  --textarea-background-color: --el-bg-color;
   font-family: var(--chronicle-global-en-font), var(--chronicle-global-cn-font);
   margin: 0;
   padding: 0;

@@ -1,24 +1,9 @@
-@import "element-variables.scss";
-
-:root {
-  --el-color-primary: #81a28b;
-  --chronicle-code-font: "cascadia code";
-  --chronicle-global-en-font: "Geogrgia";
-  --chronicle-global-cn-font: "楷体";
-  --chronicle-theme-color: var(--el-color-primary);
-}
-
 * {
   margin: 0;
   outline: none;
 }
 
-.clicked {
-  color: var(--chronicle-theme-color);
-}
-
 body {
-  height: calc(100vh - 40px);
   font-family: var(--chronicle-global-en-font), var(--chronicle-global-cn-font);
   line-height: 1.5;
 }
@@ -28,6 +13,7 @@ body {
   flex-direction: row;
 
   .tab-bar {
+    padding: 0 4px;
     width: 2.5rem;
     display: flex;
     flex-direction: column;
@@ -67,7 +53,7 @@ body {
 
 .file-system {
   height: 100vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   user-select: none;
@@ -76,8 +62,8 @@ body {
   white-space: nowrap;
 
   .subfolder {
-    padding-left: 10px;
-    width: 100%;
+    padding-left: 20px;
+    width: calc(100% - 20px);
     display: none;
     flex-direction: column;
     overflow-x: hidden;
@@ -90,36 +76,35 @@ body {
   }
 
   .folder {
-    white-space: nowrap;
-    display: flex;
-    overflow-y: auto;
-    flex-direction: column;
-    overflow-x: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 
     .item {
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
+      padding: 6px;
+      font-size: 1rem;
       overflow-x: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      box-sizing: border-box;
+      border: 2px solid var(--el-bg-color);
 
       &:hover {
         cursor: pointer;
+        border-radius: 6px;
+        border: 2px solid var(--el-color-info-light-9);
       }
 
-      .file-icon {
-        font-size: 1rem;
-        position: relative;
-        right: 0.3rem;
+      &.clicked {
+        background-color: var(--chronicle-theme-color);
+        color: var(--el-bg-color);
+        border-radius: 6px;
       }
     }
   }
 }
 
 .editor {
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 1.5;
   word-wrap: break-word;
   width: inherit;

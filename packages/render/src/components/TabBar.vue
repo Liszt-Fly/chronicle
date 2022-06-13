@@ -6,9 +6,9 @@ function empty() { }
   <div class="tab-system">
     <div class="tab-bar">
       <div class="sub-tab">
-        <div class="tab-item" @click="empty" id="archive">
+        <div class="tab-item" @click="empty" id="editor">
           <router-link :class="{ 'active': $route.path.includes('Editor') }" to="/Editor/:standard.md">
-            <i class="bi bi-archive"></i>
+            <i class="bi bi-box-seam"></i>
           </router-link>
         </div>
         <div class="tab-item" @click="empty" id="stream">
@@ -25,7 +25,7 @@ function empty() { }
         </div>
         <div class="tab-item" @click="empty" id="setting">
           <router-link to="/Setting">
-            <i class="bi bi-tools"></i>
+            <i class="bi bi-sliders2"></i>
           </router-link>
         </div>
       </div>
