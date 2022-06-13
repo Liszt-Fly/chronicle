@@ -1,4 +1,4 @@
-# 🚀️ Vue Ed1
+# 🚀️ Vue
 
 ## list
 
@@ -14,7 +14,7 @@
 ## code
 
 ```js
-console.log(123)
+console.log(123);
 ```
 
 ## quote

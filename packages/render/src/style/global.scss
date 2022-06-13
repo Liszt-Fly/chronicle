@@ -48,7 +48,7 @@ body {
 .main {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 40px);
+  height: calc(100vh - var(--is-win));
 }
 
 .file-system {
@@ -81,7 +81,7 @@ body {
 
     .item {
       padding: 6px;
-      font-size: 1rem;
+      font-size: 0.8rem;
       overflow-x: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -104,7 +104,7 @@ body {
 }
 
 .editor {
-  font-size: 1rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   word-wrap: break-word;
   width: inherit;

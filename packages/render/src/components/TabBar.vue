@@ -7,7 +7,7 @@ function empty() { }
     <div class="tab-bar">
       <div class="sub-tab">
         <div class="tab-item" @click="empty" id="editor">
-          <router-link :class="{ 'active': $route.path.includes('Editor') }" to="/Editor/:standard.md">
+          <router-link :class="{ 'active': $route.path.includes('Editor') }" to="/Editor/Standard.md">
             <i class="bi bi-box-seam"></i>
           </router-link>
         </div>

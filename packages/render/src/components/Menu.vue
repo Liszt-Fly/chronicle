@@ -94,6 +94,7 @@ const addChildren = (t: NodeType) => {
 
     .el-divider--horizontal {
         margin: 4px;
+        width: auto
     }
 
     .text-item {

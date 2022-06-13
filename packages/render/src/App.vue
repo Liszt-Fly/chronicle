@@ -1,9 +1,20 @@
 <script setup lang="ts">
 import TabBar from "@/components/TabBar.vue";
+//首先获取设备类型
+let agent = navigator.userAgent.toLowerCase();
+//再用正则匹配出结果
+let iswin = /windows/i.test(agent);
+let winHeight = iswin ? "0px" : "40px"
+
+let winStyle = document.createElement('style');
+winStyle.innerText = `:root {
+		--is-win:${winHeight};
+	}`
+document.getElementsByTagName('head')[0].appendChild(winStyle);
 </script>
 
 <template>
-  <div class="app-name">
+  <div class="app-name" v-if="!iswin">
     Chronicle
   </div>
   <div class="main" spellcheck="false">

@@ -11,9 +11,11 @@
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
-.el-card {
+.box-card {
     padding: 12px;
     margin: 12px;
+    width: 150px;
+    height: 200px;
 
     &:hover {
         overflow-y: auto;
