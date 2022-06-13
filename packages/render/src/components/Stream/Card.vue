@@ -38,6 +38,7 @@ function readFile() {
   padding: 8px;
   margin: 12px;
   height: 30vw;
+  min-height: 200px;
   --el-card-padding: 12px;
   --el-font-size-base: 0.8rem;
   position: relative;
