@@ -40,8 +40,7 @@ async function createWindow() {
       contextIsolation: false,
     },
   })
-  //@ts-ignore
-  if (process.platform === 'win32') win.titleBarStyle = "default"
+
   require("@electron/remote/main").enable(win.webContents)
   if (app.isPackaged) {
     win.loadFile(join(__dirname, '../render/index.html'))
