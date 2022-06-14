@@ -11,7 +11,6 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { onMounted, reactive, ref, watchEffect } from "vue";
 import { fileNode } from "@/api/FileTree/fileNode";
 import { NodeType } from "@/api/FileTree/type";
-import draggable from 'vuedraggable'
 const props = defineProps({
   file: Object as () => fileNode,
 });

@@ -2,7 +2,7 @@ import fsp from "fs-extra"
 import { NodeType } from "./type"
 import p from "path"
 import { getValidName } from "@/api/util"
-import deepClone from 'deep-clone'
+
 import { removeExtName } from "../FileSystem/filesystem"
 export class fileNode {
     //* constructor
