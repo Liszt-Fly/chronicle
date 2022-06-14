@@ -71,7 +71,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="file-system" ref="filesystem" @click="hideMenu" @contextmenu.capture="showParentMenu($event)">
-    <el-scrollbar height="calc(100vh - var(--is-win))">
+    <el-scrollbar height="calc(100vh - var(--brand-height))">
       <template v-for="file in fTree?.tree.children" :key="file.path">
         <file-list :file="file" @contextmenu.stop="showMenu($event)"> </file-list>
       </template>

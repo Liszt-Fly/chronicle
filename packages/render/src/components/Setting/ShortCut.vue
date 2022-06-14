@@ -70,6 +70,24 @@
                 </template>
                 <el-input v-model="shortcut.delete_line" />
             </el-form-item>
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-file-fill" style="transform: rotate(90deg);"></i> 设为突出
+                </template>
+                <el-input v-model="shortcut.highlight" />
+            </el-form-item>
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-text-indent-left"></i> 向右缩进
+                </template>
+                <el-input v-model="shortcut.indent_right" />
+            </el-form-item>
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-text-indent-right"></i> 向左缩进
+                </template>
+                <el-input v-model="shortcut.indent_left" />
+            </el-form-item>
 
             <el-divider></el-divider>
 
@@ -106,6 +124,24 @@
 
             <el-divider></el-divider>
 
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-list-columns-reverse"></i> 全选
+                </template>
+                <el-input v-model="shortcut.all" />
+            </el-form-item>
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-arrow-counterclockwise"></i> 撤销
+                </template>
+                <el-input v-model="shortcut.undo" />
+            </el-form-item>
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-arrow-clockwise"></i> 重做
+                </template>
+                <el-input v-model="shortcut.redo" />
+            </el-form-item>
             <el-form-item>
                 <template #label>
                     <i class="bi bi-clipboard-check"></i> 普通复制
@@ -147,13 +183,13 @@
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-file-earmark-check"></i> 保存文件
+                    <i class="bi bi-save"></i> 保存文件
                 </template>
                 <el-input v-model="shortcut.save_file" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-file-earmark-check-fill"></i> 另存为
+                    <i class="bi bi-save2"></i> 另存为
                 </template>
                 <el-input v-model="shortcut.save_as" />
             </el-form-item>
@@ -162,12 +198,6 @@
                     <i class="bi bi-x-circle"></i> 关闭文件
                 </template>
                 <el-input v-model="shortcut.close_file" />
-            </el-form-item>
-            <el-form-item>
-                <template #label>
-                    <i class="bi bi-arrow-clockwise"></i> 重新打开关闭的文件
-                </template>
-                <el-input v-model="shortcut.reopen_closed_file" />
             </el-form-item>
             <el-form-item>
                 <template #label>
@@ -235,7 +265,10 @@ const shortcut = reactive({
     underline: 'Ctrl+U',
     italics: 'Ctrl+I',
     delete_line: 'Ctrl+D',
+    highlight: 'Ctrl+Shift+H',
     code: 'Ctrl+`',
+    indent_right: 'Tab',
+    indent_left: 'Shift+Tab',
 
     insert_img: 'Ctrl+Shift+I',
     insert_table: 'Ctrl+T',
@@ -243,6 +276,9 @@ const shortcut = reactive({
     insert_formula: 'Ctrl+Shift+F',
     insert_quote: 'Ctrl+Shift+Q',
 
+    all: 'Ctrl+A',
+    undo: 'Ctrl+Z',
+    redo: 'Ctrl+Shift+Z',
     copy: 'Ctrl+C',
     copy_markdown: 'Ctrl+Shift+C',
     paste: 'Ctrl+V',
@@ -253,7 +289,6 @@ const shortcut = reactive({
     save_file: 'Ctrl+S',
     save_as: 'Ctrl+Shift+S',
     close_file: 'Ctrl+W',
-    reopen_closed_file: 'Ctrl+Shift+T',
     lock: 'Ctrl+L',
     unlock: 'Ctrl+Shift+L',
 

@@ -1,18 +1,29 @@
 <script setup lang="ts">
+import { reactive, ref } from 'vue'
 
+const general = reactive({ autosave: false })
 </script>
+
 <template>
     <div class="general">
-        <el-form label-width="180px" label-position="left">
-            <h1>Made with ❤️</h1>
-
-            <router-link to="/">
-                <el-button type="primary"><i class="bi bi-house-heart"></i>回到主页</el-button>
-            </router-link>
+        <el-form label-width="180px" :model="general" label-position="left">
 
             <el-form-item>
-
+                <template #label>
+                    <i class="bi bi-robot"></i> 自动保存
+                </template>
+                <el-switch v-model="general.autosave" />
             </el-form-item>
+
+
+            <div class="home">
+                <router-link to="/">
+                    <el-button type="primary"><i class="bi bi-house-heart"></i>回到主页</el-button>
+                </router-link>
+            </div>
+
+            <!-- <h1>Made with ❤️</h1> -->
+
         </el-form>
     </div>
 </template>
@@ -26,20 +37,34 @@
     margin: auto;
     user-select: none;
 
+    .el-form-item__label i {
+        margin-right: 6px;
+        font-size: 1rem
+    }
+
+    .el-dialog__body {
+        text-align: center;
+    }
+
     h1 {
         margin: 20px
     }
 
-    a {
-        text-decoration: none;
+    .home {
+        width: 100%;
+        margin: 20px 0;
 
-        i {
-            margin-right: 6px;
-            font-size: 1rem
-        }
+        a {
+            text-decoration: none;
 
-        .el-button {
-            width: 100%;
+            i {
+                margin-right: 6px;
+                font-size: 1rem
+            }
+
+            .el-button {
+                width: 100%;
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ import General from "@/components/Setting/General.vue"
 .setting {
     height: 100%;
 
-    .el-tabs {
+    .el-tabs.el-tabs--left {
         height: 100%;
 
         .el-tabs__header {
@@ -37,6 +37,10 @@ import General from "@/components/Setting/General.vue"
         .el-tabs__content {
             overflow: auto !important;
             height: 100%;
+        }
+
+        .el-tabs__item.is-left {
+            text-align: left;
         }
     }
 }

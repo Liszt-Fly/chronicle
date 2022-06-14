@@ -33,7 +33,7 @@ async function createWindow() {
     width: 800,
     resizable: true,
     frame: true,
-    titleBarStyle: process.platform != "win32" ? "hidden" : "default",
+    titleBarStyle: "hidden",
     webPreferences: {
       preload: join(__dirname, '../preload/index.cjs'),
       nodeIntegration: true,
@@ -61,6 +61,14 @@ async function createWindow() {
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('https:')) shell.openExternal(url)
     return { action: 'deny' }
+  })
+
+  win!.on('maximize', function () {
+    win!.webContents.send('main-window-max');
+  })
+
+  win!.on('unmaximize', function () {
+    win!.webContents.send('main-window-unmax');
   })
 }
 
@@ -110,3 +118,21 @@ ipcMain.handle("open-win", (event, arg) => {
     // childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 });
+
+ipcMain.on('close-app', () => {
+  if (win) {
+    win.close()
+  }
+})
+
+ipcMain.on('window-max', function () {
+  if (win!.isMaximized()) {
+    win!.restore();
+  } else {
+    win!.maximize();
+  }
+})
+
+ipcMain.on('min-app', () => {
+  win!.minimize()
+})

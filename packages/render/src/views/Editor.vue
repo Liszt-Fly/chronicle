@@ -91,12 +91,12 @@ onMounted(() => {
 .column-left {
   position: relative;
   float: left;
-  height: calc(100vh - var(--is-win));
+  height: calc(100vh - var(--brand-height));
 }
 
 .column-right {
   overflow: hidden;
-  height: calc(100vh - var(--is-win));
+  height: calc(100vh - var(--brand-height));
 
 }
 
@@ -136,9 +136,9 @@ onMounted(() => {
 }
 </style>
 <style lang="scss" >
-// .vditor-toolbar {
-//   display: none !important;
-// }
+.vditor-toolbar {
+  display: none !important;
+}
 
 .vditor,
 .vditor-reset {

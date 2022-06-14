@@ -27,6 +27,14 @@ const rename = () => {
   //   fileTree.currentFileNode.rename(props.dom!.innerText);
 };
 
+const exportFile = () => {
+
+}
+
+const exportDir = () => {
+
+}
+
 const addChildren = (t: NodeType) => {
   if (bClickedParent.value) {
     fTree.value!.root.addChildren(t);
@@ -62,26 +70,35 @@ onMounted(() => {
       </div>
     </template>
 
-    <template v-if="!bClickedParent">
-      <el-divider
-        v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.DIR"
-      />
-      <div class="text-item">
-        <i class="bi bi-files"></i>
-        <el-divider direction="vertical" />
-        <span>创建副本</span>
-      </div>
-      <div class="text-item" @click="rename()">
-        <i class="bi bi-input-cursor"></i>
-        <el-divider direction="vertical" />
-        <span>重命名</span>
-      </div>
-      <div class="text-item" @click="remove">
-        <i class="bi bi-trash3"></i>
-        <el-divider direction="vertical" />
-        <span>删除</span>
-      </div>
-    </template>
+        <template v-if="!bClickedParent">
+            <el-divider v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.DIR" />
+            <div class="text-item">
+                <i class="bi bi-files"></i>
+                <el-divider direction="vertical" />
+                <span>创建副本</span>
+            </div>
+            <div class="text-item" @click="exportFile"
+                v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FILE">
+                <i class="bi bi-reply" style="transform: rotate(90deg);"></i>
+                <el-divider direction="vertical" />
+                <span>导出为 PDF</span>
+            </div>
+            <div class="text-item" @click="exportDir" v-else>
+                <i class="bi bi-reply-all"></i>
+                <el-divider direction="vertical" />
+                <span>全导出为 PDF</span>
+            </div>
+            <div class="text-item" @click="rename">
+                <i class="bi bi-input-cursor"></i>
+                <el-divider direction="vertical" />
+                <span>重命名</span>
+            </div>
+            <div class="text-item" @click="remove">
+                <i class="bi bi-trash3"></i>
+                <el-divider direction="vertical" />
+                <span>删除</span>
+            </div>
+        </template>
 
     <template v-if="!bClickedParent">
       <el-divider />
@@ -107,10 +124,15 @@ onMounted(() => {
   background-color: var(--el-bg-color);
   box-shadow: var(--el-box-shadow-lighter);
 
-  .el-divider--horizontal {
-    margin: 4px;
-    width: auto;
-  }
+    .bi-reply::before,
+    .bi-reply-all::before {
+        transform: rotateY(180deg);
+    }
+
+    .el-divider--horizontal {
+        margin: 4px;
+        width: auto
+    }
 
   .text-item {
     border-radius: 4px;
