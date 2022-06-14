@@ -1,6 +1,8 @@
 // vue app
 import { createApp } from "vue"
 import App from "./App.vue"
+//@ts-ignore
+import drag from "v-drag"
 const app = createApp(App)
 
 // 样式
@@ -20,7 +22,6 @@ app.use(ElementPlus)
 // i18n
 import { createI18n } from 'vue-i18n'
 import { messages } from "@/languages/language"
-import path from 'path'
 const i18n = createI18n({
     locale: 'cn',
     fallbackLocale: 'en',
