@@ -2,6 +2,8 @@ import fsp from "fs-extra"
 import { NodeType } from "./type"
 import p from "path"
 import { getValidName } from "@/api/util"
+import deepClone from 'deep-clone'
+import { removeExtName } from "../FileSystem/filesystem"
 export class fileNode {
     //* constructor
     constructor(path: string, name: string) {
@@ -77,9 +79,24 @@ export class fileNode {
         let prevPath = this.path
         let obj = p.parse(this.path)
         obj.base = newName + ".md"
+        console.log(obj.base)
         obj.name = newName
         //更新
         this.path = p.resolve(obj.dir, obj.base)
         fsp.renameSync(prevPath, this.path)
+    }
+    //* 替身
+    substitute() {
+        //生成一个同样的节点，并且更改名称
+        //如果是文件
+        let name = removeExtName(this.name) + "的副本"
+        let path = p.resolve(p.parse(this.path).dir, name + ".md")
+        fsp.createFileSync(path)
+        let node = new fileNode(path, name)
+        this.parent?.children?.push(node)
+        node.parent = this.parent
+        console.log(node)
+        console.log(node.parent)
+
     }
 }

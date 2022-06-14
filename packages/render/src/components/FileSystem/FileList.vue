@@ -5,13 +5,13 @@ import { setCurrentFileNode } from "@/api/util";
 import path from "path";
 import { validateFilename } from "@/api/FileSystem/filesystem";
 import { cTagContainer, currentFile } from "@/api/configdb";
-import {} from "@/api/FileSystem/filesystem";
+import { } from "@/api/FileSystem/filesystem";
 import { chronicleUserPath } from "@/api/init";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { onMounted, reactive, ref, watchEffect } from "vue";
 import { fileNode } from "@/api/FileTree/fileNode";
 import { NodeType } from "@/api/FileTree/type";
-
+import draggable from 'vuedraggable'
 const props = defineProps({
   file: Object as () => fileNode,
 });
@@ -140,40 +140,33 @@ onMounted(() => {
     menu.append(item);
   });
 });
+const test = () => {
+  console.log("drop")
+}
+const test1 = () => {
+  console.log("drop事件发生")
+}
 </script>
 
 <template>
-  <div class="folder" v-if="file" ref="fileDom">
-    <div
-      class="item"
-      tabindex="1"
-      @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
-      :data-path="file.path"
-      v-if="validateFilename(file.name!)"
-      :class="[{ 'clicked': props.file!.path == currentFile }]"
-      @contextmenu="setCurrentFileNode(props.file!)"
-    >
+
+  <div class="folder" v-if="file" ref="fileDom" draggable="true" @dragstart="test" @drop.stop="test1" @dragover.prevent>
+    <div class="item" tabindex="1" @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
+      :data-path="file.path" v-if="validateFilename(file.name!)"
+      :class="[{ 'clicked': props.file!.path == currentFile }]" @contextmenu="setCurrentFileNode(props.file!)">
       <i class="bi bi-file-earmark-text" v-if="file.type == NodeType.FILE"></i>
       <i class="bi bi-folder" v-if="file.type == NodeType.DIR"></i>
-      <span
-        ref="namebox"
-        @blur="props.file!.rename(namebox!.innerText)"
-        @keydown.enter.prevent="enter($event)"
-      >
+      <span ref="namebox" @blur="props.file!.rename(namebox!.innerText)" @keydown.enter.prevent="enter($event)">
         {{
             validateFilename(file.name!)
-        }}</span
-      >
+        }}</span>
     </div>
     <div class="subfolder" v-if="file.children" ref="subfolder" id="subfolder">
-      <file-list
-        :files="file.children"
-        :file="f"
-        v-for="f in file.children"
-        :key="f.path"
-      ></file-list>
+      <file-list :files="file.children" :file="f" v-for="f in file.children" :key="f.path"></file-list>
     </div>
   </div>
+
+
 </template>
 
 <style scoped>
