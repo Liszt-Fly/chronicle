@@ -33,18 +33,18 @@ export class fileTree {
         fileTree.constructFileTree(this.tree.path, this.tree)
     }
     //* 寻找对应的node
-    getNode(pathName: string, currentNode: fileNode, targetNodes: fileNode[]) {
-
-        if (currentNode == null) return null;
+    getNode(pathName: string, currentNode: fileNode): fileNode | null {
         if (pathName == currentNode.path) {
-            console.log("我找到了")
-            targetNodes.push(currentNode)
             return currentNode
         }
+        if (currentNode == null) return null
         if (currentNode.children) {
-            currentNode.children.forEach(child => {
-                return this.getNode(pathName, child, targetNodes)
-            })
+            for (let child of currentNode.children) {
+                if (this.getNode(pathName, child)) {
+                    return this.getNode(pathName, child)
+                }
+
+            }
         }
         return null
     }

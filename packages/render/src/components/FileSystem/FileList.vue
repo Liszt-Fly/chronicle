@@ -137,29 +137,24 @@ if (props.file!.children) {
 }
 
 onMounted(() => {
-  let array = [4]
-  test(array)
-  console.log(array)
-});
-function test(array: number[]) {
-  array.push(4)
-}
-const drop = (e: DragEvent) => {
-  console.log(`接收的node为:${props.file!.name}`)
-  let filepath = e.dataTransfer?.getData("path") as string
-  let targetNodes: fileNode[] = []
-  fTree.value?.getNode(filepath, fTree.value.root, targetNodes)
 
+});
+
+const drop = (e: DragEvent) => {
+  let filepath = e.dataTransfer?.getData("path") as string
+  console.log(filepath)
+  let target = fTree.value?.getNode(filepath, fTree.value.root)
+  console.log(target)
   //* 只有文件夹可以进行接收
   if (props.file!.type == NodeType.DIR) {
     //* 复制到当前文件夹的路径下
-    fsp.moveSync(targetNodes[0].path, path.resolve(props.file!.path, targetNodes[0].name))
+    fsp.moveSync(target!.path, path.resolve(props.file!.path, target!.name))
 
     //* 链接到新的文件夹目录下面去
-    let node = new fileNode(path.resolve(props.file!.path, targetNodes[0].name), targetNodes[0].name)
+    let node = new fileNode(path.resolve(props.file!.path, target!.name), target!.name)
     props.file!.children!.push(node)
     node.parent = props.file!
-       targetNodes[0].removeSelf()
+    target!.removeSelf()
   }
   else {
     alert("你弱智吗，我又不是文件夹！🙄️")
