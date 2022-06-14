@@ -3,6 +3,10 @@ import Editor from "@/views/Editor.vue"
 import Setting from "@/views/Setting.vue"
 import Stream from "@/views/Stream.vue"
 import Home from "@/views/Home.vue"
+import Info from "@/components/Setting/Info.vue"
+import Appearance from "@/components/Setting/Appearance.vue"
+import Shortcut from "@/components/Setting/Shortcut.vue"
+import General from "@/components/Setting/General.vue"
 
 const router = createRouter({
 	linkActiveClass: "active",
@@ -11,7 +15,15 @@ const router = createRouter({
 		{ path: "/", name: "Home", component: Home },
 		{ path: "/Editor/:note([\\s\\S]*)", name: "Editor", component: Editor },
 		{ path: "/Stream", name: "Stream", component: Stream },
-		{ path: "/Setting", name: "Setting", component: Setting },
+		{
+			path: "/Setting", name: "Setting", component: Setting,
+			children: [
+				{ path: 'Info', component: Info },
+				{ path: 'General', component: General },
+				{ path: 'Appearance', component: Appearance },
+				{ path: 'Shortcut', component: Shortcut }
+			],
+		},
 	],
 })
 

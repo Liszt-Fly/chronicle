@@ -30,7 +30,7 @@ async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
     height: 600,
-    width: 800,
+    width: 1200,
     resizable: true,
     frame: true,
     titleBarStyle: "hidden",
@@ -135,4 +135,8 @@ ipcMain.on('window-max', function () {
 
 ipcMain.on('min-app', () => {
   win!.minimize()
+})
+
+ipcMain.on('devTools', () => {
+  win!.webContents.toggleDevTools()
 })

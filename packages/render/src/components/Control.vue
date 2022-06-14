@@ -1,6 +1,19 @@
 <template>
     <div class="control">
-        <el-button key="plain" text> <i class="bi bi-list"></i></el-button>
+        <div>
+            <el-tooltip :content="$t('control.switch_sidebar')" placement="bottom-start" effect="dark">
+                <el-button key="plain" text @click="ToggleSidebar">
+                    <i class="bi bi-window-sidebar" v-if="sideBar"></i>
+                    <i class="bi bi-window" v-else></i>
+                </el-button>
+            </el-tooltip>
+            <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="dark">
+                <el-button class="devTools" key="plain" text @click="ToggleDevTools">
+                    <i class="bi bi-terminal-dash" v-if="devTools"></i>
+                    <i class="bi bi-terminal-plus" v-else></i>
+                </el-button>
+            </el-tooltip>
+        </div>
 
         <div class="brand">
             <!-- <span>Chronicle</span> -->
@@ -26,6 +39,8 @@ import { ipcRenderer } from 'electron'
 import { ref } from 'vue'
 
 let winMax = ref(true)
+let sideBar = ref(true)
+let devTools = ref(false)
 
 const minWindow = () => {
     ipcRenderer.send('min-app')
@@ -37,6 +52,11 @@ const maxRestoreWindow = () => {
     ipcRenderer.send('window-max');
 }
 
+const ToggleDevTools = () => {
+    devTools.value = !devTools.value;
+    ipcRenderer.send('devTools');
+}
+
 ipcRenderer.on('main-window-max', () => {
     winMax.value = false
 });
@@ -44,6 +64,19 @@ ipcRenderer.on('main-window-unmax', () => {
     winMax.value = true
 });
 
+const ToggleSidebar = () => {
+    sideBar.value = !sideBar.value
+
+    let tab = document.getElementsByClassName("tab-system")[0] as HTMLDivElement;
+    if (tab.style.display != "none")
+        tab.style.display = "none"
+    else tab.style.display = "flex"
+
+    let fileSystem = document.getElementsByClassName("column-left")[0] as HTMLDivElement;
+    if (fileSystem.style.display != "none")
+        fileSystem.style.display = "none"
+    else fileSystem.style.display = "block"
+}
 
 </script>
 

@@ -1,0 +1,57 @@
+<template>
+    <div class="info">
+        <el-form label-width="180px" :model="info" label-position="left">
+            <div class="home">
+                <router-link to="/">
+                    <el-button type="primary"><i class="bi bi-house-heart"></i>{{ $t('setting.info.home') }}
+                    </el-button>
+                </router-link>
+            </div>
+
+            <h1>Made with ❤️</h1>
+        </el-form>
+    </div>
+</template>
+
+<script lang="ts" setup>
+import { reactive } from 'vue'
+
+const info = reactive({})
+</script>
+
+<style lang="scss" scoped>
+.info {
+    padding: 1rem;
+    text-align: center;
+    max-width: 400px;
+    margin: auto;
+    user-select: none;
+
+    .el-form-item__label i {
+        margin-right: 6px;
+        font-size: 1rem
+    }
+
+    h1 {
+        margin: 20px
+    }
+
+    .home {
+        width: 100%;
+        margin: 20px 0;
+
+        a {
+            text-decoration: none;
+
+            i {
+                margin-right: 6px;
+                font-size: 1rem
+            }
+
+            .el-button {
+                width: 100%;
+            }
+        }
+    }
+}
+</style>

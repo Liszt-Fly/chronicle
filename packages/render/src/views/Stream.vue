@@ -38,7 +38,7 @@ onMounted(() => { });
     <div class="stream">
       <el-row :gutter="30">
         <template v-for="file in filestorage">
-          <el-col :span="8" :xs="12" :md="6" :sm="8" :lg="4">
+          <el-col :span="8" :xs="12" :md="6" :sm="8" :lg="5">
             <Paper :file="file"></Paper>
           </el-col>
         </template>

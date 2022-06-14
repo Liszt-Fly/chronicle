@@ -1,18 +1,30 @@
 <template>
     <div class="setting">
-        <el-tabs tab-position="left">
-            <el-scrollbar>
-                <el-tab-pane label="通用">
-                    <General></General>
-                </el-tab-pane>
-                <el-tab-pane label="外观">
-                    <Appearance></Appearance>
-                </el-tab-pane>
-                <el-tab-pane label="快捷键">
-                    <Shortcut></Shortcut>
-                </el-tab-pane>
-            </el-scrollbar>
-        </el-tabs>
+        <div>
+            <router-link to="/Setting/Info">
+                <el-button key="primary" type="primary" text>{{ $t('setting.info_tab') }}
+                </el-button>
+            </router-link>
+            <router-link to="/Setting/General">
+                <el-button key="primary" type="primary" text>{{ $t('setting.general_tab')
+                }}
+                </el-button>
+            </router-link>
+            <router-link to="/Setting/Appearance">
+                <el-button key="primary" type="primary" text>
+                    {{ $t('setting.appearance_tab') }}</el-button>
+            </router-link>
+            <router-link to="/Setting/Shortcut">
+                <el-button key="primary" type="primary" text>{{
+                        $t('setting.shortcut_tab')
+                }}
+                </el-button>
+            </router-link>
+        </div>
+
+        <el-scrollbar>
+            <router-view></router-view>
+        </el-scrollbar>
     </div>
 </template>
 
@@ -20,12 +32,16 @@
 import Shortcut from "@/components/Setting/Shortcut.vue"
 import Appearance from "@/components/Setting/Appearance.vue"
 import General from "@/components/Setting/General.vue"
+import Info from "@/components/Setting/Info.vue"
 
+import { ref } from "vue";
 </script>
 
 <style lang="scss">
 .setting {
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     .el-tabs.el-tabs--left {
         height: 100%;
