@@ -1,9 +1,12 @@
 <template>
     <div class="setting">
         <div>
-            <el-button key="primary" type="primary" text @click="showTab = 'general'">通用</el-button>
-            <el-button key="primary" type="primary" text @click="showTab = 'appearance'">外观</el-button>
-            <el-button key="primary" type="primary" text @click="showTab = 'shortcut'">快捷键</el-button>
+            <el-button key="primary" type="primary" text @click="showTab = 'general'">{{ $t('setting.general_tab') }}
+            </el-button>
+            <el-button key="primary" type="primary" text @click="showTab = 'appearance'">
+                {{ $t('setting.appearance_tab') }}</el-button>
+            <el-button key="primary" type="primary" text @click="showTab = 'shortcut'">{{ $t('setting.shortcut_tab') }}
+            </el-button>
         </div>
 
         <el-scrollbar>

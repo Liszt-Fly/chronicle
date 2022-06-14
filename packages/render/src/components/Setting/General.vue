@@ -47,7 +47,7 @@ onMounted(() => {
         <el-form label-width="180px" :model="general" label-position="left">
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-terminal"></i> 开发者工具
+                    <i class="bi bi-terminal"></i> {{ $t('setting.general.dev_tools') }}
                 </template>
                 <el-switch v-model="general.devTools" />
             </el-form-item>
@@ -56,23 +56,25 @@ onMounted(() => {
 
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-file-earmark-arrow-down"></i> 自动保存
+                    <i class="bi bi-file-earmark-arrow-down"></i> {{ $t('setting.general.autosave') }}
                 </template>
                 <el-switch v-model="general.autoSave" />
             </el-form-item>
 
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-stopwatch"></i> 自动保存间隔
+                    <i class="bi bi-stopwatch"></i> {{ $t('setting.general.autosave_interval') }}
                 </template>
                 <el-select :disabled="!general.autoSave" v-model="general.autoSaveTime" placeholder="Select">
-                    <el-option v-for="time in autoSaveTimes" :key="time" :label="time + '分钟'" :value="time" />
+                    <el-option v-for="time in autoSaveTimes" :key="time" :label="time + $t('setting.general.interval')"
+                        :value="time" />
                 </el-select>
             </el-form-item>
 
             <div class="home">
                 <router-link to="/">
-                    <el-button type="primary"><i class="bi bi-house-heart"></i>回到主页</el-button>
+                    <el-button type="primary"><i class="bi bi-house-heart"></i>{{ $t('setting.general.home') }}
+                    </el-button>
                 </router-link>
             </div>
 

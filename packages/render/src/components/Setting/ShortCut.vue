@@ -3,37 +3,37 @@
         <el-form :model="shortcut" label-width="180px" label-position="left">
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-type-h1"></i> 设为一级标题
+                    <i class="bi bi-type-h1"></i> {{ $t('setting.shortcut.h1') }}
                 </template>
                 <el-input v-model="shortcut.h1" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-type-h2"></i> 设为二级标题
+                    <i class="bi bi-type-h2"></i> {{ $t('setting.shortcut.h2') }}
                 </template>
                 <el-input v-model="shortcut.h2" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-type-h3"></i> 设为三级标题
+                    <i class="bi bi-type-h3"></i> {{ $t('setting.shortcut.h3') }}
                 </template>
                 <el-input v-model="shortcut.h3" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-sort-up"></i> 提升标题级别
+                    <i class="bi bi-sort-up"></i> {{ $t('setting.shortcut.h_up') }}
                 </template>
                 <el-input v-model="shortcut.h_up" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-sort-down"></i> 降低标题级别
+                    <i class="bi bi-sort-down"></i> {{ $t('setting.shortcut.h_down') }}
                 </template>
                 <el-input v-model="shortcut.h_down" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-paragraph"></i> 设为段落
+                    <i class="bi bi-paragraph"></i> {{ $t('setting.shortcut.paragraph') }}
                 </template>
                 <el-input v-model="shortcut.paragraph" />
             </el-form-item>
@@ -42,49 +42,50 @@
 
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-type-bold"></i> 字体加粗
+                    <i class="bi bi-type-bold"></i> {{ $t('setting.shortcut.bold') }}
                 </template>
                 <el-input v-model="shortcut.bold" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-type-italic"></i> 设为斜体
+                    <i class="bi bi-type-italic"></i> {{ $t('setting.shortcut.italics') }}
                 </template>
                 <el-input v-model="shortcut.italics" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-code"></i> 设为代码片
+                    <i class="bi bi-code"></i> {{ $t('setting.shortcut.code') }}
                 </template>
                 <el-input v-model="shortcut.code" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-type-underline"></i> 添加下划线
+                    <i class="bi bi-type-underline"></i> {{ $t('setting.shortcut.underline') }}
                 </template>
                 <el-input v-model="shortcut.underline" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-type-strikethrough"></i> 添加删除线
+                    <i class="bi bi-type-strikethrough"></i> {{ $t('setting.shortcut.strikethrough') }}
                 </template>
-                <el-input v-model="shortcut.delete_line" />
+                <el-input v-model="shortcut.strikethrough" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-file-fill" style="transform: rotate(90deg);"></i> 设为突出
+                    <i class="bi bi-file-fill" style="transform: rotate(90deg);"></i> {{ $t('setting.shortcut.highlight')
+                    }}
                 </template>
                 <el-input v-model="shortcut.highlight" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-text-indent-left"></i> 向右缩进
+                    <i class="bi bi-text-indent-left"></i> {{ $t('setting.shortcut.indent_right') }}
                 </template>
                 <el-input v-model="shortcut.indent_right" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-text-indent-right"></i> 向左缩进
+                    <i class="bi bi-text-indent-right"></i> {{ $t('setting.shortcut.indent_left') }}
                 </template>
                 <el-input v-model="shortcut.indent_left" />
             </el-form-item>
@@ -93,31 +94,31 @@
 
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-card-image"></i> 插入图片
+                    <i class="bi bi-card-image"></i> {{ $t('setting.shortcut.insert_img') }}
                 </template>
                 <el-input v-model="shortcut.insert_img" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-table"></i> 插入表格
+                    <i class="bi bi-table"></i> {{ $t('setting.shortcut.insert_table') }}
                 </template>
                 <el-input v-model="shortcut.insert_table" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-quote"></i> 插入引用块
+                    <i class="bi bi-quote"></i> {{ $t('setting.shortcut.insert_quote') }}
                 </template>
                 <el-input v-model="shortcut.insert_quote" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-code-square"></i> 插入代码块
+                    <i class="bi bi-code-square"></i> {{ $t('setting.shortcut.insert_code') }}
                 </template>
                 <el-input v-model="shortcut.insert_code" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-infinity"></i> 插入公式块
+                    <i class="bi bi-infinity"></i> {{ $t('setting.shortcut.insert_formula') }}
                 </template>
                 <el-input v-model="shortcut.insert_formula" />
             </el-form-item>
@@ -126,49 +127,49 @@
 
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-list-columns-reverse"></i> 全选
+                    <i class="bi bi-list-columns-reverse"></i> {{ $t('setting.shortcut.all') }}
                 </template>
                 <el-input v-model="shortcut.all" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-arrow-counterclockwise"></i> 撤销
+                    <i class="bi bi-arrow-counterclockwise"></i> {{ $t('setting.shortcut.undo') }}
                 </template>
                 <el-input v-model="shortcut.undo" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-arrow-clockwise"></i> 重做
+                    <i class="bi bi-arrow-clockwise"></i> {{ $t('setting.shortcut.redo') }}
                 </template>
                 <el-input v-model="shortcut.redo" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-clipboard-check"></i> 普通复制
+                    <i class="bi bi-clipboard-check"></i> {{ $t('setting.shortcut.copy') }}
                 </template>
                 <el-input v-model="shortcut.copy" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-clipboard-plus"></i> 以 MarkDown 语法复制
+                    <i class="bi bi-clipboard-plus"></i> {{ $t('setting.shortcut.copy_markdown') }}
                 </template>
                 <el-input v-model="shortcut.copy_markdown" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-clipboard-minus"></i> 普通粘贴
+                    <i class="bi bi-clipboard-minus"></i> {{ $t('setting.shortcut.paste') }}
                 </template>
                 <el-input v-model="shortcut.paste" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-clipboard"></i> 粘贴为纯文本
+                    <i class="bi bi-clipboard"></i> {{ $t('setting.shortcut.paste_txt') }}
                 </template>
                 <el-input v-model="shortcut.paste_txt" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-clipboard-x"></i> 剪切
+                    <i class="bi bi-clipboard-x"></i> {{ $t('setting.shortcut.cut') }}
                 </template>
                 <el-input v-model="shortcut.cut" />
             </el-form-item>
@@ -177,58 +178,58 @@
 
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-file-earmark-plus"></i> 新建文件
+                    <i class="bi bi-file-earmark-plus"></i> {{ $t('setting.shortcut.new_file') }}
                 </template>
                 <el-input v-model="shortcut.new_file" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-save"></i> 保存文件
+                    <i class="bi bi-save"></i> {{ $t('setting.shortcut.save_file') }}
                 </template>
                 <el-input v-model="shortcut.save_file" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-save2"></i> 另存为
+                    <i class="bi bi-save2"></i> {{ $t('setting.shortcut.save_as') }}
                 </template>
                 <el-input v-model="shortcut.save_as" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-x-circle"></i> 关闭文件
+                    <i class="bi bi-x-circle"></i> {{ $t('setting.shortcut.close_file') }}
                 </template>
                 <el-input v-model="shortcut.close_file" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-lock"></i> 加锁
+                    <i class="bi bi-lock"></i> {{ $t('setting.shortcut.lock_file') }}
                 </template>
-                <el-input v-model="shortcut.lock" />
+                <el-input v-model="shortcut.lock_file" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-unlock"></i> 解锁
+                    <i class="bi bi-unlock"></i> {{ $t('setting.shortcut.unlock_file') }}
                 </template>
-                <el-input v-model="shortcut.unlock" />
+                <el-input v-model="shortcut.unlock_file" />
             </el-form-item>
 
             <el-divider></el-divider>
 
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-arrows-fullscreen"></i> 全屏
+                    <i class="bi bi-arrows-fullscreen"></i> {{ $t('setting.shortcut.full_sreen') }}
                 </template>
                 <el-input v-model="shortcut.full_sreen" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-search"></i> 查找
+                    <i class="bi bi-search"></i> {{ $t('setting.shortcut.search') }}
                 </template>
                 <el-input v-model="shortcut.search" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-arrow-repeat"></i> 替换
+                    <i class="bi bi-arrow-repeat"></i> {{ $t('setting.shortcut.replace') }}
                 </template>
                 <el-input v-model="shortcut.replace" />
             </el-form-item>
@@ -239,11 +240,13 @@
     </div>
 
     <el-dialog v-model="restoreDialogVisible" width="16rem">
-        <span>确定恢复默认设置吗？</span>
+        <span>{{ $t("setting.restore") }}</span>
         <template #footer>
             <span class="dialog-footer">
-                <el-button @click="restoreDialogVisible = false">取消</el-button>
-                <el-button type="primary" @click="restoreDefault, restoreDialogVisible = false">确定
+                <el-button @click="restoreDialogVisible = false">{{ $t("setting.cancel") }}</el-button>
+                <el-button type="primary" @click="restoreDefault, restoreDialogVisible = false">{{
+                        $t("setting.sure")
+                }}
                 </el-button>
             </span>
         </template>
@@ -258,17 +261,17 @@ import fs from 'fs-extra'
 let restoreDialogVisible = ref(false)
 
 const shortcut = reactive({
-    paragraph: 'Ctrl+0',
     h1: 'Ctrl+1',
     h2: 'Ctrl+2',
     h3: 'Ctrl+3',
     h_up: 'Ctrl+"+"',
     h_down: 'Ctrl+"-"',
+    paragraph: 'Ctrl+0',
 
     bold: 'Ctrl+B',
     underline: 'Ctrl+U',
     italics: 'Ctrl+I',
-    delete_line: 'Ctrl+D',
+    strikethrough: 'Ctrl+D',
     highlight: 'Ctrl+Shift+H',
     code: 'Ctrl+`',
     indent_right: 'Tab',
@@ -293,8 +296,8 @@ const shortcut = reactive({
     save_file: 'Ctrl+S',
     save_as: 'Ctrl+Shift+S',
     close_file: 'Ctrl+W',
-    lock: 'Ctrl+L',
-    unlock: 'Ctrl+Shift+L',
+    lock_file: 'Ctrl+L',
+    unlock_file: 'Ctrl+Shift+L',
 
     full_sreen: 'F11',
     search: 'Ctrl+F',

@@ -8,7 +8,7 @@
     "bold": "Ctrl+B",
     "underline": "Ctrl+U",
     "italics": "Ctrl+I",
-    "delete_line": "Ctrl+D",
+    "strikethrough": "Ctrl+D",
     "highlight": "Ctrl+Shift+H",
     "code": "Ctrl+`",
     "indent_right": "Tab",

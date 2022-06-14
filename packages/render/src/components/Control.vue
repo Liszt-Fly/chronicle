@@ -1,13 +1,13 @@
 <template>
     <div class="control">
         <div>
-            <el-tooltip content="切换边栏" placement="bottom-start" effect="dark">
+            <el-tooltip :content="$t('control.switch_sidebar')" placement="bottom-start" effect="dark">
                 <el-button key="plain" text @click="ToggleSidebar">
                     <i class="bi bi-window-sidebar" v-if="sideBar"></i>
                     <i class="bi bi-window" v-else></i>
                 </el-button>
             </el-tooltip>
-            <el-tooltip content="切换开发者工具边栏" placement="bottom-start" effect="dark">
+            <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="dark">
                 <el-button class="devTools" key="plain" text @click="ToggleDevTools">
                     <i class="bi bi-terminal-dash" v-if="devTools"></i>
                     <i class="bi bi-terminal-plus" v-else></i>

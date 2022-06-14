@@ -57,22 +57,22 @@ onMounted(() => {
 
 <template>
     <div class="appearance">
-        <el-form ref="formRef" :model="appearance" label-width="180px" label-position="left">
+        <el-form ref="formRef" :model="appearance" label-width="200px" label-position="left">
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-brightness-alt-high"></i> {{ $t('setting.appearance.select_theme') }}
+                    <i class="bi bi-brightness-alt-high"></i> {{ $t('setting.appearance.theme') }}
                 </template>
                 <el-switch v-model="appearance.theme" :inactive-icon="Moon" :active-icon="Sunny" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-paint-bucket"></i> {{ $t('setting.appearance.select_color') }}
+                    <i class="bi bi-paint-bucket"></i> {{ $t('setting.appearance.color') }}
                 </template>
                 <el-color-picker v-model="appearance.color" :predefine="predefineColors" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-chat-square"></i> 提示
+                    <i class="bi bi-chat-square"></i> {{ $t('setting.appearance.tooltips') }}
                 </template>
                 <el-switch v-model="appearance.tooltips" />
             </el-form-item>
@@ -126,11 +126,13 @@ onMounted(() => {
         </el-button>
 
         <el-dialog v-model="restoreDialogVisible" width="16rem">
-            <span>确定恢复默认设置吗？</span>
+            <span>{{ $t("setting.restore") }}</span>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button @click="restoreDialogVisible = false">取消</el-button>
-                    <el-button type="primary" @click="restoreDefault, restoreDialogVisible = false">确定
+                    <el-button @click="restoreDialogVisible = false">{{ $t("setting.cancel") }}</el-button>
+                    <el-button type="primary" @click="restoreDefault, restoreDialogVisible = false">{{
+                            $t("setting.sure")
+                    }}
                     </el-button>
                 </span>
             </template>

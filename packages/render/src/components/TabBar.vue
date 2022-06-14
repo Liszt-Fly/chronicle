@@ -6,7 +6,7 @@ function empty() { }
   <div class="tab-system">
     <div class="tab-bar">
       <div class="sub-tab">
-        <el-tooltip content="仓库" placement="right" effect="light">
+        <el-tooltip :content="$t('tab.repository')" placement="right" effect="light">
           <div class="tab-item" @click="empty" id="editor">
             <router-link :class="{ 'active': $route.path.includes('Editor') }" to="/Editor/README.md">
               <i class="bi bi-box-seam"></i>
@@ -14,7 +14,7 @@ function empty() { }
           </div>
         </el-tooltip>
 
-        <el-tooltip content="流" placement="right" effect="light">
+        <el-tooltip :content="$t('tab.stream')" placement="right" effect="light">
           <div class="tab-item" @click="empty" id="stream">
             <router-link to="/Stream">
               <i class="bi bi-columns-gap"></i>
@@ -29,7 +29,7 @@ function empty() { }
           </router-link>
         </div> -->
 
-        <el-tooltip content="设置" placement="right" effect="light">
+        <el-tooltip :content="$t('tab.setting')" placement="right" effect="light">
           <div class="tab-item" @click="empty" id="setting">
             <router-link to="/Setting">
               <i class="bi bi-sliders2"></i>
