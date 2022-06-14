@@ -2,13 +2,13 @@
     <div class="control">
         <div v-if="!isMac">
             <el-tooltip :content="$t('control.switch_sidebar')" placement="bottom-start" effect="dark">
-                <el-button key="plain" text @click="ToggleSidebar">
-                    <i class="bi bi-window-sidebar" v-if="sideBar"></i>
-                    <i class="bi bi-window" v-else></i>
+                <el-button key="plain" text @click="ToggleSidebar" class="contrlIcon">
+                    <i class="bi bi-layout-sidebar-inset" v-if="sideBar"></i>
+                    <i class="bi bi-file" v-else style="transform: scale(1.3, 0.9)"></i>
                 </el-button>
             </el-tooltip>
             <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="dark">
-                <el-button class="devTools" key="plain" text @click="ToggleDevTools">
+                <el-button class="devTools contrlIcon" key="plain" text @click="ToggleDevTools">
                     <i class="bi bi-terminal-dash" v-if="devTools"></i>
                     <i class="bi bi-terminal-plus" v-else></i>
                 </el-button>
@@ -16,7 +16,7 @@
         </div>
 
         <div class="brand">
-            <!-- <span>Chronicle</span> -->
+            {{ workspaceName }}
         </div>
 
         <div class="btn-groups" v-if="!isMac">
@@ -25,7 +25,7 @@
             </el-button>
             <el-button key="plain" text @click="maxRestoreWindow">
                 <i class="bi bi-square" v-if="winMax"></i>
-                <i class="bi bi-back" v-else></i>
+                <i class="bi bi-files" v-else style="transform: scaleX(1.3)"></i>
             </el-button>
             <el-button key="plain" text @click="closeWindow" class="danger">
                 <i class="bi bi-x-lg" @click=""></i>
@@ -37,6 +37,7 @@
 <script lang="ts" setup>
 import { ipcRenderer } from 'electron'
 import { ref } from 'vue'
+import { workspaceName } from '@/api/init'
 
 let winMax = ref(true)
 let sideBar = ref(true)
@@ -118,7 +119,8 @@ const ToggleSidebar = () => {
         flex: 1;
         text-align: center;
         color: var(--chronicle-theme-color);
-        line-height: 2;
+        font-size: 0.9rem;
+        line-height: 2.5;
 
         span {
             font-weight: 900;
@@ -134,6 +136,11 @@ const ToggleSidebar = () => {
 
     .el-button+.el-button {
         margin-left: 0;
+    }
+
+    .contrlIcon {
+        font-size: 1rem;
+        padding-left: 16px;
     }
 }
 </style>

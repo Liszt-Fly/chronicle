@@ -32,6 +32,7 @@ export const en =
             code_font: "Code Font",
         },
         general: {
+            workspaceName: 'Workspace Name',
             tooltips: "Tooltips",
             "dev_tools": "DevTools",
             "autosave": "Autosave",

@@ -67,6 +67,7 @@ let initShortcut = () => {
 }
 
 export const locale = general.locale
+export const workspaceName = general.workspaceName
 
 // 初始化设置
 export let initSetting = () => {

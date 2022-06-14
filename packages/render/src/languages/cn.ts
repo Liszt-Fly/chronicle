@@ -32,6 +32,7 @@ export const cn =
             code_font: "代码块字体",
         },
         general: {
+            workspaceName: '工作区名',
             tooltips: "提示",
             "dev_tools": "开发者工具",
             "autosave": "自动保存",

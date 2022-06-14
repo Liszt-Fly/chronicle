@@ -10,7 +10,8 @@ const general = reactive({
     autoSave: false,
     "tooltips": "",
     autoSaveTime: 3,
-    locale: "cn"
+    locale: "cn",
+    workspaceName: ""
 })
 
 const readSetting = (generalFile: string) => {
@@ -38,10 +39,19 @@ const restoreDefault = () => {
     })
 }
 
+let timeout = null
+
+const debounce = (fn, wait) => {
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        fn()
+    }, wait)
+}
+
 onMounted(() => {
     readSetting(generalFile)
     watch(general, () => {
-        saveSetting()
+        debounce(saveSetting, 1000)
     })
 })
 </script>
@@ -49,6 +59,15 @@ onMounted(() => {
 <template>
     <div class="general">
         <el-form label-width="180px" :model="general" label-position="left">
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-person-workspace"></i> {{ $t('setting.general.workspaceName') }}
+                </template>
+                <el-input v-model="general.workspaceName" maxlength="20" show-word-limit />
+            </el-form-item>
+
+            <el-divider></el-divider>
+
             <el-form-item>
                 <template #label>
                     <i class="bi bi-translate"></i> {{ $t('setting.general.language') }}
