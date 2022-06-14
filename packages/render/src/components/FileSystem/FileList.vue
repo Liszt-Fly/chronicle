@@ -1,24 +1,22 @@
 <script setup lang="ts">
 import { Menu, MenuItem } from "@electron/remote";
-import { useRouter } from 'vue-router'
-import { setCurrentFileNode } from '@/api/util'
+import { useRouter } from "vue-router";
+import { setCurrentFileNode } from "@/api/util";
 import path from "path";
-import {
-  validateFilename,
-} from "@/api/FileSystem/filesystem";
+import { validateFilename } from "@/api/FileSystem/filesystem";
 import { cTagContainer, currentFile } from "@/api/configdb";
-import {
-} from "@/api/FileSystem/filesystem";
+import {} from "@/api/FileSystem/filesystem";
 import { chronicleUserPath } from "@/api/init";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, watchEffect } from "vue";
 import { fileNode } from "@/api/FileTree/fileNode";
 import { NodeType } from "@/api/FileTree/type";
 
 const props = defineProps({
   file: Object as () => fileNode,
 });
-const router = useRouter()
+
+const router = useRouter();
 let subfolder = ref<HTMLDivElement | null>(null);
 let refSubfolder = reactive({ dom: subfolder });
 let namebox = ref<HTMLSpanElement | null>(null);
@@ -27,8 +25,8 @@ function openFile(event: MouseEvent, file: fileNode) {
   //如果是文件
   if (!file.children) {
     currentFile.value = props.file!.path!;
-    let params = path.relative(path.resolve(chronicleUserPath, "assets"), file.path)
-    router.push(`/Editor/${params}`)
+    let params = path.relative(path.resolve(chronicleUserPath, "assets"), file.path);
+    router.push(`/Editor/${params}`);
   }
 }
 function renameNote() {
@@ -76,7 +74,7 @@ const menuItems = [
   new MenuItem({
     label: "删除",
     click: () => {
-      props.file!.removeSelf()
+      props.file!.removeSelf();
     },
   }),
   new MenuItem({
@@ -90,14 +88,14 @@ if (props.file!.children) {
   let item = new MenuItem({
     label: "添加子文件夹",
     click: () => {
-      props.file!.addChildren(NodeType.DIR)
+      props.file!.addChildren(NodeType.DIR);
     },
   });
   menuItems.push(
     new MenuItem({
       label: "添加文件",
       click: () => {
-        props.file!.addChildren(NodeType.FILE)
+        props.file!.addChildren(NodeType.FILE);
       },
     })
   );
@@ -137,7 +135,6 @@ if (props.file!.children) {
   );
 }
 
-
 onMounted(() => {
   menuItems.forEach((item) => {
     menu.append(item);
@@ -147,17 +144,34 @@ onMounted(() => {
 
 <template>
   <div class="folder" v-if="file" ref="fileDom">
-    <div class="item" tabindex="1" @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
-      :data-path="file.path" v-if="validateFilename(file.name!)"
-      :class="[{ 'clicked': props.file!.path == currentFile }]" @contextmenu="setCurrentFileNode(props.file!)">
+    <div
+      class="item"
+      tabindex="1"
+      @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
+      :data-path="file.path"
+      v-if="validateFilename(file.name!)"
+      :class="[{ 'clicked': props.file!.path == currentFile }]"
+      @contextmenu="setCurrentFileNode(props.file!)"
+    >
       <i class="bi bi-file-earmark-text" v-if="file.type == NodeType.FILE"></i>
       <i class="bi bi-folder" v-if="file.type == NodeType.DIR"></i>
-      <span ref="namebox" @blur="props.file!.rename(namebox!.innerText)" @keydown.enter.prevent="enter($event)"> {{
-          validateFilename(file.name!)
-      }}</span>
+      <span
+        ref="namebox"
+        @blur="props.file!.rename(namebox!.innerText)"
+        @keydown.enter.prevent="enter($event)"
+      >
+        {{
+            validateFilename(file.name!)
+        }}</span
+      >
     </div>
     <div class="subfolder" v-if="file.children" ref="subfolder" id="subfolder">
-      <file-list :files="file.children" :file="f" v-for="f in file.children" :key="f.path"></file-list>
+      <file-list
+        :files="file.children"
+        :file="f"
+        v-for="f in file.children"
+        :key="f.path"
+      ></file-list>
     </div>
   </div>
 </template>
@@ -165,6 +179,6 @@ onMounted(() => {
 <style scoped>
 i {
   padding-right: 4px;
-  font-size: 1rem
+  font-size: 1rem;
 }
 </style>
