@@ -251,7 +251,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
+import { shortcutFile, shortcutFileDefault } from "@/api/init"
+import fs from 'fs-extra'
+
+let restoreDialogVisible = ref(false)
 
 const shortcut = reactive({
     paragraph: 'Ctrl+0',
@@ -297,11 +301,36 @@ const shortcut = reactive({
     replace: 'Ctrl+H'
 })
 
-let restoreDialogVisible = ref(false)
-
-let restoreDefault = () => {
-    console.log("restore");
+const readSetting = (shortcutFile: string) => {
+    try {
+        const data = fs.readFileSync(shortcutFile).toString()
+        let JSONData = JSON.parse(data)
+        for (let key in JSONData) {
+            shortcut[key] = JSONData[key]
+        }
+    } catch {
+        restoreDefault()
+    }
 }
+
+const saveSetting = () => {
+    const data = JSON.stringify(shortcut);
+    fs.writeFileSync(shortcutFile, data);
+    location.reload()
+}
+
+const restoreDefault = () => {
+    fs.writeFile(shortcutFile, fs.readFileSync(shortcutFileDefault), () => {
+        location.reload()
+    })
+}
+
+onMounted(() => {
+    readSetting(shortcutFile)
+    watch(shortcut, () => {
+        saveSetting()
+    })
+})
 </script>
 
 <style lang="scss" scoped>

@@ -8,24 +8,25 @@ export let cn =
         hello: '这是流页面'
     },
     setting: {
-        theme: "主题",
-        select_theme: "主题",
-        light: "浅色",
-        dark: "深色",
+        appearance: {
+            theme: "主题",
+            select_theme: "主题",
+            light: "浅色",
+            dark: "深色",
 
-        select_color: "主题色",
+            select_color: "主题色",
 
-        global_en_font: "英文字体",
-        global_cn_font: "中文字体",
-        code_font: "代码块字体",
+            global_en_font: "英文字体",
+            global_cn_font: "中文字体",
+            code_font: "代码块字体",
 
-        language: "语言",
-        select_language: "选择语言",
+            language: "语言",
+            select_language: "选择语言",
 
+            "cn": "中文",
+            "en": "英文"
+        },
         save: "保存",
         default: "恢复默认设置",
-
-        "cn": "中文",
-        "en": "英文"
     }
 }

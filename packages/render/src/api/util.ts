@@ -42,5 +42,4 @@ export function getValidName(basePath: string, type: NodeType): string {
 }
 export function setCurrentFileNode(file: fileNode) {
     fileTree.currentFileNode = file
-    console.log(`当前的node是${file!.path}`)
 }

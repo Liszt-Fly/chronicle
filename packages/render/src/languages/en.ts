@@ -8,24 +8,24 @@ export const en =
         hello: 'this is stream page'
     },
     setting: {
-        theme: "Theme",
-        select_theme: "Select Theme",
-        light: "Light",
-        dark: "Dark",
+        appearance: {
+            theme: "Theme",
+            select_theme: "Select Theme",
+            light: "Light",
+            dark: "Dark",
 
-        select_color: "Select Theme Color",
+            select_color: "Select Theme Color",
 
-        global_en_font: "English Character Font",
-        global_cn_font: "Chinese Character Font",
-        code_font: "Code Font",
+            global_en_font: "English Character Font",
+            global_cn_font: "Chinese Character Font",
+            code_font: "Code Font",
 
-        language: "Language",
-        select_language: "Select Language",
-
+            language: "Language",
+            select_language: "Select Language",
+            "cn": "cn",
+            "en": "en"
+        },
         save: "Save",
         default: "Default",
-
-        "cn": "cn",
-        "en": "en"
     }
 }

@@ -8,7 +8,7 @@
                 </el-button>
             </el-tooltip>
             <el-tooltip content="切换开发者工具边栏" placement="bottom-start" effect="dark">
-                <el-button key="plain" text @click="ToggleDevTools">
+                <el-button class="devTools" key="plain" text @click="ToggleDevTools">
                     <i class="bi bi-terminal-dash" v-if="devTools"></i>
                     <i class="bi bi-terminal-plus" v-else></i>
                 </el-button>

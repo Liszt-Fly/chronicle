@@ -1,20 +1,74 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
+import { generalFile, generalFileDefault } from "@/api/init"
+import fs from 'fs-extra'
 
-const general = reactive({ autosave: false })
+const autoSaveTimes = [3, 5, 10, 60]
+const general = reactive({
+    devTools: false,
+    autoSave: false,
+    autoSaveTime: 3
+})
+
+const readSetting = (generalFile: string) => {
+    try {
+        const data = fs.readFileSync(generalFile).toString()
+        let JSONData = JSON.parse(data)
+        for (let key in JSONData) {
+            general[key] = JSONData[key]
+        }
+    } catch {
+        restoreDefault()
+    }
+}
+
+const saveSetting = () => {
+    const data = JSON.stringify(general);
+    fs.writeFileSync(generalFile, data);
+    location.reload()
+}
+
+const restoreDefault = () => {
+    fs.writeFile(generalFile, fs.readFileSync(generalFileDefault), () => {
+        location.reload()
+    })
+}
+
+onMounted(() => {
+    readSetting(generalFile)
+    watch(general, () => {
+        saveSetting()
+    })
+})
 </script>
 
 <template>
     <div class="general">
         <el-form label-width="180px" :model="general" label-position="left">
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-terminal"></i> 开发者工具
+                </template>
+                <el-switch v-model="general.devTools" />
+            </el-form-item>
+
+            <el-divider></el-divider>
 
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-robot"></i> 自动保存
+                    <i class="bi bi-file-earmark-arrow-down"></i> 自动保存
                 </template>
-                <el-switch v-model="general.autosave" />
+                <el-switch v-model="general.autoSave" />
             </el-form-item>
 
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-stopwatch"></i> 自动保存间隔
+                </template>
+                <el-select :disabled="!general.autoSave" v-model="general.autoSaveTime" placeholder="Select">
+                    <el-option v-for="time in autoSaveTimes" :key="time" :label="time + '分钟'" :value="time" />
+                </el-select>
+            </el-form-item>
 
             <div class="home">
                 <router-link to="/">
