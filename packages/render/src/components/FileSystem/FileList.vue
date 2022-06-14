@@ -5,7 +5,7 @@ import { setCurrentFileNode } from "@/api/util";
 import path from "path";
 import fsp from "fs-extra"
 import { validateFilename } from "@/api/FileSystem/filesystem";
-import { cTagContainer, currentFile, fTree } from "@/data/configdb";
+import { bClickedParent, cTagContainer, currentFile, fTree } from "@/data/configdb";
 import { } from "@/api/FileSystem/filesystem";
 import { chronicleUserPath } from "@/api/init";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -141,26 +141,43 @@ onMounted(() => {
 });
 
 const drop = (e: DragEvent) => {
+   // FIXME: 仅仅检查了自己放置自己的情况，还有一种放置本身区域的情况没有做完
   let filepath = e.dataTransfer?.getData("path") as string
-  console.log(filepath)
-  let target = fTree.value?.getNode(filepath, fTree.value.root)
-  console.log(target)
-  //* 只有文件夹可以进行接收
+  //* 如果放置的区域就是发送的区域，啥也不做
+  if (filepath == props.file!.path) return
+  console.log(`接收的路径为${props.file!.path}`)
+  //* 获取对应的节点
+  let node = fTree.value?.getNode(filepath, fTree.value.root)!
+  //* 当接受区域是文件夹类型
   if (props.file!.type == NodeType.DIR) {
-    //* 复制到当前文件夹的路径下
-    fsp.moveSync(target!.path, path.resolve(props.file!.path, target!.name))
 
-    //* 链接到新的文件夹目录下面去
-    let node = new fileNode(path.resolve(props.file!.path, target!.name), target!.name)
-    props.file!.children!.push(node)
-    node.parent = props.file!
-    target!.removeSelf()
+    //* 进行文件操作
+    fsp.copySync(node.path, path.resolve(props.file!.path, node.name))
+    //* 生成一个node
+    let generatedNode = new fileNode(path.resolve(props.file!.path, node.name), node.name)
+    generatedNode.parent = props.file!
+    generatedNode.parent!.children?.push(generatedNode)
+    //* 销毁本身区域的节点内容
+    node.removeSelf()
   }
-  else {
-    alert("你弱智吗，我又不是文件夹！🙄️")
+  //* 如果是文件类型
+  else if (props.file!.type == NodeType.FILE) {
+    //* 开展寻根行动
+    let parent = props.file!.parent!
+    console.log(parent.path)
+    //* 进行文件操作
+    fsp.copySync(node.path, path.resolve(parent.path, node.name))
+    //* 生成一个node
+    let generatedNode = new fileNode(path.resolve(parent.path, node.name), node.name)
+    generatedNode.parent = parent
+    generatedNode.parent!.children?.push(generatedNode)
+    node.removeSelf()
   }
+  console.log(props.file == null)
+
 }
 const startDrag = (e: DragEvent) => {
+  console.log(`发送的文件为:${props.file!.path}`)
   e.dataTransfer?.setData("path", props.file!.path)
 
 }
@@ -169,9 +186,9 @@ const startDrag = (e: DragEvent) => {
 
 <template>
 
-  <div class="folder" v-if="file" ref="fileDom" draggable="true" @dragover.prevent @drop="drop($event)"
-    @dragstart="startDrag($event)">
-    <div class="item" tabindex="1" @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
+  <div class="folder" v-if="file" ref="fileDom">
+    <div class="item" tabindex="1" draggable="true" @dragover.prevent @drop="drop($event)"
+      @dragstart="startDrag($event)" @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
       :data-path="file.path" v-if="validateFilename(file.name!)"
       :class="[{ 'clicked': props.file!.path == currentFile }]" @contextmenu="setCurrentFileNode(props.file!)">
       <i class="bi bi-file-earmark-text" v-if="file.type == NodeType.FILE"></i>
