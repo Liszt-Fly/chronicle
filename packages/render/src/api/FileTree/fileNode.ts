@@ -2,6 +2,7 @@ import fsp from "fs-extra"
 import { NodeType } from "./type"
 import p from "path"
 import { getValidName } from "@/api/util"
+import deepclone from "deep-clone"
 import { removeExtName } from "../FileSystem/filesystem"
 export class fileNode {
     //* constructor
@@ -86,13 +87,12 @@ export class fileNode {
     }
     //* 替身
     substitute() {
-
         let name = ""
         let path = ""
         if (this.type == NodeType.FILE) {
             name = removeExtName(this.name) + "的副本"
             path = p.resolve(p.parse(this.path).dir, name + ".md")
-            fsp.createFileSync(path)
+            fsp.copySync(this.path, path)
         }
         else {
             name = this.name + "的副本"
@@ -101,9 +101,11 @@ export class fileNode {
             fsp.copySync(this.path, path)
 
         }
-        console.log(`当前的路径为${path}`)
+        let children = deepclone(this.children)
         let node = new fileNode(path, name)
+        node.children = children
         console.log(node)
+
         this.parent?.children?.push(node)
         node.parent = this.parent
     }

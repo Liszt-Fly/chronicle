@@ -1,10 +1,16 @@
 :root {
   --brand-height: 40px;
+
 }
 
 body {
   font-family: var(--chronicle-global-en-font), var(--chronicle-global-cn-font);
   line-height: 1.5;
+
+  a {
+    -webkit-user-drag: none;
+  }
+
 }
 
 .tab-system {

@@ -19,6 +19,7 @@ watchEffect(() => {
     console.log(props.dom);
 });
 const remove = () => {
+    console.log(fileTree.currentFileNode)
     fileTree.currentFileNode.removeSelf();
 };
 

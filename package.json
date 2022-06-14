@@ -46,6 +46,7 @@
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "bootstrap-icons": "^1.8.3",
+    "deepclone": "^1.0.2",
     "element-plus": "^2.2.5",
     "flatted": "^3.2.5",
     "fs-extra": "^10.1.0",
