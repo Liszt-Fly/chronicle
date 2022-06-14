@@ -6,6 +6,7 @@ import FileList from "@/components/FileSystem/FileList.vue";
 import { fileTree } from "@/api/FileTree/fileTree";
 import { computed, onMounted, Ref, ref } from "vue";
 import { fileNode } from "@/api/FileTree/fileNode";
+import fsp from "fs-extra"
 import Menu from "@/components/FileSystem/Menu.vue";
 let targetDom: Ref<null | HTMLElement> = ref(null);
 let menuDisplay = ref("none");
@@ -62,7 +63,26 @@ let showMenu = (e: MouseEvent) => {
 let hideMenu = () => {
   menuDisplay.value = "none";
 };
+const drop = (event: DragEvent) => {
+  let filepath = event.dataTransfer?.getData("path") as string
+  if (filepath == fTree.value!.root.path) return
+  console.log(event.target)
+  let target = event.target as HTMLElement
+  if (!target.classList.contains("item")) {
+    let folder = fTree.value!.root
 
+    //* 寻找节点
+    let node = fTree.value?.getNode(filepath, fTree.value.root)!
+    fsp.copySync(node.path, path.resolve(folder.path, node.name))
+
+    //* 节点操作
+    let generatedNode = new fileNode(path.resolve(folder.path, node.name), node.name)
+    generatedNode.parent = folder
+    folder.children!.push(generatedNode)
+    node.removeSelf()
+
+  }
+}
 onMounted(() => {
   fTree.value = new fileTree(
     new fileNode(path.resolve(chronicleUserPath, "assets"), "assets")
@@ -70,7 +90,8 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="file-system" ref="filesystem" @click="hideMenu" @contextmenu.capture="showParentMenu($event)">
+  <div class="file-system" ref="filesystem" @click="hideMenu" @contextmenu.capture="showParentMenu($event)"
+    @dragover.prevent @drop="drop($event)">
     <el-scrollbar height="calc(100vh - var(--brand-height))">
       <template v-for="file in fTree?.tree.children" :key="file.path">
         <file-list :file="file" @contextmenu.stop="showMenu($event)"> </file-list>
