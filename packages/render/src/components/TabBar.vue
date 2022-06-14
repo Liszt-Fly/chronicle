@@ -1,5 +1,5 @@
 <script setup lang="ts">
-function empty() { }
+import { SettingPage } from "@/data/configdb"
 </script>
 
 <template>
@@ -7,7 +7,7 @@ function empty() { }
     <div class="tab-bar">
       <div class="sub-tab">
         <el-tooltip :content="$t('tab.repository')" placement="right" effect="light">
-          <div class="tab-item" @click="empty" id="editor">
+          <div class="tab-item" id="editor">
             <router-link :class="{ 'active': $route.path.includes('Editor') }" to="/Editor/README.md">
               <i class="bi bi-box-seam"></i>
             </router-link>
@@ -15,7 +15,7 @@ function empty() { }
         </el-tooltip>
 
         <el-tooltip :content="$t('tab.stream')" placement="right" effect="light">
-          <div class="tab-item" @click="empty" id="stream">
+          <div class="tab-item" id="stream">
             <router-link to="/Stream">
               <i class="bi bi-columns-gap"></i>
             </router-link>
@@ -24,8 +24,8 @@ function empty() { }
       </div>
       <div class="sub-tab">
         <el-tooltip :content="$t('tab.setting')" placement="right" effect="light">
-          <div class="tab-item" @click="empty" id="setting">
-            <router-link to="/Setting">
+          <div class="tab-item" id="setting">
+            <router-link :to="SettingPage">
               <i class="bi bi-sliders2"></i>
             </router-link>
           </div>
@@ -34,3 +34,9 @@ function empty() { }
     </div>
   </div>
 </template>
+
+<style>
+.router-link-exact-active button {
+  background-color: var(--el-fill-color-light);
+}
+</style>

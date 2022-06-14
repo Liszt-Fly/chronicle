@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { fileTree } from "@/api/FileTree/fileTree";
 import { NodeType } from "@/api/FileTree/type";
-import { bClickedParent, fTree } from "@/api/configdb";
+import { bClickedParent, fTree } from "@/data/configdb";
 import { onMounted, watchEffect } from "vue";
 const props = defineProps({
     dom: Object as () => HTMLElement | null,

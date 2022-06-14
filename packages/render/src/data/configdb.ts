@@ -1,6 +1,6 @@
 import { Ref, ref } from "vue"
 import path from 'path'
-import { chronicleUserPath } from "./init"
+import { chronicleUserPath } from "../api/init"
 import { fileTree } from "@/api/FileTree/fileTree"
 export let files = ref([])
 export let bClickedParent: Ref<boolean> = ref(false)
@@ -12,3 +12,4 @@ export let currentFile = ref<string>(default_path)
 //* 默认的fileTree存储路径
 export let defaultFileTreePath = path.resolve(chronicleUserPath, "config", "fileTree.json")
 export let fTree: Ref<fileTree | null> = ref(null)
+export let SettingPage: Ref<string> = ref("/Setting/Info")

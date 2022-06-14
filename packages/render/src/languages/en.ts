@@ -9,13 +9,16 @@ export const en =
         "stream": "Stream",
         "setting": "Setting"
     },
+    stream: {
+        topic: "Topic"
+    },
     setting: {
         info_tab: 'Welcome',
         general_tab: 'General',
         appearance_tab: 'Appearance',
         shortcut_tab: 'Shortcut',
         save: "Save",
-        default: "Restore default",
+        default: "Restore Default",
         restore: "Sure to restore the default settings?",
         sure: "Sure",
         cancel: "Cancel",

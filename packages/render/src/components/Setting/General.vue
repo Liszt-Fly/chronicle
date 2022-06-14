@@ -97,7 +97,7 @@ onMounted(() => {
         <el-button class="default" type="primary" @click="restoreDialogVisible = true">{{ $t("setting.default") }}
         </el-button>
 
-        <el-dialog v-model="restoreDialogVisible" width="16rem">
+        <el-dialog v-model="restoreDialogVisible" width="300px">
             <span>{{ $t("setting.restore") }}</span>
             <template #footer>
                 <span class="dialog-footer">
@@ -122,7 +122,7 @@ onMounted(() => {
     user-select: none;
 
     .el-form-item__label i {
-        margin-right: 6px;
+        margin-right: 1rem;
         font-size: 1rem
     }
 

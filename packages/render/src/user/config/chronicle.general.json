@@ -1,7 +1,1 @@
-{
-    "devTools": true,
-    "autoSave": true,
-    "tooltips": false,
-    "autoSaveTime": 5,
-    "locale": "cn"
-}
+{"devTools":true,"autoSave":true,"tooltips":false,"autoSaveTime":5,"locale":"en"}

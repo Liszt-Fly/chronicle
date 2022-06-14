@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import path from "path";
-import { bClickedParent, fTree } from "@/api/configdb";
+import { bClickedParent, fTree } from "@/data/configdb";
 import { chronicleUserPath } from "@/api/init";
 import FileList from "@/components/FileSystem/FileList.vue";
 import { fileTree } from "@/api/FileTree/fileTree";

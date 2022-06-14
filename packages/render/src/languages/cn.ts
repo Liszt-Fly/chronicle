@@ -9,6 +9,9 @@ export const cn =
         "stream": "流",
         "setting": "设置"
     },
+    stream: {
+        topic: "话题"
+    },
     setting: {
         info_tab: '欢迎',
         general_tab: '通用',

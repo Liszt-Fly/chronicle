@@ -28,7 +28,7 @@ const info = reactive({})
     user-select: none;
 
     .el-form-item__label i {
-        margin-right: 6px;
+        margin-right: 1rem;
         font-size: 1rem
     }
 
@@ -44,7 +44,7 @@ const info = reactive({})
             text-decoration: none;
 
             i {
-                margin-right: 6px;
+                margin-right: 1rem;
                 font-size: 1rem
             }
 

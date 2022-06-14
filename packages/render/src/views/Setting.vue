@@ -1,23 +1,24 @@
 <template>
     <div class="setting">
-        <div>
-            <router-link to="/Setting/Info">
-                <el-button key="primary" type="primary" text>{{ $t('setting.info_tab') }}
+        <div class="routers">
+            <router-link to="/Setting/Info" @click="SettingPage = '/Setting/Info'">
+                <el-button key="primary" text>
+                    {{ $t('setting.info_tab') }}
                 </el-button>
             </router-link>
-            <router-link to="/Setting/General">
-                <el-button key="primary" type="primary" text>{{ $t('setting.general_tab')
-                }}
+            <router-link to="/Setting/General" @click="SettingPage = '/Setting/General'">
+                <el-button key="primary" text>
+                    {{ $t('setting.general_tab') }}
                 </el-button>
             </router-link>
-            <router-link to="/Setting/Appearance">
-                <el-button key="primary" type="primary" text>
-                    {{ $t('setting.appearance_tab') }}</el-button>
+            <router-link to="/Setting/Appearance" @click="SettingPage = '/Setting/Appearance'">
+                <el-button key="primary" text>
+                    {{ $t('setting.appearance_tab') }}
+                </el-button>
             </router-link>
-            <router-link to="/Setting/Shortcut">
-                <el-button key="primary" type="primary" text>{{
-                        $t('setting.shortcut_tab')
-                }}
+            <router-link to="/Setting/Shortcut" @click="SettingPage = '/Setting/Shortcut'">
+                <el-button key="primary" text>
+                    {{ $t('setting.shortcut_tab') }}
                 </el-button>
             </router-link>
         </div>
@@ -29,12 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import Shortcut from "@/components/Setting/Shortcut.vue"
-import Appearance from "@/components/Setting/Appearance.vue"
-import General from "@/components/Setting/General.vue"
-import Info from "@/components/Setting/Info.vue"
-
-import { ref } from "vue";
+import { SettingPage } from "@/data/configdb"
 </script>
 
 <style lang="scss">
@@ -43,21 +39,24 @@ import { ref } from "vue";
     display: flex;
     flex-direction: column;
 
-    .el-tabs.el-tabs--left {
-        height: 100%;
+    .routers {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 80%;
+        margin: auto;
+    }
 
-        .el-tabs__header {
-            height: 100%;
-        }
+    // .el-button.is-text:not(.is-disabled):focus {
+    //     background-color: var(--el-bg-color);
+    // }
 
-        .el-tabs__content {
-            overflow: auto !important;
-            height: 100%;
-        }
+    // .el-button.is-text:not(.is-disabled):focus:hover {
+    //     background-color: var(--el-fill-color-light);
+    // }
 
-        .el-tabs__item.is-left {
-            text-align: left;
-        }
+    .router-link-exact-active button {
+        background-color: var(--el-fill-color-light);
     }
 }
 </style>
