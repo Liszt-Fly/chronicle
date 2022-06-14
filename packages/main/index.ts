@@ -136,3 +136,7 @@ ipcMain.on('window-max', function () {
 ipcMain.on('min-app', () => {
   win!.minimize()
 })
+
+ipcMain.on('devTools', () => {
+  win!.webContents.toggleDevTools()
+})

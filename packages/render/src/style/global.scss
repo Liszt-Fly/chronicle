@@ -10,6 +10,10 @@ body {
 .tab-system {
   display: flex;
   flex-direction: row;
+  padding: 4px;
+  border-radius: 6px;
+  box-shadow: var(--el-box-shadow-lighter);
+  margin: 8px;
 
   .tab-bar {
     width: 2.5rem;
@@ -256,9 +260,9 @@ body {
   }
 
   /* 代码 */
-  pre {
-    // font-family: var(--chronicle-code-font);
-  }
+  // pre {
+  // font-family: var(--chronicle-code-font);
+  // }
 
   code {
     display: inline-block;

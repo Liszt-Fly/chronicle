@@ -1,18 +1,16 @@
 <template>
     <div class="setting">
-        <el-tabs tab-position="left">
-            <el-scrollbar>
-                <el-tab-pane label="通用">
-                    <General></General>
-                </el-tab-pane>
-                <el-tab-pane label="外观">
-                    <Appearance></Appearance>
-                </el-tab-pane>
-                <el-tab-pane label="快捷键">
-                    <Shortcut></Shortcut>
-                </el-tab-pane>
-            </el-scrollbar>
-        </el-tabs>
+        <div>
+            <el-button key="primary" type="primary" text @click="showTab = 'general'">通用</el-button>
+            <el-button key="primary" type="primary" text @click="showTab = 'appearance'">外观</el-button>
+            <el-button key="primary" type="primary" text @click="showTab = 'shortcut'">快捷键</el-button>
+        </div>
+
+        <el-scrollbar>
+            <General v-if="showTab == 'general'"></General>
+            <Appearance v-if="showTab == 'appearance'"></Appearance>
+            <Shortcut v-if="showTab == 'shortcut'"></Shortcut>
+        </el-scrollbar>
     </div>
 </template>
 
@@ -20,12 +18,16 @@
 import Shortcut from "@/components/Setting/Shortcut.vue"
 import Appearance from "@/components/Setting/Appearance.vue"
 import General from "@/components/Setting/General.vue"
+import { ref } from "vue";
 
+const showTab = ref("general")
 </script>
 
 <style lang="scss">
 .setting {
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     .el-tabs.el-tabs--left {
         height: 100%;
