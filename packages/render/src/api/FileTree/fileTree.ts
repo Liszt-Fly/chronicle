@@ -32,5 +32,21 @@ export class fileTree {
         //* 构造tree
         fileTree.constructFileTree(this.tree.path, this.tree)
     }
+    //* 寻找对应的node
+    getNode(pathName: string, currentNode: fileNode, targetNodes: fileNode[]) {
+
+        if (currentNode == null) return null;
+        if (pathName == currentNode.path) {
+            console.log("我找到了")
+            targetNodes.push(currentNode)
+            return currentNode
+        }
+        if (currentNode.children) {
+            currentNode.children.forEach(child => {
+                return this.getNode(pathName, child, targetNodes)
+            })
+        }
+        return null
+    }
 
 }

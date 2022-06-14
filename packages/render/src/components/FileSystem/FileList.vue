@@ -3,14 +3,16 @@ import { Menu, MenuItem } from "@electron/remote";
 import { useRouter } from "vue-router";
 import { setCurrentFileNode } from "@/api/util";
 import path from "path";
+import fsp from "fs-extra"
 import { validateFilename } from "@/api/FileSystem/filesystem";
-import { cTagContainer, currentFile } from "@/api/configdb";
+import { cTagContainer, currentFile, fTree } from "@/api/configdb";
 import { } from "@/api/FileSystem/filesystem";
 import { chronicleUserPath } from "@/api/init";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { onMounted, reactive, ref, watchEffect } from "vue";
 import { fileNode } from "@/api/FileTree/fileNode";
 import { NodeType } from "@/api/FileTree/type";
+import { fromJSON, parse, stringify, toJSON } from "flatted"
 const props = defineProps({
   file: Object as () => fileNode,
 });
@@ -135,21 +137,45 @@ if (props.file!.children) {
 }
 
 onMounted(() => {
-  menuItems.forEach((item) => {
-    menu.append(item);
-  });
+  let array = [4]
+  test(array)
+  console.log(array)
 });
-const test = () => {
-  console.log("drop")
+function test(array: number[]) {
+  array.push(4)
 }
-const test1 = () => {
-  console.log("drop事件发生")
+const drop = (e: DragEvent) => {
+  console.log(`接收的node为:${props.file!.name}`)
+  let filepath = e.dataTransfer?.getData("path") as string
+  let targetNodes: fileNode[] = []
+  fTree.value?.getNode(filepath, fTree.value.root, targetNodes)
+
+  //* 只有文件夹可以进行接收
+  if (props.file!.type == NodeType.DIR) {
+    //* 复制到当前文件夹的路径下
+    fsp.moveSync(targetNodes[0].path, path.resolve(props.file!.path, targetNodes[0].name))
+
+    //* 链接到新的文件夹目录下面去
+    let node = new fileNode(path.resolve(props.file!.path, targetNodes[0].name), targetNodes[0].name)
+    props.file!.children!.push(node)
+    node.parent = props.file!
+       targetNodes[0].removeSelf()
+  }
+  else {
+    alert("你弱智吗，我又不是文件夹！🙄️")
+  }
 }
+const startDrag = (e: DragEvent) => {
+  e.dataTransfer?.setData("path", props.file!.path)
+
+}
+
 </script>
 
 <template>
 
-  <div class="folder" v-if="file" ref="fileDom" draggable="true" @dragstart="test" @drop.stop="test1" @dragover.prevent>
+  <div class="folder" v-if="file" ref="fileDom" draggable="true" @dragover.prevent @drop="drop($event)"
+    @dragstart="startDrag($event)">
     <div class="item" tabindex="1" @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
       :data-path="file.path" v-if="validateFilename(file.name!)"
       :class="[{ 'clicked': props.file!.path == currentFile }]" @contextmenu="setCurrentFileNode(props.file!)">
