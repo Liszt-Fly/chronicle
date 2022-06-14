@@ -10,10 +10,7 @@ body {
 .tab-system {
   display: flex;
   flex-direction: row;
-  padding: 4px;
-  border-radius: 6px;
-  box-shadow: var(--el-box-shadow-lighter);
-  margin: 8px;
+  padding: 0 4px 4px 4px;
 
   .tab-bar {
     width: 2.5rem;

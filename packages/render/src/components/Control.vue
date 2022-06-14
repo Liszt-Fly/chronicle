@@ -1,6 +1,6 @@
 <template>
     <div class="control">
-        <div>
+        <div v-if="!isMac">
             <el-tooltip :content="$t('control.switch_sidebar')" placement="bottom-start" effect="dark">
                 <el-button key="plain" text @click="ToggleSidebar">
                     <i class="bi bi-window-sidebar" v-if="sideBar"></i>
@@ -19,7 +19,7 @@
             <!-- <span>Chronicle</span> -->
         </div>
 
-        <div class="btn-groups">
+        <div class="btn-groups" v-if="!isMac">
             <el-button key="plain" text @click="minWindow">
                 <i class="bi bi-dash-lg"></i>
             </el-button>
@@ -41,6 +41,7 @@ import { ref } from 'vue'
 let winMax = ref(true)
 let sideBar = ref(true)
 let devTools = ref(false)
+const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
 
 const minWindow = () => {
     ipcRenderer.send('min-app')
@@ -68,14 +69,18 @@ const ToggleSidebar = () => {
     sideBar.value = !sideBar.value
 
     let tab = document.getElementsByClassName("tab-system")[0] as HTMLDivElement;
-    if (tab.style.display != "none")
-        tab.style.display = "none"
-    else tab.style.display = "flex"
+    if (tab) {
+        if (tab.style.display != "none")
+            tab.style.display = "none"
+        else tab.style.display = "flex"
+    }
 
     let fileSystem = document.getElementsByClassName("column-left")[0] as HTMLDivElement;
-    if (fileSystem.style.display != "none")
-        fileSystem.style.display = "none"
-    else fileSystem.style.display = "block"
+    if (fileSystem) {
+        if (fileSystem.style.display != "none")
+            fileSystem.style.display = "none"
+        else fileSystem.style.display = "block"
+    }
 }
 
 </script>
@@ -85,6 +90,7 @@ const ToggleSidebar = () => {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 100%;
 
     .el-button.is-text:not(.is-disabled):focus {
         background-color: var(--el-bg-color);

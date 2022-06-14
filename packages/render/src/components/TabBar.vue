@@ -23,12 +23,6 @@ function empty() { }
         </el-tooltip>
       </div>
       <div class="sub-tab">
-        <!-- <div class="tab-item" @click="empty" id="home">
-          <router-link to="/">
-            <i class="bi bi-house-heart"></i>
-          </router-link>
-        </div> -->
-
         <el-tooltip :content="$t('tab.setting')" placement="right" effect="light">
           <div class="tab-item" @click="empty" id="setting">
             <router-link to="/Setting">
