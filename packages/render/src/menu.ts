@@ -1,6 +1,6 @@
 import { MenuItem } from "electron"
 import path from "path"
-import { currentFile } from "./api/configdb";
+import { currentFile } from "@/data/configdb";
 const { app } = require('electron')
 
 export const template: (Electron.MenuItemConstructorOptions | Electron.MenuItem)[] = [

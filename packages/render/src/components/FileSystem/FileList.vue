@@ -5,7 +5,7 @@ import { setCurrentFileNode } from "@/api/util";
 import path from "path";
 import fsp from "fs-extra"
 import { validateFilename } from "@/api/FileSystem/filesystem";
-import { cTagContainer, currentFile, fTree } from "@/api/configdb";
+import { cTagContainer, currentFile, fTree } from "@/data/configdb";
 import { } from "@/api/FileSystem/filesystem";
 import { chronicleUserPath } from "@/api/init";
 import { ElMessage, ElMessageBox } from "element-plus";

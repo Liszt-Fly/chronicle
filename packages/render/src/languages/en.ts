@@ -15,7 +15,7 @@ export const en =
         appearance_tab: 'Appearance',
         shortcut_tab: 'Shortcut',
         save: "Save",
-        default: "Restore default",
+        default: "Restore Default",
         restore: "Sure to restore the default settings?",
         sure: "Sure",
         cancel: "Cancel",

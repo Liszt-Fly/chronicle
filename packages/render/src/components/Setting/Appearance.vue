@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch } from 'vue'
 import { appearanceFile, appearanceFileDefault } from "@/api/init"
-import { IAppearance } from '@/interfaces/type';
 import { Sunny, Moon } from '@element-plus/icons-vue'
 import fs from 'fs'
 
@@ -24,7 +23,7 @@ let appearance = reactive({
 
 const readSetting = (appearanceFile: string) => {
     try {
-        const data = fs.readFileSync(appearanceFile)
+        const data = fs.readFileSync(appearanceFile).toString()
         let JSONData = JSON.parse(data)
         for (let key in JSONData) {
             appearance[key] = JSONData[key]
@@ -36,11 +35,7 @@ const readSetting = (appearanceFile: string) => {
 
 const saveSetting = () => {
     const data = JSON.stringify(appearance);
-    fs.writeFileSync(appearanceFile, data, (err: ErrorEvent) => {
-        if (err) {
-            throw err;
-        }
-    });
+    fs.writeFileSync(appearanceFile, data);
     location.reload()
 }
 
@@ -110,7 +105,7 @@ onMounted(() => {
         <el-button class="default" type="primary" @click="restoreDialogVisible = true">{{ $t("setting.default") }}
         </el-button>
 
-        <el-dialog v-model="restoreDialogVisible" width="16rem">
+        <el-dialog v-model="restoreDialogVisible" width="300px">
             <span>{{ $t("setting.restore") }}</span>
             <template #footer>
                 <span class="dialog-footer">

@@ -239,7 +239,7 @@
         </el-button>
     </div>
 
-    <el-dialog v-model="restoreDialogVisible" width="16rem">
+    <el-dialog v-model="restoreDialogVisible" width="300px">
         <span>{{ $t("setting.restore") }}</span>
         <template #footer>
             <span class="dialog-footer">

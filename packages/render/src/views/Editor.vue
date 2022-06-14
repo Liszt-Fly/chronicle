@@ -2,7 +2,7 @@
 import { onMounted, ref, watch, watchEffect, } from "vue";
 import fsp from "fs-extra";
 import path from "path";
-import { currentFile } from "@/api/configdb";
+import { currentFile } from "@/data/configdb";
 import FileSystem from "@/components/FileSystem/FileSystem.vue";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
