@@ -2,7 +2,6 @@ import fsp from "fs-extra"
 import { NodeType } from "./type"
 import p from "path"
 import { getValidName } from "@/api/util"
-
 import { removeExtName } from "../FileSystem/filesystem"
 export class fileNode {
     //* constructor
@@ -87,16 +86,25 @@ export class fileNode {
     }
     //* 替身
     substitute() {
-        //生成一个同样的节点，并且更改名称
-        //如果是文件
-        let name = removeExtName(this.name) + "的副本"
-        let path = p.resolve(p.parse(this.path).dir, name + ".md")
-        fsp.createFileSync(path)
+
+        let name = ""
+        let path = ""
+        if (this.type == NodeType.FILE) {
+            name = removeExtName(this.name) + "的副本"
+            path = p.resolve(p.parse(this.path).dir, name + ".md")
+            fsp.createFileSync(path)
+        }
+        else {
+            name = this.name + "的副本"
+            path = p.resolve(p.parse(this.path).dir, name)
+
+            fsp.copySync(this.path, path)
+
+        }
+        console.log(`当前的路径为${path}`)
         let node = new fileNode(path, name)
+        console.log(node)
         this.parent?.children?.push(node)
         node.parent = this.parent
-        console.log(node)
-        console.log(node.parent)
-
     }
 }
