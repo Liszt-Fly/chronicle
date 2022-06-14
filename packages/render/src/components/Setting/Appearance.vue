@@ -129,7 +129,7 @@ onMounted(() => {
     user-select: none;
 
     .el-form-item__label i {
-        margin-right: 6px;
+        margin-right: 1rem;
         font-size: 1rem
     }
 

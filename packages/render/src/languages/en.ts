@@ -9,6 +9,9 @@ export const en =
         "stream": "Stream",
         "setting": "Setting"
     },
+    stream: {
+        topic: "Topic"
+    },
     setting: {
         info_tab: 'Welcome',
         general_tab: 'General',
