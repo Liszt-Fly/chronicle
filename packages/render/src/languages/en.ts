@@ -26,6 +26,6 @@ export const en =
             "en": "en"
         },
         save: "Save",
-        default: "Default",
+        default: "Restore default",
     }
 }
