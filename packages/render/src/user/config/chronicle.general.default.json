@@ -1,5 +1,7 @@
 {
     "devTools": true,
     "autoSave": true,
-    "autoSaveTime": 5
+    "autoSaveTime": 5,
+    "locale": "cn",
+    "tooltips": true
 }

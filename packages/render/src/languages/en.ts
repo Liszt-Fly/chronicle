@@ -10,32 +10,37 @@ export const en =
         "setting": "Setting"
     },
     setting: {
+        info_tab: 'Welcome',
         general_tab: 'General',
         appearance_tab: 'Appearance',
         shortcut_tab: 'Shortcut',
         save: "Save",
         default: "Restore default",
+        restore: "Sure to restore the default settings?",
+        sure: "Sure",
+        cancel: "Cancel",
+
         appearance: {
             theme: "Theme",
             color: "Primary Color",
-            tooltips: "Tooltips",
 
             global_en_font: "English Character Font",
             global_cn_font: "Chinese Character Font",
             code_font: "Code Font",
-
-            language: "Language",
-            select_language: "Select Language",
-
-            "cn": "cn",
-            "en": "en"
         },
         general: {
+            tooltips: "Tooltips",
             "dev_tools": "DevTools",
             "autosave": "Autosave",
             "autosave_interval": "Autosave Interval",
             "interval": " minutes",
-            "home": "Home"
+            language: "Language",
+            select_language: "Select Language",
+            "cn": "cn",
+            "en": "en"
+        },
+        info: {
+            "home": "Home",
         },
         shortcut: {
             h1: 'First Level Title',

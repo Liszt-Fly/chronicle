@@ -1,4 +1,4 @@
-export let cn =
+export const cn =
 {
     control: {
         "switch_sidebar": "切换边栏",
@@ -10,6 +10,7 @@ export let cn =
         "setting": "设置"
     },
     setting: {
+        info_tab: '欢迎',
         general_tab: '通用',
         appearance_tab: '外观',
         shortcut_tab: '快捷键',
@@ -22,26 +23,24 @@ export let cn =
         appearance: {
             theme: "主题",
             color: "主题色",
-            tooltips: "Tooltips",
 
             global_en_font: "英文字体",
             global_cn_font: "中文字体",
             code_font: "代码块字体",
-
-            language: "语言",
-            select_language: "选择语言",
-
-            "cn": "中文",
-            "en": "英文",
-
-
         },
         general: {
+            tooltips: "提示",
             "dev_tools": "开发者工具",
             "autosave": "自动保存",
-            "autosave_interval": "自动保存 间隔",
+            "autosave_interval": "自动保存间隔",
             "interval": " 分钟",
-            "home": "回到主页"
+            language: "语言",
+            select_language: "选择语言",
+            "cn": "中文",
+            "en": "英文",
+        },
+        info: {
+            "home": "回到主页",
         },
         shortcut: {
             h1: '设为一级标题',

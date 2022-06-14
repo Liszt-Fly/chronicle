@@ -3,7 +3,7 @@ import { onMounted, reactive, ref, watch } from 'vue'
 import { appearanceFile, appearanceFileDefault } from "@/api/init"
 import { IAppearance } from '@/interfaces/type';
 import { Sunny, Moon } from '@element-plus/icons-vue'
-import fs from 'fs-extra'
+import fs from 'fs'
 
 const restoreDialogVisible = ref(false)
 const global_en_fonts = ["Verdana", "Arial", "Times New Roman"]
@@ -16,7 +16,6 @@ const predefineColors = [
 let appearance = reactive({
     "theme": "",
     "color": "",
-    "tooltips": "",
     "global_en_font": "",
     "global_cn_font": "",
     "code_font": "",
@@ -25,7 +24,7 @@ let appearance = reactive({
 
 const readSetting = (appearanceFile: string) => {
     try {
-        const data = fs.readFileSync(appearanceFile).toString()
+        const data = fs.readFileSync(appearanceFile)
         let JSONData = JSON.parse(data)
         for (let key in JSONData) {
             appearance[key] = JSONData[key]
@@ -37,7 +36,11 @@ const readSetting = (appearanceFile: string) => {
 
 const saveSetting = () => {
     const data = JSON.stringify(appearance);
-    fs.writeFileSync(appearanceFile, data);
+    fs.writeFileSync(appearanceFile, data, (err: ErrorEvent) => {
+        if (err) {
+            throw err;
+        }
+    });
     location.reload()
 }
 
@@ -69,12 +72,6 @@ onMounted(() => {
                     <i class="bi bi-paint-bucket"></i> {{ $t('setting.appearance.color') }}
                 </template>
                 <el-color-picker v-model="appearance.color" :predefine="predefineColors" />
-            </el-form-item>
-            <el-form-item>
-                <template #label>
-                    <i class="bi bi-chat-square"></i> {{ $t('setting.appearance.tooltips') }}
-                </template>
-                <el-switch v-model="appearance.tooltips" />
             </el-form-item>
 
             <el-divider></el-divider>
@@ -108,18 +105,6 @@ onMounted(() => {
                     </el-option>
                 </el-select>
             </el-form-item>
-
-            <el-divider></el-divider>
-
-            <el-form-item>
-                <template #label>
-                    <i class="bi bi-translate"></i> {{ $t('setting.appearance.language') }}
-                </template>
-                <el-select v-model="appearance.locale" :placeholder="$t('setting.appearance.select_language')">
-                    <el-option v-for="locale in $i18n.availableLocales" :label="locale" :key="`locale-${locale}`"
-                        :value="locale">{{ locale }}</el-option>
-                </el-select>
-            </el-form-item>
         </el-form>
 
         <el-button class="default" type="primary" @click="restoreDialogVisible = true">{{ $t("setting.default") }}
@@ -130,7 +115,7 @@ onMounted(() => {
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="restoreDialogVisible = false">{{ $t("setting.cancel") }}</el-button>
-                    <el-button type="primary" @click="restoreDefault, restoreDialogVisible = false">{{
+                    <el-button type="primary" @click="restoreDefault(), restoreDialogVisible = false">{{
                             $t("setting.sure")
                     }}
                     </el-button>

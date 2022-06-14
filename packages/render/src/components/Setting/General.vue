@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch } from 'vue'
 import { generalFile, generalFileDefault } from "@/api/init"
-import fs from 'fs-extra'
+import fs from 'fs'
 
+const restoreDialogVisible = ref(false)
 const autoSaveTimes = [3, 5, 10, 60]
 const general = reactive({
     devTools: false,
     autoSave: false,
-    autoSaveTime: 3
+    "tooltips": "",
+    autoSaveTime: 3,
+    locale: "cn"
 })
 
 const readSetting = (generalFile: string) => {
@@ -29,6 +32,7 @@ const saveSetting = () => {
 }
 
 const restoreDefault = () => {
+    console.log(111)
     fs.writeFile(generalFile, fs.readFileSync(generalFileDefault), () => {
         location.reload()
     })
@@ -47,9 +51,12 @@ onMounted(() => {
         <el-form label-width="180px" :model="general" label-position="left">
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-terminal"></i> {{ $t('setting.general.dev_tools') }}
+                    <i class="bi bi-translate"></i> {{ $t('setting.general.language') }}
                 </template>
-                <el-switch v-model="general.devTools" />
+                <el-select v-model="general.locale" :placeholder="$t('setting.general.select_language')">
+                    <el-option v-for="locale in $i18n.availableLocales" :label="locale" :key="`locale-${locale}`"
+                        :value="locale">{{ locale }}</el-option>
+                </el-select>
             </el-form-item>
 
             <el-divider></el-divider>
@@ -71,16 +78,37 @@ onMounted(() => {
                 </el-select>
             </el-form-item>
 
-            <div class="home">
-                <router-link to="/">
-                    <el-button type="primary"><i class="bi bi-house-heart"></i>{{ $t('setting.general.home') }}
-                    </el-button>
-                </router-link>
-            </div>
+            <el-divider></el-divider>
 
-            <!-- <h1>Made with ❤️</h1> -->
-
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-terminal"></i> {{ $t('setting.general.dev_tools') }}
+                </template>
+                <el-switch v-model="general.devTools" />
+            </el-form-item>
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-chat-square"></i> {{ $t('setting.general.tooltips') }}
+                </template>
+                <el-switch v-model="general.tooltips" />
+            </el-form-item>
         </el-form>
+
+        <el-button class="default" type="primary" @click="restoreDialogVisible = true">{{ $t("setting.default") }}
+        </el-button>
+
+        <el-dialog v-model="restoreDialogVisible" width="16rem">
+            <span>{{ $t("setting.restore") }}</span>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="restoreDialogVisible = false">{{ $t("setting.cancel") }}</el-button>
+                    <el-button type="primary" @click="restoreDefault(), restoreDialogVisible = false">{{
+                            $t("setting.sure")
+                    }}
+                    </el-button>
+                </span>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
@@ -98,30 +126,12 @@ onMounted(() => {
         font-size: 1rem
     }
 
+    .default {
+        width: 100%;
+    }
+
     .el-dialog__body {
         text-align: center;
-    }
-
-    h1 {
-        margin: 20px
-    }
-
-    .home {
-        width: 100%;
-        margin: 20px 0;
-
-        a {
-            text-decoration: none;
-
-            i {
-                margin-right: 6px;
-                font-size: 1rem
-            }
-
-            .el-button {
-                width: 100%;
-            }
-        }
     }
 }
 </style>

@@ -21,16 +21,15 @@ let shortcut = JSON.parse(shortcutFileData)
 
 export let theme = appearance.theme
 export let vditorTheme: any = ref("classic")
+const head = document.head || document.getElementsByTagName('head')[0];
 
 // 样式初始化
 let initAppearance = () => {
-	const head = document.head || document.getElementsByTagName('head')[0];
 
-	let color = appearance.color
-	let global_en_font = appearance.global_en_font
-	let global_cn_font = appearance.global_cn_font
-	let code_font = appearance.code_font
-	let tooltips = appearance.tooltips
+	const color = appearance.color
+	const global_en_font = appearance.global_en_font
+	const global_cn_font = appearance.global_cn_font
+	const code_font = appearance.code_font
 
 	let globalStyle = document.createElement('style');
 	globalStyle.innerText = `html.${appearance.theme ? "light" : "dark"} {
@@ -39,7 +38,6 @@ let initAppearance = () => {
 		--chronicle-global-cn-font: ${global_cn_font};
 		--chronicle-code-font: ${code_font};
 	}
-	${tooltips ? '' : '.el-popper:not(.el-select__popper) { display: none  !important;}'}
 	`
 	head.appendChild(globalStyle);
 
@@ -50,12 +48,15 @@ let initAppearance = () => {
 let initGeneral = () => {
 	const head = document.head || document.getElementsByTagName('head')[0];
 
-	let devTools = general.devTools
+	const devTools = general.devTools
+	const tooltips = general.tooltips
 
 	let generalStyle = document.createElement('style');
 	generalStyle.innerText = `
 	.devTools{
 		display: ${devTools ? 'inline-flex' : 'none'}
+	}
+	${tooltips ? '' : '.el-popper:not(.el-select__popper) {display: none !important;}'}
 	`
 	head.appendChild(generalStyle);
 }
@@ -65,7 +66,7 @@ let initShortcut = () => {
 
 }
 
-export const locale = appearance.locale
+export const locale = general.locale
 
 // 初始化设置
 export let initSetting = () => {

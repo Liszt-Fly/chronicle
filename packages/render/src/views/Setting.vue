@@ -1,18 +1,29 @@
 <template>
     <div class="setting">
         <div>
-            <el-button key="primary" type="primary" text @click="showTab = 'general'">{{ $t('setting.general_tab') }}
-            </el-button>
-            <el-button key="primary" type="primary" text @click="showTab = 'appearance'">
-                {{ $t('setting.appearance_tab') }}</el-button>
-            <el-button key="primary" type="primary" text @click="showTab = 'shortcut'">{{ $t('setting.shortcut_tab') }}
-            </el-button>
+            <router-link to="/Setting/Info">
+                <el-button key="primary" type="primary" text>{{ $t('setting.info_tab') }}
+                </el-button>
+            </router-link>
+            <router-link to="/Setting/General">
+                <el-button key="primary" type="primary" text>{{ $t('setting.general_tab')
+                }}
+                </el-button>
+            </router-link>
+            <router-link to="/Setting/Appearance">
+                <el-button key="primary" type="primary" text>
+                    {{ $t('setting.appearance_tab') }}</el-button>
+            </router-link>
+            <router-link to="/Setting/Shortcut">
+                <el-button key="primary" type="primary" text>{{
+                        $t('setting.shortcut_tab')
+                }}
+                </el-button>
+            </router-link>
         </div>
 
         <el-scrollbar>
-            <General v-if="showTab == 'general'"></General>
-            <Appearance v-if="showTab == 'appearance'"></Appearance>
-            <Shortcut v-if="showTab == 'shortcut'"></Shortcut>
+            <router-view></router-view>
         </el-scrollbar>
     </div>
 </template>
@@ -21,9 +32,9 @@
 import Shortcut from "@/components/Setting/Shortcut.vue"
 import Appearance from "@/components/Setting/Appearance.vue"
 import General from "@/components/Setting/General.vue"
-import { ref } from "vue";
+import Info from "@/components/Setting/Info.vue"
 
-const showTab = ref("general")
+import { ref } from "vue";
 </script>
 
 <style lang="scss">

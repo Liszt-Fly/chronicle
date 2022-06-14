@@ -244,7 +244,7 @@
         <template #footer>
             <span class="dialog-footer">
                 <el-button @click="restoreDialogVisible = false">{{ $t("setting.cancel") }}</el-button>
-                <el-button type="primary" @click="restoreDefault, restoreDialogVisible = false">{{
+                <el-button type="primary" @click="restoreDefault(), restoreDialogVisible = false">{{
                         $t("setting.sure")
                 }}
                 </el-button>
@@ -256,9 +256,9 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref, watch } from 'vue'
 import { shortcutFile, shortcutFileDefault } from "@/api/init"
-import fs from 'fs-extra'
+import fs from 'fs'
 
-let restoreDialogVisible = ref(false)
+const restoreDialogVisible = ref(false)
 
 const shortcut = reactive({
     h1: 'Ctrl+1',
