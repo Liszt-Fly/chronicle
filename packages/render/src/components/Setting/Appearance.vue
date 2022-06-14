@@ -65,7 +65,7 @@ onMounted(() => {
                 <template #label>
                     <i class="bi bi-brightness-alt-high"></i> {{ $t('setting.appearance.theme') }}
                 </template>
-                <el-switch v-model="appearance.theme" :inactive-icon="Moon" :active-icon="Sunny" />
+                <el-switch v-model="appearance.theme" :inactive-icon="Moon" :active-icon="Sunny" inline-prompt />
             </el-form-item>
             <el-form-item>
                 <template #label>
@@ -145,5 +145,27 @@ onMounted(() => {
     .el-dialog__body {
         text-align: center;
     }
+}
+</style>
+
+<style>
+.el-switch__core .el-switch__inner {
+    transition: none !important;
+}
+
+.el-switch .el-icon.is-icon.is-show {
+    position: relative;
+    right: 18px;
+    color: var(--el-color-info);
+    z-index: 99;
+    font-size: 0.8rem;
+}
+
+.el-switch.is-checked .el-icon.is-icon.is-show {
+    position: relative;
+    left: 19px;
+    color: var(--el-color-info);
+    z-index: 99;
+    font-size: 0.7rem;
 }
 </style>
