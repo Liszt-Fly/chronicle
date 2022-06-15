@@ -2,6 +2,7 @@
 star: false
 tags: []
 ---
+
 # Markdown 语法支持测试
 
 ---
@@ -58,9 +59,8 @@ _斜体 Abc_ **加粗 Abc** **_斜体加粗 Abc_**
 
 /` 单引号 代码块 /`
 
-    制表符
-    代码块
-
+制表符
+代码块
 `短代码块`
 
 <span id="1">锚点尾 (一级标题)</span>
@@ -69,12 +69,9 @@ _斜体 Abc_ **加粗 Abc** **_斜体加粗 Abc_**
 
 注脚语法 Abc[^1]
 
-[^1]: 我是注脚 Abc
-
 [转意符](www.google.com)
 
 - [ ] Todo list
-
 - [x] Todo list
 
 ### 参考式
@@ -83,12 +80,9 @@ _斜体 Abc_ **加粗 Abc** **_斜体加粗 Abc_**
 
 酷安又名[CoolAPK][2]
 
-[1]: www.google.com "Google"
-[2]: www.coolapk.com "CoolAPK"
-
 ### 自动链接
 
-<cxplay@qq.com>
+[cxplay@qq.com](mailto:cxplay@qq.com)
 
 > 一级引用
 
@@ -110,7 +104,6 @@ $$
 \frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
 \frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0 \\
 \end{vmatrix}
-${$tep1}{\style{visibility:hidden}{(x+1)(x+1)}}
 $$
 
 ### 目录概览
@@ -125,4 +118,8 @@ $$
 
 ![图片Abc][3]
 
+[1]: www.google.com
+[2]: www.coolapk.com
 [3]: https://m.baidu.com/static/index/plus/plus_logo_web.png
+
+[^1]: 我是注脚 Abc
