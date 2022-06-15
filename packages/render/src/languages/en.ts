@@ -3,6 +3,11 @@ export const en =
     control: {
         toggle_sidebar: "Toggle Sidebar",
         toggle_devTools: "Toggle DevTools",
+        refresh: "Refresh",
+        minimise: "Minimise",
+        restore: "Restore",
+        maximise: "Maximise",
+        close: "Close App"
     },
     tab: {
         repository: "Journals",
@@ -46,6 +51,7 @@ export const en =
         appearance: {
             theme: "Theme",
             color: "Primary Color",
+            trotting_horse: "Trotting Horse Lamp",
 
             global_en_font: "English Character Font",
             global_cn_font: "Chinese Character Font",

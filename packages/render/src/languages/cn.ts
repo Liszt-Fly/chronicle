@@ -3,6 +3,11 @@ export const cn =
     control: {
         toggle_sidebar: "切换边栏",
         toggle_devTools: "切换开发者工具",
+        refresh: "刷新",
+        minimise: "最小化",
+        restore: "恢复",
+        maximise: "最大化",
+        close: "关闭应用"
     },
     tab: {
         repository: "笔记",
@@ -46,6 +51,7 @@ export const cn =
         appearance: {
             theme: "主题",
             color: "主题色",
+            trotting_horse: "走马灯",
 
             global_en_font: "英文字体",
             global_cn_font: "中文字体",

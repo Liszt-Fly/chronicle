@@ -3,5 +3,6 @@
     "color": "#81a28b",
     "global_en_font": "Times New Roman",
     "global_cn_font": "楷体",
-    "code_font": "Consolas"
+    "code_font": "Consolas",
+    "trotting_horse": true
 }

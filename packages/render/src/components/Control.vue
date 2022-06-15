@@ -1,18 +1,25 @@
 <template>
     <div class="control">
         <div v-if="!isMac">
-            <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="dark">
-                <el-button key="plain" text @click="ToggleSidebar" class="contrlIcon">
-                    <i class="bi bi-window-sidebar" v-if="sideBar"></i>
-                    <i class="bi bi-window" v-else></i>
-                </el-button>
-            </el-tooltip>
-            <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="dark">
-                <el-button class="devTools contrlIcon" key="plain" text @click="ToggleDevTools">
-                    <i class="bi bi-terminal-dash" v-if="devTools"></i>
-                    <i class="bi bi-terminal-plus" v-else></i>
-                </el-button>
-            </el-tooltip>
+            <el-button-group>
+                <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="dark">
+                    <el-button key="plain" text @click="ToggleSidebar" class="contrlIcon">
+                        <i class="bi bi-window-sidebar" v-if="sideBar"></i>
+                        <i class="bi bi-window" v-else></i>
+                    </el-button>
+                </el-tooltip>
+                <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="dark">
+                    <el-button class="contrlIcon" key="plain" text @click="Refresh">
+                        <i class="bi bi-bootstrap-reboot"></i>
+                    </el-button>
+                </el-tooltip>
+                <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="dark">
+                    <el-button class="contrlIcon" key="plain" text @click="ToggleDevTools">
+                        <i class="bi bi-terminal-dash" v-if="devTools"></i>
+                        <i class="bi bi-terminal-plus" v-else></i>
+                    </el-button>
+                </el-tooltip>
+            </el-button-group>
         </div>
 
         <div class="brand">
@@ -20,16 +27,25 @@
         </div>
 
         <div class="btn-groups" v-if="!isMac">
-            <el-button key="plain" text @click="minWindow">
-                <i class="bi bi-dash-lg"></i>
-            </el-button>
-            <el-button key="plain" text @click="maxRestoreWindow">
-                <i class="bi bi-square" v-if="winMax"></i>
-                <i class="bi bi-files" v-else style="transform: scaleX(1.3)"></i>
-            </el-button>
-            <el-button key="plain" text @click="closeWindow" class="danger">
-                <i class="bi bi-x-lg" @click=""></i>
-            </el-button>
+            <el-button-group>
+                <el-tooltip :content="$t('control.minimise')" placement="bottom-start" effect="dark">
+                    <el-button key="plain" text @click="minWindow">
+                        <i class="bi bi-dash-lg"></i>
+                    </el-button>
+                </el-tooltip>
+                <el-tooltip :content="winMax ? $t('control.maximise') : $t('control.restore')" placement="bottom-start"
+                    effect="dark">
+                    <el-button key="plain" text @click="maxRestoreWindow">
+                        <i class="bi bi-square" v-if="winMax"></i>
+                        <i class="bi bi-files" v-else style="transform: scaleX(1.3)"></i>
+                    </el-button>
+                </el-tooltip>
+                <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="dark">
+                    <el-button key="plain" text @click="closeWindow" class="danger">
+                        <i class="bi bi-x-lg" @click=""></i>
+                    </el-button>
+                </el-tooltip>
+            </el-button-group>
         </div>
     </div>
 </template>
@@ -52,6 +68,9 @@ const closeWindow = () => {
 }
 const maxRestoreWindow = () => {
     ipcRenderer.send('window-max');
+}
+const Refresh = () => {
+    location.reload()
 }
 
 const ToggleDevTools = () => {

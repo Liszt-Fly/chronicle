@@ -18,6 +18,7 @@ let appearance = reactive({
     "global_en_font": "",
     "global_cn_font": "",
     "code_font": "",
+    "trotting_horse": ""
 })
 
 const readSetting = (appearanceFile: string) => {
@@ -75,6 +76,12 @@ onMounted(() => {
                     <i class="bi bi-paint-bucket"></i> {{ $t('setting.appearance.color') }}
                 </template>
                 <el-color-picker v-model="appearance.color" :predefine="predefineColors" />
+            </el-form-item>
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-lamp"></i> {{ $t('setting.appearance.trotting_horse') }}
+                </template>
+                <el-switch v-model="appearance.trotting_horse" />
             </el-form-item>
 
             <el-divider></el-divider>

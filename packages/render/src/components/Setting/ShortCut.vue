@@ -134,13 +134,17 @@
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-arrow-counterclockwise"></i> {{ $t('setting.shortcut.undo') }}
+                    <i class="bi bi-arrow-return-left"
+                        style="transform: rotateX(180deg); position: relative; bottom: 2px;"></i>
+                    {{ $t('setting.shortcut.undo') }}
                 </template>
                 <el-input v-model="shortcut.undo" />
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-arrow-clockwise"></i> {{ $t('setting.shortcut.redo') }}
+                    <i class="bi bi-arrow-return-right"
+                        style="transform: rotateX(180deg); position: relative; bottom: 2px;"></i>
+                    {{ $t('setting.shortcut.redo') }}
                 </template>
                 <el-input v-model="shortcut.redo" />
             </el-form-item>
@@ -236,7 +240,7 @@
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-arrow-repeat"></i> {{ $t('setting.shortcut.replace') }}
+                    <i class="bi bi-intersect"></i> {{ $t('setting.shortcut.replace') }}
                 </template>
                 <el-input v-model="shortcut.replace" />
             </el-form-item>

@@ -30,6 +30,10 @@ let initAppearance = () => {
 	const global_en_font = appearance.global_en_font
 	const global_cn_font = appearance.global_cn_font
 	const code_font = appearance.code_font
+	const trotting_horse = appearance.trotting_horse
+
+	if (trotting_horse)
+		document.getElementById("app")!.className += 'trotting_horse';
 
 	let globalStyle = document.createElement('style');
 	globalStyle.innerText = `html.${appearance.theme ? "light" : "dark"} {
