@@ -10,7 +10,11 @@ import Control from "@/components/Control.vue";
   <div class="main" spellcheck="false">
     <tab-bar></tab-bar>
     <div class="article">
-      <router-view></router-view>
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </router-view>
     </div>
   </div>
 </template>
