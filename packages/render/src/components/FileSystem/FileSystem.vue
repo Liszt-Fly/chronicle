@@ -97,6 +97,7 @@ onMounted(() => {
       <template v-for="file in fTree?.tree.children" :key="file.path">
         <file-list :file="file" @contextmenu.stop="showMenu($event)"> </file-list>
       </template>
+      <div style="padding-bottom: 40px;"></div>
     </el-scrollbar>
     <Menu :style="{
       display: menuDisplay,

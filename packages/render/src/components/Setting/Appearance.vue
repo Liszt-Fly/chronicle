@@ -18,7 +18,6 @@ let appearance = reactive({
     "global_en_font": "",
     "global_cn_font": "",
     "code_font": "",
-    "locale": ""
 })
 
 const readSetting = (appearanceFile: string) => {

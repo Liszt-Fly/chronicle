@@ -1,7 +1,7 @@
 <template>
     <div class="control">
         <div v-if="!isMac">
-            <el-tooltip :content="$t('control.switch_sidebar')" placement="bottom-start" effect="dark">
+            <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="dark">
                 <el-button key="plain" text @click="ToggleSidebar" class="contrlIcon">
                     <i class="bi bi-window-sidebar" v-if="sideBar"></i>
                     <i class="bi bi-window" v-else></i>

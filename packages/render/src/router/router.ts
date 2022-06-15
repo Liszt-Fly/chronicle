@@ -4,17 +4,22 @@ import Setting from "@/views/Setting.vue"
 import Stream from "@/views/Stream.vue"
 import Home from "@/views/Home.vue"
 import Info from "@/components/Setting/Info.vue"
+import Jotting from "@/views/Jotting.vue"
+
 import Appearance from "@/components/Setting/Appearance.vue"
 import Shortcut from "@/components/Setting/Shortcut.vue"
 import General from "@/components/Setting/General.vue"
+import WorkSpace from "@/components/WorkSpace/WorkSpace.vue"
 
 const router = createRouter({
 	linkActiveClass: "active",
 	history: createWebHashHistory(),
 	routes: [
-		{ path: "/", name: "Home", component: Home },
+		{ path: "/", name: "Home", component: Home, redirect: '/WorkSpace' },
 		{ path: "/Editor/:note([\\s\\S]*)", name: "Editor", component: Editor },
 		{ path: "/Stream", name: "Stream", component: Stream },
+		{ path: "/Jotting", name: "Jotting", component: Jotting },
+		{ path: "/WorkSpace", name: "WorkSpace", component: WorkSpace },
 		{
 			path: "/Setting", name: "Setting", component: Setting,
 			children: [

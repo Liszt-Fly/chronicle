@@ -5,7 +5,7 @@ import fs from 'fs'
 
 const restoreDialogVisible = ref(false)
 const autoSaveTimes = [3, 5, 10, 60]
-const openOptions = ["lastPage", "home"]
+const openOptions = ["lastOpenFile", "workspace"]
 
 const general = reactive({
     workspaceName: "",
@@ -54,7 +54,7 @@ const debounce = (fn, wait) => {
 onMounted(() => {
     readSetting(generalFile)
     watch(general, () => {
-        debounce(saveSetting, 1000)
+        debounce(saveSetting, 2000)
     })
 })
 </script>
