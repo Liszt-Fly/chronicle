@@ -54,7 +54,7 @@ const debounce = (fn, wait) => {
 onMounted(() => {
     readSetting(generalFile)
     watch(general, () => {
-        debounce(saveSetting, 1000)
+        debounce(saveSetting, 2000)
     })
 })
 </script>

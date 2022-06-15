@@ -1,9 +1,9 @@
 {
-    "workspaceName": "☃️ Snowball",
+    "workspaceName": "Chroncile 📔",
     "openWith": "workspace",
     "devTools": true,
     "autoSave": true,
-    "tooltips": true,
+    "tooltips": false,
     "autoSaveTime": 5,
     "locale": "cn"
 }
