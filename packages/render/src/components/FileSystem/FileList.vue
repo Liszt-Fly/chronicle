@@ -141,13 +141,16 @@ onMounted(() => {
 });
 
 const drop = (e: DragEvent) => {
-   // FIXME: 仅仅检查了自己放置自己的情况，还有一种放置本身区域的情况没有做完
+  // FIXME: 仅仅检查了自己放置自己的情况，还有一种放置本身区域的情况没有做完
   let filepath = e.dataTransfer?.getData("path") as string
+
   //* 如果放置的区域就是发送的区域，啥也不做
   if (filepath == props.file!.path) return
   console.log(`接收的路径为${props.file!.path}`)
   //* 获取对应的节点
   let node = fTree.value?.getNode(filepath, fTree.value.root)!
+  if (props.file!.parent == node.parent && props.file!.type == NodeType.FILE) return
+  if (props.file!.children?.includes(node)) return
   //* 当接受区域是文件夹类型
   if (props.file!.type == NodeType.DIR) {
 
@@ -164,7 +167,7 @@ const drop = (e: DragEvent) => {
   else if (props.file!.type == NodeType.FILE) {
     //* 开展寻根行动
     let parent = props.file!.parent!
-    console.log(parent.path)
+    console.log(`当前的文件是文件，自动寻找父亲组件:${props.file?.path}`)
     //* 进行文件操作
     fsp.copySync(node.path, path.resolve(parent.path, node.name))
     //* 生成一个node
