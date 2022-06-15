@@ -99,7 +99,7 @@ const addChildren = (t: NodeType) => {
                 <i class="bi bi-bookmarks"></i>
                 <el-divider direction="vertical" />
                 <span>{{ $t('editor.menu.add_tags') }}</span>
-                <el-dialog v-model="dialogVisible" title="添加标签" width="45%" class="dialog">
+                <el-dialog v-model="dialogVisible" title="添加标签" width="60%" class="dialog">
                     <tag></tag>
                 </el-dialog>
             </div>
