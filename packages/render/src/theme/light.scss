@@ -22,6 +22,10 @@ html.light {
     }
   }
 
+  .file-system .folder .item:hover {
+    border: 2px solid var(--el-bg-color);
+  }
+
   .resize-line {
     border-right: 2px dashed var(--el-color-info-light-9);
   }

@@ -6,7 +6,7 @@ html.dark {
   --chronicle-theme-color: var(--el-color-primary);
 
   .tab-system .tab-bar .tab-item {
-    border: 2px solid var(--el-bg-color);
+    border: 2px solid #12121200;
 
     &:hover {
       border: 2px solid var(--el-color-info-light-9);
@@ -22,6 +22,10 @@ html.dark {
     }
   }
 
+  .file-system .folder .item {
+    border: 2px solid rgba(18, 18, 18);
+  }
+
   .resize-line {
     border-right: 2px dashed var(--el-color-info-light-9);
   }
@@ -29,5 +33,9 @@ html.dark {
   .resize-bar:hover ~ .resize-line,
   .resize-bar:active ~ .resize-line {
     border-right: 4px dashed var(--chronicle-theme-color);
+  }
+
+  .vditor-ir pre.vditor-reset {
+    background-color: unset;
   }
 }

@@ -41,6 +41,7 @@ onMounted(() => {
       pin: false,
     },
     after: () => {
+      vditor!.setTheme(vditorTheme, vditorTheme, vditorTheme)
       watchEffect(() => {
         if (currentFile.value != "") {
           vditor!.setValue(fsp.readFileSync(path.resolve(currentFile.value), { encoding: "utf-8" }), false)

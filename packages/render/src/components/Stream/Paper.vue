@@ -11,7 +11,9 @@
       </div>
     </div>
     <div class="mask" @click="openFile">
-      <div v-html="readFile()" class="thumbnail"></div>
+      <el-scrollbar>
+        <div v-html="readFile()" class="thumbnail"></div>
+      </el-scrollbar>
     </div>
   </el-card>
 </template>
@@ -107,9 +109,15 @@ let openFile = () => {
         overflow-x: hidden;
         text-overflow: clip;
         white-space: nowrap;
-        margin: 10%
+        margin: 10%;
       }
     }
   }
+}
+</style>
+
+<style>
+.thumbnail img {
+  width: 100%;
 }
 </style>
