@@ -16,7 +16,7 @@ import { SettingPage } from "@/data/configdb"
         <el-tooltip :content="$t('tab.jotting')" placement="right" effect="light">
           <div class="tab-item" id="jotting">
             <router-link to="/Jotting">
-              <i class="bi bi-card-heading"></i>
+              <i class="bi bi-card-heading" style="transform: scaleY(1.1); display: inherit;"></i>
             </router-link>
           </div>
         </el-tooltip>

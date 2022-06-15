@@ -26,10 +26,13 @@ export const en =
             export_all: "Export All as PDF",
             rename: "Rename",
             move_to_trash: "Move to Trash",
-            add_tags: "Add Tags"
+            add_tags: "Add Tags",
+            pin: "Pin",
+            unpin: "Unpin"
         }
     },
     stream: {
+        pin: "Pin",
         tag: "Tags",
         global_search: "Global Search"
     },

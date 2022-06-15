@@ -2,13 +2,13 @@
 import { fileTree } from "@/api/FileTree/fileTree";
 import { NodeType } from "@/api/FileTree/type";
 import { bClickedParent, fTree } from "@/data/configdb";
-import { ElMessage, ElMessageBox } from "element-plus";
 import { onMounted, ref, watchEffect } from "vue";
 import Tag from "@/components/FileSystem/Tag.vue";
 let dialogVisible = ref(true);
 const props = defineProps({
     dom: Object as () => HTMLElement | null,
 });
+let isPin = ref("false")
 let input = () => {
     props.dom!.contentEditable = "true";
     props.dom!.focus();
@@ -95,6 +95,18 @@ const addChildren = (t: NodeType) => {
 
         <template v-if="!bClickedParent">
             <el-divider />
+            <div class="text-item" @click="addTags">
+                <tmplate v-if="isPin">
+                    <i class="bi bi-pin"></i>
+                    <el-divider direction="vertical" />
+                    <span>{{ $t('editor.menu.pin') }}</span>
+                </tmplate>
+                <tmplate v-else>
+                    <i class="bi bi-pin-angle"></i>
+                    <el-divider direction="vertical" />
+                    <span>{{ $t('editor.menu.unpin') }}</span>
+                </tmplate>
+            </div>
             <div class="text-item" @click="addTags">
                 <i class="bi bi-bookmarks"></i>
                 <el-divider direction="vertical" />

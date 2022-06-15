@@ -1,7 +1,7 @@
 {
-    "workspaceName": "☃️ Snowball",
+    "workspaceName": "⏳ Chroncile",
     "openWith": "workspace",
-    "devTools": true,
+    "devTools": false,
     "autoSave": true,
     "tooltips": true,
     "autoSaveTime": 5,

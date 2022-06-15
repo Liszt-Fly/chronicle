@@ -4,13 +4,15 @@ import { qFile } from "@/interfaces/type";
 import { chronicleUserPath } from "@/api/init";
 import fs from "fs-extra";
 import path from "path";
+import { reactive } from "vue";
 
 let storage: qFile[] = [];
 let filestorage: qFile[] = [];
-const stream = {
+const stream = reactive({
+  pin: false,
   tags: [],
   global_search: ""
-}
+})
 const options = [
   {
     value: 'Option1',
@@ -79,8 +81,17 @@ const activities = [
     <el-form :inline="true">
       <el-form-item v-model="stream">
         <template #label>
-          <i class="bi bi-filter-square"></i>
-          {{ $t('stream.tag') }}
+          <el-tooltip :content="$t('stream.pin')" placement="bottom" effect="light">
+            <i class="bi bi-pin-angle"></i>
+          </el-tooltip>
+        </template>
+        <el-switch v-model="stream.pin" />
+      </el-form-item>
+      <el-form-item v-model="stream">
+        <template #label>
+          <el-tooltip :content="$t('stream.tag')" placement="bottom" effect="light">
+            <i class="bi bi-filter-square"></i>
+          </el-tooltip>
         </template>
         <el-select v-model="stream.tags" multiple collapse-tags collapse-tags-tooltip placeholder="Select"
           style="width: 160px">
@@ -89,8 +100,9 @@ const activities = [
       </el-form-item>
       <el-form-item>
         <template #label>
-          <i class="bi bi-binoculars"></i>
-          {{ $t('stream.global_search') }}
+          <el-tooltip :content="$t('stream.global_search')" placement="bottom" effect="light">
+            <i class="bi bi-binoculars"></i>
+          </el-tooltip>
         </template>
         <el-input v-model="stream.global_search" style="width: 160px">
         </el-input>

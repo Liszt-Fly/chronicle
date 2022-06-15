@@ -12,7 +12,7 @@ export const cn =
     tab: {
         repository: "笔记",
         stream: "流",
-        jotting: "随感",
+        jotting: "随想",
         workspace: "工作台",
         setting: "设置",
         trash: "废纸篓"
@@ -26,10 +26,13 @@ export const cn =
             export_all: "全导出为 PDF",
             rename: "重命名",
             move_to_trash: "移至废纸篓",
-            add_tags: "添加标签"
+            add_tags: "添加标签",
+            pin: "收藏",
+            unpin: "取消收藏"
         }
     },
     stream: {
+        pin: "收藏",
         tag: "标签",
         global_search: "全局搜索"
     },

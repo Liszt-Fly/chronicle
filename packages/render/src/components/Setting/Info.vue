@@ -39,6 +39,11 @@ const info = reactive({})
         margin: 20px
     }
 
+    .el-button i {
+        font-size: 1rem;
+        margin-right: 6px;
+    }
+
     .home {
         width: 100%;
         margin: 20px 0;

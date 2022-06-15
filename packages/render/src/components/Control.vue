@@ -8,17 +8,20 @@
                         <i class="bi bi-window" v-else></i>
                     </el-button>
                 </el-tooltip>
-                <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="dark">
-                    <el-button class="contrlIcon" key="plain" text @click="Refresh">
-                        <i class="bi bi-bootstrap-reboot"></i>
-                    </el-button>
-                </el-tooltip>
-                <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="dark">
-                    <el-button class="contrlIcon" key="plain" text @click="ToggleDevTools">
-                        <i class="bi bi-terminal-dash" v-if="devTools"></i>
-                        <i class="bi bi-terminal-plus" v-else></i>
-                    </el-button>
-                </el-tooltip>
+
+                <tmplate class="devTools">
+                    <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="dark">
+                        <el-button class="contrlIcon" key="plain" text @click="Refresh">
+                            <i class="bi bi-bootstrap-reboot"></i>
+                        </el-button>
+                    </el-tooltip>
+                    <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="dark">
+                        <el-button class="contrlIcon" key="plain" text @click="ToggleDevTools">
+                            <i class="bi bi-terminal-dash" v-if="devTools"></i>
+                            <i class="bi bi-terminal-plus" v-else></i>
+                        </el-button>
+                    </el-tooltip>
+                </tmplate>
             </el-button-group>
         </div>
 

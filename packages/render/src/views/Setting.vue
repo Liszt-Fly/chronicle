@@ -3,21 +3,25 @@
         <div class="routers">
             <router-link to="/Setting/Info" @click="SettingPage = '/Setting/Info'">
                 <el-button key="primary" text>
+                    <i class="bi bi-house-heart"></i>
                     {{ $t('setting.info_tab') }}
                 </el-button>
             </router-link>
             <router-link to="/Setting/General" @click="SettingPage = '/Setting/General'">
                 <el-button key="primary" text>
+                    <i class="bi bi-gear"></i>
                     {{ $t('setting.general_tab') }}
                 </el-button>
             </router-link>
             <router-link to="/Setting/Appearance" @click="SettingPage = '/Setting/Appearance'">
                 <el-button key="primary" text>
+                    <i class="bi bi-window"></i>
                     {{ $t('setting.appearance_tab') }}
                 </el-button>
             </router-link>
             <router-link to="/Setting/Shortcut" @click="SettingPage = '/Setting/Shortcut'">
                 <el-button key="primary" text>
+                    <i class="bi bi-command"></i>
                     {{ $t('setting.shortcut_tab') }}
                 </el-button>
             </router-link>
@@ -54,6 +58,11 @@ import { SettingPage } from "@/data/configdb"
     // .el-button.is-text:not(.is-disabled):focus:hover {
     //     background-color: var(--el-fill-color-light);
     // }
+
+    .el-button i {
+        font-size: 1rem;
+        margin-right: 6px;
+    }
 
     .router-link-exact-active button {
         background-color: var(--el-fill-color-light);
