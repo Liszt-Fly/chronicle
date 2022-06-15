@@ -12,8 +12,20 @@ export const en =
         setting: "Setting",
         trash: "Trash"
     },
+    editor: {
+        menu: {
+            add_File: "Add A New File",
+            add_Folder: "Add A New Folder",
+            duplicate: "Duplicate",
+            export_PDF: "Export as PDF",
+            export_all: "Export All as PDF",
+            rename: "Rename",
+            move_to_trash: "Move to Trash",
+            add_tags: "Add Tags"
+        }
+    },
     stream: {
-        topic: "Topic",
+        tag: "Tags",
         global_search: "Global Search"
     },
     setting: {

@@ -22,6 +22,7 @@ let subfolder = ref<HTMLDivElement | null>(null);
 let refSubfolder = reactive({ dom: subfolder });
 let namebox = ref<HTMLSpanElement | null>(null);
 const fileDom = ref<HTMLElement | null>(null);
+
 function openFile(event: MouseEvent, file: fileNode) {
   //如果是文件
   if (!file.children) {
@@ -30,6 +31,7 @@ function openFile(event: MouseEvent, file: fileNode) {
     router.push(`/Editor/${params}`);
   }
 }
+
 function renameNote() {
   //启用contentEdible
   namebox.value!.contentEditable = "true";
@@ -40,6 +42,7 @@ function renameNote() {
   document.getSelection()!.removeAllRanges();
   document.getSelection()!.addRange(range);
 }
+
 function toggleSubfolder(
   event: MouseEvent,
   file: fileNode,
@@ -69,73 +72,6 @@ function enter(event: KeyboardEvent) {
   target.blur();
 }
 
-// 右键菜单
-const menu = new Menu();
-const menuItems = [
-  new MenuItem({
-    label: "删除",
-    click: () => {
-      props.file!.removeSelf();
-    },
-  }),
-  new MenuItem({
-    label: "重命名",
-    click: () => {
-      renameNote();
-    },
-  }),
-];
-if (props.file!.children) {
-  let item = new MenuItem({
-    label: "添加子文件夹",
-    click: () => {
-      props.file!.addChildren(NodeType.DIR);
-    },
-  });
-  menuItems.push(
-    new MenuItem({
-      label: "添加文件",
-      click: () => {
-        props.file!.addChildren(NodeType.FILE);
-      },
-    })
-  );
-  menuItems.push(item);
-} else {
-  menuItems.push(
-    new MenuItem({
-      label: "添加话题",
-      click: () => {
-        ElMessageBox.prompt("如果需要添加多个标签，请使用逗号隔开", "Add Tag", {
-          confirmButtonText: "OK",
-          cancelButtonText: "Cancel",
-        })
-          .then(({ value }) => {
-            ElMessage({
-              type: "info",
-              message: `Add Tag:${value}`,
-            });
-            //将标签存储进tagContainer
-            let wordarray: string[] = [];
-            if (value.includes(",")) {
-              wordarray = value.split(",");
-            } else {
-              wordarray.push(value);
-            }
-
-            cTagContainer.value.push(...wordarray);
-          })
-          .catch(() => {
-            ElMessage({
-              type: "info",
-              message: "Input canceled",
-            });
-          });
-      },
-    })
-  );
-}
-
 onMounted(() => {
 
 });
@@ -152,7 +88,7 @@ const drop = (e: DragEvent) => {
   if (props.file!.parent == node.parent && props.file!.type == NodeType.FILE) return
   if (props.file!.children?.includes(node)) return
   //* 当接受区域是文件夹类型
-  if (props.file!.type == NodeType.DIR) {
+  if (props.file!.type == NodeType.FOLDER) {
 
     //* 进行文件操作
     fsp.copySync(node.path, path.resolve(props.file!.path, node.name))
@@ -195,7 +131,7 @@ const startDrag = (e: DragEvent) => {
       :data-path="file.path" v-if="validateFilename(file.name!)"
       :class="[{ 'clicked': props.file!.path == currentFile }]" @contextmenu="setCurrentFileNode(props.file!)">
       <i class="bi bi-file-earmark-text" v-if="file.type == NodeType.FILE"></i>
-      <i class="bi bi-folder" v-if="file.type == NodeType.DIR"></i>
+      <i class="bi bi-folder" v-if="file.type == NodeType.FOLDER"></i>
       <span ref="namebox" @blur="props.file!.rename(namebox!.innerText)" @keydown.enter.prevent="enter($event)">
         {{
             validateFilename(file.name!)

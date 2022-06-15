@@ -12,9 +12,6 @@
 
 1. 记录
 
-   - 记下随想
-   - 随想排序（时间顺序、话题 `#topic`）
-
 2. 支持
 
    - [markdown 及扩展语法](https://markdown.com.cn/)

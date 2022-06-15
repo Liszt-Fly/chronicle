@@ -7,13 +7,13 @@ import path from "path"
 
 //* 设置文件和文件夹在没有命名的默认名称
 function getDefaultName(type: NodeType): string {
-    return type == NodeType.DIR ? "笔记本" : "笔记"
+    return type == NodeType.FOLDER ? "笔记本" : "笔记"
 }
 //* 获取不重复的数字
 export function getValidNumber(basePath: string, index: number, type: NodeType): number {
 
     //* 如果是文件夹
-    if (type == NodeType.DIR) {
+    if (type == NodeType.FOLDER) {
         if (fsp.existsSync(path.resolve(basePath, getDefaultName(type) + index.toString()))) {
             return getValidNumber(basePath, index + 1, type)
         }
@@ -29,7 +29,7 @@ export function getValidNumber(basePath: string, index: number, type: NodeType):
 
 export function getValidName(basePath: string, type: NodeType): string {
     //文件夹系统
-    if (type == NodeType.DIR) {
+    if (type == NodeType.FOLDER) {
         return `${getDefaultName(type)}${getValidNumber(basePath, 1, type)}`
     }
     //文件系统

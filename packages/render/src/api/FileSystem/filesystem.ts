@@ -44,7 +44,7 @@ export function constructFileTree(pathName: string, currentNode: fileNode) {
 		currentNode.children!.push(node)
 		//* parent链接
 		node.parent = currentNode
-		if (node.type == NodeType.DIR) {
+		if (node.type == NodeType.FOLDER) {
 			constructFileTree(node.path, node)
 		}
 	})

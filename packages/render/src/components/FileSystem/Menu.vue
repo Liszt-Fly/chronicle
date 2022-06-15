@@ -71,48 +71,48 @@ const addChildren = (t: NodeType) => {
 <template>
     <div class="menu" shadow="never">
         <template v-if="
-            (fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.DIR) ||
+            (fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FOLDER) ||
             bClickedParent
         ">
             <div class="text-item" @click="addChildren(NodeType.FILE)">
                 <i class="bi bi-file-earmark-plus"></i>
                 <el-divider direction="vertical" />
-                <span>新建文件</span>
+                <span>{{ $t('editor.menu.add_File') }}</span>
             </div>
-            <div class="text-item" @click="addChildren(NodeType.DIR)">
+            <div class="text-item" @click="addChildren(NodeType.FOLDER)">
                 <i class="bi bi-folder-plus"></i>
                 <el-divider direction="vertical" />
-                <span>新建文件夹</span>
+                <span>{{ $t('editor.menu.add_File') }}</span>
             </div>
         </template>
 
         <template v-if="!bClickedParent">
-            <el-divider v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.DIR" />
+            <el-divider v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FOLDER" />
             <div class="text-item" @click="substitute">
                 <i class="bi bi-files"></i>
                 <el-divider direction="vertical" />
-                <span>创建副本</span>
+                <span>{{ $t('editor.menu.duplicate') }}</span>
             </div>
             <div class="text-item" @click="exportFile"
                 v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FILE">
                 <i class="bi bi-reply" style="transform: rotate(90deg);"></i>
                 <el-divider direction="vertical" />
-                <span>导出为 PDF</span>
+                <span>{{ $t('editor.menu.export_PDF') }}</span>
             </div>
             <div class="text-item" @click="exportDir" v-else>
                 <i class="bi bi-reply-all"></i>
                 <el-divider direction="vertical" />
-                <span>全导出为 PDF</span>
+                <span>{{ $t('editor.menu.export_all') }}</span>
             </div>
             <div class="text-item" @click="rename">
                 <i class="bi bi-input-cursor"></i>
                 <el-divider direction="vertical" />
-                <span>重命名</span>
+                <span>{{ $t('editor.menu.rename') }}</span>
             </div>
             <div class="text-item" @click="remove">
                 <i class="bi bi-trash3"></i>
                 <el-divider direction="vertical" />
-                <span>移至废纸篓</span>
+                <span>{{ $t('editor.menu.move_to_trash') }}</span>
             </div>
         </template>
 
@@ -121,7 +121,7 @@ const addChildren = (t: NodeType) => {
             <div class="text-item" @click="addTags">
                 <i class="bi bi-bookmarks"></i>
                 <el-divider direction="vertical" />
-                <span>添加话题</span>
+                <span>{{ $t('editor.menu.add_tags') }}</span>
             </div>
         </template>
     </div>
@@ -132,7 +132,7 @@ const addChildren = (t: NodeType) => {
 }
 
 .menu {
-    width: 140px;
+    width: 160px;
     position: fixed;
     z-index: 999;
     padding: 4px;

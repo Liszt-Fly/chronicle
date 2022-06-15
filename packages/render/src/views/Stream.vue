@@ -8,7 +8,7 @@ import path from "path";
 let storage: qFile[] = [];
 let filestorage: qFile[] = [];
 const stream = {
-  topics: [],
+  tags: [],
   global_search: ""
 }
 const options = [
@@ -80,9 +80,9 @@ const activities = [
       <el-form-item v-model="stream">
         <template #label>
           <i class="bi bi-filter-square"></i>
-          {{ $t('stream.topic') }}
+          {{ $t('stream.tag') }}
         </template>
-        <el-select v-model="stream.topics" multiple collapse-tags collapse-tags-tooltip placeholder="Select"
+        <el-select v-model="stream.tags" multiple collapse-tags collapse-tags-tooltip placeholder="Select"
           style="width: 160px">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>

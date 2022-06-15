@@ -1,4 +1,4 @@
 export enum NodeType {
-    DIR,
+    FOLDER,
     FILE
 }

@@ -12,8 +12,20 @@ export const cn =
         setting: "设置",
         trash: "废纸篓"
     },
+    editor: {
+        menu: {
+            add_File: "新建文件",
+            add_Folder: "新建文件夹",
+            duplicate: "创建副本",
+            export_PDF: "导出为 PDF",
+            export_all: "全导出为 PDF",
+            rename: "重命名",
+            move_to_trash: "移至废纸篓",
+            add_tags: "添加标签"
+        }
+    },
     stream: {
-        topic: "话题",
+        tag: "标签",
         global_search: "全局搜索"
     },
     setting: {

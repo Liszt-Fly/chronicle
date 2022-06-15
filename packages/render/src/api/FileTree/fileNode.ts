@@ -14,11 +14,11 @@ export class fileNode {
         this.path = path
         this.createdDate = this.stat.ctime
         this.modifiedDate = this.stat.mtime
-        this.type = this.stat.isDirectory() ? NodeType.DIR : NodeType.FILE
+        this.type = this.stat.isDirectory() ? NodeType.FOLDER : NodeType.FILE
         this.tags = []
         this.parent = null
 
-        if (this.type == NodeType.DIR) {
+        if (this.type == NodeType.FOLDER) {
             this.children = []
         }
 
@@ -38,9 +38,9 @@ export class fileNode {
     //* methods
     addChildren(createdType: NodeType) {
         let name = getValidName(this.path, createdType)
-        if (this.type == NodeType.DIR) {
+        if (this.type == NodeType.FOLDER) {
             //sum 两种情况，添加文件夹或者是添加子文件
-            if (createdType == NodeType.DIR) {
+            if (createdType == NodeType.FOLDER) {
                 fsp.mkdirsSync(p.resolve(this.path, name))
             }
             else if (createdType == NodeType.FILE) {
@@ -57,7 +57,7 @@ export class fileNode {
     //* 删除
     removeSelf() {
         //* 情况为文件夹的情形
-        if (this.type == NodeType.DIR) {
+        if (this.type == NodeType.FOLDER) {
             if (this.parent) {
                 this.parent.children = this.parent.children!.filter(item => item.name != this.name)
                 this.parent = null
