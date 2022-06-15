@@ -72,9 +72,7 @@ function enter(event: KeyboardEvent) {
   target.blur();
 }
 
-onMounted(() => {
-
-});
+// 右键菜单
 
 const drop = (e: DragEvent) => {
   // FIXME: 仅仅检查了自己放置自己的情况，还有一种放置本身区域的情况没有做完

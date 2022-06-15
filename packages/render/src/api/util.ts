@@ -3,6 +3,7 @@ import { fileNode } from "@/api/FileTree/fileNode"
 import { fileTree } from "@/api/FileTree/fileTree"
 import { NodeType } from "@/api/FileTree/type"
 import fsp from "fs-extra"
+import matter from "gray-matter"
 import path from "path"
 
 //* 设置文件和文件夹在没有命名的默认名称
@@ -42,4 +43,8 @@ export function getValidName(basePath: string, type: NodeType): string {
 }
 export function setCurrentFileNode(file: fileNode) {
     fileTree.currentFileNode = file
+}
+
+export function getTags(path: string): string[] {
+    return matter.read(path).data.tags
 }
