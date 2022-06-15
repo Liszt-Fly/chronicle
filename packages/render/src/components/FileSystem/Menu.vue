@@ -2,6 +2,7 @@
 import { fileTree } from "@/api/FileTree/fileTree";
 import { NodeType } from "@/api/FileTree/type";
 import { bClickedParent, fTree } from "@/data/configdb";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { onMounted, watchEffect } from "vue";
 const props = defineProps({
     dom: Object as () => HTMLElement | null,
@@ -22,7 +23,27 @@ const remove = () => {
     console.log(fileTree.currentFileNode)
     fileTree.currentFileNode.removeSelf();
 };
+const addTags = () => {
+    ElMessageBox.prompt("如果需要添加多个标签，请使用逗号隔开", "Add Tag", {
+        confirmButtonText: "OK",
+        cancelButtonText: "Cancel",
+    })
+        .then(({ value }) => {
+            ElMessage({
+                type: "success",
+                message: `Add Tag:${value}`,
+            });
+            if (value.includes(",")) {
+                let tags: string[] = value.split(",")
+                fileTree.currentFileNode.addTag(tags)
+            }
+            else {
+                fileTree.currentFileNode.addTag([value])
+            }
 
+        })
+
+}
 const rename = () => {
     input();
     //   fileTree.currentFileNode.rename(props.dom!.innerText);
@@ -46,11 +67,7 @@ const addChildren = (t: NodeType) => {
     }
 };
 
-onMounted(() => {
-    if (props.dom != null) {
-        console.log(props.dom);
-    }
-});
+
 </script>
 
 <template>
@@ -103,7 +120,7 @@ onMounted(() => {
 
         <template v-if="!bClickedParent">
             <el-divider />
-            <div class="text-item">
+            <div class="text-item" @click="addTags">
                 <i class="bi bi-bookmarks"></i>
                 <el-divider direction="vertical" />
                 <span>添加话题</span>

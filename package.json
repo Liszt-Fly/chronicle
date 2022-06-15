@@ -50,6 +50,7 @@
     "element-plus": "^2.2.5",
     "flatted": "^3.2.5",
     "fs-extra": "^10.1.0",
+    "gray-matter": "^4.0.3",
     "marked": "^4.0.16",
     "rimraf": "^3.0.2",
     "sass": "^1.52.3",

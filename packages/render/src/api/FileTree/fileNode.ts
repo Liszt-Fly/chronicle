@@ -3,10 +3,12 @@ import { NodeType } from "./type"
 import p from "path"
 import { getValidName } from "@/api/util"
 import deepclone from "deep-clone"
+import matter from 'gray-matter'
 import { removeExtName } from "../FileSystem/filesystem"
 export class fileNode {
     //* constructor
     constructor(path: string, name: string) {
+
         this.stat = fsp.statSync(path)
         this.name = name
         this.path = path
@@ -19,6 +21,8 @@ export class fileNode {
         if (this.type == NodeType.DIR) {
             this.children = []
         }
+
+        this.checkValidateFrontMatter()
     }
     //* property
     name: string
@@ -108,5 +112,23 @@ export class fileNode {
 
         this.parent?.children?.push(node)
         node.parent = this.parent
+    }
+
+    private checkValidateFrontMatter() {
+        //* 如果是FILE类型，就进行执行
+        if (this.type == NodeType.FILE) {
+            let obj = matter.read(this.path)
+
+            if (Object.keys(obj.data).length == 0) {
+
+                fsp.writeFileSync(this.path, matter.stringify(obj.content, { star: false, tags: [] }))
+            }
+
+        }
+    }
+    addTag(tags: string[]) {
+        let obj = matter.read(this.path)
+        fsp.writeFileSync(this.path, matter.stringify(obj.content, { tags: [...obj.data.tags, ...tags], bStar: obj.data.bStar }))
+
     }
 }
