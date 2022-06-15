@@ -5,7 +5,7 @@ import fs from 'fs'
 
 const restoreDialogVisible = ref(false)
 const autoSaveTimes = [3, 5, 10, 60]
-const openOptions = ["lastPage", "home"]
+const openOptions = ["lastOpenFile", "workspace"]
 
 const general = reactive({
     workspaceName: "",

@@ -8,7 +8,10 @@ import { ref } from "vue";
 
 let storage: qFile[] = [];
 let filestorage: qFile[] = [];
-const value3 = ref([])
+const stream = {
+  topics: [],
+  global_search: ""
+}
 const options = [
   {
     value: 'Option1',
@@ -75,15 +78,23 @@ const activities = [
   <div class="stream">
 
     <el-form :inline="true">
-      <el-form-item>
+      <el-form-item v-model="stream">
         <template #label>
           <i class="bi bi-filter-square"></i>
           {{ $t('stream.topic') }}
         </template>
-        <el-select v-model="value3" multiple collapse-tags collapse-tags-tooltip placeholder="Select"
-          style="width: 240px">
+        <el-select v-model="stream.topics" multiple collapse-tags collapse-tags-tooltip placeholder="Select"
+          style="width: 160px">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
+      </el-form-item>
+      <el-form-item>
+        <template #label>
+          <i class="bi bi-binoculars"></i>
+          {{ $t('stream.global_search') }}
+        </template>
+        <el-input v-model="stream.global_search" style="width: 160px">
+        </el-input>
       </el-form-item>
     </el-form>
 

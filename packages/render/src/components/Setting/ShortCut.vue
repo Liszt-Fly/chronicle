@@ -72,7 +72,8 @@
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-file-fill" style="transform: rotate(90deg);"></i> {{ $t('setting.shortcut.highlight')
+                    <i class="bi bi-file-fill" style="transform: rotate(90deg);"></i> {{
+                            $t('setting.shortcut.highlight')
                     }}
                 </template>
                 <el-input v-model="shortcut.highlight" />
@@ -229,6 +230,12 @@
             </el-form-item>
             <el-form-item>
                 <template #label>
+                    <i class="bi bi-binoculars"></i> {{ $t('setting.shortcut.global_search') }}
+                </template>
+                <el-input v-model="shortcut.global_search" />
+            </el-form-item>
+            <el-form-item>
+                <template #label>
                     <i class="bi bi-arrow-repeat"></i> {{ $t('setting.shortcut.replace') }}
                 </template>
                 <el-input v-model="shortcut.replace" />
@@ -301,6 +308,7 @@ const shortcut = reactive({
 
     full_sreen: 'F11',
     search: 'Ctrl+F',
+    global_search: 'Ctrl+Shift+F',
     replace: 'Ctrl+H'
 })
 

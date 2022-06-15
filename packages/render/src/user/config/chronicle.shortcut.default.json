@@ -34,5 +34,6 @@
     "unlock": "Ctrl+Shift+L",
     "full_sreen": "F11",
     "search": "Ctrl+F",
+    "global_search": "Ctrl+Shift+F",
     "replace": "Ctrl+H"
 }
