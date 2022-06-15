@@ -9,7 +9,8 @@ export const cn =
         stream: "流",
         jotting: "随感",
         workspace: "工作台",
-        setting: "设置"
+        setting: "设置",
+        trash: "废纸篓"
     },
     stream: {
         topic: "话题",

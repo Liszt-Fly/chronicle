@@ -17,11 +17,10 @@ function save(event: KeyboardEvent) {
   }
 }
 
-const loadArticle = () => {
-  let content = fsp.readFileSync(path.resolve(currentFile.value), { encoding: "utf-8" });
-  editor.value!.innerText = content;
-};
-
+// const loadArticle = () => {
+//   let content = ;
+//   editor.value!.innerText = content;
+// };
 
 onMounted(() => {
   vditor = new Vditor("vditor", {
@@ -42,22 +41,12 @@ onMounted(() => {
       pin: false,
     },
     after: () => {
-    },
-  });
-
-  watchEffect(() => {
-    if (currentFile.value != "") {
-      loadArticle();
-      vditor = new Vditor("vditor", {
-        cache: {
-          enable: false,
-        },
-        toolbarConfig: {
-          // hide: true,
-          pin: false,
-        },
+      watchEffect(() => {
+        if (currentFile.value != "") {
+          vditor!.setValue(fsp.readFileSync(path.resolve(currentFile.value), { encoding: "utf-8" }), false)
+        }
       });
-    }
+    },
   });
 });
 </script>

@@ -16,7 +16,11 @@ let hideMenu = () => {
   <div class="main" spellcheck="false" @click="hideMenu">
     <tab-bar></tab-bar>
     <div class=" article">
-      <router-view></router-view>
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </router-view>
     </div>
   </div>
 
