@@ -5,7 +5,7 @@ import path from "path";
 import { currentFile } from "@/data/configdb";
 import FileSystem from "@/components/FileSystem/FileSystem.vue";
 import Vditor from "vditor";
-import "vditor/dist/index.css";
+import "@/style/vditor.css"
 import { vditorTheme } from "@/api/init";
 
 let editor = ref<HTMLElement | null>();
