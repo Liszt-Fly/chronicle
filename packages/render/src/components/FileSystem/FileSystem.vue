@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import path from "path";
-import { bClickedParent, fTree } from "@/data/configdb";
+import { bClickedParent, fTree, menuDisplay } from "@/data/configdb";
 import { chronicleUserPath } from "@/api/init";
 import FileList from "@/components/FileSystem/FileList.vue";
 import { fileTree } from "@/api/FileTree/fileTree";
@@ -9,7 +9,7 @@ import { fileNode } from "@/api/FileTree/fileNode";
 import fsp from "fs-extra"
 import Menu from "@/components/FileSystem/Menu.vue";
 let targetDom: Ref<null | HTMLElement> = ref(null);
-let menuDisplay = ref("none");
+
 let menuX = ref(0);
 let menuY = ref(0);
 
@@ -61,6 +61,7 @@ let showMenu = (e: MouseEvent) => {
   }, 0);
 };
 let hideMenu = () => {
+
   menuDisplay.value = "none";
 };
 const drop = (event: DragEvent) => {

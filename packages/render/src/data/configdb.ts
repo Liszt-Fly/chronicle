@@ -13,3 +13,4 @@ export let currentFile = ref<string>(default_path)
 export let defaultFileTreePath = path.resolve(chronicleUserPath, "config", "fileTree.json")
 export let fTree: Ref<fileTree | null> = ref(null)
 export let SettingPage: Ref<string> = ref("/Setting/Info")
+export let menuDisplay = ref("none");
