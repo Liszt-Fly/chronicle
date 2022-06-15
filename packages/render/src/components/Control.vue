@@ -3,8 +3,8 @@
         <div v-if="!isMac">
             <el-tooltip :content="$t('control.switch_sidebar')" placement="bottom-start" effect="dark">
                 <el-button key="plain" text @click="ToggleSidebar" class="contrlIcon">
-                    <i class="bi bi-layout-sidebar-inset" v-if="sideBar"></i>
-                    <i class="bi bi-file" v-else style="transform: scale(1.3, 0.9)"></i>
+                    <i class="bi bi-window-sidebar" v-if="sideBar"></i>
+                    <i class="bi bi-window" v-else></i>
                 </el-button>
             </el-tooltip>
             <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="dark">

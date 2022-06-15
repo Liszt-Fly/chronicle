@@ -109,9 +109,10 @@ const activities = [
 
 <style lang="scss" scoped>
 .stream {
-  padding: 15px;
+  padding: 4px 15px;
   display: flex;
   flex-direction: column;
+  height: calc(100% - 8px);
 
   .el-form-item__label i {
     margin-right: 1rem;

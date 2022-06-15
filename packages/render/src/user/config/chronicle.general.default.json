@@ -1,8 +1,9 @@
 {
+    "workspaceName": "☃️ Snowball",
+    "openWith": "起始页",
     "devTools": true,
     "autoSave": true,
-    "tooltips": false,
+    "tooltips": true,
     "autoSaveTime": 5,
-    "locale": "cn",
-    "workspaceName": "☃️ Snowball"
+    "locale": "cn"
 }

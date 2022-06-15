@@ -33,6 +33,9 @@ export const cn =
         },
         general: {
             workspaceName: '工作区名',
+            open: '启动时打开',
+            lastPage: "上次打开的页面",
+            home: "起始页",
             tooltips: "提示",
             "dev_tools": "开发者工具",
             "autosave": "自动保存",
@@ -44,7 +47,7 @@ export const cn =
             "en": "英文",
         },
         info: {
-            "home": "回到主页",
+            "home": "回到起始页",
         },
         shortcut: {
             h1: '设为一级标题',

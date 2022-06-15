@@ -328,10 +328,19 @@ const restoreDefault = () => {
     })
 }
 
+let timeout = null
+
+const debounce = (fn, wait) => {
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        fn()
+    }, wait)
+}
+
 onMounted(() => {
     readSetting(shortcutFile)
     watch(shortcut, () => {
-        saveSetting()
+        debounce(saveSetting, 1000)
     })
 })
 </script>

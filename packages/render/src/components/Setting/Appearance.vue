@@ -45,10 +45,19 @@ const restoreDefault = () => {
     })
 }
 
+let timeout = null
+
+const debounce = (fn, wait) => {
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(() => {
+        fn()
+    }, wait)
+}
+
 onMounted(() => {
     readSetting(appearanceFile)
     watch(appearance, () => {
-        saveSetting()
+        debounce(saveSetting, 1000)
     })
 })
 </script>

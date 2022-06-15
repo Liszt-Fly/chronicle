@@ -33,6 +33,9 @@ export const en =
         },
         general: {
             workspaceName: 'Workspace Name',
+            open: 'Open With',
+            lastPage: "Last Open Page",
+            home: "Home",
             tooltips: "Tooltips",
             "dev_tools": "DevTools",
             "autosave": "Autosave",

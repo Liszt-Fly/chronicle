@@ -1,8 +1,9 @@
 {
+    "workspaceName": "Mike's Chronicle",
+    "openWith": "上次打开的页面",
     "devTools": true,
     "autoSave": true,
     "tooltips": false,
     "autoSaveTime": 5,
-    "locale": "cn",
-    "workspaceName": "Mike's Chronicle"
+    "locale": "cn"
 }

@@ -5,13 +5,16 @@ import fs from 'fs'
 
 const restoreDialogVisible = ref(false)
 const autoSaveTimes = [3, 5, 10, 60]
+const openOptions = ["lastPage", "home"]
+
 const general = reactive({
+    workspaceName: "",
+    openWith: "",
     devTools: false,
     autoSave: false,
     "tooltips": "",
     autoSaveTime: 3,
-    locale: "cn",
-    workspaceName: ""
+    locale: "cn"
 })
 
 const readSetting = (generalFile: string) => {
@@ -65,6 +68,15 @@ onMounted(() => {
                 </template>
                 <el-input v-model="general.workspaceName" maxlength="20" show-word-limit />
             </el-form-item>
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-bounding-box-circles"></i> {{ $t('setting.general.open') }}
+                </template>
+                <el-select v-model="general.openWith">
+                    <el-option v-for="openOption in openOptions" :label="openOption" :key="openOption"
+                        :value="openOption">{{ $t(`setting.general.${openOption}`) }}</el-option>
+                </el-select>
+            </el-form-item>
 
             <el-divider></el-divider>
 
@@ -74,7 +86,7 @@ onMounted(() => {
                 </template>
                 <el-select v-model="general.locale" :placeholder="$t('setting.general.select_language')">
                     <el-option v-for="locale in $i18n.availableLocales" :label="locale" :key="`locale-${locale}`"
-                        :value="locale">{{ locale }}</el-option>
+                        :value="locale">{{ $t(`setting.general.${locale}`) }}</el-option>
                 </el-select>
             </el-form-item>
 
