@@ -3,7 +3,9 @@ import { fileTree } from "@/api/FileTree/fileTree";
 import { NodeType } from "@/api/FileTree/type";
 import { bClickedParent, fTree } from "@/data/configdb";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { onMounted, watchEffect } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
+import Tag from "@/components/FileSystem/Tag.vue";
+let dialogVisible = ref(true);
 const props = defineProps({
     dom: Object as () => HTMLElement | null,
 });
@@ -20,45 +22,41 @@ watchEffect(() => {
     console.log(props.dom);
 });
 const remove = () => {
-    console.log(fileTree.currentFileNode)
+    console.log(fileTree.currentFileNode);
     fileTree.currentFileNode.removeSelf();
 };
 const addTags = () => {
-    ElMessageBox.prompt("如果需要添加多个标签，请使用逗号隔开", "Add Tag", {
-        confirmButtonText: "OK",
-        cancelButtonText: "Cancel",
-    })
-        .then(({ value }) => {
-            ElMessage({
-                type: "success",
-                message: `Add Tag:${value}`,
-            });
-            console.log(`当前的node为${fileTree.currentFileNode.name}`)
-            if (value.includes(",")) {
-                let tags: string[] = value.split(",")
-                fileTree.currentFileNode.addTag(tags)
-            }
-            else {
-                fileTree.currentFileNode.addTag([value])
-            }
+    dialogVisible.value = true;
+    // ElMessageBox.prompt("如果需要添加多个标签，请使用逗号隔开", "Add Tag", {
+    //     confirmButtonText: "OK",
+    //     cancelButtonText: "Cancel",
+    // })
+    //     .then(({ value }) => {
+    //         ElMessage({
+    //             type: "success",
+    //             message: `Add Tag:${value}`,
+    //         });
+    //         console.log(`当前的node为${fileTree.currentFileNode.name}`)
+    //         if (value.includes(",")) {
+    //             let tags: string[] = value.split(",")
+    //             fileTree.currentFileNode.addTag(tags)
+    //         }
+    //         else {
+    //             fileTree.currentFileNode.addTag([value])
+    //         }
 
-        })
-
-}
+    //     })
+};
 const rename = () => {
     input();
     //   fileTree.currentFileNode.rename(props.dom!.innerText);
 };
 const substitute = () => {
-    fileTree.currentFileNode.substitute()
-}
-const exportFile = () => {
+    fileTree.currentFileNode.substitute();
+};
+const exportFile = () => { };
 
-}
-
-const exportDir = () => {
-
-}
+const exportDir = () => { };
 
 const addChildren = (t: NodeType) => {
     if (bClickedParent.value) {
@@ -67,8 +65,6 @@ const addChildren = (t: NodeType) => {
         fileTree.currentFileNode.addChildren(t);
     }
 };
-
-
 </script>
 
 <template>
@@ -98,7 +94,7 @@ const addChildren = (t: NodeType) => {
             </div>
             <div class="text-item" @click="exportFile"
                 v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FILE">
-                <i class="bi bi-reply" style="transform: rotate(90deg);"></i>
+                <i class="bi bi-reply" style="transform: rotate(90deg)"></i>
                 <el-divider direction="vertical" />
                 <span>导出为 PDF</span>
             </div>
@@ -125,6 +121,9 @@ const addChildren = (t: NodeType) => {
                 <i class="bi bi-bookmarks"></i>
                 <el-divider direction="vertical" />
                 <span>添加话题</span>
+                <el-dialog v-model="dialogVisible" title="添加标签" width="45%" class="dialog">
+                    <tag></tag>
+                </el-dialog>
             </div>
         </template>
     </div>
@@ -150,7 +149,7 @@ const addChildren = (t: NodeType) => {
 
     .el-divider--horizontal {
         margin: 4px;
-        width: auto
+        width: auto;
     }
 
     .text-item {
@@ -163,5 +162,11 @@ const addChildren = (t: NodeType) => {
             background-color: var(--el-color-info-light-9);
         }
     }
+}
+
+.dialog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 </style>

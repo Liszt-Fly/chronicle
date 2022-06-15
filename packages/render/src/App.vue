@@ -2,10 +2,13 @@
 import TabBar from "@/components/TabBar.vue";
 import Control from "@/components/Control.vue";
 import { menuDisplay } from "./data/configdb";
+import { ref } from "vue";
+
 let hideMenu = () => {
 
   menuDisplay.value = "none";
 };
+
 </script>
 
 <template>
@@ -16,7 +19,9 @@ let hideMenu = () => {
       <router-view></router-view>
     </div>
   </div>
+
 </template>
+
 
 <style>
 .article {
