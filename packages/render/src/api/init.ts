@@ -36,6 +36,7 @@ let initAppearance = () => {
 		--el-color-primary:${color};
 		--chronicle-global-en-font: ${global_en_font};
 		--chronicle-global-cn-font: ${global_cn_font};
+		--el-font-family: ${global_en_font}, ${global_cn_font};
 		--chronicle-code-font: ${code_font};
 	}
 	`

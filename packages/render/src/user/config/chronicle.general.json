@@ -1,9 +1,9 @@
 {
-    "workspaceName": "Mike's Chronicle",
-    "openWith": "上次打开的页面",
+    "workspaceName": "☃️ Snowball",
+    "openWith": "起始页",
     "devTools": true,
     "autoSave": true,
-    "tooltips": false,
+    "tooltips": true,
     "autoSaveTime": 5,
     "locale": "cn"
 }

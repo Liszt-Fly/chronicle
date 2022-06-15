@@ -88,10 +88,13 @@ const ToggleSidebar = () => {
 
 <style lang="scss" scoped>
 .control {
+    height: 38px;
+    font-size: 1rem;
+    font-weight: 900;
+    user-select: none;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 100%;
 
     .el-button.is-text:not(.is-disabled):focus {
         background-color: var(--el-bg-color);

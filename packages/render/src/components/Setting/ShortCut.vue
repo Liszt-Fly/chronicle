@@ -1,6 +1,6 @@
 <template>
     <div class="shortcut">
-        <el-form :model="shortcut" label-width="180px" label-position="left">
+        <el-form :model="shortcut" label-width="200px" label-position="left">
             <el-form-item>
                 <template #label>
                     <i class="bi bi-type-h1"></i> {{ $t('setting.shortcut.h1') }}
