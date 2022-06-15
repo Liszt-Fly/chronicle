@@ -42,6 +42,7 @@ const getTargetNode = (node: HTMLElement): HTMLElement => {
   console.log(`处理后:${node.tagName}`)
   return node
 }
+
 let showMenu = (e: MouseEvent) => {
 
   targetDom.value = getTargetNode(e.target as HTMLElement)
@@ -60,10 +61,11 @@ let showMenu = (e: MouseEvent) => {
     else menuY.value = e.clientY - menuHeight;
   }, 0);
 };
-let hideMenu = () => {
 
-  menuDisplay.value = "none";
+let hideMenu = () => {
+  menuDisplay.value = "hidden";
 };
+
 const drop = (event: DragEvent) => {
   let filepath = event.dataTransfer?.getData("path") as string
   if (filepath == fTree.value!.root.path) return
@@ -84,6 +86,7 @@ const drop = (event: DragEvent) => {
 
   }
 }
+
 onMounted(() => {
   fTree.value = new fileTree(
     new fileNode(path.resolve(chronicleUserPath, "assets"), "assets")

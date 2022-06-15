@@ -24,25 +24,6 @@ const remove = () => {
 };
 const addTags = () => {
     dialogVisible.value = true;
-    // ElMessageBox.prompt("如果需要添加多个标签，请使用逗号隔开", "Add Tag", {
-    //     confirmButtonText: "OK",
-    //     cancelButtonText: "Cancel",
-    // })
-    //     .then(({ value }) => {
-    //         ElMessage({
-    //             type: "success",
-    //             message: `Add Tag:${value}`,
-    //         });
-    //         console.log(`当前的node为${fileTree.currentFileNode.name}`)
-    //         if (value.includes(",")) {
-    //             let tags: string[] = value.split(",")
-    //             fileTree.currentFileNode.addTag(tags)
-    //         }
-    //         else {
-    //             fileTree.currentFileNode.addTag([value])
-    //         }
-
-    //     })
 };
 const rename = () => {
     input();
@@ -65,7 +46,7 @@ const addChildren = (t: NodeType) => {
 </script>
 
 <template>
-    <div class="menu" shadow="never">
+    <div class="menu">
         <template v-if="
             (fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FOLDER) ||
             bClickedParent
