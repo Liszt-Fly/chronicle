@@ -16,9 +16,6 @@ let input = () => {
     document.getSelection()!.removeAllRanges();
     document.getSelection()!.addRange(range);
 };
-watchEffect(() => {
-    console.log(props.dom);
-});
 const remove = () => {
     console.log(fileTree.currentFileNode)
     fileTree.currentFileNode.removeSelf();
@@ -115,7 +112,7 @@ const addChildren = (t: NodeType) => {
             <div class="text-item" @click="remove">
                 <i class="bi bi-trash3"></i>
                 <el-divider direction="vertical" />
-                <span>删除</span>
+                <span>移至废纸篓</span>
             </div>
         </template>
 

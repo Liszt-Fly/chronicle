@@ -9,7 +9,8 @@ export const en =
         stream: "Stream",
         jotting: "Jottings",
         workspace: "Workspaces",
-        setting: "Setting"
+        setting: "Setting",
+        trash: "Trash"
     },
     stream: {
         topic: "Topic",

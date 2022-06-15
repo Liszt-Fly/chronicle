@@ -5,6 +5,7 @@ import Stream from "@/views/Stream.vue"
 import Home from "@/views/Home.vue"
 import Info from "@/components/Setting/Info.vue"
 import Jotting from "@/views/Jotting.vue"
+import Trash from "@/views/Trash.vue"
 
 import Appearance from "@/components/Setting/Appearance.vue"
 import Shortcut from "@/components/Setting/Shortcut.vue"
@@ -19,6 +20,7 @@ const router = createRouter({
 		{ path: "/Editor/:note([\\s\\S]*)", name: "Editor", component: Editor },
 		{ path: "/Stream", name: "Stream", component: Stream },
 		{ path: "/Jotting", name: "Jotting", component: Jotting },
+		{ path: "/Trash", name: "Trash", component: Trash },
 		{ path: "/WorkSpace", name: "WorkSpace", component: WorkSpace },
 		{
 			path: "/Setting", name: "Setting", component: Setting,

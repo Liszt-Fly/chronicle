@@ -29,6 +29,13 @@ import { SettingPage } from "@/data/configdb"
         </el-tooltip>
       </div>
       <div class="sub-tab">
+        <el-tooltip :content="$t('tab.trash')" placement="right" effect="light">
+          <div class="tab-item" id="trash">
+            <router-link to="/Trash">
+              <i class="bi bi-trash3"></i>
+            </router-link>
+          </div>
+        </el-tooltip>
         <el-tooltip :content="$t('tab.workspace')" placement="right" effect="light">
           <div class="tab-item" id="workspace">
             <router-link to="/WorkSpace">
