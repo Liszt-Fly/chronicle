@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TabBar from "@/components/TabBar.vue";
-import Control from "@/components/Control.vue";
+import ControlBar from "@/components/ControlBar.vue";
 import { menuDisplay } from "./data/configdb";
 let hideMenu = () => {
 
@@ -9,7 +9,7 @@ let hideMenu = () => {
 </script>
 
 <template>
-  <Control></Control>
+  <ControlBar></ControlBar>
   <div class="main" spellcheck="false" @click="hideMenu">
     <tab-bar></tab-bar>
     <div class=" article">

@@ -3,7 +3,7 @@
         <div v-if="!isMac">
             <el-button-group>
                 <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="dark">
-                    <el-button key="plain" text @click="ToggleSidebar" class="contrlIcon">
+                    <el-button key="plain" text @click="ToggleSidebar" class="controlIcon">
                         <i class="bi bi-window-sidebar" v-if="sideBar"></i>
                         <i class="bi bi-window" v-else></i>
                     </el-button>
@@ -11,12 +11,12 @@
 
                 <tmplate class="devTools">
                     <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="dark">
-                        <el-button class="contrlIcon" key="plain" text @click="Refresh">
+                        <el-button class="controlIcon" key="plain" text @click="Refresh">
                             <i class="bi bi-bootstrap-reboot"></i>
                         </el-button>
                     </el-tooltip>
                     <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="dark">
-                        <el-button class="contrlIcon" key="plain" text @click="ToggleDevTools">
+                        <el-button class="controlIcon" key="plain" text @click="ToggleDevTools">
                             <i class="bi bi-terminal-dash" v-if="devTools"></i>
                             <i class="bi bi-terminal-plus" v-else></i>
                         </el-button>
@@ -163,7 +163,7 @@ const ToggleSidebar = () => {
         margin-left: 0;
     }
 
-    .contrlIcon {
+    .controlIcon {
         font-size: 1rem;
         padding-left: 16px;
     }
