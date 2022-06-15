@@ -33,6 +33,7 @@ const addTags = () => {
                 type: "success",
                 message: `Add Tag:${value}`,
             });
+            console.log(`当前的node为${fileTree.currentFileNode.name}`)
             if (value.includes(",")) {
                 let tags: string[] = value.split(",")
                 fileTree.currentFileNode.addTag(tags)

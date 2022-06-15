@@ -4,7 +4,6 @@ import { qFile } from "@/interfaces/type";
 import { chronicleUserPath } from "@/api/init";
 import fs from "fs-extra";
 import path from "path";
-import { ref } from "vue";
 
 let storage: qFile[] = [];
 let filestorage: qFile[] = [];
