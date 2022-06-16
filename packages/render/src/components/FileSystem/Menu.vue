@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { fileTree } from "@/api/FileTree/fileTree";
 import { NodeType } from "@/api/FileTree/type";
-import { bClickedParent, fTree } from "@/data/configdb";
+import { bClickedParent, dialogVisible, fTree } from "@/data/configdb";
 import { onMounted, ref, watchEffect } from "vue";
-import Tag from "@/components/FileSystem/Tag.vue";
-let dialogVisible = ref(true);
+
 const props = defineProps({
     dom: Object as () => HTMLElement | null,
 });
@@ -19,15 +18,15 @@ let input = () => {
     document.getSelection()!.addRange(range);
 };
 const remove = () => {
-    console.log(fileTree.currentFileNode);
     fileTree.currentFileNode.removeSelf();
 };
 const addTags = () => {
     dialogVisible.value = true;
+
 };
 const rename = () => {
     input();
-    //   fileTree.currentFileNode.rename(props.dom!.innerText);
+
 };
 const substitute = () => {
     fileTree.currentFileNode.substitute();
@@ -96,24 +95,22 @@ const addChildren = (t: NodeType) => {
         <template v-if="!bClickedParent">
             <el-divider />
             <div class="text-item" @click="addTags">
-                <tmplate v-if="isPin">
+                <template v-if="isPin">
                     <i class="bi bi-pin"></i>
                     <el-divider direction="vertical" />
                     <span>{{ $t('editor.menu.pin') }}</span>
-                </tmplate>
-                <tmplate v-else>
+                </template>
+                <template v-else>
                     <i class="bi bi-pin-angle"></i>
                     <el-divider direction="vertical" />
                     <span>{{ $t('editor.menu.unpin') }}</span>
-                </tmplate>
+                </template>
             </div>
             <div class="text-item" @click="addTags">
                 <i class="bi bi-bookmarks"></i>
                 <el-divider direction="vertical" />
                 <span>{{ $t('editor.menu.add_tags') }}</span>
-                <el-dialog v-model="dialogVisible" title="添加标签" width="60%" class="dialog">
-                    <tag></tag>
-                </el-dialog>
+
             </div>
         </template>
 

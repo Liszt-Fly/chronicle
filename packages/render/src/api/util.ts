@@ -46,5 +46,6 @@ export function setCurrentFileNode(file: fileNode) {
 }
 
 export function getTags(path: string): string[] {
+    console.log(matter.read(path).data)
     return matter.read(path).data.tags
 }

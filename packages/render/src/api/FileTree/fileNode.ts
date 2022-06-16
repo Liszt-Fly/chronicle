@@ -130,7 +130,7 @@ export class fileNode {
         let obj = matter.read(this.path)
         console.log(obj)
         console.log(tags)
-        fsp.writeFileSync(this.path, matter.stringify(obj.content, { tags: [...obj.data.tags, ...tags], star: obj.data.star }))
+        fsp.writeFileSync(this.path, matter.stringify(obj.content, { tags, star: obj.data.star }))
 
 
     }

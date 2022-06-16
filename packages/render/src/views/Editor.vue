@@ -16,12 +16,6 @@ function save(event: KeyboardEvent) {
     fsp.writeFileSync(currentFile.value, vditor!.getValue());
   }
 }
-
-// const loadArticle = () => {
-//   let content = ;
-//   editor.value!.innerText = content;
-// };
-
 onMounted(() => {
   vditor = new Vditor("vditor", {
     counter: {

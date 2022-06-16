@@ -9,7 +9,7 @@
                     </el-button>
                 </el-tooltip>
 
-                <tmplate class="devTools">
+                <template class="devTools">
                     <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="dark">
                         <el-button class="controlIcon" key="plain" text @click="Refresh">
                             <i class="bi bi-bootstrap-reboot"></i>
@@ -21,7 +21,7 @@
                             <i class="bi bi-terminal-plus" v-else></i>
                         </el-button>
                     </el-tooltip>
-                </tmplate>
+                </template>
             </el-button-group>
         </div>
 

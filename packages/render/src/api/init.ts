@@ -20,7 +20,7 @@ const shortcutFileData = fs.readFileSync(shortcutFile) as unknown as string
 let shortcut = JSON.parse(shortcutFileData)
 
 export let theme = appearance.theme
-export let vditorTheme = appearance.theme ? "classic" : "dark"
+export let vditorTheme: "classic" | "dark" = appearance.theme ? "classic" : "dark"
 const head = document.head || document.getElementsByTagName('head')[0];
 
 // 样式初始化

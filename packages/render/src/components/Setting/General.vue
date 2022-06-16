@@ -22,6 +22,7 @@ const readSetting = (generalFile: string) => {
         const data = fs.readFileSync(generalFile).toString()
         let JSONData = JSON.parse(data)
         for (let key in JSONData) {
+            //@ts-ignore
             general[key] = JSONData[key]
         }
     } catch {
@@ -36,14 +37,14 @@ const saveSetting = () => {
 }
 
 const restoreDefault = () => {
-    console.log(111)
+
     fs.writeFile(generalFile, fs.readFileSync(generalFileDefault), () => {
         location.reload()
     })
 }
 
-let timeout = null
-
+let timeout: any = null
+//@ts-ignore
 const debounce = (fn, wait) => {
     if (timeout) clearTimeout(timeout)
     timeout = setTimeout(() => {
@@ -119,7 +120,10 @@ onMounted(() => {
             </el-form-item>
             <el-form-item>
                 <template #label>
-                    <i class="bi bi-chat-square" style="transform: rotate(180deg); position: relative; bottom: 1px;"></i> {{ $t('setting.general.tooltips') }}
+                    <i class="bi bi-chat-square"
+                        style="transform: rotate(180deg); position: relative; bottom: 1px;"></i> {{
+                                $t('setting.general.tooltips')
+                        }}
                 </template>
                 <el-switch v-model="general.tooltips" />
             </el-form-item>

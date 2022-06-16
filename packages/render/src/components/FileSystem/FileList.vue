@@ -80,7 +80,6 @@ const drop = (e: DragEvent) => {
 
   //* 如果放置的区域就是发送的区域，啥也不做
   if (filepath == props.file!.path) return
-  console.log(`接收的路径为${props.file!.path}`)
   //* 获取对应的节点
   let node = fTree.value?.getNode(filepath, fTree.value.root)!
   if (props.file!.parent == node.parent && props.file!.type == NodeType.FILE) return
@@ -101,7 +100,6 @@ const drop = (e: DragEvent) => {
   else if (props.file!.type == NodeType.FILE) {
     //* 开展寻根行动
     let parent = props.file!.parent!
-    console.log(`当前的文件是文件，自动寻找父亲组件:${props.file?.path}`)
     //* 进行文件操作
     fsp.copySync(node.path, path.resolve(parent.path, node.name))
     //* 生成一个node
@@ -110,11 +108,9 @@ const drop = (e: DragEvent) => {
     generatedNode.parent!.children?.push(generatedNode)
     node.removeSelf()
   }
-  console.log(props.file == null)
-
 }
 const startDrag = (e: DragEvent) => {
-  console.log(`发送的文件为:${props.file!.path}`)
+
   e.dataTransfer?.setData("path", props.file!.path)
 
 }

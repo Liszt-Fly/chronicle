@@ -30,8 +30,6 @@ let showParentMenu = (e: MouseEvent) => {
 };
 
 const getTargetNode = (node: HTMLElement): HTMLElement => {
-  // console.log(`处理前:${node.tagName}`)
-  console.log(node == null)
   if (node.tagName == "I") {
     console.log(node.parentElement?.querySelector("span"))
     node = (node.parentElement?.querySelector("span")) as unknown as any
@@ -91,6 +89,10 @@ onMounted(() => {
   fTree.value = new fileTree(
     new fileNode(path.resolve(chronicleUserPath, "assets"), "assets")
   );
+  if (!fileTree.currentFileNode) {
+
+    // fileTree.currentFileNode = fTree.value.root.children![0]
+  }
 });
 </script>
 <template>

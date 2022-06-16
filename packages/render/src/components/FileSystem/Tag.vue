@@ -1,20 +1,22 @@
 <template>
-    <el-row :gutter="20">
-        <el-col v-for="tag in dynamicTags" :key="tag" :span="tag.length > 4 ? tag.length : 4">
-            <el-tag closable :disable-transitions="false" @close="handleClose(tag)" class="tag" size="default"
-                effect="plain">
-                {{ tag }}
-            </el-tag>
-        </el-col>
-        <el-col :span="4">
-            <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" size="small"
-                @keyup.enter="handleInputConfirm" class="input" @blur="handleInputConfirm" maxlength="12"
-                :show-word-limit="true" />
-            <el-button v-else class="tag" size="small" @click="showInput">
-                + New Tag
-            </el-button>
-        </el-col>
-    </el-row>
+    <div class="root">
+        <el-row :gutter="20">
+            <el-col v-for="tag in dynamicTags" :key="tag" :span="tag.length > 4 ? tag.length : 4">
+                <el-tag closable :disable-transitions="false" @close="handleClose(tag)" class="tag" size="default"
+                    effect="plain">
+                    {{ tag }}
+                </el-tag>
+            </el-col>
+            <el-col :span="4">
+                <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" size="small"
+                    @keyup.enter="handleInputConfirm" class="input" @blur="handleInputConfirm" maxlength="12"
+                    :show-word-limit="true" />
+                <el-button v-else class="tag" size="small" @click="showInput">
+                    + New Tag
+                </el-button>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -42,10 +44,14 @@ const showInput = () => {
 const handleInputConfirm = () => {
     if (inputValue.value) {
         dynamicTags.value.push(inputValue.value);
+        emit('passTags', dynamicTags.value)
+
     }
     inputVisible.value = false;
     inputValue.value = "";
 };
+
+const emit = defineEmits(['passTags'])
 </script>
 <style lang="scss">
 .input {
