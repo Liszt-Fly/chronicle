@@ -64,11 +64,6 @@ const addChildren = (t: NodeType) => {
 
         <template v-if="!bClickedParent">
             <el-divider v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FOLDER" />
-            <div class="text-item" @click="substitute">
-                <i class="bi bi-files"></i>
-                <el-divider direction="vertical" />
-                <span>{{ $t('editor.menu.duplicate') }}</span>
-            </div>
             <div class="text-item" @click="exportFile"
                 v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FILE">
                 <i class="bi bi-reply" style="transform: rotate(90deg)"></i>
@@ -80,10 +75,20 @@ const addChildren = (t: NodeType) => {
                 <el-divider direction="vertical" />
                 <span>{{ $t('editor.menu.export_all') }}</span>
             </div>
+            <div class="text-item">
+                <i class="bi bi-lock"></i>
+                <el-divider direction="vertical" />
+                <span>{{ $t('editor.menu.lock') }}</span>
+            </div>
             <div class="text-item" @click="rename">
                 <i class="bi bi-input-cursor"></i>
                 <el-divider direction="vertical" />
                 <span>{{ $t('editor.menu.rename') }}</span>
+            </div>
+            <div class="text-item" @click="substitute">
+                <i class="bi bi-files"></i>
+                <el-divider direction="vertical" />
+                <span>{{ $t('editor.menu.duplicate') }}</span>
             </div>
             <div class="text-item" @click="remove">
                 <i class="bi bi-trash3"></i>
