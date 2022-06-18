@@ -2,7 +2,10 @@
 import path from 'path'
 import fs from "fs"
 import { ref } from 'vue'
-
+import fsp from "fs-extra"
+import { trashBin } from '@/data/configdb'
+import { fileTree } from './FileTree/fileTree'
+import { fileNode } from './FileTree/fileNode'
 export let chronicleUserPath = path.resolve(process.cwd(), "packages", "render", "src", "user")
 
 export let appearanceFile = path.resolve(chronicleUserPath, "config", "chronicle.appearance.json")
@@ -71,6 +74,17 @@ let initShortcut = () => {
 
 }
 
+//垃圾箱初始化
+
+let initTrashBin = () => {
+	if (!fsp.existsSync(path.resolve(chronicleUserPath, ".trash"))) {
+		fsp.mkdirSync(path.resolve(chronicleUserPath, ".trash"))
+	}
+	let trashRoot = new fileNode(path.resolve(chronicleUserPath, ".trash"), ".trash")
+	trashBin.value = new fileTree(trashRoot)
+
+}
+
 export const locale = general.locale
 export const workspaceName = general.workspaceName
 
@@ -79,4 +93,5 @@ export let initSetting = () => {
 	initAppearance()
 	initGeneral()
 	initShortcut()
+	initTrashBin()
 }

@@ -5,6 +5,9 @@ import { getValidName } from "@/api/util"
 import deepclone from "deep-clone"
 import matter from 'gray-matter'
 import { removeExtName } from "../FileSystem/filesystem"
+import { trashBin } from "@/data/configdb"
+import deepClone from "deep-clone"
+import { chronicleUserPath } from "../init"
 export class fileNode {
     //* constructor
     constructor(path: string, name: string) {
@@ -56,16 +59,16 @@ export class fileNode {
     }
     //* 删除
     removeSelf() {
+        let name = this.name
+        //* 生成一个新的节点，放入垃圾箱中
+        let generatedNode = deepClone(this)
+        console.log(generatedNode)
+
         //* 情况为文件夹的情形
         if (this.type == NodeType.FOLDER) {
             if (this.parent) {
                 this.parent.children = this.parent.children!.filter(item => item.name != this.name)
                 this.parent = null
-                if (this.children) {
-                    this.children.forEach(item => {
-                        item.parent = null
-                    })
-                }
             }
 
         }
@@ -73,9 +76,11 @@ export class fileNode {
         else if (this.type == NodeType.FILE) {
             if (this.parent) {
                 this.parent.children = this.parent.children!.filter(item => item.name != this.name)
+                this.parent = null
             }
         }
-        fsp.removeSync(this.path)
+        fsp.moveSync(this.path, p.resolve(chronicleUserPath, ".trash", name))
+        trashBin.value?.root.children?.push(generatedNode)
     }
     //* 重命名
     rename(newName: string) {
@@ -131,7 +136,9 @@ export class fileNode {
         console.log(obj)
         console.log(tags)
         fsp.writeFileSync(this.path, matter.stringify(obj.content, { tags, star: obj.data.star }))
-
-
     }
+}
+
+export class trashFileNode extends fileNode {
+
 }

@@ -2,6 +2,7 @@ import { Ref, ref } from "vue"
 import path from 'path'
 import { chronicleUserPath } from "../api/init"
 import { fileTree } from "@/api/FileTree/fileTree"
+import { fileNode } from "@/api/FileTree/fileNode"
 export let files = ref([])
 export let bClickedParent: Ref<boolean> = ref(false)
 export let default_path = path.resolve(chronicleUserPath, "assets", "README.md")
@@ -15,3 +16,4 @@ export let fTree: Ref<fileTree | null> = ref(null)
 export let SettingPage: Ref<string> = ref("/Setting/Info")
 export let menuDisplay = ref("none");
 export let dialogVisible = ref(false)
+export let trashBin: Ref<fileTree | null> = ref(null)
