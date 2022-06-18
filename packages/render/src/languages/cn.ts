@@ -13,6 +13,7 @@ export const cn =
         repository: "笔记",
         stream: "流",
         jotting: "随想",
+        security: "保险箱",
         workspace: "工作台",
         setting: "设置",
         trash: "废纸篓"
@@ -24,6 +25,7 @@ export const cn =
             duplicate: "创建副本",
             export_PDF: "导出为 PDF",
             export_all: "全导出为 PDF",
+            lock: "加锁",
             rename: "重命名",
             move_to_trash: "移至废纸篓",
             add_tags: "添加标签",

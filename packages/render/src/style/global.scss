@@ -416,3 +416,7 @@ body {
   width: 4px;
   height: 4px;
 }
+
+.vditor-ir__node[data-type="yaml-front-matter"] {
+  display: none;
+}

@@ -29,9 +29,9 @@ const rename = () => {
 const substitute = () => {
   fileTree.currentFileNode.substitute();
 };
-const exportFile = () => {};
+const exportFile = () => { };
 
-const exportDir = () => {};
+const exportDir = () => { };
 
 const addChildren = (t: NodeType) => {
   if (bClickedParent.value) {
@@ -44,12 +44,10 @@ const addChildren = (t: NodeType) => {
 
 <template>
   <div class="menu">
-    <template
-      v-if="
-        (fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FOLDER) ||
-        bClickedParent
-      "
-    >
+    <template v-if="
+      (fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FOLDER) ||
+      bClickedParent
+    ">
       <div class="text-item" @click="addChildren(NodeType.FILE)">
         <i class="bi bi-file-earmark-plus"></i>
         <el-divider direction="vertical" />
@@ -63,21 +61,16 @@ const addChildren = (t: NodeType) => {
     </template>
 
     <template v-if="!bClickedParent">
-      <el-divider
-        v-if="
-          fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FOLDER
-        "
-      />
+      <el-divider v-if="
+        fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FOLDER
+      " />
       <div class="text-item" @click="substitute">
         <i class="bi bi-files"></i>
         <el-divider direction="vertical" />
         <span>{{ $t("editor.menu.duplicate") }}</span>
       </div>
-      <div
-        class="text-item"
-        @click="exportFile"
-        v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FILE"
-      >
+      <div class="text-item" @click="exportFile"
+        v-if="fileTree.currentFileNode && fileTree.currentFileNode.type == NodeType.FILE">
         <i class="bi bi-reply" style="transform: rotate(90deg)"></i>
         <el-divider direction="vertical" />
         <span>{{ $t("editor.menu.export_PDF") }}</span>

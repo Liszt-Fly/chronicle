@@ -128,10 +128,11 @@ onMounted(() => {
 .vditor-reset {
   --textarea-background-color: --el-bg-color;
   font-family: var(--chronicle-global-en-font), var(--chronicle-global-cn-font);
-  margin: 0;
-  padding: 0px 35px !important;
   border: none;
+  padding: 0 20px;
   overflow: hidden;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .vditor-reset pre>code {

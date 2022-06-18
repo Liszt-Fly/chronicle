@@ -13,6 +13,7 @@ export const en =
         repository: "Journals",
         stream: "Stream",
         jotting: "Jottings",
+        security: "Security",
         workspace: "Workspaces",
         setting: "Setting",
         trash: "Trash"
@@ -24,6 +25,7 @@ export const en =
             duplicate: "Duplicate",
             export_PDF: "Export as PDF",
             export_all: "Export All as PDF",
+            lock: "Lock",
             rename: "Rename",
             move_to_trash: "Move to Trash",
             add_tags: "Add Tags",
