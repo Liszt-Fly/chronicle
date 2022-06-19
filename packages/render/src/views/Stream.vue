@@ -111,14 +111,14 @@ const activities = [
 
     <el-scrollbar height="80vh">
       <div class="papers">
-        <el-row :gutter="30">
+        <el-row :gutter="30" style="width: 80%">
           <template v-for="file in filestorage">
             <el-col :span="8" :xs="12" :md="6" :sm="8" :lg="5">
               <Paper :file="file"></Paper>
             </el-col>
           </template>
         </el-row>
-        <el-timeline>
+        <el-timeline styel="display:float">
           <el-timeline-item v-for="(activity, index) in activities" :key="index" :timestamp="activity.timestamp">
             {{ activity.content }}
           </el-timeline-item>
@@ -135,6 +135,7 @@ const activities = [
   display: flex;
   flex-direction: column;
   height: calc(100% - 8px);
+
 
   .el-form-item__label i {
     margin-right: 1rem;
