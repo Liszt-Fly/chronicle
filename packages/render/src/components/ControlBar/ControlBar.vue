@@ -32,7 +32,9 @@
         </div>
 
         <div class="brand">
-            {{ workspaceName }}
+            <!-- <template v-if="openFiles.size < 3">
+                {{ workspaceName }}
+            </template> -->
         </div>
 
         <div class="btn-groups" v-if="!isMac">
@@ -64,6 +66,7 @@ import { ipcRenderer } from 'electron'
 import Tabs from "@/components/ControlBar/Tabs.vue"
 import { ref } from 'vue'
 import { workspaceName } from '@/api/init'
+import { openFiles } from "@/data/configdb"
 
 let winMax = ref(true)
 let sideBar = ref(true)
@@ -144,8 +147,8 @@ const ToggleSidebar = () => {
         bottom: 1px;
     }
 
-    .tabs{
-        max-width: calc(100vw - 260px);
+    .tabs {
+        max-width: calc(100vw - 180px);
     }
 
     .brand {

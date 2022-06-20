@@ -4,7 +4,7 @@
             <el-tag v-for="file in openFiles" effect="plain" :key="file" closable type="info"
                 @click="toggleCurrentFile(file)" class="tab-item" @close="remove(file)"
                 :class="{ 'tab-item-active': file == currentFile }">
-                {{ path.relative(path.join(chronicleUserPath, "assets"), file).replaceAll("\\", "/") }}
+                {{ path.relative(path.join(chronicleUserPath, "assets"), file).replaceAll("\\", "/").slice(0, -3) }}
             </el-tag>
         </div>
     </el-scrollbar>
@@ -20,7 +20,6 @@ let toggleCurrentFile = (file: string) => {
 }
 
 let remove = (file: string) => {
-
     openFiles.value.delete(file)
     if (openFiles.value.size != 0)
         currentFile.value = Array.from(openFiles.value).pop()!;
