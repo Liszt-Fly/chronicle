@@ -1,14 +1,20 @@
 # TODO
 
+- Goodnotes UI
+- Vditor 组件分离
+- 删除文件右边视图不更新
+- 添加标签不显示
+- Menu cursor: pointer
+- 收藏功能 & UI（isPin）、流页面收藏 filter
+
+---
+
 - 编辑器
 
   - tab 多开 markdown
-  - Vditor 组件分离
   - 编译器 chron
   - 字数统计
-  - 删除文件右边视图不更新
   - 文件系统
-    - 收藏
     - 标签
     - 加锁、解锁
     - 导出为 PDF
