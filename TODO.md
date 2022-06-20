@@ -1,7 +1,6 @@
 # TODO
 
 - Goodnotes UI
-- 删除文件右边视图不更新
 - 添加标签不显示
 - 收藏功能 & UI（isPin）、流页面收藏 filter
 

@@ -3,6 +3,8 @@ import { fileTree } from "@/api/FileTree/fileTree";
 import { NodeType } from "@/api/FileTree/type";
 import { bClickedParent, dialogVisible, fTree } from "@/data/configdb";
 import { onMounted, ref, watchEffect } from "vue";
+import { currentFile } from "@/data/configdb";
+import router from "@/router/router";
 
 const props = defineProps({
   dom: Object as () => HTMLElement | null,
@@ -18,7 +20,9 @@ let input = () => {
   document.getSelection()!.addRange(range);
 };
 const remove = () => {
+  currentFile.value = ""
   fileTree.currentFileNode.removeSelf();
+  router.push("/Editor")
 };
 const addTags = () => {
   dialogVisible.value = true;
