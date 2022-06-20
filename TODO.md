@@ -1,7 +1,6 @@
 # TODO
 
 - Goodnotes UI
-- Vditor 组件分离
 - 删除文件右边视图不更新
 - 添加标签不显示
 - Menu cursor: pointer

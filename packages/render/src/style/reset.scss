@@ -88,8 +88,6 @@ video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
-  font-weight: normal;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -105,11 +103,6 @@ menu,
 nav,
 section {
   display: block;
-}
-ol,
-ul,
-li {
-  list-style: none;
 }
 blockquote,
 q {
