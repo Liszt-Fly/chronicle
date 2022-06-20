@@ -5,7 +5,7 @@ import { setCurrentFileNode } from "@/api/util";
 import path from "path";
 import fsp from "fs-extra"
 import { validateFilename } from "@/api/FileSystem/filesystem";
-import { bClickedParent, cTagContainer, currentFile, fTree } from "@/data/configdb";
+import { bClickedParent, cTagContainer, currentFile, openFiles, fTree } from "@/data/configdb";
 import { } from "@/api/FileSystem/filesystem";
 import { chronicleUserPath } from "@/api/init";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -26,6 +26,7 @@ const fileDom = ref<HTMLElement | null>(null);
 function openFile(event: MouseEvent, file: fileNode) {
   //如果是文件
   if (!file.children) {
+    openFiles.value.add(props.file!.path!)
     currentFile.value = props.file!.path!;
     let params = path.relative(path.resolve(chronicleUserPath, "assets"), file.path);
     router.push(`/Editor/${params}`);

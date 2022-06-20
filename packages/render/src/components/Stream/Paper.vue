@@ -26,7 +26,7 @@ import { removeExtName } from "@/api/FileSystem/filesystem";
 import path from "path"
 import router from '@/router/router';
 import { chronicleUserPath } from '@/api/init'
-import { currentFile } from '@/data/configdb'
+import { currentFile, openFiles } from '@/data/configdb'
 
 const props = defineProps({
   file: Object as () => qFile,
@@ -40,6 +40,7 @@ function readFile() {
 
 let openFile = () => {
   currentFile.value = props.file!.path
+  openFiles.value.add(props.file!.path)
   router.push(`/Editor/${path.relative(path.join(chronicleUserPath, "assets"), props.file!.path).replaceAll("\\", "/")}`)
 }
 </script>

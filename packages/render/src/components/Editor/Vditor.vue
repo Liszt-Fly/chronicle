@@ -6,7 +6,7 @@
 import { onMounted, ref, watch, watchEffect, } from "vue";
 import fsp from "fs-extra";
 import path from "path";
-import { currentFile } from "@/data/configdb";
+import { currentFile, openFiles } from "@/data/configdb";
 import Vditor from "vditor";
 import "@/style/vditor.css"
 import { vditorTheme } from "@/api/init";
@@ -42,6 +42,10 @@ onMounted(() => {
             watchEffect(() => {
 
                 if (currentFile.value != "") {
+                    vditor!.setValue(fsp.readFileSync(path.resolve(currentFile.value), { encoding: "utf-8" }), false)
+                }
+                else if (openFiles.value.size != 0) {
+                    currentFile.value = Array.from(openFiles.value).pop()!;
                     vditor!.setValue(fsp.readFileSync(path.resolve(currentFile.value), { encoding: "utf-8" }), false)
                 }
                 else {

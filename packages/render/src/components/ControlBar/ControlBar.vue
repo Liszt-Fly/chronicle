@@ -1,13 +1,15 @@
 <template>
     <div class="control">
         <div v-if="!isMac">
-            <el-button-group>
-                <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="dark">
+            <el-popover ref="popover" :width="60" trigger="contextmenu">
+                <template #reference>
+                    <!-- <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="dark"> -->
                     <el-button key="plain" text @click="ToggleSidebar" class="controlIcon">
                         <i class="bi bi-window-sidebar" v-if="sideBar"></i>
                         <i class="bi bi-window" v-else></i>
                     </el-button>
-                </el-tooltip>
+                    <!-- </el-tooltip> -->
+                </template>
 
                 <template class="devTools">
                     <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="dark">
@@ -22,7 +24,11 @@
                         </el-button>
                     </el-tooltip>
                 </template>
-            </el-button-group>
+            </el-popover>
+        </div>
+
+        <div class="tabs">
+            <Tabs></Tabs>
         </div>
 
         <div class="brand">
@@ -55,6 +61,7 @@
 
 <script lang="ts" setup>
 import { ipcRenderer } from 'electron'
+import Tabs from "@/components/ControlBar/Tabs.vue"
 import { ref } from 'vue'
 import { workspaceName } from '@/api/init'
 
@@ -135,6 +142,10 @@ const ToggleSidebar = () => {
         transform: rotate(270deg);
         position: relative;
         bottom: 1px;
+    }
+
+    .tabs{
+        max-width: calc(100vw - 260px);
     }
 
     .brand {

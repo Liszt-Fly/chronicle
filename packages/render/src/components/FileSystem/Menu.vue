@@ -3,7 +3,7 @@ import { fileTree } from "@/api/FileTree/fileTree";
 import { NodeType } from "@/api/FileTree/type";
 import { bClickedParent, dialogVisible, fTree } from "@/data/configdb";
 import { onMounted, ref, watchEffect } from "vue";
-import { currentFile } from "@/data/configdb";
+import { currentFile, openFiles } from "@/data/configdb";
 import router from "@/router/router";
 
 const props = defineProps({
@@ -20,7 +20,12 @@ let input = () => {
   document.getSelection()!.addRange(range);
 };
 const remove = () => {
-  currentFile.value = ""
+  openFiles.value.delete(currentFile.value)
+  if (openFiles.value.size != 0) {
+    currentFile.value = Array.from(openFiles.value).pop()!;
+  } else {
+    currentFile.value = ""
+  }
   fileTree.currentFileNode.removeSelf();
   router.push("/Editor")
 };

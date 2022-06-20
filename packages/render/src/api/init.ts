@@ -64,7 +64,7 @@ let initGeneral = () => {
 	.devTools{
 		display: ${devTools ? 'inline-flex' : 'none'}
 	}
-	${tooltips ? '' : '.el-popper:not(.el-select__popper) {display: none !important;}'}
+	${tooltips ? '' : '.el-popper:not(.el-select__popper):not(.el-popover) {display: none !important;}'}
 	`
 	head.appendChild(generalStyle);
 }

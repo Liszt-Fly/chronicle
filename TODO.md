@@ -8,7 +8,6 @@
 
 - 编辑器
 
-  - tab 多开 markdown
   - 编译器 chron
   - 字数统计
   - 文件系统
