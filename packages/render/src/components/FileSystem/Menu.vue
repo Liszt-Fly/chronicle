@@ -146,6 +146,7 @@ const addChildren = (t: NodeType) => {
 
     &:hover {
       background-color: var(--el-color-info-light-9);
+      cursor: pointer;
     }
   }
 }
