@@ -34,18 +34,36 @@ let initAppearance = () => {
 	const global_cn_font = appearance.global_cn_font
 	const code_font = appearance.code_font
 	const trotting_horse = appearance.trotting_horse
+	const font_size = appearance.font_size
+	const line_height = appearance.line_height
+	const paragraph_space = appearance.paragraph_space
+	const line_width = appearance.line_width
 
 	if (trotting_horse)
 		document.getElementById("app")!.className += 'trotting_horse';
 
 	let globalStyle = document.createElement('style');
-	globalStyle.innerText = `html.${appearance.theme ? "light" : "dark"} {
-		--el-color-primary:${color};
-		--chronicle-global-en-font: ${global_en_font};
-		--chronicle-global-cn-font: ${global_cn_font};
-		--el-font-family: ${global_en_font}, ${global_cn_font};
-		--chronicle-code-font: ${code_font};
-	}
+	globalStyle.innerText = `
+		html.${appearance.theme ? "light" : "dark"} {
+			--el-color-primary: ${color};
+			--chronicle-global-en-font: ${global_en_font};
+			--chronicle-global-cn-font: ${global_cn_font};
+			--el-font-family: ${global_en_font}, ${global_cn_font};
+			--chronicle-code-font: ${code_font};
+		}
+		
+		.vditor-reset {
+			font-size: ${font_size}px;
+			line-height: ${line_height}rem;
+		}
+		
+		.vditor-reset p {
+			margin-bottom: ${paragraph_space}rem;
+		}
+		
+		body .editor {
+			width: ${line_width}%  !important;
+		}	
 	`
 	head.appendChild(globalStyle);
 
@@ -64,7 +82,20 @@ let initGeneral = () => {
 	.devTools{
 		display: ${devTools ? 'inline-flex' : 'none'}
 	}
-	${tooltips ? '' : '.el-popper:not(.el-select__popper) {display: none !important;}'}
+	${tooltips ? ".el-popper.is-customized {\
+		/* Set padding to ensure the height is 32px */\
+		padding: 6px 12px;\
+		border: 1px solid var(--el-border-color-light);\
+		background: var(--bg-color);\
+	  }\
+	  \
+	  .el-popper.is-customized .el-popper__arrow::before {\
+		background: var(--bg-color);\
+		border: 1px solid var(--el-border-color-light);\
+    	background: var(--el-bg-color-overlay);\
+		right: 0;\
+	  }" : ".el-popper.is-customized {display: none !important;}"
+		}
 	`
 	head.appendChild(generalStyle);
 }

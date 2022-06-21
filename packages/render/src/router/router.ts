@@ -18,7 +18,8 @@ const router = createRouter({
 	history: createWebHashHistory(),
 	routes: [
 		{ path: "/", name: "Home", component: Home, redirect: '/WorkSpace' },
-		{ path: "/Editor/:note([\\s\\S]*)", name: "Editor", component: Editor },
+		{ path: "/Editor", name: "EditorPage", component: Editor },
+		{ path: "/Editor/:note([\\s\\S]*)", name: "EditorContent", component: Editor },
 		{ path: "/Stream", name: "Stream", component: Stream },
 		{ path: "/Jotting", name: "Jotting", component: Jotting },
 		{ path: "/Trash", name: "Trash", component: Trash },

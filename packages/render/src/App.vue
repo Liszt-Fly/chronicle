@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TabBar from "@/components/TabBar.vue";
-import ControlBar from "@/components/ControlBar.vue";
+import ControlBar from "@/components/ControlBar/ControlBar.vue";
 import { dialogVisible, fTree, menuDisplay } from "./data/configdb";
 import { onMounted, Ref, ref } from "vue";
 import Tag from "@/components/FileSystem/Tag.vue";

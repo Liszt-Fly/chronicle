@@ -3,6 +3,8 @@ import { fileTree } from "@/api/FileTree/fileTree";
 import { NodeType } from "@/api/FileTree/type";
 import { bClickedParent, dialogVisible, fTree } from "@/data/configdb";
 import { onMounted, ref, watchEffect } from "vue";
+import { currentFile, openFiles } from "@/data/configdb";
+import router from "@/router/router";
 
 const props = defineProps({
   dom: Object as () => HTMLElement | null,
@@ -18,7 +20,14 @@ let input = () => {
   document.getSelection()!.addRange(range);
 };
 const remove = () => {
+  openFiles.value.delete(currentFile.value)
+  if (openFiles.value.size != 0) {
+    currentFile.value = Array.from(openFiles.value).pop()!;
+  } else {
+    currentFile.value = ""
+  }
   fileTree.currentFileNode.removeSelf();
+  router.push("/Editor")
 };
 const addTags = () => {
   dialogVisible.value = true;
@@ -146,6 +155,7 @@ const addChildren = (t: NodeType) => {
 
     &:hover {
       background-color: var(--el-color-info-light-9);
+      cursor: pointer;
     }
   }
 }

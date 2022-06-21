@@ -1,49 +1,56 @@
 <template>
     <div class="control">
         <div v-if="!isMac">
-            <el-button-group>
-                <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="dark">
+            <el-popover ref="popover" :width="60" trigger="contextmenu">
+                <template #reference>
+                    <!-- <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="customized"> -->
                     <el-button key="plain" text @click="ToggleSidebar" class="controlIcon">
                         <i class="bi bi-window-sidebar" v-if="sideBar"></i>
                         <i class="bi bi-window" v-else></i>
                     </el-button>
-                </el-tooltip>
+                    <!-- </el-tooltip> -->
+                </template>
 
                 <template class="devTools">
-                    <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="dark">
+                    <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="customized">
                         <el-button class="controlIcon" key="plain" text @click="Refresh">
                             <i class="bi bi-bootstrap-reboot"></i>
                         </el-button>
                     </el-tooltip>
-                    <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="dark">
+                    <el-tooltip :content="$t('control.toggle_devTools')" placement="bottom-start" effect="customized">
                         <el-button class="controlIcon" key="plain" text @click="ToggleDevTools">
                             <i class="bi bi-terminal-dash" v-if="devTools"></i>
                             <i class="bi bi-terminal-plus" v-else></i>
                         </el-button>
                     </el-tooltip>
                 </template>
-            </el-button-group>
+            </el-popover>
+        </div>
+
+        <div class="tabs">
+            <Tabs></Tabs>
         </div>
 
         <div class="brand">
-            {{ workspaceName }}
+            <!-- <template v-if="openFiles.size < 3">
+                {{ workspaceName }}
+            </template> -->
         </div>
 
         <div class="btn-groups" v-if="!isMac">
             <el-button-group>
-                <el-tooltip :content="$t('control.minimise')" placement="bottom-start" effect="dark">
+                <el-tooltip :content="$t('control.minimise')" placement="bottom-start" effect="customized">
                     <el-button key="plain" text @click="minWindow">
                         <i class="bi bi-dash-lg"></i>
                     </el-button>
                 </el-tooltip>
-                <el-tooltip :content="winMax ? $t('control.maximise') : $t('control.restore')" placement="bottom-start"
-                    effect="dark">
+                <el-tooltip :content="winMax ? $t('control.maximise') : $t('control.restore')" placement="bottom-start" effect="customized">
                     <el-button key="plain" text @click="maxRestoreWindow">
                         <i class="bi bi-square" v-if="winMax"></i>
                         <i class="bi bi-files" v-else style="transform: scaleX(1.3)"></i>
                     </el-button>
                 </el-tooltip>
-                <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="dark">
+                <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="customized">
                     <el-button key="plain" text @click="closeWindow" class="danger">
                         <i class="bi bi-x-lg" @click=""></i>
                     </el-button>
@@ -55,8 +62,10 @@
 
 <script lang="ts" setup>
 import { ipcRenderer } from 'electron'
+import Tabs from "@/components/ControlBar/Tabs.vue"
 import { ref } from 'vue'
 import { workspaceName } from '@/api/init'
+import { openFiles } from "@/data/configdb"
 
 let winMax = ref(true)
 let sideBar = ref(true)
@@ -135,6 +144,10 @@ const ToggleSidebar = () => {
         transform: rotate(270deg);
         position: relative;
         bottom: 1px;
+    }
+
+    .tabs {
+        max-width: calc(100vw - 180px);
     }
 
     .brand {

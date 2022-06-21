@@ -22,7 +22,8 @@ export let validateFilename = function validateFilename(
 ): string | undefined {
 	//省略扩展名
 	let length = filename.length - path.extname(filename).length
-	if (filename == ".DS_Store") return undefined
+	if (filename == ".DS_Store" || filename == ".trash")
+		return undefined
 	else if (path.extname(filename) == ".md" || path.extname(filename) == "")
 		return filename.substring(0, length)
 	else return undefined

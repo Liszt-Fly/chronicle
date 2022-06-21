@@ -13,12 +13,16 @@ const predefineColors = [
 ]
 
 let appearance = reactive({
-    "theme": "",
-    "color": "",
-    "global_en_font": "",
-    "global_cn_font": "",
-    "code_font": "",
-    "trotting_horse": ""
+    theme: "",
+    color: "",
+    global_en_font: "",
+    global_cn_font: "",
+    code_font: "",
+    trotting_horse: "",
+    font_size: 16,
+    line_height: 1.5,
+    paragraph_space: 1.5,
+    line_width: 80
 })
 
 const readSetting = (appearanceFile: string) => {
@@ -60,6 +64,22 @@ onMounted(() => {
         debounce(saveSetting, 1000)
     })
 })
+
+const formatFontSizeTip = (val: number) => {
+    return val + " px"
+}
+
+const formatLineHeightTip = (val: number) => {
+    return val + " rem"
+}
+
+const formatLineWidthTip = (val: number) => {
+    return val + " %"
+}
+
+const formatParagraphSpaceTip = (val: number) => {
+    return val + " rem"
+}
 </script>
 
 <template>
@@ -82,6 +102,42 @@ onMounted(() => {
                     <i class="bi bi-lamp"></i> {{ $t('setting.appearance.trotting_horse') }}
                 </template>
                 <el-switch v-model="appearance.trotting_horse" />
+            </el-form-item>
+
+            <el-divider></el-divider>
+
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-lightning-charge"></i>{{ $t('setting.appearance.font_size') }}
+                </template>
+                <el-slider v-model="appearance.font_size" :min="12" :max="20" :step="2"
+                    :format-tooltip="formatFontSizeTip" />
+            </el-form-item>
+
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-arrows-expand"></i> {{ $t('setting.appearance.line_height') }}
+                </template>
+                <el-slider v-model="appearance.line_height" :min="1" :max="2" :step="0.5"
+                    :format-tooltip="formatLineHeightTip" />
+            </el-form-item>
+
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-arrows-angle-expand" style="transform: rotate(45deg);"></i> {{
+                            $t('setting.appearance.line_width')
+                    }}
+                </template>
+                <el-slider v-model="appearance.line_width" :min="60" :max="100" :step="10"
+                    :format-tooltip="formatLineWidthTip" />
+            </el-form-item>
+
+            <el-form-item>
+                <template #label>
+                    <i class="bi bi-justify"></i> {{ $t('setting.appearance.paragraph_space') }}
+                </template>
+                <el-slider v-model="appearance.paragraph_space" :min="1" :max="2" :step="0.5"
+                    :format-tooltip="formatParagraphSpaceTip" />
             </el-form-item>
 
             <el-divider></el-divider>
@@ -115,6 +171,7 @@ onMounted(() => {
                     </el-option>
                 </el-select>
             </el-form-item>
+
         </el-form>
 
         <el-button class="default" type="primary" @click="restoreDialogVisible = true">{{ $t("setting.default") }}
