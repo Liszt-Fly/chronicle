@@ -5,8 +5,8 @@ import { Sunny, Moon } from '@element-plus/icons-vue'
 import fs from 'fs'
 
 const restoreDialogVisible = ref(false)
-const global_en_fonts = ["Verdana", "Arial", "Times New Roman"]
-const global_cn_fonts = ["微软雅黑", "楷体", "宋体"]
+const global_en_fonts = ["Verdana", "Arial", "Times New Roman", "Avenir"]
+const global_cn_fonts = ["微软雅黑", "楷体", "宋体", "Avenir"]
 const code_fonts = ["Consolas", "Cascadia Code", "Courier"]
 const predefineColors = [
     "#f596aa", "#9f353a", "#cb4042", "#b9887d", "#947a6d", "#939650", "#89916b", "#b5caa0", "#58b2dc", "#6a4c9c", "#ffb11b"

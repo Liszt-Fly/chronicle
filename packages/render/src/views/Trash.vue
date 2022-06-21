@@ -1,21 +1,27 @@
 <template>
     <div class="trash">
-        <el-row>
+        <el-row :gutter="20">
             <template v-for="item in container">
                 <el-col :span="6">
                     <el-card>
-                        <template #header>
-                            {{ item.name }}
+                        <template #header class="header">
+                            <div class="header"> <i class="bi bi-arrow-left" v-if="item.parent && !isTrashBinRoot(item)"
+                                    @click="restore(item)"></i> {{ removeExtName(item.name) }} <i
+                                    class="bi bi-arrow-right" v-if="item.children && item.children.length != 0"
+                                    @click="expand(item)"></i>
+                            </div>
+
                         </template>
-                        <div v-if="item.children && item.children.length != 0" @click="expand(item)">状态标志:可以展开</div>
-                        <el-divider></el-divider>
-                        <div v-if="item.parent && !isTrashBinRoot(item)" @click="restore(item)">状态标志:可以还原</div>
+                        <ul>
+                            <li> 距离自动删除还剩余: 30天</li>
+
+                            <li>进入回收站时间: 2022/2/13</li>
+                        </ul>
                     </el-card>
                 </el-col>
             </template>
         </el-row>
     </div>
-
 </template>
 
 <script lang="ts" setup>
@@ -23,14 +29,16 @@ import { fileNode } from '@/api/FileTree/fileNode';
 import { chronicleUserPath } from '@/api/init';
 import { trashBin } from '@/data/configdb';
 import path from "path"
+import { removeExtName } from "@/api/FileSystem/filesystem"
 import { onMounted, Ref, ref, watchEffect } from 'vue';
 import TrashItem from '../components/Trash/TrashItem.vue';
 //* 声明一个container容器，用于切换页面
 let container = ref(trashBin.value!.root.children!)
 const expand = (item: fileNode) => {
-    console.log(item)
     container.value = item.children!
 }
+
+
 
 const isTrashBinRoot = (item: fileNode) => {
     return item.parent!.path == path.resolve(chronicleUserPath, ".trash")
@@ -45,9 +53,20 @@ watchEffect(() => {
 })
 </script>
 
-<style>
+<style lang="scss">
 .trash {
     overflow: scroll;
     height: calc(100vh - var(--brand-height));
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    i {
+        cursor: pointer;
+    }
+
 }
 </style>

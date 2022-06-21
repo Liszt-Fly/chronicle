@@ -119,7 +119,7 @@ export class fileNode {
         node.parent = this.parent
     }
 
-    private checkValidateFrontMatter() {
+    checkValidateFrontMatter() {
         //* 如果是FILE类型，就进行执行
         if (this.type == NodeType.FILE) {
             let obj = matter.read(this.path)

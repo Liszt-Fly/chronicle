@@ -2,6 +2,8 @@
 import { fileNode } from "@/api/FileTree/fileNode"
 import { fileTree } from "@/api/FileTree/fileTree"
 import { NodeType } from "@/api/FileTree/type"
+import { dateType } from "@/interfaces/dateType"
+import { dataType } from "element-plus/es/components/table-v2/src/common"
 import fsp from "fs-extra"
 import matter from "gray-matter"
 import path from "path"
@@ -48,4 +50,13 @@ export function setCurrentFileNode(file: fileNode) {
 export function getTags(path: string): string[] {
     console.log(matter.read(path).data)
     return matter.read(path).data.tags
+}
+
+//* 获取当前月的天数
+export function getCurrentTargetDate(year: number, month: number) {
+    let day = new Date(year, month, 0)
+    console.log(day)
+    console.log(day.getDate())
+    return day.getDate()
+
 }
