@@ -61,6 +61,11 @@ export const en =
             global_en_font: "English Character Font",
             global_cn_font: "Chinese Character Font",
             code_font: "Code Font",
+
+            font_size: "Font Size",
+            line_height: "Line Height",
+            line_width: "Line Width",
+            paragraph_space: "Paragraph Space"
         },
         general: {
             workspaceName: "Workspace Name",

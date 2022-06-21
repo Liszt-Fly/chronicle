@@ -61,6 +61,11 @@ export const cn =
             global_en_font: "英文字体",
             global_cn_font: "中文字体",
             code_font: "代码块字体",
+
+            font_size:"字体大小",
+            line_height: "行高",
+            line_width: "行宽",
+            paragraph_space: "段间距"
         },
         general: {
             workspaceName: "工作区名",

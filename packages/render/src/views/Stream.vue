@@ -81,7 +81,7 @@ const activities = [
     <el-form :inline="true">
       <el-form-item v-model="stream">
         <template #label>
-          <el-tooltip :content="$t('stream.pin')" placement="bottom" effect="light">
+          <el-tooltip :content="$t('stream.pin')" placement="bottom" effect="customized">
             <i class="bi bi-pin-angle"></i>
           </el-tooltip>
         </template>
@@ -89,7 +89,7 @@ const activities = [
       </el-form-item>
       <el-form-item v-model="stream">
         <template #label>
-          <el-tooltip :content="$t('stream.tag')" placement="bottom" effect="light">
+          <el-tooltip :content="$t('stream.tag')" placement="bottom" effect="customized">
             <i class="bi bi-filter-square"></i>
           </el-tooltip>
         </template>
@@ -100,7 +100,7 @@ const activities = [
       </el-form-item>
       <el-form-item>
         <template #label>
-          <el-tooltip :content="$t('stream.global_search')" placement="bottom" effect="light">
+          <el-tooltip :content="$t('stream.global_search')" placement="bottom" effect="customized">
             <i class="bi bi-binoculars"></i>
           </el-tooltip>
         </template>
