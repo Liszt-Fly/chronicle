@@ -14,9 +14,11 @@
 import { openFiles, currentFile } from "@/data/configdb"
 import { chronicleUserPath } from "@/api/init"
 import path from "path"
+import router from "@/router/router";
 
 let toggleCurrentFile = (file: string) => {
     currentFile.value = file
+    router.push(`/Editor/${path.relative(path.join(chronicleUserPath, "assets"), file).replaceAll("\\", "/")}`)
 }
 
 let remove = (file: string) => {
@@ -33,21 +35,31 @@ let remove = (file: string) => {
     display: flex;
 }
 
-.tab-item-active {
-    background-color: var(--chronicle-theme-color);
-    color: var(--el-bg-color);
-}
-
 .tab-item {
     cursor: pointer;
     border: none;
     padding-right: 25px !important;
     margin: 4px 2px;
+    box-sizing: border-box;
+    border: 2px solid var(--el-tag-bg-color);
+
+    &:hover {
+        background-color: var(--el-tag-bg-color);
+        border: 2px solid var(--el-color-info-light-9);
+        color: var(--chronicle-theme-color);
+        padding-right: 5px !important;
+    }
+}
+
+
+.tab-item-active {
+    background-color: var(--chronicle-theme-color);
+    color: var(--el-bg-color);
+    border: 2px solid var(--chronicle-theme-color);
 
     &:hover {
         background-color: var(--el-color-info-light-9);
-        color: var(--chronicle-theme-color);
-        padding-right: 5px !important;
+        border: 2px solid var(--chronicle-theme-color);
     }
 }
 </style>

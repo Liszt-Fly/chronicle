@@ -1,15 +1,13 @@
 <template>
     <div class="control">
         <div v-if="!isMac">
-            <el-popover ref="popover" :width="60" trigger="contextmenu">
-                <template #reference>
-                    <!-- <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="customized"> -->
+            <el-button-group>
+                <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="customized">
                     <el-button key="plain" text @click="ToggleSidebar" class="controlIcon">
                         <i class="bi bi-window-sidebar" v-if="sideBar"></i>
                         <i class="bi bi-window" v-else></i>
                     </el-button>
-                    <!-- </el-tooltip> -->
-                </template>
+                </el-tooltip>
 
                 <template class="devTools">
                     <el-tooltip :content="$t('control.refresh')" placement="bottom-start" effect="customized">
@@ -24,7 +22,7 @@
                         </el-button>
                     </el-tooltip>
                 </template>
-            </el-popover>
+            </el-button-group>
         </div>
 
         <div class="tabs">
@@ -44,7 +42,8 @@
                         <i class="bi bi-dash-lg"></i>
                     </el-button>
                 </el-tooltip>
-                <el-tooltip :content="winMax ? $t('control.maximise') : $t('control.restore')" placement="bottom-start" effect="customized">
+                <el-tooltip :content="winMax ? $t('control.maximise') : $t('control.restore')" placement="bottom-start"
+                    effect="customized">
                     <el-button key="plain" text @click="maxRestoreWindow">
                         <i class="bi bi-square" v-if="winMax"></i>
                         <i class="bi bi-files" v-else style="transform: scaleX(1.3)"></i>
@@ -147,7 +146,7 @@ const ToggleSidebar = () => {
     }
 
     .tabs {
-        max-width: calc(100vw - 180px);
+        max-width: calc(100vw - 300px);
     }
 
     .brand {

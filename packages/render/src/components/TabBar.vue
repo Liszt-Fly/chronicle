@@ -30,7 +30,7 @@ import { SettingPage } from "@/data/configdb"
         <el-tooltip :content="$t('tab.security')" placement="right" effect="customized">
           <div class="tab-item" id="stream">
             <router-link to="/Security">
-              <i class="bi bi-shield-lock"></i>
+              <i class="bi bi-safe2"></i>
             </router-link>
           </div>
         </el-tooltip>
