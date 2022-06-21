@@ -116,6 +116,13 @@ const startDrag = (e: DragEvent) => {
 
 }
 
+const getEmoji = (str: string) => {
+  let group = str!.match(/[\u{1F601}-\u{1F64F}\u{2702}-\u{27B0}\u{1F680}-\u{1F6C0}\u{1F170}-\u{1F251}\u{1F600}-\u{1F636}\u{1F681}-\u{1F6C5}\u{1F30D}-\u{1F567}]/gu)
+  if (group != null)
+    return group[0]
+  else return false
+}
+
 </script>
 
 <template>
@@ -125,12 +132,14 @@ const startDrag = (e: DragEvent) => {
       @dragstart="startDrag($event)" @click="toggleSubfolder($event, file!, refSubfolder), openFile($event, file!)"
       :data-path="file.path" v-if="validateFilename(file.name!)"
       :class="[{ 'clicked': props.file!.path == currentFile }]" @contextmenu="setCurrentFileNode(props.file!)">
-      <i class="bi bi-file-earmark-text" v-if="file.type == NodeType.FILE"></i>
-      <i class="bi bi-folder" v-if="file.type == NodeType.FOLDER"></i>
-      <span ref="namebox" @blur="props.file!.rename(namebox!.innerText)" @keydown.enter.prevent="enter($event)">
-        {{
-            validateFilename(file.name!)
-        }}</span>
+
+      <i class="bi bi-file-earmark-text" v-show="!getEmoji(file.name!) && file.type == NodeType.FILE"></i>
+      <i class="bi bi-folder" v-show="!getEmoji(file.name!) && file.type == NodeType.FOLDER"></i>
+
+      <span ref="namebox" @blur="props.file!.rename(namebox!.innerText)" @keydown.enter.prevent="enter($event)"
+        :class="getEmoji(file.name!) ? 'emoji' : ''" :data-emoji="getEmoji(file.name!) ? getEmoji(file.name!) : ''">
+        {{ getEmoji(file.name!) ? validateFilename(file.name!)!.slice(2) : validateFilename(file.name!) }}
+      </span>
     </div>
     <div class="subfolder" v-if="file.children" ref="subfolder" id="subfolder">
       <file-list :files="file.children" :file="f" v-for="f in file.children" :key="f.path"></file-list>
@@ -144,5 +153,17 @@ const startDrag = (e: DragEvent) => {
 i {
   padding-right: 4px;
   font-size: 1rem;
+}
+
+.item .emoji::before {
+  content: attr(data-emoji);
+  font-size: 1rem;
+  position: relative;
+  left: 1px;
+}
+
+.item .emoji {
+  position: relative;
+  right: 5px;
 }
 </style>
