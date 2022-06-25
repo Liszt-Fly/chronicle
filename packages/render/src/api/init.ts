@@ -37,7 +37,7 @@ let initAppearance = () => {
 	const line_height = appearance.line_height
 	const paragraph_space = appearance.paragraph_space
 	const line_width = appearance.line_width
-	const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
+	// const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
 
 	if (trotting_horse)
 		document.getElementById("app")!.className += 'trotting_horse';
@@ -50,7 +50,7 @@ let initAppearance = () => {
 			--chronicle-global-cn-font: ${global_cn_font};
 			--el-font-family: ${global_en_font}, ${global_cn_font};
 			--chronicle-code-font: ${code_font};
-			--brand-height: ${isMac ? '78px' : '40px'};
+			--brand-height: 40px;
 		}
 		
 		.vditor-reset {

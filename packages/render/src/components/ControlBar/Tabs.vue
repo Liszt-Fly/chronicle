@@ -66,10 +66,6 @@ let remove = (file: string) => {
 </style>
 
 <style>
-.el-tag {
-    height: 26px;
-}
-
 .tab-item .el-icon.el-tag__close {
     display: none;
 }

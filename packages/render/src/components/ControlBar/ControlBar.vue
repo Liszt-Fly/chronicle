@@ -1,6 +1,5 @@
 <template>
-    <div class="control"
-        :style="!isMac ? 'height: 38px; flex-direction: row;' : 'height: 76px; flex-direction: column;'">
+    <div class="control">
         <div v-if="!isMac">
             <el-button-group>
                 <el-tooltip :content="$t('control.toggle_sidebar')" placement="bottom-start" effect="customized">
@@ -26,17 +25,11 @@
             </el-button-group>
         </div>
 
-        <div class="brand" v-if="isMac">
-            <!-- <template v-if="openFiles.size < 3">
-                {{ workspaceName }}
-            </template> -->
-        </div>
-
-        <div class="tabs" :style="!isMac ? 'max-width: calc(100vw - 300px);' : 'max-width: 100%'">
+        <div class="tabs" :style="!isMac ? '' : 'padding-left: 120px;'">
             <Tabs></Tabs>
         </div>
 
-        <div class="brand" v-if="!isMac">
+        <div class="brand">
             <!-- <template v-if="openFiles.size < 3">
                 {{ workspaceName }}
             </template> -->
@@ -76,7 +69,8 @@ import { openFiles } from "@/data/configdb"
 let winMax = ref(true)
 let sideBar = ref(true)
 let devTools = ref(false)
-let isMac = /macintosh|mac os x/i.test(navigator.userAgent);
+// const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
+let isMac = true
 
 const minWindow = () => {
     ipcRenderer.send('min-app')
