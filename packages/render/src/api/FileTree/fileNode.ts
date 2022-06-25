@@ -87,7 +87,13 @@ export class fileNode {
         this.name = newName
         let prevPath = this.path
         let obj = p.parse(this.path)
-        obj.base = newName + ".md"
+        if (this.type == NodeType.FILE) {
+            obj.base = newName + ".md"
+        }
+        else {
+            obj.base = newName
+        }
+
         console.log(obj.base)
         obj.name = newName
         //更新
