@@ -28,7 +28,6 @@ const head = document.head || document.getElementsByTagName('head')[0];
 
 // 样式初始化
 let initAppearance = () => {
-
 	const color = appearance.color
 	const global_en_font = appearance.global_en_font
 	const global_cn_font = appearance.global_cn_font
@@ -38,6 +37,7 @@ let initAppearance = () => {
 	const line_height = appearance.line_height
 	const paragraph_space = appearance.paragraph_space
 	const line_width = appearance.line_width
+	const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
 
 	if (trotting_horse)
 		document.getElementById("app")!.className += 'trotting_horse';
@@ -50,6 +50,7 @@ let initAppearance = () => {
 			--chronicle-global-cn-font: ${global_cn_font};
 			--el-font-family: ${global_en_font}, ${global_cn_font};
 			--chronicle-code-font: ${code_font};
+			--brand-height: ${isMac ? '78px' : '40px'};
 		}
 		
 		.vditor-reset {

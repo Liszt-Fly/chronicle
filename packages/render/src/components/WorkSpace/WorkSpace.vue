@@ -1,12 +1,14 @@
 <template>
     <div class="workspace">
-        <el-row :gutter="30">
-            <template v-for="panel in workspace">
-                <el-col :span="8" :xs="12" :md="6" :sm="8" :lg="4">
-                    <Panel>{{ panel.name }}</Panel>
-                </el-col>
-            </template>
-        </el-row>
+        <el-scrollbar>
+            <el-row :gutter="30">
+                <template v-for="panel in workspace">
+                    <el-col :span="8" :xs="12" :md="6" :sm="8" :lg="4">
+                        <Panel>{{ panel.name }}</Panel>
+                    </el-col>
+                </template>
+            </el-row>
+        </el-scrollbar>
     </div>
 </template>
 
@@ -31,5 +33,6 @@ const workspace = [
 .workspace {
     box-sizing: border-box;
     padding: 15px;
+    height: 100%;
 }
 </style>

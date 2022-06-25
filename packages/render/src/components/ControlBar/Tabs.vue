@@ -33,6 +33,7 @@ let remove = (file: string) => {
 <style lang="scss" scoped>
 .scrollbar-flex-content {
     display: flex;
+    padding: 0 4px;
 }
 
 .tab-item {
