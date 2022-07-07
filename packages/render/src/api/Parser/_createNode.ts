@@ -1,4 +1,4 @@
-import { article } from "../dbb";
+import { article } from "../db";
 import { ChronicleNode } from "./Node";
 import { Parser } from "./Parser";
 //* 创建新的节点

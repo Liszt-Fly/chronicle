@@ -1,4 +1,4 @@
-# Chronicle
+# 📓 Chronicle
 
 > 🍼🎓🦯
 >
@@ -12,12 +12,9 @@
 
 1. 记录
 
-   - 记下随想
-   - 随想排序（时间顺序、话题 `#topic`）
-
 2. 支持
 
-   - markdown 及扩展语法
+   - [markdown 及扩展语法](https://markdown.com.cn/)
    - 多媒体：音频、视频
    - 自定义样式
    - 自定义组件（内置：思维导图、待办事项）
@@ -31,6 +28,9 @@ npm install
 
 # Compiles and hot-reloads for development
 npm run chronicle
+
+# see document
+npm run doc
 ```
 
 ## 技术栈
@@ -43,7 +43,6 @@ npm run chronicle
 
 ```txt
 📁 public
-📁 example        # 示例文件夹
 📁 src
    🗂️ api         # 公用接口
       🗂️ router      # 路由
