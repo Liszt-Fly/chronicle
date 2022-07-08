@@ -17,3 +17,8 @@ export enum ChronComponent {
     HTML = "HTML",
 
 }
+
+export enum Category{
+    INLINE="Inline",
+    BLOCK="Block"
+}
