@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { article, bContentedible } from '@/Parser/db';
-import { Parser } from '@/Parser/Parser';
+import { article, bContentedible } from '@/api/Parser/db';
+import { Parser } from '@/api/Parser/Parser';
 import { onMounted, ref, watch } from 'vue';
-import { moveToLineEnd } from '@/Parser/_moveToLineEnd';
+import { moveToLineEnd } from '@/api/Parser/_moveToLineEnd';
 
 let paragraph = ref<HTMLElement | null>()
 let props = defineProps({

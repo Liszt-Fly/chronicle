@@ -1,8 +1,8 @@
 // vue app
 import { createApp } from "vue"
 import App from "./App.vue"
-//@ts-ignore
-import drag from "v-drag"
+
+
 const app = createApp(App)
 
 // 样式
@@ -13,12 +13,8 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import "@/theme/light.scss"
 import "@/theme/dark.scss"
 import "@/style/global.scss"
-
 import ElementPlus from 'element-plus'
-
-
 app.use(ElementPlus)
-
 // i18n
 import { createI18n } from 'vue-i18n'
 import { messages } from "@/languages/language"
@@ -43,15 +39,11 @@ import { locale } from "@/api/init"
 i18n.global.locale = locale
 
 // component
-// import CCodeBlock from "@/components/Editor/CCodeBlock.vue"
-// import CHeader from "@/components/Editor/CHeader.vue"
-// import CParagraph from "@/components/Editor/CParagraph.vue"
-// import CTable from "@/components/Editor/CTable.vue"
-// import CDeleteLine from '@/components/Editor/CDeleteLine.vue'
-// import CQuoteBlock from '@/components/Editor/CQuoteBlock.vue'
-// app.component("CCodeBlock", CCodeBlock)
-// app.component("CParagraph", CParagraph)
-// app.component("CHeader", CHeader)
-// app.component("CTable", CTable)
-// app.component("CQuoteBlock", CQuoteBlock)
-// app.component("CDeleteLine", CDeleteLine)
+import ChronBullet from "@/components/Editor/ChronBullet.vue"
+import ChronParagraph from "./components/Editor/ChronParagraph.vue"
+import ChronHeader from "./components/Editor/ChronHeader.vue";
+
+
+app.component("ChronBullet",ChronBullet)
+app.component("ChronParagraph", ChronParagraph)
+app.component("ChronHeader", ChronHeader)

@@ -63,6 +63,8 @@ async function createWindow() {
     return { action: 'deny' }
   })
 
+
+
   win!.on('maximize', function () {
     win!.webContents.send('main-window-max');
   })

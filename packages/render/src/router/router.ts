@@ -7,7 +7,7 @@ import Info from "@/components/Setting/Info.vue"
 import Jotting from "@/views/Jotting.vue"
 import Trash from "@/views/Trash.vue"
 import Security from "@/views/Security.vue"
-
+import TVditor from "@/views/TVditor.vue"
 import Appearance from "@/components/Setting/Appearance.vue"
 import Shortcut from "@/components/Setting/Shortcut.vue"
 import General from "@/components/Setting/General.vue"
@@ -18,7 +18,7 @@ const router = createRouter({
 	history: createWebHashHistory(),
 	routes: [
 		{ path: "/", name: "Home", component: Home, redirect: '/WorkSpace' },
-		{ path: "/Editor", name: "EditorPage", component: Editor },
+		{ path: "/Editor", name: "EditorPage", component: TVditor },
 		{ path: "/Editor/:note([\\s\\S]*)", name: "EditorContent", component: Editor },
 		{ path: "/Stream", name: "Stream", component: Stream },
 		{ path: "/Jotting", name: "Jotting", component: Jotting },

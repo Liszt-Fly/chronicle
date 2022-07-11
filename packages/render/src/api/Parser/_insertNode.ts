@@ -1,4 +1,4 @@
-import { article } from "./db";
+import { article } from "../db";
 import { ChronicleNode } from "./Node";
 import { Parser } from "./Parser";
 

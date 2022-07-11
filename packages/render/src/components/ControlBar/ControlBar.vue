@@ -25,7 +25,7 @@
             </el-button-group>
         </div>
 
-        <div class="tabs" :style="!isMac ? '' : 'padding-left: 120px;'">
+        <div class="tabs" :style="!isMac && winMax ? '' : 'padding-left: 72px;'">
             <Tabs></Tabs>
         </div>
 
