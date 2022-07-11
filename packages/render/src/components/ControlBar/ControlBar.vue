@@ -69,8 +69,7 @@ import { openFiles } from "@/data/configdb"
 let winMax = ref(true)
 let sideBar = ref(true)
 let devTools = ref(false)
-// const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
-let isMac = true
+const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
 
 const minWindow = () => {
     ipcRenderer.send('min-app')
