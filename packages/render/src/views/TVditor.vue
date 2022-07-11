@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FileSystem from "@/components/FileSystem/FileSystem.vue";
-import { nodes } from "@/api/db"
+import { nodes} from "@/api/db"
+import NodeView from "@/components/Editor/Nodes/NodeView.vue";
 </script>
 
 <template>
@@ -17,9 +18,9 @@ import { nodes } from "@/api/db"
         <div class="column-right">
             <!-- 右侧 editor -->
             <el-scrollbar>
-                <template v-for="node in nodes">
-                    <component :is="node.type" :node="node"></component>
-                </template>
+
+               <NodeView></NodeView>
+
             </el-scrollbar>
         </div>
     </div>

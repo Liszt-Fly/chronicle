@@ -15,6 +15,7 @@ export enum ChronComponent {
     GFM = "GFM",
     HR = "HR",
     HTML = "HTML",
+    ITALIC="Italic"
 
 }
 
@@ -22,3 +23,4 @@ export enum Category{
     INLINE="Inline",
     BLOCK="Block"
 }
+

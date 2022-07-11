@@ -1,7 +1,11 @@
-import { Parser } from "@/Core/parser"
-import { ChronComponent, ParserType } from "@/Core/ParserType"
-import { Ref, ref } from 'vue'
-export let article = ref<Parser[]>([])
+import {Parser} from "@/Core/parser"
+import {ChronComponent} from "@/Core/ParserType"
+import {Ref, ref} from 'vue'
+import {ParserNode} from "@/Core/ParserNode";
+
 export let bContentedible = ref<boolean>(true)
-export const nodes: Ref<Parser[]> = ref([])
-nodes.value.push(new Parser("123", ChronComponent.PARAGRAPH))
+let parser=new Parser("",ChronComponent.PARAGRAPH)
+export let grmRoot=new ParserNode(parser)
+
+export const nodes: Ref<ParserNode[]> = ref([])
+nodes.value.push(grmRoot)

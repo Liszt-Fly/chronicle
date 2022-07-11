@@ -1,10 +1,11 @@
 <template>
-    <div class="chron" ref="header" @click="focus">
-        <template v-if="node.RenderedContent == undefined || node.RenderedContent.length == 0">
+    <div class="chron" ref="header" @click="focus" contenteditable="false">
+        <template v-if="parser.RenderedContent == undefined || parser.RenderedContent.length == 0">
             <div>Header</div>
         </template>
         <template v-else>
-            <div :style="{fontSize:40-4*node.level+'px'}"> KSP{{ node.RenderedContent }}</div>
+            <div :style="{fontSize:40-4*parser.level+'px'}" v-html="parser.RenderedContent "
+            > </div>
         </template>
     </div>
 </template>
@@ -13,17 +14,17 @@
 import { Parser } from '@/Core/parser';
 import { ChronComponent, ParserType } from '@/Core/ParserType';
 import { onMounted, ref } from 'vue';
+import {ParserNode} from "@/Core/ParserNode";
 const props = defineProps({
-    node: Object as () => Parser
+    parser: Object as () => Parser,
+
 })
 const header = ref<HTMLDivElement | null>(null)
-let parser = new Parser("", ChronComponent.HEADING)
 onMounted(() => {
-    parser.content = props.node!.RenderedContent
 })
 const focus = () => {
-    props.node!.type = ChronComponent.PARAGRAPH
-    console.log('props.node', props.node)
+    props.parser!.type = ChronComponent.PARAGRAPH
+    console.log('props.node', props.parser)
 }
 </script>
 

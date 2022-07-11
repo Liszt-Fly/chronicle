@@ -14,6 +14,7 @@ export class Parser {
         this.RenderedContent = marked.parse(content)
         this.type = type
         this.category=this.dealWithCategory();
+
     }
 
     render(dom: HTMLDivElement) {
@@ -23,11 +24,14 @@ export class Parser {
         //进行修改对应的类型
         this.analysis();
 
+
     }
 
     private analysis() {
+        //* 保存原始状态的notes
+
         rules.some(rule => {
-            console.log(rule.rule.test(this.content));
+
             if (rule.rule.test(this.content)) {
                 this.type = rule.name
             }
@@ -38,7 +42,11 @@ export class Parser {
             let con=this.content.match(rules[0].rule)![2]
             this.level=level
             this.RenderedContent=con
-            console.log(`level:${level},con:${con}`);
+        }
+        if(/\*[\s\S]+\*/.test(this.content)){
+            this.RenderedContent=marked.parse(this.RenderedContent)
+            console.log(this.RenderedContent);
+
         }
     }
 
