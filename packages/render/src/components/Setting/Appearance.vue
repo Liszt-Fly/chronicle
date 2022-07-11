@@ -9,7 +9,7 @@ const global_en_fonts = ["Verdana", "Arial", "Times New Roman", "Avenir"]
 const global_cn_fonts = ["微软雅黑", "楷体", "宋体", "Avenir"]
 const code_fonts = ["Consolas", "Cascadia Code", "Courier"]
 const predefineColors = [
-    "#f596aa", "#9f353a", "#cb4042", "#b9887d", "#947a6d", "#939650", "#89916b", "#b5caa0", "#58b2dc", "#6a4c9c", "#ffb11b"
+    "#9fd7b6", "#8c99aa", "#5a5ec6", "#ed764c", "#ffb11b"
 ]
 
 let appearance = reactive({
@@ -95,7 +95,12 @@ const formatParagraphSpaceTip = (val: number) => {
                 <template #label>
                     <i class="bi bi-paint-bucket"></i> {{ $t('setting.appearance.color') }}
                 </template>
-                <el-color-picker v-model="appearance.color" :predefine="predefineColors" />
+                <el-button-group>
+                    <template v-for="color in predefineColors">
+                        <el-button :color="color" :dark="true" size="small" @click="appearance.color = color">
+                        </el-button>
+                    </template>
+                </el-button-group>
             </el-form-item>
             <el-form-item>
                 <template #label>

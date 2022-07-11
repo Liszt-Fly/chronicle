@@ -1,16 +1,7 @@
 # TODO
 
-- 设置主题色
-
-  - 9fd7b6
-  - 5a5ec6
-  - ed764c
-  - 8c99aa
-
 - 全屏模式下标签页面和文本重叠
 - 编译器 chron
--
-
 - Goodnotes UI
 - 收藏功能 & UI（isPin）、流页面收藏 filter
 - 随想

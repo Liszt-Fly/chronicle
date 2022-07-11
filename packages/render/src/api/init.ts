@@ -26,9 +26,55 @@ export let theme = appearance.theme
 export let vditorTheme: "classic" | "dark" = appearance.theme ? "classic" : "dark"
 const head = document.head || document.getElementsByTagName('head')[0];
 
+const primary_colors = {
+	// 翡翠
+	"#9fd7b6": `--el-color-primary: #9fd7b6;
+    			--el-color-primary-light-3: #bce3cc;
+    			--el-color-primary-light-5: #cfebdb;
+    			--el-color-primary-light-7: #e2f3e9;
+				--el-color-primary-light-8: #ecf7f0;
+				--el-color-primary-light-9: #f5fbf8;
+				--el-color-primary-dark-2: #7fac92;`,
+	//冷杉
+	"#8c99aa": `--el-color-primary: #81a28b;
+				--el-color-primary-light-3: #a7beae;
+				--el-color-primary-light-5: #c0d1c5;
+				--el-color-primary-light-7: #d9e3dc;
+				--el-color-primary-light-8: #e6ece8;
+				--el-color-primary-light-9: #f2f6f3;
+				--el-color-primary-dark-2: #67826f;`,
+	// 花青
+	"#5a5ec6": `--el-color-primary: #5a5ec6;
+				--el-color-primary-light-3: #8c8ed7;
+				--el-color-primary-light-5: #adafe3;
+				--el-color-primary-light-7: #cecfee;
+				--el-color-primary-light-8: #dedff4;
+				--el-color-primary-light-9: #efeff9;
+				--el-color-primary-dark-2: #484b9e;`,
+
+	// 胭脂
+	"#ed764c": `--el-color-primary: #ed764c;
+				--el-color-primary-light-3: #f29f82;
+				--el-color-primary-light-5: #f6bba6;
+				--el-color-primary-light-7: #fad6c9;
+				--el-color-primary-light-8: #fbe4db;
+				--el-color-primary-light-9: #fdf1ed;
+				--el-color-primary-dark-2: #be5e3d;`,
+
+	//橙
+	"#ffb11b": `--el-color-primary: #ffb11b;
+				--el-color-primary-light-3: #ffc85f;
+				--el-color-primary-light-5: #ffd88d;
+				--el-color-primary-light-7: #ffe8bb;
+				--el-color-primary-light-8: #ffefd1;
+				--el-color-primary-light-9: #fff7e8;
+				--el-color-primary-dark-2: #cc8e16;`
+}
+
 // 样式初始化
 let initAppearance = () => {
-	const color = appearance.color
+	const color: string = appearance.color
+	const primary_color: string = primary_colors[color]
 	const global_en_font = appearance.global_en_font
 	const global_cn_font = appearance.global_cn_font
 	const code_font = appearance.code_font
@@ -45,12 +91,13 @@ let initAppearance = () => {
 	let globalStyle = document.createElement('style');
 	globalStyle.innerText = `
 		html.${appearance.theme ? "light" : "dark"} {
-			--el-color-primary: ${color};
+			// --el-color-primary: ${color};
 			--chronicle-global-en-font: ${global_en_font};
 			--chronicle-global-cn-font: ${global_cn_font};
 			--el-font-family: ${global_en_font}, ${global_cn_font};
 			--chronicle-code-font: ${code_font};
 			--brand-height: 40px;
+			${primary_color}
 		}
 		
 		.vditor-reset {
