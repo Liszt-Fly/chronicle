@@ -6,7 +6,6 @@ import { onMounted, Ref, ref } from "vue";
 import Tag from "@/components/FileSystem/Tag.vue";
 import { fileTree } from "./api/FileTree/fileTree";
 let hideMenu = () => {
-
   menuDisplay.value = "none";
 };
 let tags: Ref<String[]> = ref([])

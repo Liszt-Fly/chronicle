@@ -1,5 +1,5 @@
 <template>
-    <p  :contenteditable="bContentedible" class="chron" ref="paragraph" @keydown="input" @blur="render"  @mousedown="mousedown" @mouseup="bContentedible.value=true"  >
+    <p  :contenteditable="bContentedible" class="chron" ref="paragraph" @keydown="input" @blur="render"   @mouseup="mouseup" @selectstart="selectstart" @input="myinput" >
         {{ parser?.content ? parser.content : "" }}
     </p>
 </template>
@@ -10,14 +10,21 @@ import {ChronComponent} from '@/Core/ParserType';
 import {onMounted, ref} from 'vue';
 import {ParserNode} from "@/Core/ParserNode";
 import {bContentedible} from "@/api/db"
+const selectstart=()=>{
 
+  bContentedible.value=false
+}
 const props = defineProps({
     parser: Object as () => Parser,
     node:Object as ()=>ParserNode
 })
 const paragraph = ref<HTMLDivElement | null>(null)
-const mousedown=()=>{
-  console.log("mousedown");
+const mouseup=()=>{
+  console.log("mouseup")
+  bContentedible.value=true
+}
+const myinput=(e:InputEvent)=>{
+  e.stopImmediatePropagation()
 }
 onMounted(() => {
     paragraph.value!.innerText=props.parser!.content
@@ -47,6 +54,6 @@ const render = (e:Event) => {
 
 }
 .chron:focus {
-    outline: red solid 1px ;
+    outline: red solid 5px;
 }
 </style>
