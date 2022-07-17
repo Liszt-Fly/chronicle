@@ -2,11 +2,11 @@
 import { fileNode } from "@/api/FileTree/fileNode"
 import { fileTree } from "@/api/FileTree/fileTree"
 import { NodeType } from "@/api/FileTree/type"
-import { dateType } from "@/interfaces/dateType"
 import { dataType } from "element-plus/es/components/table-v2/src/common"
 import fsp from "fs-extra"
 import matter from "gray-matter"
 import path from "path"
+import {NavigationGuardNext, RouteLocationNormalized} from "_vue-router@4.0.15@vue-router";
 
 //* 设置文件和文件夹在没有命名的默认名称
 function getDefaultName(type: NodeType): string {
@@ -59,4 +59,21 @@ export function getCurrentTargetDate(year: number, month: number) {
     console.log(day.getDate())
     return day.getDate()
 
+}
+
+export const getStayTime=(to:RouteLocationNormalized,from:RouteLocationNormalized,next:NavigationGuardNext):number=>{
+    let startTime = Date.now()
+    let stayTime=0
+    if (to) {
+        if (from.name == "Editor") {
+            let note = from.fullPath.substring(8)
+            let currentTime = Date.now()
+            let stayTime = (currentTime - startTime) / 1000 / 60
+        }
+    }
+    if (from) {
+        startTime = Date.now()
+    }
+    next()
+    return stayTime
 }
