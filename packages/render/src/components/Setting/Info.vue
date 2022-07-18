@@ -7,13 +7,6 @@
 
             <el-button type="primary"><i class="bi bi-plugin"></i>{{ $t('setting.info.sponsorUs') }}
             </el-button>
-
-            <!-- <div class="home">
-                <router-link to="/">
-                    <el-button type="primary"><i class="bi bi-house-heart"></i>{{ $t('setting.info.home') }}
-                    </el-button>
-                </router-link>
-            </div> -->
         </el-form>
     </div>
 </template>
