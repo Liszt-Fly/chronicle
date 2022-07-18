@@ -8,5 +8,6 @@ dist-ssr
 tmp
 **/.tmp
 release
+.idea
 
 fileTree.json
