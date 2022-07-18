@@ -100,8 +100,8 @@ export class fileNode {
         this.path = p.resolve(obj.dir, obj.base)
         fsp.renameSync(prevPath, this.path)
     }
-    //* 替身
-    substitute() {
+    //* 副本
+    duplicate() {
         let name = ""
         let path = ""
         if (this.type == NodeType.FILE) {
