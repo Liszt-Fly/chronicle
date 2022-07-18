@@ -1,5 +1,4 @@
-import {createRouter, createWebHashHistory, NavigationGuardNext, RouteLocationNormalized} from "vue-router"
-import Editor from "@/views/Editor.vue"
+import {createRouter, createWebHashHistory} from "vue-router"
 import {routes} from "@/router/routes";
 import {getStayTime} from "@/api/util";
 
@@ -11,7 +10,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 	//* 获取逗留时间
-	let stayTime=getStayTime(to,from,next)
+	getStayTime(to,from,next)
 })
 
 export default router
