@@ -56,13 +56,20 @@ export const cn =
         appearance: {
             theme: "主题",
             color: "主题色",
+            colors: {
+                "#9fd7b6": "翡翠",
+                "#8c99aa": "冷杉",
+                "#5a5ec6": "花青",
+                "#ed764c": "胭脂",
+                "#ffb11b": "丹"
+            },
             trotting_horse: "走马灯",
 
             global_en_font: "英文字体",
             global_cn_font: "中文字体",
             code_font: "代码块字体",
 
-            font_size:"字体大小",
+            font_size: "字体大小",
             line_height: "行高",
             line_width: "行宽",
             paragraph_space: "段间距"

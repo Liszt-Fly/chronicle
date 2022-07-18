@@ -95,12 +95,14 @@ const formatParagraphSpaceTip = (val: number) => {
                 <template #label>
                     <i class="bi bi-paint-bucket"></i> {{ $t('setting.appearance.color') }}
                 </template>
-                <el-button-group>
-                    <template v-for="color in predefineColors">
-                        <el-button :color="color" :dark="true" size="small" @click="appearance.color = color">
+
+                <template v-for="color in predefineColors">
+                    <el-tooltip :content="$t(`setting.appearance.colors.${color}`)" placement="top" effect="customized">
+                        <el-button :color="color" :dark="true" size="small" @click="appearance.color = color"
+                            class="color_picker">
                         </el-button>
-                    </template>
-                </el-button-group>
+                    </el-tooltip>
+                </template>
             </el-form-item>
             <el-form-item>
                 <template #label>
@@ -239,5 +241,9 @@ const formatParagraphSpaceTip = (val: number) => {
     color: var(--el-color-info);
     z-index: 99;
     font-size: 0.7rem;
+}
+
+.color_picker {
+    margin-right: 1px !important;
 }
 </style>

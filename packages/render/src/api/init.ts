@@ -35,7 +35,7 @@ const primary_colors = {
 				--el-color-primary-light-8: #ecf7f0;
 				--el-color-primary-light-9: #f5fbf8;
 				--el-color-primary-dark-2: #7fac92;`,
-	//冷杉
+	// 冷杉
 	"#8c99aa": `--el-color-primary: #81a28b;
 				--el-color-primary-light-3: #a7beae;
 				--el-color-primary-light-5: #c0d1c5;
@@ -61,7 +61,7 @@ const primary_colors = {
 				--el-color-primary-light-9: #fdf1ed;
 				--el-color-primary-dark-2: #be5e3d;`,
 
-	//橙
+	// 丹
 	"#ffb11b": `--el-color-primary: #ffb11b;
 				--el-color-primary-light-3: #ffc85f;
 				--el-color-primary-light-5: #ffd88d;
@@ -134,11 +134,11 @@ let initGeneral = () => {
 		/* Set padding to ensure the height is 32px */\
 		padding: 6px 12px;\
 		border: 1px solid var(--el-border-color-light);\
-		background: var(--bg-color);\
+		background: var(--el-bg-color-overlay);\
+		z-index: 9999;\
 	  }\
 	  \
 	  .el-popper.is-customized .el-popper__arrow::before {\
-		background: var(--bg-color);\
 		border: 1px solid var(--el-border-color-light);\
     	background: var(--el-bg-color-overlay);\
 		right: 0;\

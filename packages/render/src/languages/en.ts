@@ -56,6 +56,13 @@ export const en =
         appearance: {
             theme: "Theme",
             color: "Primary Color",
+            colors: {
+                "#9fd7b6": "light green",
+                "#8c99aa": "dark green",
+                "#5a5ec6": "blue",
+                "#ed764c": "red",
+                "#ffb11b": "orange"
+            },
             trotting_horse: "Trotting Horse Lamp",
 
             global_en_font: "English Character Font",
