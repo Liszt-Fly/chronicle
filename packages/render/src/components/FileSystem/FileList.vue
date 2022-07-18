@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Menu, MenuItem } from "@electron/remote";
 import { useRouter } from "vue-router";
 import { setCurrentFileNode } from "@/api/util";
 import path from "path";
